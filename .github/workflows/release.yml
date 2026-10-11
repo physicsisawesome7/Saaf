@@ -46,8 +46,8 @@ jobs:
       id-token: write      # PyPI Trusted Publishing + attestations
       attestations: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
       - name: Check version matches tag
@@ -68,7 +68,7 @@ jobs:
           path: ${{ needs.plan.outputs.path }}
           format: cyclonedx-json
           output-file: dist/sbom.cdx.json
-      - uses: actions/attest-build-provenance@v2
+      - uses: actions/attest-build-provenance@v4
         with:
           subject-path: dist/*.whl
       - uses: pypa/gh-action-pypi-publish@release/v1
@@ -78,7 +78,7 @@ jobs:
           skip-existing: false
         env:
           SKIP_SBOM: "1"
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: dist/*
           generate_release_notes: true
@@ -92,8 +92,8 @@ jobs:
       contents: write
       id-token: write      # npm provenance
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
@@ -104,7 +104,7 @@ jobs:
       - run: cp LICENSE packages/saaf-js/ && npm publish --workspace packages/saaf-js --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           generate_release_notes: true
 
@@ -117,15 +117,15 @@ jobs:
       packages: write
       id-token: write      # keyless cosign
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: packages/saaf-gateway/Dockerfile
