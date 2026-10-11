@@ -1,0 +1,375 @@
+{
+  "$schema": "./schema/entities.schema.json",
+  "spec_version": "0.1.0",
+  "defaults": {
+    "context_window": 50,
+    "threshold": 0.5
+  },
+  "context_sets": {
+    "numeric_negative": [
+      "order", "order id", "order no", "invoice", "inv no", "txn", "transaction id", "txn id",
+      "ref", "ref no", "reference", "awb", "tracking", "booking", "pnr", "ticket", "sku",
+      "serial", "utr", "otp", "batch", "lot", "imei", "hsn"
+    ]
+  },
+  "entities": [
+    {
+      "id": "AADHAAR",
+      "label": "Aadhaar number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 90,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[2-9][0-9]{3}([ -]?)[0-9]{4}\\1[0-9]{4}(?![0-9])" }
+      ],
+      "validator": "aadhaar",
+      "on_invalid": "drop",
+      "validated_score": 0.65,
+      "context": ["aadhaar", "aadhar", "adhaar", "adhar", "aadhaar no", "uid", "uidai", "eaadhaar", "e-aadhaar", "आधार"],
+      "context_boost": 0.3,
+      "negative_context": "@numeric_negative",
+      "negative_penalty": 0.4,
+      "ocr": {
+        "pattern": "(?<![0-9A-Za-z])[2-9OoIlSB][0-9OoIlSB]{3}[ -]?[0-9OoIlSB]{4}[ -]?[0-9OoIlSB]{4}(?![0-9A-Za-z])",
+        "shape": "DDDDDDDDDDDD",
+        "min_digits": 8,
+        "score": 0.55
+      },
+      "fake": "aadhaar"
+    },
+    {
+      "id": "AADHAAR_VID",
+      "label": "Aadhaar Virtual ID",
+      "phase": "P1",
+      "severity": "high",
+      "priority": 70,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[0-9]{4}([ -]?)[0-9]{4}\\1[0-9]{4}\\1[0-9]{4}(?![0-9])" }
+      ],
+      "validator": "verhoeff",
+      "on_invalid": "drop",
+      "validated_score": 0.3,
+      "requires_context": true,
+      "context": ["vid", "virtual id", "aadhaar", "aadhar"],
+      "context_boost": 0.5
+    },
+    {
+      "id": "PAN",
+      "label": "Permanent Account Number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 85,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{3}[ABCFGHJLPT][A-Z][0-9]{4}[A-Z](?![A-Za-z0-9])", "flags": "i" }
+      ],
+      "validator": "pan",
+      "on_invalid": "drop",
+      "validated_score": 0.8,
+      "context": ["pan", "pan card", "pan no", "permanent account number", "income tax", "पैन"],
+      "context_boost": 0.15,
+      "ocr": {
+        "pattern": "(?<![A-Za-z0-9])[A-Z0158]{5}[0-9OISB]{4}[A-Z0158](?![A-Za-z0-9])",
+        "shape": "LLLLLDDDDL",
+        "min_digits": 0,
+        "score": 0.5
+      }
+    },
+    {
+      "id": "GSTIN",
+      "label": "GST Identification Number",
+      "phase": "P0",
+      "severity": "medium",
+      "priority": 95,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z](?![A-Za-z0-9])", "flags": "i" }
+      ],
+      "validator": "gstin",
+      "on_invalid": "base",
+      "base_score": 0.35,
+      "validated_score": 0.95,
+      "context": ["gst", "gstin", "gst no", "gst number", "जीएसटी"],
+      "context_boost": 0.3
+    },
+    {
+      "id": "IFSC",
+      "label": "IFSC bank branch code",
+      "phase": "P0",
+      "severity": "low",
+      "priority": 60,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{4}0[A-Z0-9]{6}(?![A-Za-z0-9])" }
+      ],
+      "validator": "ifsc",
+      "on_invalid": "drop",
+      "validated_score": 0.55,
+      "context": ["ifsc", "ifsc code", "branch", "bank", "neft", "rtgs", "imps"],
+      "context_boost": 0.3
+    },
+    {
+      "id": "ABHA_ADDRESS",
+      "label": "ABHA address",
+      "phase": "P1",
+      "severity": "high",
+      "priority": 96,
+      "canonical": "lower",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9._])[A-Za-z0-9][A-Za-z0-9._]{2,31}@(?:abdm|sbx)(?![A-Za-z0-9])", "flags": "i" }
+      ],
+      "base_score": 0.95
+    },
+    {
+      "id": "UPI_ID",
+      "label": "UPI virtual payment address",
+      "phase": "P0",
+      "severity": "medium",
+      "priority": 80,
+      "canonical": "lower",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9._\\-])[A-Za-z0-9][A-Za-z0-9._\\-]{1,255}@[A-Za-z][A-Za-z0-9]{1,63}(?![A-Za-z0-9@\\-]|\\.[A-Za-z])" }
+      ],
+      "validator": "upi_handle",
+      "on_invalid": "base",
+      "base_score": 0.4,
+      "validated_score": 0.9,
+      "context": ["upi", "vpa", "upi id", "gpay", "google pay", "phonepe", "paytm", "bhim", "pay to", "send to"],
+      "context_boost": 0.3
+    },
+    {
+      "id": "EMAIL",
+      "label": "Email address",
+      "phase": "P0",
+      "severity": "medium",
+      "priority": 75,
+      "canonical": "lower",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9._%+\\-])[A-Za-z0-9._%+\\-]+@[A-Za-z0-9\\-]+(?:\\.[A-Za-z0-9\\-]+)*\\.[A-Za-z]{2,24}(?![A-Za-z0-9])" }
+      ],
+      "base_score": 0.9
+    },
+    {
+      "id": "PHONE_IN",
+      "label": "Indian mobile number",
+      "phase": "P0",
+      "severity": "medium",
+      "priority": 65,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9A-Za-z+])(?:(?:\\+|00)91[ -]?|0)?[6-9][0-9]{4}[ -]?[0-9]{5}(?![0-9])" },
+        { "pattern": "(?<![0-9A-Za-z+])(?:(?:\\+|00)91[ -]?|0)?[6-9][0-9]{2}[ -][0-9]{3}[ -][0-9]{4}(?![0-9])" }
+      ],
+      "validator": "in_mobile",
+      "on_invalid": "drop",
+      "validated_score": 0.7,
+      "context": ["phone", "mobile", "mob", "mob no", "cell", "call", "whatsapp", "contact", "number", "फोन", "मोबाइल", "नंबर"],
+      "context_boost": 0.2,
+      "negative_context": "@numeric_negative",
+      "negative_penalty": 0.4,
+      "fake": "in_mobile"
+    },
+    {
+      "id": "CREDIT_CARD",
+      "label": "Payment card number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 88,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[0-9](?:[ -]?[0-9]){12,18}(?![0-9])" }
+      ],
+      "validator": "card",
+      "on_invalid": "drop",
+      "validated_score": 0.9,
+      "context": ["card", "credit card", "debit card", "cc", "visa", "mastercard", "rupay", "amex"],
+      "context_boost": 0.1,
+      "negative_context": "@numeric_negative",
+      "negative_penalty": 0.3
+    },
+    {
+      "id": "ABHA_NUMBER",
+      "label": "ABHA health ID number",
+      "phase": "P1",
+      "severity": "high",
+      "priority": 72,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[0-9]{2}([ -]?)[0-9]{4}\\1[0-9]{4}\\1[0-9]{4}(?![0-9])" }
+      ],
+      "base_score": 0.45,
+      "requires_context": true,
+      "context": ["abha", "abha no", "abha number", "health id", "abdm", "ndhm", "health account", "आभा"],
+      "context_boost": 0.45
+    },
+    {
+      "id": "BANK_ACCOUNT",
+      "label": "Bank account number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 20,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[0-9]{9,18}(?![0-9])" }
+      ],
+      "base_score": 0.35,
+      "requires_context": true,
+      "context": ["account", "account no", "account number", "a/c", "ac no", "acct", "acc no", "savings", "current account", "खाता", "khata"],
+      "context_boost": 0.4,
+      "negative_context": "@numeric_negative",
+      "negative_penalty": 0.4
+    },
+    {
+      "id": "VOTER_ID",
+      "label": "Voter ID (EPIC)",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 55,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{3}[0-9]{7}(?![A-Za-z0-9])" }
+      ],
+      "base_score": 0.4,
+      "requires_context": true,
+      "context": ["voter", "voter id", "epic", "election", "electoral", "मतदाता"],
+      "context_boost": 0.4
+    },
+    {
+      "id": "PASSPORT_IN",
+      "label": "Indian passport number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 55,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-PR-WY][1-9][0-9] ?[0-9]{4}[1-9](?![A-Za-z0-9])" }
+      ],
+      "base_score": 0.4,
+      "requires_context": true,
+      "context": ["passport", "passport no", "passport number", "पासपोर्ट"],
+      "context_boost": 0.45
+    },
+    {
+      "id": "DRIVING_LICENSE",
+      "label": "Driving licence number",
+      "phase": "P0",
+      "severity": "high",
+      "priority": 58,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{2}[ -]?[0-9]{2}[ -]?(?:19|20)[0-9]{2}[ -]?[0-9]{7}(?![A-Za-z0-9])" }
+      ],
+      "validator": "in_state_code",
+      "on_invalid": "drop",
+      "validated_score": 0.6,
+      "context": ["dl", "dl no", "driving licence", "driving license", "licence", "license"],
+      "context_boost": 0.3
+    },
+    {
+      "id": "VEHICLE_REG",
+      "label": "Vehicle registration number",
+      "phase": "P1",
+      "severity": "low",
+      "priority": 40,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{2}[ -]?[0-9]{1,2}[ -]?[A-Z]{1,3}[ -]?[0-9]{4}(?![A-Za-z0-9])" }
+      ],
+      "validator": "in_state_code",
+      "on_invalid": "drop",
+      "validated_score": 0.55,
+      "context": ["vehicle", "car", "bike", "scooter", "registration", "reg no", "rc", "number plate", "gaadi", "गाड़ी"],
+      "context_boost": 0.3
+    },
+    {
+      "id": "TAN",
+      "label": "Tax deduction account number",
+      "phase": "P1",
+      "severity": "medium",
+      "priority": 50,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])[A-Z]{4}[0-9]{5}[A-Z](?![A-Za-z0-9])" }
+      ],
+      "base_score": 0.45,
+      "requires_context": true,
+      "context": ["tan", "tan no", "tds", "tax deduction"],
+      "context_boost": 0.4
+    },
+    {
+      "id": "UDYAM",
+      "label": "Udyam registration number",
+      "phase": "P1",
+      "severity": "low",
+      "priority": 92,
+      "canonical": "alnum_upper",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9])UDYAM-[A-Z]{2}-[0-9]{2}-[0-9]{7}(?![0-9])", "flags": "i" }
+      ],
+      "validator": "udyam",
+      "on_invalid": "drop",
+      "validated_score": 0.95
+    },
+    {
+      "id": "PIN_CODE",
+      "label": "Postal PIN code",
+      "phase": "P1",
+      "severity": "low",
+      "priority": 15,
+      "canonical": "digits",
+      "patterns": [
+        { "pattern": "(?<![0-9])[1-9][0-9]{2} ?[0-9]{3}(?![0-9])" }
+      ],
+      "base_score": 0.3,
+      "requires_context": true,
+      "context": ["pin", "pincode", "pin code", "postal code", "zip", "पिन"],
+      "context_boost": 0.35
+    },
+    {
+      "id": "DATE_OF_BIRTH",
+      "label": "Date of birth",
+      "phase": "P1",
+      "severity": "medium",
+      "priority": 45,
+      "canonical": "strip",
+      "patterns": [
+        { "pattern": "(?<![0-9])(?:0?[1-9]|[12][0-9]|3[01])([/.\\-])(?:0?[1-9]|1[0-2])\\1(?:19|20)[0-9]{2}(?![0-9])" }
+      ],
+      "base_score": 0.3,
+      "requires_context": true,
+      "context": ["dob", "d.o.b", "date of birth", "born", "birth", "birthday", "जन्म", "janm"],
+      "context_boost": 0.45
+    },
+    {
+      "id": "PERSON",
+      "label": "Person name (honorific rule)",
+      "phase": "P1",
+      "severity": "medium",
+      "priority": 30,
+      "canonical": "strip",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z])(?:Mr|Mrs|Ms|Miss|Dr|Shri|Smt|Sri|Kumari|Km)\\.? ([A-Z][a-z]+(?: [A-Z][a-z]+){0,2})", "group": 1 }
+      ],
+      "base_score": 0.6
+    },
+    {
+      "id": "SECRET",
+      "label": "API key or secret",
+      "phase": "P0",
+      "severity": "critical",
+      "priority": 99,
+      "canonical": "strip",
+      "patterns": [
+        { "pattern": "(?<![A-Za-z0-9_])rzp_(?:live|test)_[A-Za-z0-9]{14,}" },
+        { "pattern": "(?<![A-Za-z0-9])AKIA[0-9A-Z]{16}(?![A-Za-z0-9])" },
+        { "pattern": "(?<![A-Za-z0-9_])sk-ant-[A-Za-z0-9_\\-]{20,}" },
+        { "pattern": "(?<![A-Za-z0-9_])sk-(?:proj-)?[A-Za-z0-9_\\-]{20,}" },
+        { "pattern": "(?<![A-Za-z0-9_])gh[pousr]_[A-Za-z0-9]{36,}" },
+        { "pattern": "(?<![A-Za-z0-9_])xox[baprs]-[A-Za-z0-9\\-]{10,}" }
+      ],
+      "base_score": 0.95
+    }
+  ]
+}

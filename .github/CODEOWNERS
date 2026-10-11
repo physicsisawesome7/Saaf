@@ -1,0 +1,16 @@
+# Replace the placeholder team handles when the GitHub org exists.
+*                                       @safearly/maintainers
+
+# Detection behaviour: any change alters what is masked for every user.
+/spec/                                  @safearly/detection
+/packages/saaf-core/src/saaf/validators.py @safearly/detection
+/packages/saaf-js/src/validators.ts     @safearly/detection
+
+# Security-sensitive code.
+/packages/saaf-core/src/saaf/vault.py   @safearly/security
+/packages/saaf-core/src/saaf/audit.py   @safearly/security
+/packages/saaf-core/src/saaf/policy.py  @safearly/security
+/.github/workflows/release.yml          @safearly/security
+
+# Benchmark integrity.
+/bench/                                 @safearly/bench-stewards

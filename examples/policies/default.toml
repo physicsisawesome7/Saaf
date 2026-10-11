@@ -1,0 +1,14 @@
+# Enforce mode with conservative defaults.
+[policy]
+id = "default"
+mode = "enforce"
+threshold = 0.5
+default_action = "mask"
+token_style = "label"
+on_unknown_token = "leave"
+
+[entities.SECRET]
+action = "block"
+
+[entities.IFSC]
+action = "allow"     # a branch code alone is not personal data

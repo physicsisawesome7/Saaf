@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saaf-litellm"
+dynamic = ["version"]
+description = "LiteLLM proxy guardrail that masks Indian PII before model calls and restores it in responses, including streams."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["saaf"]
+
+[project.optional-dependencies]
+litellm = ["litellm>=1.50"]
+
+[tool.hatch.version]
+path = "src/saaf_litellm/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saaf_litellm"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../../packages/saaf-core/src"]
+asyncio_mode = "auto"

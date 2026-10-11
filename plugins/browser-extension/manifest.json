@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Saaf by Safearly – PII guard for AI chats",
+  "short_name": "Saaf",
+  "version": "0.1.0",
+  "description": "Warns before you send Aadhaar, PAN, GSTIN, UPI and other Indian PII to ChatGPT, Claude or Gemini, and masks it in one click. Runs entirely on your device.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ],
+      "js": [
+        "src/content.js"
+      ],
+      "css": [
+        "src/overlay.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "lib/*.js"
+      ],
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Saaf",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/saaf-16.png",
+      "32": "icons/saaf-32.png",
+      "48": "icons/saaf-48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/saaf-16.png",
+    "32": "icons/saaf-32.png",
+    "48": "icons/saaf-48.png",
+    "128": "icons/saaf-128.png"
+  },
+  "minimum_chrome_version": "120",
+  "homepage_url": "https://safearly.com"
+}

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saaf-langchain"
+dynamic = ["version"]
+description = "LangChain integration for Saaf: mask Indian PII around chat models and before RAG indexing."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["saaf", "langchain-core>=0.3"]
+
+[tool.hatch.version]
+path = "src/saaf_langchain/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saaf_langchain"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../../packages/saaf-core/src"]
+asyncio_mode = "auto"

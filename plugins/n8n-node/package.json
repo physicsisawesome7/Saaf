@@ -1,0 +1,26 @@
+{
+  "name": "n8n-nodes-saaf",
+  "version": "0.1.0-dev.0",
+  "description": "n8n community node: detect and mask Indian PII before AI steps.",
+  "license": "Apache-2.0",
+  "keywords": ["n8n-community-node-package", "pii", "privacy", "india", "dpdp"],
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "files": ["dist"],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": ["dist/nodes/Saaf/Saaf.node.js"]
+  },
+  "dependencies": {
+    "@safearly/saaf": "0.1.0-dev.0"
+  },
+  "devDependencies": {
+    "n8n-workflow": "^1.0.0",
+    "typescript": "~5.9.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

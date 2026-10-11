@@ -1,0 +1,22 @@
+# Gateway with per-tenant policies and a signed audit log.
+#   SAAF_AUDIT_KEY=$(openssl rand -hex 32) docker compose up --build
+services:
+  saaf-gateway:
+    build:
+      context: ../..
+      dockerfile: packages/saaf-gateway/Dockerfile
+    ports: ["8787:8787"]
+    environment:
+      SAAF_UPSTREAM_OPENAI: https://api.openai.com
+      SAAF_UPSTREAM_ANTHROPIC: https://api.anthropic.com
+      SAAF_POLICY_DIR: /policies
+      SAAF_DEFAULT_POLICY: /policies/default.toml
+      SAAF_AUDIT_LOG: /audit/audit.jsonl
+      SAAF_AUDIT_KEY: ${SAAF_AUDIT_KEY:?set SAAF_AUDIT_KEY}
+    volumes:
+      - ../policies:/policies:ro
+      - audit:/audit
+    read_only: true
+    tmpfs: [/tmp]
+volumes:
+  audit:

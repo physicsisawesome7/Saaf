@@ -1,0 +1,36 @@
+.saaf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0 / 0.35);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.saaf-card {
+  width: min(420px, calc(100vw - 32px));
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.25);
+}
+.saaf-title { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
+.saaf-note { color: #666; font-size: 12px; margin-top: 6px; }
+.saaf-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.saaf-actions button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f6f6f6;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+.saaf-actions .saaf-primary { background: #1f5f4a; border-color: #1f5f4a; color: #fff; }
+.saaf-actions button:focus-visible { outline: 2px solid #1f5f4a; outline-offset: 2px; }
+@media (prefers-color-scheme: dark) {
+  .saaf-card { background: #1e1f22; color: #ececec; }
+  .saaf-note { color: #a0a0a0; }
+  .saaf-actions button { background: #2b2d31; border-color: #444; }
+}

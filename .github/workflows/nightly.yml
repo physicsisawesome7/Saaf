@@ -1,0 +1,58 @@
+name: Nightly
+
+# Full benchmark (including competitors that are installable) and a
+# dependency-freshness test run. The private held-out split is pulled from an
+# encrypted bucket when the HELDOUT_URL secret is configured.
+
+on:
+  schedule:
+    - cron: "30 21 * * *"   # 03:00 IST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-packages
+      - name: Install comparison tools (best effort)
+        continue-on-error: true
+        run: uv pip install presidio-analyzer && uv run python -m spacy download en_core_web_lg
+      - name: Fetch held-out split
+        if: env.HELDOUT_URL != ''
+        env:
+          HELDOUT_URL: ${{ secrets.HELDOUT_URL }}
+          HELDOUT_KEY: ${{ secrets.HELDOUT_KEY }}
+        run: |
+          mkdir -p bench/corpus/heldout
+          curl -fsSL "$HELDOUT_URL" -o /tmp/heldout.enc
+          openssl enc -d -aes-256-cbc -pbkdf2 -in /tmp/heldout.enc -out bench/corpus/heldout/docs.jsonl -pass env:HELDOUT_KEY
+      - name: Public corpus
+        working-directory: bench
+        run: uv run python -m indicpii_bench run --corpus corpus/v0/docs.jsonl --systems saaf,regex-baseline,presidio --out-dir /tmp/bench/public
+      - name: Held-out corpus
+        if: hashFiles('bench/corpus/heldout/docs.jsonl') != ''
+        working-directory: bench
+        run: uv run python -m indicpii_bench run --corpus corpus/heldout/docs.jsonl --systems saaf,regex-baseline,presidio --out-dir /tmp/bench/heldout
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nightly-bench
+          path: /tmp/bench
+
+  latest-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.13"
+      - run: uv sync --all-packages --upgrade
+      - run: cd packages/saaf-gateway && uv run pytest
+      - run: cd plugins/langchain && uv run pytest
+      - run: cd plugins/mcp-server && uv run pytest

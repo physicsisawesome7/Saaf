@@ -1,0 +1,35 @@
+{
+  "name": "@safearly/saaf",
+  "version": "0.1.0-dev.0",
+  "description": "India-first PII masking and restore for LLM traffic (TypeScript port of saaf-core). Runs in Node and the browser.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "sideEffects": false,
+  "engines": { "node": ">=20" },
+  "keywords": ["pii", "privacy", "llm", "dpdp", "aadhaar", "pan", "redaction", "india"],
+  "repository": { "type": "git", "url": "https://github.com/safearly/saaf.git", "directory": "packages/saaf-js" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test \"build-test/test/*.test.js\"",
+    "clean": "node -e \"for (const d of ['dist','build-test']) require('fs').rmSync(d,{recursive:true,force:true})\"",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "~5.9.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

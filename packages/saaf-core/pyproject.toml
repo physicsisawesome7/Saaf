@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+# Distribution name is provisional until the naming check in docs/naming.md
+# is closed; the import name stays `saaf`.
+name = "saaf"
+dynamic = ["version"]
+description = "India-first PII masking and restore for LLM traffic: Aadhaar, PAN, GSTIN, UPI and more, with checksum validation and streaming-safe restore."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Saaf contributors" }]
+keywords = ["pii", "privacy", "llm", "dpdp", "aadhaar", "pan", "redaction", "guardrail", "india"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+  "Topic :: Text Processing",
+  "Typing :: Typed",
+]
+# Zero runtime dependencies by design. Everything optional lives in extras.
+dependencies = []
+
+[project.optional-dependencies]
+crypto = ["cryptography>=42"]
+redis = ["redis>=5", "cryptography>=42"]
+# Phase 3: distilled Indic NER model (ONNX, < 50 MB) and OCR pipeline.
+ner = ["onnxruntime>=1.18"]
+ocr = ["pillow>=10"]
+
+[project.scripts]
+saaf = "saaf.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/safearly/saaf"
+Documentation = "https://github.com/safearly/saaf/tree/main/docs"
+Issues = "https://github.com/safearly/saaf/issues"
+Changelog = "https://github.com/safearly/saaf/blob/main/CHANGELOG.md"
+
+[tool.hatch.version]
+path = "src/saaf/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saaf"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "src"]
+pythonpath = ["src"]
+addopts = "-ra --strict-markers --doctest-modules"
+markers = ["slow: long-running tests"]
+
+[tool.coverage.run]
+source = ["saaf"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "pragma: no cover"]

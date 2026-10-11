@@ -1,0 +1,139 @@
+name: Release
+
+# Tag formats: core-v0.2.0, js-v0.2.0, gateway-v0.2.0, litellm-v0.2.0,
+# langchain-v0.2.0, mcp-v0.2.0. Before the first public release, pin every
+# action below to a full commit SHA (Dependabot keeps the pins current).
+
+on:
+  push:
+    tags: ["core-v*", "js-v*", "gateway-v*", "litellm-v*", "langchain-v*", "mcp-v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      kind: ${{ steps.p.outputs.kind }}
+      package: ${{ steps.p.outputs.package }}
+      path: ${{ steps.p.outputs.path }}
+      version: ${{ steps.p.outputs.version }}
+    steps:
+      - id: p
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          prefix="${tag%%-v*}"; version="${tag#*-v}"
+          case "$prefix" in
+            core)      echo "kind=python" >> $GITHUB_OUTPUT; echo "package=saaf"       >> $GITHUB_OUTPUT; echo "path=packages/saaf-core"    >> $GITHUB_OUTPUT ;;
+            gateway)   echo "kind=python" >> $GITHUB_OUTPUT; echo "package=saaf-gateway"   >> $GITHUB_OUTPUT; echo "path=packages/saaf-gateway" >> $GITHUB_OUTPUT ;;
+            litellm)   echo "kind=python" >> $GITHUB_OUTPUT; echo "package=saaf-litellm"   >> $GITHUB_OUTPUT; echo "path=plugins/litellm"       >> $GITHUB_OUTPUT ;;
+            langchain) echo "kind=python" >> $GITHUB_OUTPUT; echo "package=saaf-langchain" >> $GITHUB_OUTPUT; echo "path=plugins/langchain"     >> $GITHUB_OUTPUT ;;
+            mcp)       echo "kind=python" >> $GITHUB_OUTPUT; echo "package=saaf-mcp"       >> $GITHUB_OUTPUT; echo "path=plugins/mcp-server"    >> $GITHUB_OUTPUT ;;
+            js)        echo "kind=npm"    >> $GITHUB_OUTPUT; echo "package=@safearly/saaf" >> $GITHUB_OUTPUT; echo "path=packages/saaf-js"      >> $GITHUB_OUTPUT ;;
+            *) echo "unknown tag prefix $prefix"; exit 1 ;;
+          esac
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+  python:
+    needs: plan
+    if: needs.plan.outputs.kind == 'python'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: write      # GitHub release
+      id-token: write      # PyPI Trusted Publishing + attestations
+      attestations: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Check version matches tag
+        run: |
+          uv sync --all-packages
+          v=$(uv run python -c "import importlib.metadata as m; print(m.version('${{ needs.plan.outputs.package }}'))")
+          test "$v" = "${{ needs.plan.outputs.version }}" || { echo "version $v != tag"; exit 1; }
+      - name: Test
+        working-directory: ${{ needs.plan.outputs.path }}
+        run: uv run pytest
+      - name: Build
+        run: |
+          cp LICENSE NOTICE ${{ needs.plan.outputs.path }}/ 2>/dev/null || true
+          uv build --package ${{ needs.plan.outputs.package }} --out-dir dist
+      - name: SBOM (CycloneDX)
+        uses: anchore/sbom-action@v0
+        with:
+          path: ${{ needs.plan.outputs.path }}
+          format: cyclonedx-json
+          output-file: dist/sbom.cdx.json
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/*.whl
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          attestations: true
+          packages-dir: dist
+          skip-existing: false
+        env:
+          SKIP_SBOM: "1"
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
+
+  npm:
+    needs: plan
+    if: needs.plan.outputs.kind == 'npm'
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: write
+      id-token: write      # npm provenance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build && npm test
+      - name: Check version matches tag
+        run: test "$(node -p "require('./packages/saaf-js/package.json').version")" = "${{ needs.plan.outputs.version }}"
+      - run: cp LICENSE packages/saaf-js/ && npm publish --workspace packages/saaf-js --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+
+  image:
+    needs: [plan, python]
+    if: needs.plan.outputs.package == 'saaf-gateway'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write      # keyless cosign
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: packages/saaf-gateway/Dockerfile
+          push: true
+          sbom: true
+          provenance: mode=max
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/saaf-gateway:${{ needs.plan.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/saaf-gateway:latest
+      - uses: sigstore/cosign-installer@v3
+      - run: cosign sign --yes ghcr.io/${{ github.repository_owner }}/saaf-gateway@${{ steps.build.outputs.digest }}

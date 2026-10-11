@@ -1,0 +1,15 @@
+{
+  "name": "saaf",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" },
+    "ghcr.io/va-h/devcontainers-features/uv:1": {}
+  },
+  "postCreateCommand": "uv sync --all-packages && npm install && uv run pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": ["charliermarsh.ruff", "ms-python.python", "ms-python.mypy-type-checker", "dbaeumer.vscode-eslint", "editorconfig.editorconfig"]
+    }
+  },
+  "forwardPorts": [8787, 5173]
+}

@@ -1,0 +1,65 @@
+name: Website (safearly.com on Firebase Hosting)
+
+# Needs one repository secret: FIREBASE_SERVICE_ACCOUNT, the JSON key of a
+# service account with the "Firebase Hosting Admin" role. Create it with
+#   firebase init hosting:github
+# or in Google Cloud Console → IAM → Service accounts.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/website/**"
+      - "packages/saaf-js/**"
+      - "spec/**"
+      - "firebase.json"
+      - ".firebaserc"
+      - ".github/workflows/website.yml"
+  pull_request:
+    paths:
+      - "apps/website/**"
+      - "firebase.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write   # preview-channel comment on PRs
+  checks: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build engine, run tests, copy into the site
+        run: npm run build && npm test && node apps/website/build.mjs
+      - name: Check internal links
+        run: |
+          cd apps/website
+          fail=0
+          for f in $(find . -name '*.html' -not -path './assets/saaf/*'); do
+            for href in $(grep -oE '(href|src)="/[^"#?]*' "$f" | sed -E 's/^(href|src)="//'); do
+              t=".${href}"; [ -d "$t" ] && t="$t/index.html"
+              [ -e "$t" ] || { echo "$f -> $href missing"; fail=1; }
+            done
+          done
+          exit $fail
+      - name: Deploy preview (pull requests)
+        if: github.event_name == 'pull_request'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          expires: 7d
+      - name: Deploy live (main)
+        if: github.event_name != 'pull_request'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live

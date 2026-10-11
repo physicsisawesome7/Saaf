@@ -1,0 +1,30 @@
+name: Bug report
+description: Something is broken (crash, wrong restore, gateway error, plugin issue).
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: "**Use synthetic data only** in every field below."
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options: [saaf-core (Python), saaf-js (TypeScript), gateway, LiteLLM plugin, Open WebUI filter, LangChain, MCP server, Claude Code hook, browser extension, playground, benchmark, docs]
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce (synthetic data)
+      render: text
+    validations: { required: true }
+  - type: input
+    id: env
+    attributes:
+      label: Versions and environment
+      placeholder: saaf 0.1.0, Python 3.12, Windows 11
+    validations: { required: true }

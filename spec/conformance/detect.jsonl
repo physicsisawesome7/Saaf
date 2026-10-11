@@ -1,0 +1,50 @@
+{"id": "aadhaar-spaced", "text": "My Aadhaar is 2345 6789 0124.", "expect": [{"entity": "AADHAAR", "text": "2345 6789 0124"}]}
+{"id": "aadhaar-hyphen", "text": "UID: 2345-6789-0124", "expect": [{"entity": "AADHAAR", "text": "2345-6789-0124"}]}
+{"id": "aadhaar-ref-negative", "text": "ref 987654321012 attached", "expect": [], "note": "negative context beats a checksum-valid number"}
+{"id": "aadhaar-no-context", "text": "number 987654321012 attached", "expect": [{"entity": "AADHAAR", "text": "987654321012"}]}
+{"id": "aadhaar-bad-checksum", "text": "Aadhaar 2345 6789 0123", "expect": [], "note": "fails Verhoeff"}
+{"id": "aadhaar-mixed-separators", "text": "Aadhaar 2345 6789-0124", "expect": [], "note": "inconsistent grouping is not an Aadhaar layout"}
+{"id": "aadhaar-devanagari-digits", "text": "आधार २३४५ ६७८९ ०१२४", "expect": [{"entity": "AADHAAR", "text": "२३४५ ६७८९ ०१२४"}]}
+{"id": "aadhaar-zero-width", "text": "aadhar 2345​6789​0124", "expect": [{"entity": "AADHAAR", "text": "2345​6789​0124"}]}
+{"id": "aadhaar-fullwidth", "text": "adhaar ２３４５６７８９０１２４", "expect": [{"entity": "AADHAAR", "text": "２３４５６７８９０１２４"}]}
+{"id": "aadhaar-order-id", "text": "Order ID 234567890124 shipped", "expect": []}
+{"id": "aadhaar-ocr-repair", "text": "Aadhaar: 2345 67B9 O124", "expect": [{"entity": "AADHAAR", "text": "2345 67B9 O124"}]}
+{"id": "pan-upper", "text": "PAN ABCPE1234F", "expect": [{"entity": "PAN", "text": "ABCPE1234F"}]}
+{"id": "pan-lower", "text": "my pan is abcpe1234f", "expect": [{"entity": "PAN", "text": "abcpe1234f"}]}
+{"id": "pan-bad-holder", "text": "code ABCXE1234F", "expect": []}
+{"id": "pan-cyrillic-homoglyph", "text": "PAN АВСРЕ1234F", "expect": [{"entity": "PAN", "text": "АВСРЕ1234F"}]}
+{"id": "pan-ocr-repair", "text": "PAN card: ABCPE12B4F", "expect": [{"entity": "PAN", "text": "ABCPE12B4F"}]}
+{"id": "gstin-valid", "text": "GSTIN 27ABCPE1234F1ZB on invoice", "expect": [{"entity": "GSTIN", "text": "27ABCPE1234F1ZB"}]}
+{"id": "gstin-bad-check-no-context", "text": "code 27ABCPE1234F1ZC here", "expect": []}
+{"id": "ifsc", "text": "IFSC SBIN0001234", "expect": [{"entity": "IFSC", "text": "SBIN0001234"}]}
+{"id": "upi-known-handle", "text": "pay ravi.kumar@okaxis today", "expect": [{"entity": "UPI_ID", "text": "ravi.kumar@okaxis"}]}
+{"id": "upi-unknown-handle-context", "text": "UPI: shop@somebank", "expect": [{"entity": "UPI_ID", "text": "shop@somebank"}]}
+{"id": "upi-unknown-handle-no-context", "text": "ping shop@somebank", "expect": []}
+{"id": "upi-end-of-sentence", "text": "Send to ravi@ybl.", "expect": [{"entity": "UPI_ID", "text": "ravi@ybl"}]}
+{"id": "email", "text": "write to ravi.k@example.co.in please", "expect": [{"entity": "EMAIL", "text": "ravi.k@example.co.in"}]}
+{"id": "mobile-plus91", "text": "call +91 98765 43210", "expect": [{"entity": "PHONE_IN", "text": "+91 98765 43210"}]}
+{"id": "mobile-plain", "text": "mobile 9876543210", "expect": [{"entity": "PHONE_IN", "text": "9876543210"}]}
+{"id": "mobile-334", "text": "whatsapp 987 654 3210", "expect": [{"entity": "PHONE_IN", "text": "987 654 3210"}]}
+{"id": "mobile-repeated", "text": "phone 9999999999", "expect": []}
+{"id": "mobile-txn", "text": "txn id 9876543210 failed", "expect": []}
+{"id": "card-visa", "text": "card 4111 1111 1111 1111 exp 12/29", "expect": [{"entity": "CREDIT_CARD", "text": "4111 1111 1111 1111"}]}
+{"id": "card-bad-luhn", "text": "card 4111 1111 1111 1112", "expect": []}
+{"id": "bank-account-context", "text": "A/c no 123456789012345", "expect": [{"entity": "BANK_ACCOUNT", "text": "123456789012345"}]}
+{"id": "bank-account-no-context", "text": "value 123456789012345", "expect": []}
+{"id": "voter-id", "text": "Voter ID: ABC1234567", "expect": [{"entity": "VOTER_ID", "text": "ABC1234567"}]}
+{"id": "passport", "text": "Passport no J8369854", "expect": [{"entity": "PASSPORT_IN", "text": "J8369854"}]}
+{"id": "driving-license", "text": "DL MH12 20110012345", "expect": [{"entity": "DRIVING_LICENSE", "text": "MH12 20110012345"}]}
+{"id": "vehicle", "text": "car number MH 12 AB 1234", "expect": [{"entity": "VEHICLE_REG", "text": "MH 12 AB 1234"}]}
+{"id": "udyam", "text": "Udyam UDYAM-MH-12-0001234", "expect": [{"entity": "UDYAM", "text": "UDYAM-MH-12-0001234"}]}
+{"id": "abha-number", "text": "ABHA number 91-1234-5678-9012", "expect": [{"entity": "ABHA_NUMBER", "text": "91-1234-5678-9012"}]}
+{"id": "abha-address", "text": "ABHA address ravi.k@abdm", "expect": [{"entity": "ABHA_ADDRESS", "text": "ravi.k@abdm"}]}
+{"id": "pin-code", "text": "PIN code 560 001", "expect": [{"entity": "PIN_CODE", "text": "560 001"}]}
+{"id": "dob", "text": "DOB: 14/08/1990", "expect": [{"entity": "DATE_OF_BIRTH", "text": "14/08/1990"}]}
+{"id": "person-honorific", "text": "Please verify Smt. Lakshmi Iyer today", "expect": [{"entity": "PERSON", "text": "Lakshmi Iyer"}]}
+{"id": "secret-razorpay", "text": "key rzp_test_AbCdEf12345678", "expect": [{"entity": "SECRET", "text": "rzp_test_AbCdEf12345678"}]}
+{"id": "hinglish-mix", "text": "bhai mera adhaar 2345 6789 0124 hai aur PAN abcpe1234f, UPI ravi@paytm pe bhej do", "expect": [{"entity": "AADHAAR", "text": "2345 6789 0124"}, {"entity": "PAN", "text": "abcpe1234f"}, {"entity": "UPI_ID", "text": "ravi@paytm"}]}
+{"id": "hard-negative-invoice", "text": "Invoice INV-2024-000123, qty 12, total 45,600.00", "expect": []}
+{"id": "negative-context-next-line", "text": "Mobile: 9876543210\nApplication ref: 4471", "expect": [{"entity": "PHONE_IN", "text": "9876543210"}], "note": "a label on the next line must not suppress"}
+{"id": "negative-context-previous-sentence", "text": "Charged twice for order 55. Callback on 9876543210 please", "expect": [{"entity": "PHONE_IN", "text": "9876543210"}]}
+{"id": "nearest-label-wins", "text": "Aadhaar 2345 6789 0124 (order ref 77)", "expect": [{"entity": "AADHAAR", "text": "2345 6789 0124"}]}
+{"id": "negative-same-clause", "text": "Callback re order 987654321012 today", "expect": []}

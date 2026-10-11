@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# Node
+node_modules/
+packages/saaf-js/dist/
+packages/saaf-js/build-test/
+plugins/n8n-node/dist/
+*.tsbuildinfo
+
+# Generated copies of saaf-js (rebuilt by build.mjs)
+apps/website/assets/saaf/
+plugins/browser-extension/lib/
+plugins/browser-extension/*.zip
+
+# Vaults, keys, audit logs: never commit
+*.db
+*.sqlite
+*.key
+*.pem
+audit*.jsonl
+.env
+.env.*
+!.env.example
+
+# Benchmark: the held-out split is private
+bench/corpus/heldout/
+
+# Editors / OS
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local Claude Code state
+.claude/settings.local.json
+.firebase/
+firebase-debug.log

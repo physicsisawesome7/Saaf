@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/safearly/saaf/security/advisories/new
+    about: Report privately. Never open a public issue for security problems.
+  - name: Questions and ideas
+    url: https://github.com/safearly/saaf/discussions
+    about: Ask and discuss in GitHub Discussions.

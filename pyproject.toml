@@ -1,0 +1,72 @@
+# Workspace root. Not a package itself: it holds the uv workspace definition
+# and shared tool configuration for every Python package in the monorepo.
+
+[project]
+name = "saaf-workspace"
+version = "0"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8",
+  "pytest-asyncio>=0.24",
+  "pytest-cov>=5",
+  "hypothesis>=6.100",
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "cryptography>=42",
+  "pre-commit>=3.7",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = [
+  "packages/saaf-core",
+  "packages/saaf-gateway",
+  "plugins/litellm",
+  "plugins/langchain",
+  "plugins/mcp-server",
+  "bench",
+]
+
+[tool.uv.sources]
+saaf = { workspace = true }
+saaf-gateway = { workspace = true }
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["**/node_modules", "**/dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "PT"]
+ignore = [
+  "E501",    # formatter owns line length
+  "S101",    # assert is fine in tests and invariants
+  "S311",    # random is used for synthetic corpora, not crypto
+  "RUF001",  # homoglyphs are intentional test data
+  "RUF002",
+  "RUF003",
+  "S105",    # token_style etc. are not passwords
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/test_*.py" = ["S603", "PT018"]
+"**/tests/**" = ["S105", "S106", "S108", "PT011", "PT018", "E402"]
+"bench/**" = ["S"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["saaf", "saaf_gateway", "saaf_litellm", "saaf_langchain", "saaf_mcp", "indicpii_bench"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+files = ["packages/saaf-core/src", "packages/saaf-gateway/src"]
+
+[[tool.mypy.overrides]]
+module = ["redis.*", "litellm.*", "langchain_core.*", "mcp.*", "onnxruntime.*"]
+ignore_missing_imports = true

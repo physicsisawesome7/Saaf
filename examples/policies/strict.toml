@@ -1,0 +1,15 @@
+# Refuse requests carrying government IDs; mask everything else.
+[policy]
+id = "strict"
+default_action = "mask"
+
+[entities.AADHAAR]
+action = "block"
+[entities.AADHAAR_VID]
+action = "block"
+[entities.PAN]
+action = "block"
+[entities.PASSPORT_IN]
+action = "block"
+[entities.SECRET]
+action = "block"

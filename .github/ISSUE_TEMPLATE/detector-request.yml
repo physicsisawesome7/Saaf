@@ -1,0 +1,25 @@
+name: New entity / detector request
+description: Ask for a new identifier type, format variant or language.
+labels: [detection, enhancement]
+body:
+  - type: input
+    id: entity
+    attributes:
+      label: Identifier
+      placeholder: e.g. CKYC number, Ration card, PRAN
+    validations: { required: true }
+  - type: textarea
+    id: format
+    attributes:
+      label: Format and validation rules
+      description: Structure, check digits, issuing authority, links to official specifications.
+    validations: { required: true }
+  - type: textarea
+    id: examples
+    attributes:
+      label: Synthetic examples, plus look-alikes that must NOT match
+      render: text
+  - type: textarea
+    id: context
+    attributes:
+      label: Context words (English / Hindi / Hinglish / other)

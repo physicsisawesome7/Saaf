@@ -1,0 +1,4 @@
+# Week 1-2 of a rollout: observe, change nothing, review the counts.
+[policy]
+id = "pilot-shadow"
+mode = "shadow"

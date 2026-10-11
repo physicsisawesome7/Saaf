@@ -1,0 +1,19 @@
+{
+  "name": "saaf-monorepo",
+  "private": true,
+  "description": "npm workspace root for Saaf's TypeScript packages.",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/saaf-js"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "website": "npm run build && node apps/website/build.mjs",
+    "extension": "npm run build && node plugins/browser-extension/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONIOENCODING: utf-8
+  UV_PYTHON_PREFERENCE: only-managed
+
+jobs:
+  lint:
+    name: Lint, types, spec drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: uv sync --all-packages
+      - name: Spec copies in sync
+        run: uv run python scripts/sync_spec.py --check
+      - name: Spec matches JSON schema
+        run: uvx check-jsonschema --schemafile spec/schema/entities.schema.json spec/entities.json
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run mypy
+      - name: No compliance claims
+        run: git ls-files '*.md' '*.html' '*.js' '*.ts' '*.py' | xargs uv run python scripts/check_wording.py
+      - run: npm ci
+      - run: npm run typecheck
+
+  python:
+    name: Python ${{ matrix.python }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --all-packages
+      - name: saaf-core (with coverage gate)
+        working-directory: packages/saaf-core
+        run: uv run pytest --cov=saaf --cov-report=xml --cov-fail-under=85
+      - name: saaf-gateway
+        working-directory: packages/saaf-gateway
+        run: uv run pytest
+      - name: plugins
+        shell: bash
+        run: |
+          (cd plugins/litellm && uv run pytest)
+          (cd plugins/open-webui && uv run --with pydantic pytest tests)
+          (cd plugins/langchain && uv run pytest)
+          (cd plugins/mcp-server && uv run pytest)
+          (cd plugins/claude-code-hook && uv run pytest test_saaf_hook.py)
+      - name: bench
+        working-directory: bench
+        run: uv run pytest
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        with:
+          name: coverage
+          path: packages/saaf-core/coverage.xml
+
+  js:
+    name: TypeScript / Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - name: Build + tests (incl. shared conformance vectors)
+        run: npm run build && npm test
+      - name: Website and extension bundles build
+        run: node apps/website/build.mjs && node plugins/browser-extension/build.mjs
+
+  bench-gate:
+    name: Benchmark regression gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv sync --all-packages
+      - name: Run IndicPII-Bench on corpus v0
+        working-directory: bench
+        run: uv run python -m indicpii_bench run --corpus corpus/v0/docs.jsonl --systems saaf,regex-baseline --out-dir /tmp/bench
+      - name: Compare with committed results
+        run: uv run python scripts/bench_gate.py bench/results/results.json /tmp/bench/results.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bench-results
+          path: /tmp/bench
+
+  docker:
+    name: Gateway image builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: packages/saaf-gateway/Dockerfile
+          push: false
+          tags: saaf-gateway:ci

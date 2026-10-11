@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saaf-mcp"
+dynamic = ["version"]
+description = "MCP server exposing Saaf PII scan, mask and restore tools to Claude and other MCP clients."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["saaf", "mcp>=1.2"]
+
+[project.scripts]
+saaf-mcp = "saaf_mcp.server:main"
+
+[tool.hatch.version]
+path = "src/saaf_mcp/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saaf_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../../packages/saaf-core/src"]

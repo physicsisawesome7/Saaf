@@ -1,0 +1,9 @@
+{"id": "exact", "vault": {"[AADHAAR_1]": "2345 6789 0124"}, "input": "Your Aadhaar is [AADHAAR_1].", "expect": "Your Aadhaar is 2345 6789 0124."}
+{"id": "lowercase", "vault": {"[AADHAAR_1]": "2345 6789 0124"}, "input": "it is [aadhaar_1]", "expect": "it is 2345 6789 0124"}
+{"id": "no-brackets", "vault": {"[PAN_1]": "ABCPE1234F"}, "input": "PAN_1 is valid", "expect": "ABCPE1234F is valid"}
+{"id": "possessive", "vault": {"[PERSON_1]": "Lakshmi Iyer"}, "input": "[PERSON_1]'s account", "expect": "Lakshmi Iyer's account"}
+{"id": "markdown-escaped", "vault": {"[PAN_1]": "ABCPE1234F"}, "input": "**\\[PAN_1\\]**", "expect": "**ABCPE1234F**"}
+{"id": "space-for-underscore", "vault": {"[PHONE_IN_1]": "+91 98765 43210"}, "input": "call [PHONE IN 1]", "expect": "call +91 98765 43210"}
+{"id": "no-prefix-collision", "vault": {"[PAN_1]": "ABCPE1234F", "[PAN_10]": "ZZZPZ9999Z"}, "input": "[PAN_10] and [PAN_1]", "expect": "ZZZPZ9999Z and ABCPE1234F"}
+{"id": "unknown-left", "vault": {"[PAN_1]": "ABCPE1234F"}, "input": "[PAN_1] [PAN_7]", "expect": "ABCPE1234F [PAN_7]", "unknown": ["[PAN_7]"]}
+{"id": "fake-regrouped", "vault": {"1234 5678 9012": "2345 6789 0124"}, "input": "ID 1234-5678-9012 ok", "expect": "ID 2345 6789 0124 ok"}

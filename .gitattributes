@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary
+# Generated: collapse in diffs, mark for linguist
+packages/saaf-js/src/spec.generated.ts linguist-generated=true
+packages/saaf-core/src/saaf/_data/entities.json linguist-generated=true
+bench/corpus/** linguist-generated=true

@@ -1,0 +1,37 @@
+# Hooks for working ON this repository. (Hooks Saaf offers to OTHER repos are
+# in .pre-commit-hooks.yaml.)
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+        exclude: ^packages/saaf-js/tsconfig
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: [--maxkb=600]
+      - id: detect-private-key
+      - id: check-merge-conflict
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: local
+    hooks:
+      - id: spec-sync
+        name: spec copies match spec/entities.json
+        entry: python scripts/sync_spec.py --check
+        language: system
+        files: ^(spec/entities\.json|packages/saaf-core/src/saaf/_data/|packages/saaf-js/src/spec\.generated\.ts)
+        pass_filenames: false
+      - id: no-compliance-claims
+        name: no "compliant" claims in docs or UI
+        entry: python scripts/check_wording.py
+        language: system
+        files: \.(md|html|js|ts|py)$

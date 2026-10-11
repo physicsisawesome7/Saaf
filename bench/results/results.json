@@ -1,0 +1,314 @@
+[
+  {
+    "system": "saaf",
+    "docs": 420,
+    "strict": {
+      "AADHAAR": {
+        "precision": 0.9184,
+        "recall": 1.0,
+        "f1": 0.9574,
+        "support": 180
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "CREDIT_CARD": {
+        "precision": 0.9836,
+        "recall": 1.0,
+        "f1": 0.9917,
+        "support": 60
+      },
+      "DATE_OF_BIRTH": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "PERSON": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "support": 120
+      },
+      "PHONE_IN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 235
+      },
+      "MICRO": {
+        "precision": 0.9852,
+        "recall": 0.9498,
+        "f1": 0.9672
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 0.9184,
+        "recall": 1.0,
+        "f1": 0.9574,
+        "support": 180
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "CREDIT_CARD": {
+        "precision": 0.9836,
+        "recall": 1.0,
+        "f1": 0.9917,
+        "support": 60
+      },
+      "DATE_OF_BIRTH": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "PERSON": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "support": 120
+      },
+      "PHONE_IN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 235
+      },
+      "MICRO": {
+        "precision": 0.9852,
+        "recall": 0.9498,
+        "f1": 0.9672
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 0.829,
+    "latency_ms": {
+      "p50": 0.252,
+      "p99": 0.498
+    },
+    "restore_roundtrip": 1.0
+  },
+  {
+    "system": "regex-baseline",
+    "docs": 420,
+    "strict": {
+      "AADHAAR": {
+        "precision": 0.1679,
+        "recall": 0.7444,
+        "f1": 0.274,
+        "support": 180
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "CREDIT_CARD": {
+        "precision": 0.6061,
+        "recall": 1.0,
+        "f1": 0.7547,
+        "support": 60
+      },
+      "DATE_OF_BIRTH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 0.7917,
+        "f1": 0.8837,
+        "support": 120
+      },
+      "PERSON": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 120
+      },
+      "PHONE_IN": {
+        "precision": 0.2656,
+        "recall": 0.425,
+        "f1": 0.3269,
+        "support": 120
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 235
+      },
+      "MICRO": {
+        "precision": 0.4913,
+        "recall": 0.682,
+        "f1": 0.5711
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 0.1679,
+        "recall": 0.7444,
+        "f1": 0.274,
+        "support": 180
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "CREDIT_CARD": {
+        "precision": 0.6061,
+        "recall": 1.0,
+        "f1": 0.7547,
+        "support": 60
+      },
+      "DATE_OF_BIRTH": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 60
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 120
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 0.7917,
+        "f1": 0.8837,
+        "support": 120
+      },
+      "PERSON": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 120
+      },
+      "PHONE_IN": {
+        "precision": 0.2656,
+        "recall": 0.425,
+        "f1": 0.3269,
+        "support": 120
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 235
+      },
+      "MICRO": {
+        "precision": 0.4913,
+        "recall": 0.682,
+        "f1": 0.5711
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 236.951,
+    "latency_ms": {
+      "p50": 0.038,
+      "p99": 0.101
+    },
+    "restore_roundtrip": null
+  }
+]

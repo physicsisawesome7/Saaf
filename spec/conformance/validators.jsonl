@@ -1,0 +1,39 @@
+{"validator": "verhoeff", "input": "234567890124", "expect": true}
+{"validator": "verhoeff", "input": "234567890123", "expect": false}
+{"validator": "verhoeff", "input": "2363", "expect": true, "note": "Wikipedia worked example"}
+{"validator": "verhoeff", "input": "12a4", "expect": false}
+{"validator": "aadhaar", "input": "234567890124", "expect": true}
+{"validator": "aadhaar", "input": "987654321012", "expect": true}
+{"validator": "aadhaar", "input": "123456789012", "expect": false, "note": "UIDAI never issues a leading 0 or 1"}
+{"validator": "aadhaar", "input": "23456789012", "expect": false, "note": "11 digits"}
+{"validator": "luhn", "input": "4111111111111111", "expect": true}
+{"validator": "luhn", "input": "4111111111111112", "expect": false}
+{"validator": "card", "input": "4111111111111111", "expect": true}
+{"validator": "card", "input": "5555555555554444", "expect": true}
+{"validator": "card", "input": "378282246310005", "expect": true}
+{"validator": "card", "input": "0000000000000000", "expect": false}
+{"validator": "card", "input": "9111111111111119", "expect": false, "note": "Luhn-valid but unknown IIN"}
+{"validator": "pan", "input": "ABCPE1234F", "expect": true}
+{"validator": "pan", "input": "abcpe1234f", "expect": true}
+{"validator": "pan", "input": "ABCXE1234F", "expect": false, "note": "X is not a holder type"}
+{"validator": "pan", "input": "ABCPE12345", "expect": false}
+{"validator": "gstin", "input": "27ABCPE1234F1ZB", "expect": true}
+{"validator": "gstin", "input": "33ZZZPZ9999Z1ZZ", "expect": true}
+{"validator": "gstin", "input": "24AAAPZ0000A1ZO", "expect": true}
+{"validator": "gstin", "input": "27ABCPE1234F1ZC", "expect": false, "note": "wrong check character"}
+{"validator": "gstin", "input": "45ABCPE1234F1ZB", "expect": false, "note": "no state code 45"}
+{"validator": "ifsc", "input": "SBIN0001234", "expect": true}
+{"validator": "ifsc", "input": "HDFC0ABC123", "expect": true}
+{"validator": "ifsc", "input": "SBIN1001234", "expect": false}
+{"validator": "upi_handle", "input": "ravi.kumar@okaxis", "expect": true}
+{"validator": "upi_handle", "input": "9876543210@ybl", "expect": true}
+{"validator": "upi_handle", "input": "ravi@somecorp", "expect": false}
+{"validator": "in_mobile", "input": "9876543210", "expect": true}
+{"validator": "in_mobile", "input": "919876543210", "expect": true}
+{"validator": "in_mobile", "input": "09876543210", "expect": true}
+{"validator": "in_mobile", "input": "5876543210", "expect": false}
+{"validator": "in_mobile", "input": "9999999999", "expect": false}
+{"validator": "in_state_code", "input": "MH1220110012345", "expect": true}
+{"validator": "in_state_code", "input": "QQ1220110012345", "expect": false}
+{"validator": "udyam", "input": "UDYAMMH120001234", "expect": true}
+{"validator": "udyam", "input": "UDYAMQQ120001234", "expect": false}

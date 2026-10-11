@@ -1,0 +1,47 @@
+name: Wrong detection (false positive / false negative)
+description: Saaf masked something it shouldn't have, or missed something it should have caught.
+labels: [detection, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Use synthetic data only.** Never paste a real Aadhaar, PAN, phone number or any real person's data.
+        You can generate a checksum-valid fake with `saaf validate` and the helpers in `saaf.validators`.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [False positive (masked something that isn't PII), False negative (missed PII)]
+    validations: { required: true }
+  - type: input
+    id: entity
+    attributes:
+      label: Entity type
+      placeholder: AADHAAR, PAN, PHONE_IN, ...
+    validations: { required: true }
+  - type: textarea
+    id: sample
+    attributes:
+      label: Synthetic reproduction
+      description: The smallest text that shows the problem, with fake values.
+      render: text
+    validations: { required: true }
+  - type: textarea
+    id: scan
+    attributes:
+      label: "`saaf scan --json` output"
+      description: This output contains types and scores only, no values.
+      render: json
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: saaf 0.1.0 / @safearly/saaf 0.1.0
+    validations: { required: true }
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm the sample contains no real personal data.
+          required: true

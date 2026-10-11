@@ -1,0 +1,22 @@
+# BFSI starter policy (P3-03 will extend this with pack entities and a corpus).
+[policy]
+id = "bfsi-starter"
+mode = "enforce"
+threshold = 0.5
+default_action = "mask"
+
+[entities.SECRET]
+action = "block"
+[entities.CREDIT_CARD]
+action = "block"          # card data should never reach an LLM
+[entities.AADHAAR]
+threshold = 0.6
+[entities.IFSC]
+action = "allow"
+
+# Example: an approved in-region model endpoint may receive PAN for underwriting.
+# [[rules]]
+# entities = ["PAN"]
+# destinations = ["llm.in-region.bank.example"]
+# roles = ["underwriter"]
+# action = "allow"
