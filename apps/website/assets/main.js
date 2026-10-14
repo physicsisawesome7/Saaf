@@ -24,20 +24,7 @@ links?.addEventListener("click", (e) => {
 
 const navLinks = [...document.querySelectorAll(".links a")];
 if ("IntersectionObserver" in window) {
-  const spy = new IntersectionObserver(
-    (entries) => {
-      for (const en of entries) {
-        if (!en.isIntersecting) continue;
-        for (const a of navLinks) a.classList.toggle("active", a.getAttribute("href") === `#${en.target.id}`);
-      }
-    },
-    { rootMargin: "-45% 0px -50% 0px" },
-  );
-  navLinks.forEach((a) => {
-    const target = document.querySelector(a.getAttribute("href"));
-    if (target) spy.observe(target);
-  });
-
+  // Reveal first: if anything below fails, the content must still show.
   const reveal = new IntersectionObserver(
     (entries) => {
       for (const en of entries) if (en.isIntersecting) { en.target.classList.add("in"); reveal.unobserve(en.target); }
@@ -45,8 +32,23 @@ if ("IntersectionObserver" in window) {
     { rootMargin: "0px 0px -8% 0px" },
   );
   document.querySelectorAll(".reveal").forEach((el) => reveal.observe(el));
-} else {
-  document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in"));
+  document.documentElement.classList.add("reveal-ready");
+
+  // Highlight the in-page section links only (not /playground or external links).
+  const sectionLinks = navLinks.filter((a) => /^#[\w-]+$/.test(a.getAttribute("href") ?? ""));
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const en of entries) {
+        if (!en.isIntersecting) continue;
+        for (const a of sectionLinks) a.classList.toggle("active", a.getAttribute("href") === `#${en.target.id}`);
+      }
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  sectionLinks.forEach((a) => {
+    const target = document.getElementById(a.getAttribute("href").slice(1));
+    if (target) spy.observe(target);
+  });
 }
 
 // --- code tabs + copy ----------------------------------------------------

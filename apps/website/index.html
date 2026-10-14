@@ -36,6 +36,7 @@
 <svg width="0" height="0" class="sr-only" aria-hidden="true">
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
   <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
@@ -70,6 +71,7 @@
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7/Saaf" aria-label="Saaf on GitHub" title="Saaf on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="#contact">Request a pilot</a>
     <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
@@ -315,7 +317,7 @@ action = <span class="s">"allow"</span></code></pre></div>
       <div class="grid g3 mt16">
         <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-lock"/></svg></div><h3>Careful by default</h3><p>Persistent vaults refuse to run without an encryption key. Destroying a key crypto-shreds its data. Values never appear in logs.</p></div>
         <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Verifiable releases</h3><p>Signed packages and container images, an SBOM with every release, a public threat model, and an external review of the vault cryptography before enterprise availability.</p></div>
-        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Honest limits</h3><p>Saaf can miss names without an honorific, free-text addresses, images and unlabelled numbers. <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">Full list</a>.</p></div>
+        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Honest limits</h3><p>Saaf can miss names without an honorific or a label such as “Name:”, free-text addresses, images and unlabelled numbers. <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">Full list</a>.</p></div>
       </div>
       <p class="callout reveal">Saaf provides evidence and safeguards for your own DPDP work. It is not a compliance certificate, and we will never claim it is. Found a vulnerability? Email <a href="mailto:lalit@safearly.com">lalit@safearly.com</a> (we acknowledge within 3 working days).</p>
     </div>
@@ -359,12 +361,13 @@ action = <span class="s">"allow"</span></code></pre></div>
     <div class="wrap">
       <div class="head reveal"><div class="kicker">FAQ</div><h2>Questions, answered.</h2></div>
       <div class="faq">
+        <details><summary>Can I try it without installing anything?</summary><p>Yes. The <a href="/playground">playground</a> runs the real engine in your browser: chat with a model of your choice (or a simulated one, no key needed) and see exactly what the model receives, or mask a whole CSV. To run it on your own machines, see <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md">Try Saaf</a>.</p></details>
         <details><summary>Does our data leave our network?</summary><p>No. Saaf runs as a library, a gateway or a plugin on your own infrastructure. Only tokens reach the model provider, and Safearly never receives your traffic.</p></details>
         <details><summary>Is Saaf "DPDP compliant"?</summary><p>No tool can make you compliant on its own. Saaf reduces how much personal data reaches LLMs and produces evidence (policies, signed audit logs, an evidence pack) for your own DPDP programme. Have your counsel review how you use it.</p></details>
-        <details><summary>How is it different from a regex?</summary><p>It validates checksums (Verhoeff, Luhn, GSTIN), scores the surrounding words, repairs OCR errors and normalises Unicode. On look-alike numbers, a bare regex raised 236.95 false alarms per 1,000 tokens; Saaf raised 0.83.</p></details>
+        <details><summary>How is it different from a regex?</summary><p>It validates checksums (Verhoeff, Luhn, GSTIN), scores the surrounding words, repairs OCR errors and normalises Unicode. On look-alike numbers such as order IDs, a bare regex raised 245.66 false alarms per 1,000 tokens and Microsoft Presidio (tuned) 131.34; Saaf raised 0.35.</p></details>
         <details><summary>Does it work with streaming responses?</summary><p>Yes. Text streams through as it arrives; only the few characters that could start a token are held back. Tests check that any chunking gives the same result.</p></details>
-        <details><summary>What doesn't it catch?</summary><p>Names without an honorific, free-text addresses, images, and unlabelled generic numbers such as bank accounts or PIN codes. An Indic name-recognition model is on the roadmap.</p></details>
-        <details><summary>What does this website collect?</summary><p>Nothing. There are no cookies, no analytics and no third-party scripts. The demo runs entirely in your browser. If you email us, we use your address only to reply.</p></details>
+        <details><summary>What doesn't it catch?</summary><p>Names without an honorific or a label such as “Name:”, free-text addresses, images, and unlabelled generic numbers such as bank accounts or PIN codes. An Indic name-recognition model is on the roadmap.</p></details>
+        <details><summary>What does this website collect?</summary><p>Nothing. There are no cookies, no analytics and no third-party scripts. The demo runs entirely in your browser. In the <a href="/playground">playground</a>, if you pick a model provider, your browser sends the masked text straight to that provider with your key; Safearly never sees either. If you email us, we use your address only to reply.</p></details>
       </div>
     </div>
   </section>
@@ -393,6 +396,7 @@ action = <span class="s">"allow"</span></code></pre></div>
         <li><a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Benchmark</a></li>
         <li><a href="#security">Security</a></li>
         <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/brand.md">Brand</a></li>
+        <li><a href="https://github.com/physicsisawesome7">github.com/physicsisawesome7</a></li>
         <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
       </ul>
     </div>

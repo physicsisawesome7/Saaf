@@ -1,6 +1,6 @@
 """Mask -> call a model -> restore, with and without streaming.
 
-pip install saaf openai
+pip install openai "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"
 python examples/python/quickstart.py
 """
 

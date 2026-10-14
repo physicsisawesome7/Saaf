@@ -95,11 +95,16 @@ section { padding: 112px 0; }
 .links a { display: block; white-space: nowrap; padding: 8px 14px; border-radius: 99px; color: var(--muted); font-size: 0.95rem; font-weight: 500; }
 .links a:hover, .links a.active { color: var(--text); background: var(--tint-2); text-decoration: none; }
 .nav .btn { height: 40px; padding: 0 18px; font-size: 0.93rem; white-space: nowrap; flex: none; }
+.gh { flex: none; width: 40px; height: 40px; border-radius: 99px; display: grid; place-items: center; color: var(--muted); margin-right: -12px; }
+.gh:hover { color: var(--text); background: var(--tint-2); }
+.gh svg { width: 22px; height: 22px; }
 .menu { display: none; width: 40px; height: 40px; border-radius: 99px; border: 0; background: transparent; color: var(--text); cursor: pointer; place-items: center; margin-left: auto; }
 .menu svg { width: 22px; height: 22px; }
 @media (max-width: 1120px) {
   .menu { display: grid; }
   .nav .btn { display: none; }
+  .gh { margin-left: auto; margin-right: 0; }
+  .menu { margin-left: 4px; }
   .links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--bg); padding: 8px 16px 20px; margin: 0; box-shadow: 0 8px 16px rgb(0 0 0 / 0.08); }
   .links.open { display: flex; }
   .links a { padding: 12px 16px; }
@@ -265,7 +270,8 @@ section { padding: 112px 0; }
 .foot .logo { font-size: 1.15rem; }
 .foot .logo img { width: 28px; height: 28px; }
 
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.in { opacity: 1; transform: none; }
-.no-js .reveal { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+/* Content is visible by default; it is only hidden for the fade-in once
+   main.js has set up the observer (html.reveal-ready). */
+.reveal { transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal-ready .reveal:not(.in) { opacity: 0; transform: translateY(16px); }
+@media (prefers-reduced-motion: reduce) { .reveal-ready .reveal:not(.in) { opacity: 1; transform: none; } .reveal { transition: none; } }

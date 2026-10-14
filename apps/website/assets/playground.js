@@ -448,7 +448,7 @@ $("composer").addEventListener("submit", async (e) => {
   const p = PROVIDERS[settings.provider];
   if (p.key === true && !keys[settings.provider]) {
     $("api-key").focus();
-    $("provider-hint").innerHTML = `<strong>Add a ${esc(p.name)} key first,</strong> or pick the simulated model. ` + p.hint;
+    $("provider-hint").innerHTML = `<strong>Add your ${esc(p.name)} key first,</strong> or pick the simulated model. ` + p.hint;
     return;
   }
   const t0 = performance.now();

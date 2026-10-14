@@ -1,6 +1,6 @@
 """Mask PII in your own API before your code calls an LLM.
 
-pip install saaf fastapi uvicorn
+pip install fastapi uvicorn "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"
 uvicorn examples.python.fastapi_middleware:app
 """
 

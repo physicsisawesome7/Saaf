@@ -7,6 +7,12 @@ pip install saaf            # core
 pip install "saaf[crypto]"  # encrypted SQLite/Redis vaults
 ```
 
+Until the first PyPI release, install from GitHub:
+
+```bash
+pip install "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"
+```
+
 ```python
 from saaf import Saaf, Policy
 

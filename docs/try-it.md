@@ -30,7 +30,7 @@ On Windows PowerShell: `$env:OLLAMA_ORIGINS="https://safearly.com"; ollama serve
 
 ## 2. Python or the CLI
 
-Until the first release is on PyPI, install from GitHub (Python 3.10+):
+Until the first release is on PyPI, install from GitHub (Python 3.11+):
 
 ```bash
 pip install "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"
@@ -66,11 +66,13 @@ The gateway is the production setup. Apps point their OpenAI or Anthropic SDK at
 docker compose -f examples/demo/docker-compose.yml up --build
 ```
 
-**Without Docker**, from a clone (Python 3.10+):
+**Without Docker** (Python 3.11+), no clone needed:
 
 ```bash
-pip install -e "packages/saaf-core[crypto]" -e packages/saaf-gateway
+pip install "saaf[crypto] @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core" "saaf-gateway @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-gateway"
 ```
+
+or, from a clone: `pip install -e "packages/saaf-core[crypto]" -e packages/saaf-gateway`.
 
 ```bash
 SAAF_CORS_ORIGINS=https://safearly.com saaf-gateway --port 8787

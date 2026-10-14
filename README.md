@@ -40,6 +40,8 @@ Both tools score near zero on unlabelled Indian names, and Saaf's identifier rul
 
 ## Packages
 
+> Not on PyPI or npm yet. Until the first release, install from GitHub, for example `pip install "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"`, or follow [docs/try-it.md](docs/try-it.md).
+
 | Path | What | Install |
 |---|---|---|
 | [`packages/saaf-core`](packages/saaf-core) | Python library + `saaf` CLI, zero dependencies | `pip install saaf` |

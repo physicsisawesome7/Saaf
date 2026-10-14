@@ -4,6 +4,8 @@ An OpenAI- and Anthropic-compatible proxy. It masks Indian PII in requests befor
 
 ```bash
 pip install saaf-gateway
+# until the first PyPI release:
+pip install "saaf[crypto] @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core" "saaf-gateway @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-gateway"
 saaf-gateway --port 8787
 # or, from the repository root:
 docker build -f packages/saaf-gateway/Dockerfile -t saaf-gateway . && docker run -p 8787:8787 saaf-gateway
