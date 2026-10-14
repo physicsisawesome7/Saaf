@@ -44,7 +44,7 @@ jobs:
           fail=0
           for f in $(find . -name '*.html' -not -path './assets/saaf/*'); do
             for href in $(grep -oE '(href|src)="/[^"#?]*' "$f" | sed -E 's/^(href|src)="//'); do
-              t=".${href}"; [ -d "$t" ] && t="$t/index.html"
+              t=".${href}"; [ -d "$t" ] && t="$t/index.html"; [ -e "$t" ] || t="$t.html"  # cleanUrls
               [ -e "$t" ] || { echo "$f -> $href missing"; fail=1; }
             done
           done

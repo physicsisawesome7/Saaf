@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "tsc -p tsconfig.test.json && node --test \"build-test/test/*.test.js\"",
+    "test": "tsc -p tsconfig.test.json && node --test build-test/test/*.test.js",
     "clean": "node -e \"for (const d of ['dist','build-test']) require('fs').rmSync(d,{recursive:true,force:true})\"",
     "prepublishOnly": "npm run clean && npm run build && npm test"
   },
