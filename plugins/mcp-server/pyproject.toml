@@ -9,7 +9,7 @@ description = "MCP server exposing Saaf PII scan, mask and restore tools to Clau
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-dependencies = ["saaf", "mcp>=1.2"]
+dependencies = ["saaf", "mcp>=1.2,<2"]
 
 [project.scripts]
 saaf-mcp = "saaf_mcp.server:main"

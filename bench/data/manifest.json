@@ -1,0 +1,79 @@
+{
+  "fetched": "2026-10-12T09:58:22+00:00",
+  "sources": [
+    {
+      "id": "razorpay-ifsc-banks",
+      "url": "https://raw.githubusercontent.com/razorpay/ifsc/master/src/banknames.json",
+      "licence": "MIT",
+      "attribution": "Razorpay IFSC (github.com/razorpay/ifsc)",
+      "path": "razorpay/banknames.json",
+      "bytes": 69476,
+      "sha256": "0771b1840c84a8b125ab1590fbc5ea7c4fcc9bb0f94684d22f25c5c553ee253a"
+    },
+    {
+      "id": "razorpay-ifsc-branches",
+      "url": "https://raw.githubusercontent.com/razorpay/ifsc/master/src/IFSC.json",
+      "licence": "MIT",
+      "attribution": "Razorpay IFSC (github.com/razorpay/ifsc)",
+      "path": "razorpay/IFSC.json",
+      "bytes": 1089201,
+      "sha256": "7300d809d77f0c58856a856d82f7fb2afff5c215aff539664545013f0df7037a"
+    },
+    {
+      "id": "naamapadam-hi",
+      "url": "https://huggingface.co/datasets/ai4bharat/naamapadam/resolve/main/data/hi_IndicNER_v1.0.zip",
+      "licence": "CC0-1.0",
+      "attribution": "Naamapadam, AI4Bharat (arXiv:2212.10168)",
+      "path": "naamapadam/hi_IndicNER_v1.0.zip",
+      "bytes": 82327771,
+      "sha256": "051cd8313d55204a84c2e5535147438a8314867c6a772cb45d9f64cb5768fe32"
+    },
+    {
+      "id": "naamapadam-mr",
+      "url": "https://huggingface.co/datasets/ai4bharat/naamapadam/resolve/main/data/mr_IndicNER_v1.0.zip",
+      "licence": "CC0-1.0",
+      "attribution": "Naamapadam, AI4Bharat (arXiv:2212.10168)",
+      "path": "naamapadam/mr_IndicNER_v1.0.zip",
+      "bytes": 25196650,
+      "sha256": "3de32e2fbeda3db78025f419ec132035d32b1d4389265944b7a47855daf810fc"
+    },
+    {
+      "id": "naamapadam-ta",
+      "url": "https://huggingface.co/datasets/ai4bharat/naamapadam/resolve/main/data/ta_IndicNER_v1.0.zip",
+      "licence": "CC0-1.0",
+      "attribution": "Naamapadam, AI4Bharat (arXiv:2212.10168)",
+      "path": "naamapadam/ta_IndicNER_v1.0.zip",
+      "bytes": 29707348,
+      "sha256": "bb7e3d023462a4a61c5823581247f91e9706aada8149048ffac9b7829a8ff867"
+    },
+    {
+      "id": "naamapadam-te",
+      "url": "https://huggingface.co/datasets/ai4bharat/naamapadam/resolve/main/data/te_IndicNER_v1.0.zip",
+      "licence": "CC0-1.0",
+      "attribution": "Naamapadam, AI4Bharat (arXiv:2212.10168)",
+      "path": "naamapadam/te_IndicNER_v1.0.zip",
+      "bytes": 25703832,
+      "sha256": "a9701708b237c0f00f99caa3c1f777f6db20c8e05238e1fa5d1823696a759fc2"
+    },
+    {
+      "id": "hiner-test",
+      "url": "https://huggingface.co/datasets/cfilt/HiNER-original/resolve/main/data/test.json",
+      "licence": "CC-BY-SA-4.0",
+      "attribution": "HiNER, CFILT IIT Bombay (arXiv:2204.13743)",
+      "eval_only": true,
+      "path": "hiner/test.json",
+      "bytes": 14782110,
+      "sha256": "2de725fda8dd90714ecab37407337bd385bb989e7f59650dac658dc070885d04"
+    },
+    {
+      "id": "hiner-labels",
+      "url": "https://huggingface.co/datasets/cfilt/HiNER-original/resolve/main/data/labels_list.txt",
+      "licence": "CC-BY-SA-4.0",
+      "attribution": "HiNER, CFILT IIT Bombay",
+      "eval_only": true,
+      "path": "hiner/labels_list.txt",
+      "bytes": 224,
+      "sha256": "85151953cf3ce49ca82a1eed801fe496032a3fe681678f1fd7b320a7f2646e01"
+    }
+  ]
+}

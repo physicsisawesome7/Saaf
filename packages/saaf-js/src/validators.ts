@@ -68,16 +68,24 @@ export function luhn(value: string): boolean {
   return total % 10 === 0;
 }
 
-const CARD_PREFIXES = [
-  "4", "51", "52", "53", "54", "55", "34", "37", "36", "38", "300", "301", "302", "303", "304", "305",
-  "60", "65", "81", "82", "508", "353", "356", "6011", "644", "645", "646", "647", "648", "649", "35",
+// [prefixes, allowed lengths] per network; a Luhn pass at the wrong length is not a card.
+const CARD_RULES: [string[], number[]][] = [
+  [["4"], [13, 16, 19]], // Visa
+  [["51", "52", "53", "54", "55"], [16]], // Mastercard
+  [["34", "37"], [15]], // Amex
+  [["300", "301", "302", "303", "304", "305", "36", "38"], [14, 16]], // Diners
+  [["60", "65", "81", "82", "508", "353", "356"], [16]], // RuPay
+  [["6011", "644", "645", "646", "647", "648", "649"], [16, 17, 18, 19]], // Discover
+  [["35"], [16, 17, 18, 19]], // JCB
 ];
 
 export function card(value: string): boolean {
-  if (value.length < 13 || value.length > 19 || new Set(value).size === 1) return false;
+  if (!isDigits(value) || new Set(value).size === 1) return false;
+  const n = value.length;
+  let ok = CARD_RULES.some(([prefixes, lengths]) => prefixes.some((p) => value.startsWith(p)) && lengths.includes(n));
   const iin = Number(value.slice(0, 4));
-  if (!CARD_PREFIXES.some((p) => value.startsWith(p)) && !(iin >= 2221 && iin <= 2720)) return false;
-  return luhn(value);
+  if (!ok && iin >= 2221 && iin <= 2720) ok = n === 16; // Mastercard 2-series
+  return ok && luhn(value);
 }
 
 const PAN_HOLDER_TYPES = "ABCFGHJLPT";

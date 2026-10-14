@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saaf Playground · Safearly</title>
+  <meta name="description" content="Chat with a real LLM through Saaf. Aadhaar, PAN, UPI and other Indian identifiers are masked in your browser before anything is sent, and restored as the reply streams in. Or mask a whole file.">
+  <link rel="canonical" href="https://safearly.com/playground">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131314" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="Saaf Playground · Safearly">
+  <meta property="og:description" content="Chat with a real LLM. Indian PII is masked in your browser before it is sent and restored in the reply.">
+  <meta property="og:url" content="https://safearly.com/playground">
+  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/playground.css">
+  <script type="module" src="/assets/playground.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="34" height="34">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/playground" class="active" aria-current="page">Playground</a></li>
+      <li><a href="/#developers">Developers</a></li>
+      <li><a href="https://github.com/physicsisawesome7/Saaf">GitHub</a></li>
+    </ul>
+    <a class="btn btn-primary" href="/#contact">Request a pilot</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main" class="pg">
+  <div class="wrap">
+    <div class="pg-intro">
+      <div>
+        <h1>Playground</h1>
+        <p class="lead">Talk to a real model through Saaf, or mask a whole file. Indian identifiers are swapped for placeholders <strong>in this tab</strong> before anything is sent, and put back as the reply streams in.</p>
+      </div>
+      <ul class="trust">
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>Masking runs on your device</li>
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>API keys stay in memory, never saved</li>
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>No Safearly server in the path</li>
+      </ul>
+    </div>
+
+    <div class="pg-tabs" role="tablist" aria-label="Playground mode">
+      <button role="tab" id="tab-chat" aria-selected="true" aria-controls="panel-chat">Chat with a model</button>
+      <button role="tab" id="tab-files" aria-selected="false" aria-controls="panel-files" tabindex="-1">Mask a file</button>
+    </div>
+
+    <div class="pg-grid">
+      <!-- Settings -->
+      <aside class="side" aria-label="Settings">
+        <section class="card" id="model-card">
+          <h2 class="card-h">Model</h2>
+          <label class="fld">Provider
+            <select id="provider">
+              <option value="sim">Simulated model (no key needed)</option>
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="gemini">Google Gemini</option>
+              <option value="openrouter">OpenRouter (many models)</option>
+              <option value="ollama">Ollama on this computer</option>
+              <option value="gateway">Saaf gateway on this computer</option>
+            </select>
+          </label>
+          <div id="model-fields" hidden>
+            <label class="fld">Model
+              <input id="model" list="model-list" autocomplete="off" spellcheck="false">
+              <datalist id="model-list"></datalist>
+            </label>
+            <label class="fld" id="key-row">API key
+              <span class="key"><input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste a key"><button type="button" id="key-toggle" class="mini" aria-label="Show key" aria-pressed="false"><svg aria-hidden="true"><use href="#i-eye"/></svg></button></span>
+            </label>
+            <label class="fld" id="url-row" hidden>Address
+              <input id="base-url" spellcheck="false">
+            </label>
+            <p class="hint" id="provider-hint"></p>
+          </div>
+          <p class="hint" id="sim-hint">The simulated model needs no key. It replies with your placeholders mangled the way real models do (lower case, escaped brackets, split across stream chunks), so you can see restore work.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="card-h">Policy</h2>
+          <div class="fld">Mode
+            <div class="seg" role="group" aria-label="Mode">
+              <button type="button" data-mode="enforce" aria-pressed="true">Enforce</button>
+              <button type="button" data-mode="shadow" aria-pressed="false">Shadow</button>
+            </div>
+          </div>
+          <p class="hint" id="mode-hint">Values are replaced before sending.</p>
+          <label class="fld">Confidence threshold <output id="thr-out">0.50</output>
+            <input id="threshold" type="range" min="0.3" max="0.9" step="0.05" value="0.5">
+          </label>
+          <details class="ents-box">
+            <summary>Entity rules <span id="ent-summary" class="muted small"></span></summary>
+            <div id="ent-rules" class="ent-rules"></div>
+          </details>
+        </section>
+
+        <section class="card" id="session-card">
+          <h2 class="card-h">Session</h2>
+          <dl class="stats" id="session-stats"></dl>
+          <div class="btn-col">
+            <button type="button" class="btn btn-outline sm" id="evidence"><svg aria-hidden="true"><use href="#i-down"/></svg>Evidence log</button>
+            <button type="button" class="btn btn-outline sm" id="reset">New session</button>
+          </div>
+          <p class="hint">The evidence log lists what left this tab (masked text, types and counts). It never contains the real values.</p>
+        </section>
+      </aside>
+
+      <!-- Chat -->
+      <section class="main-col" id="panel-chat" role="tabpanel" aria-labelledby="tab-chat">
+        <div class="card thread-card">
+          <div class="thread-head">
+            <div class="seg" role="group" aria-label="View the conversation as">
+              <span class="muted small">View as</span>
+              <button type="button" data-view="you" aria-pressed="true">You</button>
+              <button type="button" data-view="model" aria-pressed="false">The model</button>
+            </div>
+            <span class="muted small" id="thread-note">Switch to see exactly what the model received and wrote.</span>
+          </div>
+          <div class="thread" id="thread" aria-live="polite">
+            <div class="empty" id="empty">
+              <p><strong>Try a sample</strong> or type your own message. Use made-up values, not real ones.</p>
+            </div>
+          </div>
+          <form class="composer" id="composer">
+            <div class="seg samples" role="group" aria-label="Load a sample message">
+              <button type="button" data-sample="kyc">KYC check</button>
+              <button type="button" data-sample="hinglish">Hinglish</button>
+              <button type="button" data-sample="loan">Loan email</button>
+              <button type="button" data-sample="ocr">OCR scan</button>
+              <button type="button" data-sample="indic">हिंदी / தமிழ்</button>
+              <button type="button" data-sample="spelled">Spelled out</button>
+              <button type="button" data-sample="negatives">Look-alikes</button>
+            </div>
+            <label class="sr-only" for="msg">Message</label>
+            <div class="msg-box">
+              <textarea id="msg" rows="4" spellcheck="false" placeholder="Type a message with an Aadhaar, PAN, UPI ID, phone number…"></textarea>
+              <div class="preview" id="preview" aria-live="polite"></div>
+            </div>
+            <div class="composer-foot">
+              <span class="small muted" id="preview-note">Nothing detected yet.</span>
+              <button type="submit" class="btn btn-primary sm" id="send"><svg aria-hidden="true"><use href="#i-send"/></svg>Send</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card" id="why-card" hidden>
+          <div class="thread-head">
+            <h2 class="card-h">Why it was caught</h2>
+            <button type="button" class="link-btn" id="report">Report a wrong detection</button>
+          </div>
+          <div class="table-wrap"><table class="table why" id="why"></table></div>
+        </div>
+      </section>
+
+      <!-- Files -->
+      <section class="main-col" id="panel-files" role="tabpanel" aria-labelledby="tab-files" hidden>
+        <div class="card">
+          <h2 class="card-h">Mask a file</h2>
+          <p class="muted small">Text, CSV, JSON, JSONL, Markdown or logs, up to 25 MB. Every value gets the same placeholder everywhere in the file, so the masked file stays joinable and analysable. Nothing is uploaded: the file is read and masked inside this tab.</p>
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept=".txt,.csv,.tsv,.json,.jsonl,.ndjson,.md,.log,.xml,.html,text/*,application/json">
+            <svg aria-hidden="true"><use href="#i-up"/></svg>
+            <span><strong>Choose a file</strong> or drop it here</span>
+            <span class="small muted" id="drop-note">or <button type="button" class="link-btn" id="file-sample">use a sample CSV</button></span>
+          </label>
+          <div class="progress" id="progress" hidden><div class="bar-in" id="progress-bar"></div></div>
+          <div id="file-result" hidden>
+            <dl class="stats wide" id="file-stats"></dl>
+            <div class="chips" id="file-chips"></div>
+            <div class="pane-head"><h3>Masked preview <span class="muted small" id="preview-lines"></span></h3></div>
+            <pre class="out code-out" id="file-preview"></pre>
+            <div class="btns">
+              <button type="button" class="btn btn-primary sm" id="dl-masked"><svg aria-hidden="true"><use href="#i-down"/></svg>Masked file</button>
+              <button type="button" class="btn btn-outline sm" id="dl-vault"><svg aria-hidden="true"><use href="#i-down"/></svg>Vault (real values)</button>
+            </div>
+            <p class="hint warn">The vault holds the real values for every placeholder. Keep it like you would keep the original file. You need it to restore.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-h">Restore a file</h2>
+          <p class="muted small">Have a masked file back from a model or a vendor? Pick it and its vault to put the real values back. Placeholders that were lower-cased, escaped or split by a model are still found.</p>
+          <div class="restore-row">
+            <label class="fld">File with placeholders<input type="file" id="r-file"></label>
+            <label class="fld">Vault (.json)<input type="file" id="r-vault" accept=".json,application/json"></label>
+          </div>
+          <button type="button" class="btn btn-outline sm" id="r-go" disabled>Restore and download</button>
+          <p class="small muted" id="r-note"></p>
+        </div>
+      </section>
+    </div>
+
+    <p class="note center pg-foot">Saaf finds structured identifiers well. It can miss names without a label, free-text addresses and unlabelled numbers: see the <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">limitations</a>. Want this inside your network? Run the <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md">gateway in two minutes</a>.</p>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="28" height="28">safearly</a>
+      <ul class="foot-links">
+        <li><a href="https://github.com/physicsisawesome7/Saaf">GitHub</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf/tree/main/docs">Docs</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Benchmark</a></li>
+        <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+      </ul>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Safearly. Saaf is open source under Apache-2.0.</span>
+      <span>Privacy: this page sets no cookies and loads no third-party scripts. When you pick a provider, your browser talks to that provider directly with your key; Safearly never sees the key or the text. Your settings (not keys) are remembered in this browser.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

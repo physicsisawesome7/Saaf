@@ -16,9 +16,9 @@
         "support": 60
       },
       "CREDIT_CARD": {
-        "precision": 0.9836,
+        "precision": 1.0,
         "recall": 1.0,
-        "f1": 0.9917,
+        "f1": 1.0,
         "support": 60
       },
       "DATE_OF_BIRTH": {
@@ -70,9 +70,9 @@
         "support": 235
       },
       "MICRO": {
-        "precision": 0.9852,
+        "precision": 0.9861,
         "recall": 0.9498,
-        "f1": 0.9672
+        "f1": 0.9676
       }
     },
     "relaxed": {
@@ -89,9 +89,9 @@
         "support": 60
       },
       "CREDIT_CARD": {
-        "precision": 0.9836,
+        "precision": 1.0,
         "recall": 1.0,
-        "f1": 0.9917,
+        "f1": 1.0,
         "support": 60
       },
       "DATE_OF_BIRTH": {
@@ -143,17 +143,87 @@
         "support": 235
       },
       "MICRO": {
-        "precision": 0.9852,
+        "precision": 0.9861,
         "recall": 0.9498,
-        "f1": 0.9672
+        "f1": 0.9676
       }
     },
-    "hard_negative_fp_per_1k_tokens": 0.829,
+    "hard_negative_fp_per_1k_tokens": 0.0,
     "latency_ms": {
-      "p50": 0.252,
-      "p99": 0.498
+      "p50": 0.301,
+      "p99": 0.622
     },
-    "restore_roundtrip": 1.0
+    "latency_ms_per_kb": 1.973,
+    "cold_start_ms": 18.3,
+    "restore_roundtrip": 1.0,
+    "slices": {
+      "bank_statement": {
+        "precision": 0.9486,
+        "recall": 1.0,
+        "f1": 0.9736,
+        "support": 295,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 1.0,
+          "IFSC": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "hinglish_chat": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 180,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "invoice": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 60,
+        "recall_by_entity": {
+          "GSTIN": 1.0
+        }
+      },
+      "kyc": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 1.0,
+          "PAN": 1.0,
+          "PERSON": 1.0,
+          "PHONE_IN": 1.0
+        }
+      },
+      "ocr_scan": {
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "support": 180,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "DATE_OF_BIRTH": 1.0,
+          "PERSON": 0.0
+        }
+      },
+      "support_ticket": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 180,
+        "recall_by_entity": {
+          "CREDIT_CARD": 1.0,
+          "GSTIN": 1.0,
+          "PHONE_IN": 1.0
+        }
+      }
+    }
   },
   {
     "system": "regex-baseline",
@@ -307,8 +377,85 @@
     "hard_negative_fp_per_1k_tokens": 236.951,
     "latency_ms": {
       "p50": 0.038,
-      "p99": 0.101
+      "p99": 0.079
     },
-    "restore_roundtrip": null
+    "latency_ms_per_kb": 0.253,
+    "cold_start_ms": 0.7,
+    "restore_roundtrip": null,
+    "slices": {
+      "bank_statement": {
+        "precision": 0.5427,
+        "recall": 0.7966,
+        "f1": 0.6456,
+        "support": 295,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 0.0,
+          "IFSC": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "hard_negative": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "hinglish_chat": {
+        "precision": 0.7209,
+        "recall": 0.8611,
+        "f1": 0.7848,
+        "support": 180,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 0.5833,
+          "UPI_ID": 1.0
+        }
+      },
+      "invoice": {
+        "precision": 0.3333,
+        "recall": 1.0,
+        "f1": 0.5,
+        "support": 60,
+        "recall_by_entity": {
+          "GSTIN": 1.0
+        }
+      },
+      "kyc": {
+        "precision": 0.777,
+        "recall": 0.6967,
+        "f1": 0.7346,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.0,
+          "PHONE_IN": 0.4833
+        }
+      },
+      "ocr_scan": {
+        "precision": 1.0,
+        "recall": 0.0778,
+        "f1": 0.1443,
+        "support": 180,
+        "recall_by_entity": {
+          "AADHAAR": 0.2333,
+          "DATE_OF_BIRTH": 0.0,
+          "PERSON": 0.0
+        }
+      },
+      "support_ticket": {
+        "precision": 0.542,
+        "recall": 0.7889,
+        "f1": 0.6425,
+        "support": 180,
+        "recall_by_entity": {
+          "CREDIT_CARD": 1.0,
+          "GSTIN": 1.0,
+          "PHONE_IN": 0.3667
+        }
+      }
+    }
   }
 ]

@@ -5,6 +5,8 @@
 **India-first PII masking and restore for LLM traffic.** Saaf finds Aadhaar, PAN, GSTIN, UPI IDs, Indian mobile numbers, bank and card numbers, ABHA and more in prompts. It validates them with checksums, so order IDs aren't mistaken for Aadhaar numbers. It swaps them for tokens before the text reaches a model, and puts the real values back in the reply, including streamed replies.
 
 > **Clean prompts. Caught early.** Website: [safearly.com](https://safearly.com)
+>
+> **Try it now:** [safearly.com/playground](https://safearly.com/playground) — chat with a real model through Saaf, or mask a CSV, right in your browser. Running it yourself: [docs/try-it.md](docs/try-it.md).
 
 ```python
 from saaf import Saaf
@@ -28,12 +30,13 @@ saaf.restore("Verified [aadhaar_1] and PAN_1's record.").text
 - **Evidence, not claims.** Policy-as-code, shadow mode, signed and hash-chained audit records with types and counts only, and an evidence-pack generator.
 - **Measured in public.** [IndicPII-Bench](bench/) reports per-entity scores and false positives on hard negatives.
 
-| Synthetic corpus v0 (smoke test) | Strict micro-F1 | Hard-negative FP / 1k tokens | Restore round-trip |
-|---|---|---|---|
-| Saaf | 0.967 | 0.83 | 100% |
-| Bare-regex baseline | 0.571 | 236.95 | — |
+| IndicPII-Bench v1 (2,500 docs) | Strict micro-F1 | Look-alike false alarms / 1k tokens | ms per KB | Installed size |
+|---|---|---|---|---|
+| Saaf | 0.711 | 0.35 | 0.94 | 0.1 MB |
+| Presidio 2.2, India recognizers on, threshold tuned | 0.437 | 131.34 | 41.4 | 691 MB |
+| Bare-regex baseline | 0.466 | 245.66 | 0.15 | — |
 
-Competitor comparisons arrive with the Phase 1 teardown. See [docs/benchmark.md](docs/benchmark.md).
+Both tools score near zero on unlabelled Indian names, and Saaf's identifier rules were tuned on the same synthetic families, so read its scores as optimistic until the human-labelled gold set lands. Details and caveats: [bench/results/v1](bench/results/v1/README.md), [docs/benchmark.md](docs/benchmark.md).
 
 ## Packages
 
@@ -71,7 +74,7 @@ saaf scan notes.txt --fail-on-findings
 ```
 ```yaml
 # .pre-commit-config.yaml
-- repo: https://github.com/safearly/saaf
+- repo: https://github.com/physicsisawesome7/Saaf
   rev: core-v0.1.0
   hooks: [{ id: saaf-scan }]
 ```

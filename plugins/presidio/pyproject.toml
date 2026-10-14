@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saaf-presidio"
+dynamic = ["version"]
+description = "Saaf's checksum-validated Indian PII recognizers (Aadhaar, PAN, GSTIN, UPI, IFSC, mobile, ABHA, ...) for Microsoft Presidio."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = ["saaf", "presidio-analyzer>=2.2"]
+
+[tool.hatch.version]
+path = "src/saaf_presidio/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saaf_presidio"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../../packages/saaf-core/src"]

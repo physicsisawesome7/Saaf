@@ -63,6 +63,7 @@
     <ul class="links" id="links">
       <li><a href="#how">How it works</a></li>
       <li><a href="#demo">Demo</a></li>
+      <li><a href="/playground">Playground</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#developers">Developers</a></li>
       <li><a href="#security">Security</a></li>
@@ -83,8 +84,8 @@
       <h1>Clean prompts. <span>Caught early.</span></h1>
       <p class="lead">Saaf finds Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers in your AI traffic, swaps them for tokens before they leave your network, and puts the real values back in the reply.</p>
       <div class="btns center">
-        <a class="btn btn-primary" href="#demo">Try it in your browser</a>
-        <a class="btn btn-outline" href="https://github.com/safearly/saaf">View on GitHub</a>
+        <a class="btn btn-primary" href="/playground">Try it with a real model</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">View on GitHub</a>
       </div>
 
       <div class="visual" role="img" aria-label="A prompt containing an Aadhaar number and PAN is sent to the model as tokens, and the reply is restored with the real values.">
@@ -96,7 +97,7 @@
       <div class="facts">
         <div class="fact"><strong>22</strong><span>Indian identifier types</span></div>
         <div class="fact"><strong>0</strong><span>runtime dependencies</span></div>
-        <div class="fact"><strong>0.83</strong><span>false alarms per 1k tokens*</span></div>
+        <div class="fact"><strong>0.35</strong><span>false alarms per 1k tokens*</span></div>
         <div class="fact"><strong>100%</strong><span>on your infrastructure</span></div>
       </div>
     </div>
@@ -124,7 +125,7 @@
       <div class="head reveal">
         <div class="kicker">Live demo</div>
         <h2>Try it. Nothing leaves this tab.</h2>
-        <p class="lead">This is the real Saaf engine, running in your browser.</p>
+        <p class="lead">This is the real Saaf engine, running in your browser. For a full round trip with a real model, streaming and file masking, open the <a href="/playground">playground</a>.</p>
       </div>
       <div class="demo">
         <div class="pane">
@@ -178,25 +179,25 @@
       <div class="head reveal">
         <div class="kicker">Accuracy</div>
         <h2>Measured in public.</h2>
-        <p class="lead">IndicPII-Bench is our open benchmark. Its headline number is false alarms on look-alikes: order IDs, AWB, UTR and invoice numbers.</p>
+        <p class="lead">IndicPII-Bench is our open benchmark: 2,500 documents, including human-labelled Hindi, Marathi, Tamil and Telugu text. Here Saaf runs against Microsoft Presidio with all its India recognizers on and its threshold tuned.</p>
       </div>
       <div class="grid g2">
         <div class="tile reveal">
           <h3>Detection F1 <span class="muted small">higher is better</span></h3>
           <div class="bars">
-            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w967"></div></div><span class="val">0.967</span></div>
-            <div class="bar"><span>Bare regex</span><div class="track"><div class="fill w571"></div></div><span class="val">0.571</span></div>
+            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w711"></div></div><span class="val">0.711</span></div>
+            <div class="bar"><span>Presidio</span><div class="track"><div class="fill w437"></div></div><span class="val">0.437</span></div>
           </div>
         </div>
         <div class="tile reveal">
           <h3>False alarms per 1k tokens <span class="muted small">lower is better</span></h3>
           <div class="bars">
-            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w1"></div></div><span class="val">0.83</span></div>
-            <div class="bar"><span>Bare regex</span><div class="track"><div class="fill w100"></div></div><span class="val">236.95</span></div>
+            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w1"></div></div><span class="val">0.35</span></div>
+            <div class="bar"><span>Presidio</span><div class="track"><div class="fill w100"></div></div><span class="val">131.34</span></div>
           </div>
         </div>
       </div>
-      <p class="note center">*Synthetic corpus v0, 420 documents; restore round-trip 100%. This is a smoke test, not a claim. Comparisons with other tools will be published with every adapter and command. <a href="https://github.com/safearly/saaf/tree/main/bench">Reproduce it</a>.</p>
+      <p class="note center">*IndicPII-Bench v1, 2,500 documents; Presidio 2.2 with spaCy en_core_web_lg, threshold tuned on a separate dev set. Saaf is also about 44× faster per KB and 0.1 MB against 691 MB installed. Both tools still score near zero on unlabelled Indian names, and Saaf's rules were tuned on the same synthetic families, so treat its identifier scores as optimistic until our human-labelled gold set is out. <a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Reproduce it</a>.</p>
 
       <div class="head reveal" id="coverage">
         <h3 class="center">22 identifier types</h3>
@@ -254,7 +255,7 @@
           <button role="tab" id="t-ts" aria-selected="false" aria-controls="p-ts" tabindex="-1">TypeScript</button>
           <button role="tab" id="t-pol" aria-selected="false" aria-controls="p-pol" tabindex="-1">Policy</button>
         </div>
-        <div role="tabpanel" id="p-py" aria-labelledby="t-py"><button class="copy" type="button">Copy</button><pre><code><span class="c"># pip install saaf</span>
+        <div role="tabpanel" id="p-py" aria-labelledby="t-py"><button class="copy" type="button">Copy</button><pre><code><span class="c"># pip install "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"</span>
 <span class="k">from</span> saaf <span class="k">import</span> Saaf
 
 saaf = Saaf()
@@ -263,13 +264,13 @@ masked.text  <span class="c"># 'PAN [PAN_1], call [PHONE_IN_1]'</span>
 
 reply = llm(masked.text)
 saaf.restore(reply).text</code></pre></div>
-        <div role="tabpanel" id="p-gw" aria-labelledby="t-gw" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c"># pip install saaf-gateway &amp;&amp; saaf-gateway</span>
+        <div role="tabpanel" id="p-gw" aria-labelledby="t-gw" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c"># Run it in two minutes: github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md</span>
 <span class="k">from</span> openai <span class="k">import</span> OpenAI
 
 client = OpenAI(base_url=<span class="s">"http://localhost:8787/v1"</span>)
 <span class="c"># masked on the way out, restored on the way back,</span>
 <span class="c"># streaming included</span></code></pre></div>
-        <div role="tabpanel" id="p-ts" aria-labelledby="t-ts" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c">// npm i @safearly/saaf</span>
+        <div role="tabpanel" id="p-ts" aria-labelledby="t-ts" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c">// npm package coming soon; build from packages/saaf-js meanwhile</span>
 <span class="k">import</span> { Saaf } <span class="k">from</span> <span class="s">"@safearly/saaf"</span>;
 
 <span class="k">const</span> saaf = <span class="k">new</span> Saaf();
@@ -314,7 +315,7 @@ action = <span class="s">"allow"</span></code></pre></div>
       <div class="grid g3 mt16">
         <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-lock"/></svg></div><h3>Careful by default</h3><p>Persistent vaults refuse to run without an encryption key. Destroying a key crypto-shreds its data. Values never appear in logs.</p></div>
         <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Verifiable releases</h3><p>Signed packages and container images, an SBOM with every release, a public threat model, and an external review of the vault cryptography before enterprise availability.</p></div>
-        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Honest limits</h3><p>Saaf can miss names without an honorific, free-text addresses, images and unlabelled numbers. <a href="https://github.com/safearly/saaf/blob/main/docs/limitations.md">Full list</a>.</p></div>
+        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Honest limits</h3><p>Saaf can miss names without an honorific, free-text addresses, images and unlabelled numbers. <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">Full list</a>.</p></div>
       </div>
       <p class="callout reveal">Saaf provides evidence and safeguards for your own DPDP work. It is not a compliance certificate, and we will never claim it is. Found a vulnerability? Email <a href="mailto:lalit@safearly.com">lalit@safearly.com</a> (we acknowledge within 3 working days).</p>
     </div>
@@ -333,7 +334,7 @@ action = <span class="s">"allow"</span></code></pre></div>
           <div class="price">Free</div>
           <p class="muted small">Apache-2.0, forever.</p>
           <ul><li>Libraries, CLI and gateway</li><li>All plugins</li><li>IndicPII-Bench</li><li>Community support</li></ul>
-          <a class="btn btn-outline" href="https://github.com/safearly/saaf">Get started</a>
+          <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Get started</a>
         </div>
         <div class="plan feat reveal">
           <h3>Team</h3>
@@ -376,7 +377,7 @@ action = <span class="s">"allow"</span></code></pre></div>
       <p class="lead cta-lead">We're onboarding design partners in fintech, health, legal and BPO. Your pilot is free, with a weekly findings review. We only ever see types and counts.</p>
       <div class="btns center">
         <a class="btn btn-primary" href="mailto:lalit@safearly.com?subject=Saaf%20shadow-mode%20pilot">Request a pilot</a>
-        <a class="btn btn-outline" href="https://github.com/safearly/saaf">Read the code</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Read the code</a>
       </div>
     </div>
   </section>
@@ -387,11 +388,11 @@ action = <span class="s">"allow"</span></code></pre></div>
     <div class="foot-row">
       <a class="logo" href="#main"><img src="/assets/brand/safearly-mark.svg" alt="" width="28" height="28">safearly</a>
       <ul class="foot-links">
-        <li><a href="https://github.com/safearly/saaf">GitHub</a></li>
-        <li><a href="https://github.com/safearly/saaf/tree/main/docs">Docs</a></li>
-        <li><a href="https://github.com/safearly/saaf/tree/main/bench">Benchmark</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf">GitHub</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf/tree/main/docs">Docs</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Benchmark</a></li>
         <li><a href="#security">Security</a></li>
-        <li><a href="https://github.com/safearly/saaf/blob/main/docs/brand.md">Brand</a></li>
+        <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/brand.md">Brand</a></li>
         <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
       </ul>
     </div>

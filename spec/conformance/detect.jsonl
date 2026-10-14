@@ -48,3 +48,25 @@
 {"id": "negative-context-previous-sentence", "text": "Charged twice for order 55. Callback on 9876543210 please", "expect": [{"entity": "PHONE_IN", "text": "9876543210"}]}
 {"id": "nearest-label-wins", "text": "Aadhaar 2345 6789 0124 (order ref 77)", "expect": [{"entity": "AADHAAR", "text": "2345 6789 0124"}]}
 {"id": "negative-same-clause", "text": "Callback re order 987654321012 today", "expect": []}
+{"id": "spelled-aadhaar-english", "text": "aadhaar two three four five six seven eight nine zero one two four please", "expect": [{"entity": "AADHAAR", "text": "two three four five six seven eight nine zero one two four"}]}
+{"id": "spelled-aadhaar-hinglish", "text": "mera aadhar do teen char paanch chhah saat aath nau shunya ek do char hai", "expect": [{"entity": "AADHAAR", "text": "do teen char paanch chhah saat aath nau shunya ek do char"}]}
+{"id": "spelled-aadhaar-devanagari", "text": "आधार दो तीन चार पांच छह सात आठ नौ शून्य एक दो चार", "expect": [{"entity": "AADHAAR", "text": "दो तीन चार पांच छह सात आठ नौ शून्य एक दो चार"}]}
+{"id": "spelled-mobile", "text": "call me nine eight seven six five four three two one zero", "expect": [{"entity": "PHONE_IN", "text": "nine eight seven six five four three two one zero"}]}
+{"id": "spelled-invalid-checksum", "text": "aadhaar two three four five six seven eight nine zero one two three", "expect": []}
+{"id": "aadhaar-dotted", "text": "aadhaar 2345.6789.0124", "expect": [{"entity": "AADHAAR", "text": "2345.6789.0124"}]}
+{"id": "aadhaar-spaced-out", "text": "uid 2 3 4 5 6 7 8 9 0 1 2 4 ok", "expect": [{"entity": "AADHAAR", "text": "2 3 4 5 6 7 8 9 0 1 2 4"}]}
+{"id": "pan-hyphenated", "text": "pan abcpe-1234-f", "expect": [{"entity": "PAN", "text": "abcpe-1234-f"}]}
+{"id": "pan-spaced", "text": "PAN ABCPE 1234 F", "expect": [{"entity": "PAN", "text": "ABCPE 1234 F"}]}
+{"id": "neft-reference-negative", "text": "12/07/2026 NEFT/234567890124/ 500.00", "expect": []}
+{"id": "account-not-card", "text": "A/c No: 24924933535075", "expect": [{"entity": "BANK_ACCOUNT", "text": "24924933535075"}]}
+{"id": "serial-not-card", "text": "serial 5317070008661233 shipped", "expect": []}
+{"id": "person-label-roman", "text": "Name: Rahul Sharma\nCity: Pune", "expect": [{"entity": "PERSON", "text": "Rahul Sharma"}]}
+{"id": "person-label-apostrophe", "text": "Account holder: Zoya D'Souza", "expect": [{"entity": "PERSON", "text": "Zoya D'Souza"}]}
+{"id": "person-label-devanagari", "text": "नाम: रमेश सिंह\nशहर", "expect": [{"entity": "PERSON", "text": "रमेश सिंह"}]}
+{"id": "person-label-tamil", "text": "பெயர்: சஞ்சய் குமார்\n", "expect": [{"entity": "PERSON", "text": "சஞ்சய் குமார்"}]}
+{"id": "person-label-hinglish", "text": "mera naam Jaya Agarwal hai", "expect": [{"entity": "PERSON", "text": "Jaya Agarwal"}]}
+{"id": "email-apostrophe", "text": "mail zoya.d'souza46@example.in now", "expect": [{"entity": "EMAIL", "text": "zoya.d'souza46@example.in"}]}
+{"id": "nearer-negative-cancels-farther-boost", "text": "aadhaar on file. Order 234567890124 shipped", "expect": [], "note": "the nearer 'order' label wins outright"}
+{"id": "person-label-with-honorific", "text": "Applicant: Shri Ravi Kumar\nAadhaar", "expect": [{"entity": "PERSON", "text": "Ravi Kumar"}]}
+{"id": "person-label-hindi-stops-at-verb", "text": "मेरा नाम राहुल वर्मा है, आधार", "expect": [{"entity": "PERSON", "text": "राहुल वर्मा"}]}
+{"id": "person-label-marathi-stops-at-verb", "text": "माझे नाव सुनीता पाटील आहे", "expect": [{"entity": "PERSON", "text": "सुनीता पाटील"}]}

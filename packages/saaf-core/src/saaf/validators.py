@@ -76,47 +76,27 @@ def luhn(value: str) -> bool:
     return total % 10 == 0
 
 
-_CARD_PREFIXES = (
-    "4",  # Visa
-    "51",
-    "52",
-    "53",
-    "54",
-    "55",  # Mastercard
-    "34",
-    "37",  # Amex
-    "36",
-    "38",
-    "300",
-    "301",
-    "302",
-    "303",
-    "304",
-    "305",  # Diners
-    "60",
-    "65",
-    "81",
-    "82",
-    "508",
-    "353",
-    "356",  # RuPay
-    "6011",
-    "644",
-    "645",
-    "646",
-    "647",
-    "648",
-    "649",  # Discover
-    "35",  # JCB
+# (prefix, allowed lengths) per network. A Luhn pass at the wrong length for
+# its network (a 14-digit "Mastercard" account number) is not a card.
+_CARD_RULES: tuple[tuple[tuple[str, ...], frozenset[int]], ...] = (
+    (("4",), frozenset({13, 16, 19})),  # Visa
+    (("51", "52", "53", "54", "55"), frozenset({16})),  # Mastercard
+    (("34", "37"), frozenset({15})),  # Amex
+    (("300", "301", "302", "303", "304", "305", "36", "38"), frozenset({14, 16})),  # Diners
+    (("60", "65", "81", "82", "508", "353", "356"), frozenset({16})),  # RuPay
+    (("6011", "644", "645", "646", "647", "648", "649"), frozenset(range(16, 20))),  # Discover
+    (("35",), frozenset(range(16, 20))),  # JCB
 )
 
 
 def card(value: str) -> bool:
-    if not 13 <= len(value) <= 19 or len(set(value)) == 1:
+    if not value.isascii() or not value.isdigit() or len(set(value)) == 1:
         return False
-    if not (value.startswith(_CARD_PREFIXES) or 2221 <= int(value[:4]) <= 2720):
-        return False
-    return luhn(value)
+    n = len(value)
+    ok = any(value.startswith(prefixes) and n in lengths for prefixes, lengths in _CARD_RULES)
+    if not ok and 2221 <= int(value[:4]) <= 2720:  # Mastercard 2-series
+        ok = n == 16
+    return ok and luhn(value)
 
 
 # --- PAN / GSTIN / TAN -----------------------------------------------------

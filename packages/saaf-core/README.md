@@ -44,4 +44,4 @@ saaf evidence --audit audit.jsonl --policy policy.toml -o evidence.md
 
 Aadhaar (Verhoeff), Aadhaar VID, PAN, GSTIN (check character), IFSC, UPI ID, email, Indian mobile, payment card (Luhn + IIN), bank account*, voter ID*, passport*, driving licence, vehicle registration, TAN*, Udyam, ABHA number* and address, PIN code*, date of birth*, person name (honorific rule), API keys/secrets. (*context-gated: needs a nearby label.)
 
-See the [repository README](https://github.com/safearly/saaf) and [what Saaf doesn't catch](https://github.com/safearly/saaf/blob/main/docs/limitations.md).
+See the [repository README](https://github.com/physicsisawesome7/Saaf) and [what Saaf doesn't catch](https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md).

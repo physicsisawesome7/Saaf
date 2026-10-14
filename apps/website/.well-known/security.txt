@@ -1,6 +1,6 @@
 Contact: mailto:lalit@safearly.com
-Contact: https://github.com/safearly/saaf/security/advisories/new
+Contact: https://github.com/physicsisawesome7/Saaf/security/advisories/new
 Expires: 2027-10-11T00:00:00.000Z
 Preferred-Languages: en, hi
 Canonical: https://safearly.com/.well-known/security.txt
-Policy: https://github.com/safearly/saaf/blob/main/SECURITY.md
+Policy: https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md

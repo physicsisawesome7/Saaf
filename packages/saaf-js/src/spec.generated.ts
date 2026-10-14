@@ -3,7 +3,7 @@ import type { RawSpec } from "./spec.js";
 
 export const SPEC: RawSpec = {
   "$schema": "./schema/entities.schema.json",
-  "spec_version": "0.1.0",
+  "spec_version": "0.2.0",
   "defaults": {
     "context_window": 50,
     "threshold": 0.5
@@ -33,7 +33,11 @@ export const SPEC: RawSpec = {
       "batch",
       "lot",
       "imei",
-      "hsn"
+      "hsn",
+      "neft",
+      "imps",
+      "rtgs",
+      "narration"
     ]
   },
   "entities": [
@@ -46,7 +50,10 @@ export const SPEC: RawSpec = {
       "canonical": "digits",
       "patterns": [
         {
-          "pattern": "(?<![0-9])[2-9][0-9]{3}([ -]?)[0-9]{4}\\1[0-9]{4}(?![0-9])"
+          "pattern": "(?<![0-9])[2-9][0-9]{3}([ .-]?)[0-9]{4}\\1[0-9]{4}(?![0-9])"
+        },
+        {
+          "pattern": "(?<![0-9])(?<![0-9] )[2-9](?: [0-9]){11}(?! ?[0-9])"
         }
       ],
       "validator": "aadhaar",
@@ -109,6 +116,10 @@ export const SPEC: RawSpec = {
       "patterns": [
         {
           "pattern": "(?<![A-Za-z0-9])[A-Z]{3}[ABCFGHJLPT][A-Z][0-9]{4}[A-Z](?![A-Za-z0-9])",
+          "flags": "i"
+        },
+        {
+          "pattern": "(?<![A-Za-z0-9])[A-Z]{3}[ABCFGHJLPT][A-Z]([ -])[0-9]{4}\\1[A-Z](?![A-Za-z0-9])",
           "flags": "i"
         }
       ],
@@ -237,7 +248,7 @@ export const SPEC: RawSpec = {
       "canonical": "lower",
       "patterns": [
         {
-          "pattern": "(?<![A-Za-z0-9._%+\\-])[A-Za-z0-9._%+\\-]+@[A-Za-z0-9\\-]+(?:\\.[A-Za-z0-9\\-]+)*\\.[A-Za-z]{2,24}(?![A-Za-z0-9])"
+          "pattern": "(?<![A-Za-z0-9._%+'\\-])[A-Za-z0-9._%+'\\-]+@[A-Za-z0-9\\-]+(?:\\.[A-Za-z0-9\\-]+)*\\.[A-Za-z]{2,24}(?![A-Za-z0-9])"
         }
       ],
       "base_score": 0.9
@@ -306,7 +317,7 @@ export const SPEC: RawSpec = {
       ],
       "context_boost": 0.1,
       "negative_context": "@numeric_negative",
-      "negative_penalty": 0.3
+      "negative_penalty": 0.45
     },
     {
       "id": "ABHA_NUMBER",
@@ -564,6 +575,10 @@ export const SPEC: RawSpec = {
       "patterns": [
         {
           "pattern": "(?<![A-Za-z])(?:Mr|Mrs|Ms|Miss|Dr|Shri|Smt|Sri|Kumari|Km)\\.? ([A-Z][a-z]+(?: [A-Z][a-z]+){0,2})",
+          "group": 1
+        },
+        {
+          "pattern": "(?<![A-Za-z])(?:[Nn]ame|NAME|[Nn]aam|[Mm]era naam|[Mm]y name is|[Mm]yself|[Aa]pplicant|[Aa]ccount holder|[Cc]ustomer name|[Pp]atient name|[Bb]orrower|नाम|नाव|பெயர்|పేరు)(?:[ \\t]*:[ \\t]*|[ \\t]+)(?:(?:Mr|Mrs|Ms|Miss|Dr|Shri|Smt|Sri|Kumari|Km)\\.?[ \\t]+)?((?:[A-Z][a-z]*(?:'[A-Z][a-z]+)?(?: [A-Z][a-z]*(?:'[A-Z][a-z]+)?){0,2})|(?:(?!(?:है|हैं|हूँ|हूं|था|थी|थे|और|का|की|के|को|ने|से|में|आहे|आणि|होता|होती)(?![\\u0900-\\u0D7F]))[\\u0900-\\u0963\\u0966-\\u0D7F]+(?: (?!(?:है|हैं|हूँ|हूं|था|थी|थे|और|का|की|के|को|ने|से|में|आहे|आणि|होता|होती)(?![\\u0900-\\u0D7F]))[\\u0900-\\u0963\\u0966-\\u0D7F]+){0,2}))",
           "group": 1
         }
       ],

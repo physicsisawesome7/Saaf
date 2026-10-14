@@ -29,6 +29,7 @@ members = [
   "plugins/litellm",
   "plugins/langchain",
   "plugins/mcp-server",
+  "plugins/presidio",
   "bench",
 ]
 
@@ -59,7 +60,7 @@ ignore = [
 "bench/**" = ["S"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["saaf", "saaf_gateway", "saaf_litellm", "saaf_langchain", "saaf_mcp", "indicpii_bench"]
+known-first-party = ["saaf", "saaf_gateway", "saaf_litellm", "saaf_langchain", "saaf_mcp", "saaf_presidio", "indicpii_bench"]
 
 [tool.mypy]
 python_version = "3.11"

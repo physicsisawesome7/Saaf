@@ -1,0 +1,1295 @@
+[
+  {
+    "system": "saaf",
+    "docs": 2500,
+    "strict": {
+      "AADHAAR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.9983,
+        "recall": 1.0,
+        "f1": 0.9992,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.8854,
+        "recall": 0.175,
+        "f1": 0.2922,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.9785,
+        "recall": 0.5589,
+        "f1": 0.7114
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.9983,
+        "recall": 1.0,
+        "f1": 0.9992,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.9124,
+        "recall": 0.1803,
+        "f1": 0.3011,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.9835,
+        "recall": 0.5617,
+        "f1": 0.7151
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 0.347,
+    "latency_ms": {
+      "p50": 0.206,
+      "p99": 0.549
+    },
+    "latency_ms_per_kb": 0.935,
+    "cold_start_ms": 11.8,
+    "restore_roundtrip": 1.0,
+    "slices": {
+      "bank_real": {
+        "precision": 0.9988,
+        "recall": 1.0,
+        "f1": 0.9994,
+        "support": 816,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 1.0,
+          "IFSC": 1.0,
+          "PERSON": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "hiner_person_hi": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 597,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "hinglish": {
+        "precision": 1.0,
+        "recall": 0.9387,
+        "f1": 0.9684,
+        "support": 750,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.6933,
+          "PHONE_IN": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "indic_person_hi": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 513,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_mr": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 486,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_ta": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 424,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_te": {
+        "precision": 0.6667,
+        "recall": 0.0036,
+        "f1": 0.0071,
+        "support": 558,
+        "recall_by_entity": {
+          "PERSON": 0.0036
+        }
+      },
+      "indic_script": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 600,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 1.0,
+          "PHONE_IN": 1.0
+        }
+      },
+      "look_alikes": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "obfuscated": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0
+        }
+      },
+      "structured_en": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 900,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 1.0,
+          "GSTIN": 1.0,
+          "PAN": 1.0,
+          "PERSON": 1.0,
+          "PHONE_IN": 1.0
+        }
+      }
+    }
+  },
+  {
+    "system": "regex-baseline",
+    "docs": 2500,
+    "strict": {
+      "AADHAAR": {
+        "precision": 0.3316,
+        "recall": 0.8417,
+        "f1": 0.4757,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 0.9867,
+        "recall": 0.9867,
+        "f1": 0.9867,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 0.8233,
+        "f1": 0.9031,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.4715,
+        "recall": 0.6067,
+        "f1": 0.5306,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.6111,
+        "recall": 0.3762,
+        "f1": 0.4657
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 0.3316,
+        "recall": 0.8417,
+        "f1": 0.4757,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 1.0,
+        "recall": 0.8233,
+        "f1": 0.9031,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.4715,
+        "recall": 0.6067,
+        "f1": 0.5306,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.6116,
+        "recall": 0.3765,
+        "f1": 0.4661
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 245.657,
+    "latency_ms": {
+      "p50": 0.033,
+      "p99": 0.092
+    },
+    "latency_ms_per_kb": 0.145,
+    "cold_start_ms": 0.5,
+    "restore_roundtrip": null,
+    "slices": {
+      "bank_real": {
+        "precision": 0.5548,
+        "recall": 0.6324,
+        "f1": 0.5911,
+        "support": 816,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 0.0,
+          "IFSC": 1.0,
+          "PERSON": 0.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "hiner_person_hi": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 597,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "hinglish": {
+        "precision": 0.7449,
+        "recall": 0.584,
+        "f1": 0.6547,
+        "support": 750,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 0.5133,
+          "PERSON": 0.0,
+          "PHONE_IN": 0.4067,
+          "UPI_ID": 1.0
+        }
+      },
+      "indic_person_hi": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 513,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_mr": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 486,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_ta": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 424,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_person_te": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 558,
+        "recall_by_entity": {
+          "PERSON": 0.0
+        }
+      },
+      "indic_script": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571,
+        "support": 600,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.0,
+          "PHONE_IN": 1.0
+        }
+      },
+      "look_alikes": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "obfuscated": {
+        "precision": 1.0,
+        "recall": 0.5733,
+        "f1": 0.7288,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 0.3667,
+          "PAN": 0.78
+        }
+      },
+      "structured_en": {
+        "precision": 0.8128,
+        "recall": 0.7333,
+        "f1": 0.771,
+        "support": 900,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 0.9867,
+          "GSTIN": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.0,
+          "PHONE_IN": 0.4133
+        }
+      }
+    }
+  },
+  {
+    "system": "presidio",
+    "docs": 2500,
+    "strict": {
+      "AADHAAR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.2756,
+        "recall": 0.1167,
+        "f1": 0.164,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.3165,
+        "recall": 0.0556,
+        "f1": 0.0945,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.3456,
+        "recall": 0.0919,
+        "f1": 0.1451
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.4353,
+        "recall": 0.1841,
+        "f1": 0.2587,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.3165,
+        "recall": 0.0556,
+        "f1": 0.0945,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.4816,
+        "recall": 0.1279,
+        "f1": 0.2021
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 1.737,
+    "latency_ms": {
+      "p50": 9.161,
+      "p99": 19.229
+    },
+    "latency_ms_per_kb": 40.93,
+    "cold_start_ms": 2876.4,
+    "restore_roundtrip": null,
+    "slices": {
+      "bank_real": {
+        "precision": 0.7917,
+        "recall": 0.163,
+        "f1": 0.2703,
+        "support": 816,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 0.0,
+          "IFSC": 0.0,
+          "PERSON": 0.8867,
+          "UPI_ID": 0.0
+        }
+      },
+      "hiner_person_hi": {
+        "precision": 0.0481,
+        "recall": 0.0168,
+        "f1": 0.0248,
+        "support": 597,
+        "recall_by_entity": {
+          "PERSON": 0.0168
+        }
+      },
+      "hinglish": {
+        "precision": 0.1351,
+        "recall": 0.1,
+        "f1": 0.1149,
+        "support": 750,
+        "recall_by_entity": {
+          "AADHAAR": 0.0,
+          "PAN": 0.0,
+          "PERSON": 0.3333,
+          "PHONE_IN": 0.1667,
+          "UPI_ID": 0.0
+        }
+      },
+      "indic_person_hi": {
+        "precision": 0.0531,
+        "recall": 0.0117,
+        "f1": 0.0192,
+        "support": 513,
+        "recall_by_entity": {
+          "PERSON": 0.0117
+        }
+      },
+      "indic_person_mr": {
+        "precision": 0.1538,
+        "recall": 0.0123,
+        "f1": 0.0229,
+        "support": 486,
+        "recall_by_entity": {
+          "PERSON": 0.0123
+        }
+      },
+      "indic_person_ta": {
+        "precision": 0.0822,
+        "recall": 0.0142,
+        "f1": 0.0241,
+        "support": 424,
+        "recall_by_entity": {
+          "PERSON": 0.0142
+        }
+      },
+      "indic_person_te": {
+        "precision": 0.2154,
+        "recall": 0.0251,
+        "f1": 0.0449,
+        "support": 558,
+        "recall_by_entity": {
+          "PERSON": 0.0251
+        }
+      },
+      "indic_script": {
+        "precision": 0.0741,
+        "recall": 0.0033,
+        "f1": 0.0064,
+        "support": 600,
+        "recall_by_entity": {
+          "AADHAAR": 0.0,
+          "PAN": 0.0,
+          "PERSON": 0.0133,
+          "PHONE_IN": 0.0
+        }
+      },
+      "look_alikes": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "obfuscated": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 0.0,
+          "PAN": 0.0
+        }
+      },
+      "structured_en": {
+        "precision": 0.9074,
+        "recall": 0.3267,
+        "f1": 0.4804,
+        "support": 900,
+        "recall_by_entity": {
+          "AADHAAR": 0.0,
+          "EMAIL": 1.0,
+          "GSTIN": 0.0,
+          "PAN": 0.0,
+          "PERSON": 0.96,
+          "PHONE_IN": 0.0
+        }
+      }
+    }
+  },
+  {
+    "system": "presidio-tuned",
+    "docs": 2500,
+    "strict": {
+      "AADHAAR": {
+        "precision": 0.8935,
+        "recall": 0.755,
+        "f1": 0.8184,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 0.98,
+        "f1": 0.9899,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.8145,
+        "recall": 0.9733,
+        "f1": 0.8869,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.2756,
+        "recall": 0.1167,
+        "f1": 0.164,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.4302,
+        "recall": 1.0,
+        "f1": 0.6016,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.55,
+        "recall": 0.3626,
+        "f1": 0.437
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 0.8935,
+        "recall": 0.755,
+        "f1": 0.8184,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 0.98,
+        "f1": 0.9899,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.8354,
+        "recall": 0.9983,
+        "f1": 0.9096,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.4353,
+        "recall": 0.1841,
+        "f1": 0.2587,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.4302,
+        "recall": 1.0,
+        "f1": 0.6016,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.6088,
+        "recall": 0.4011,
+        "f1": 0.4836
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 131.341,
+    "latency_ms": {
+      "p50": 9.025,
+      "p99": 19.86
+    },
+    "latency_ms_per_kb": 41.394,
+    "cold_start_ms": 1189.1,
+    "restore_roundtrip": null,
+    "slices": {
+      "bank_real": {
+        "precision": 0.4836,
+        "recall": 0.163,
+        "f1": 0.2438,
+        "support": 816,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 0.0,
+          "IFSC": 0.0,
+          "PERSON": 0.8867,
+          "UPI_ID": 0.0
+        }
+      },
+      "hiner_person_hi": {
+        "precision": 0.0481,
+        "recall": 0.0168,
+        "f1": 0.0248,
+        "support": 597,
+        "recall_by_entity": {
+          "PERSON": 0.0168
+        }
+      },
+      "hinglish": {
+        "precision": 0.427,
+        "recall": 0.6667,
+        "f1": 0.5206,
+        "support": 750,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.3333,
+          "PHONE_IN": 1.0,
+          "UPI_ID": 0.0
+        }
+      },
+      "indic_person_hi": {
+        "precision": 0.0522,
+        "recall": 0.0117,
+        "f1": 0.0191,
+        "support": 513,
+        "recall_by_entity": {
+          "PERSON": 0.0117
+        }
+      },
+      "indic_person_mr": {
+        "precision": 0.1538,
+        "recall": 0.0123,
+        "f1": 0.0229,
+        "support": 486,
+        "recall_by_entity": {
+          "PERSON": 0.0123
+        }
+      },
+      "indic_person_ta": {
+        "precision": 0.0822,
+        "recall": 0.0142,
+        "f1": 0.0241,
+        "support": 424,
+        "recall_by_entity": {
+          "PERSON": 0.0142
+        }
+      },
+      "indic_person_te": {
+        "precision": 0.2154,
+        "recall": 0.0251,
+        "f1": 0.0449,
+        "support": 558,
+        "recall_by_entity": {
+          "PERSON": 0.0251
+        }
+      },
+      "indic_script": {
+        "precision": 0.9356,
+        "recall": 0.7017,
+        "f1": 0.8019,
+        "support": 600,
+        "recall_by_entity": {
+          "AADHAAR": 0.7933,
+          "PAN": 1.0,
+          "PERSON": 0.0133,
+          "PHONE_IN": 1.0
+        }
+      },
+      "look_alikes": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "obfuscated": {
+        "precision": 0.8936,
+        "recall": 0.56,
+        "f1": 0.6885,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 0.2267,
+          "PAN": 0.8933
+        }
+      },
+      "structured_en": {
+        "precision": 0.932,
+        "recall": 0.99,
+        "f1": 0.9601,
+        "support": 900,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 1.0,
+          "GSTIN": 0.98,
+          "PAN": 1.0,
+          "PERSON": 0.96,
+          "PHONE_IN": 1.0
+        }
+      }
+    }
+  },
+  {
+    "system": "presidio+saaf",
+    "docs": 2500,
+    "strict": {
+      "AADHAAR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.9983,
+        "recall": 1.0,
+        "f1": 0.9992,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.2756,
+        "recall": 0.1167,
+        "f1": 0.164,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.8929,
+        "recall": 1.0,
+        "f1": 0.9434,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.7519,
+        "recall": 0.5278,
+        "f1": 0.6202
+      }
+    },
+    "relaxed": {
+      "AADHAAR": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 600
+      },
+      "BANK_ACCOUNT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "CREDIT_CARD": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0
+      },
+      "EMAIL": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "GSTIN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "IFSC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 150
+      },
+      "PAN": {
+        "precision": 0.9983,
+        "recall": 1.0,
+        "f1": 0.9992,
+        "support": 600
+      },
+      "PERSON": {
+        "precision": 0.4353,
+        "recall": 0.1841,
+        "f1": 0.2587,
+        "support": 3178
+      },
+      "PHONE_IN": {
+        "precision": 0.8929,
+        "recall": 1.0,
+        "f1": 0.9434,
+        "support": 450
+      },
+      "UPI_ID": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 516
+      },
+      "MICRO": {
+        "precision": 0.8036,
+        "recall": 0.5638,
+        "f1": 0.6626
+      }
+    },
+    "hard_negative_fp_per_1k_tokens": 2.085,
+    "latency_ms": {
+      "p50": 9.109,
+      "p99": 20.233
+    },
+    "latency_ms_per_kb": 41.572,
+    "cold_start_ms": 1334.5,
+    "restore_roundtrip": null,
+    "slices": {
+      "bank_real": {
+        "precision": 0.958,
+        "recall": 0.9792,
+        "f1": 0.9685,
+        "support": 816,
+        "recall_by_entity": {
+          "BANK_ACCOUNT": 1.0,
+          "IFSC": 1.0,
+          "PERSON": 0.8867,
+          "UPI_ID": 1.0
+        }
+      },
+      "hiner_person_hi": {
+        "precision": 0.0481,
+        "recall": 0.0168,
+        "f1": 0.0248,
+        "support": 597,
+        "recall_by_entity": {
+          "PERSON": 0.0168
+        }
+      },
+      "hinglish": {
+        "precision": 0.5752,
+        "recall": 0.8667,
+        "f1": 0.6915,
+        "support": 750,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.3333,
+          "PHONE_IN": 1.0,
+          "UPI_ID": 1.0
+        }
+      },
+      "indic_person_hi": {
+        "precision": 0.0531,
+        "recall": 0.0117,
+        "f1": 0.0192,
+        "support": 513,
+        "recall_by_entity": {
+          "PERSON": 0.0117
+        }
+      },
+      "indic_person_mr": {
+        "precision": 0.1538,
+        "recall": 0.0123,
+        "f1": 0.0229,
+        "support": 486,
+        "recall_by_entity": {
+          "PERSON": 0.0123
+        }
+      },
+      "indic_person_ta": {
+        "precision": 0.0822,
+        "recall": 0.0142,
+        "f1": 0.0241,
+        "support": 424,
+        "recall_by_entity": {
+          "PERSON": 0.0142
+        }
+      },
+      "indic_person_te": {
+        "precision": 0.2154,
+        "recall": 0.0251,
+        "f1": 0.0449,
+        "support": 558,
+        "recall_by_entity": {
+          "PERSON": 0.0251
+        }
+      },
+      "indic_script": {
+        "precision": 0.9476,
+        "recall": 0.7533,
+        "f1": 0.8394,
+        "support": 600,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.0133,
+          "PHONE_IN": 1.0
+        }
+      },
+      "look_alikes": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 0,
+        "recall_by_entity": {}
+      },
+      "obfuscated": {
+        "precision": 0.9901,
+        "recall": 1.0,
+        "f1": 0.995,
+        "support": 300,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "PAN": 1.0
+        }
+      },
+      "structured_en": {
+        "precision": 0.9675,
+        "recall": 0.9933,
+        "f1": 0.9803,
+        "support": 900,
+        "recall_by_entity": {
+          "AADHAAR": 1.0,
+          "EMAIL": 1.0,
+          "GSTIN": 1.0,
+          "PAN": 1.0,
+          "PERSON": 0.96,
+          "PHONE_IN": 1.0
+        }
+      }
+    }
+  }
+]

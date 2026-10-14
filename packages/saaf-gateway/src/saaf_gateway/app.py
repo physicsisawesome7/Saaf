@@ -12,6 +12,7 @@ across requests or tenants. The vault lives only for the request.
 
 from __future__ import annotations
 
+import inspect
 from collections import Counter
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
@@ -21,6 +22,7 @@ from urllib.parse import urlparse
 
 import httpx
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 
 from saaf import AuditLogger, Detector, JsonlSink, MaskResult, Policy, Saaf, __version__
@@ -120,6 +122,19 @@ def create_app(config: GatewayConfig | None = None, transport: httpx.AsyncBaseTr
 
     app = FastAPI(title="Saaf gateway", version=__version__, lifespan=lifespan)
     app.state.gateway = gw
+    if gw.config.cors_origins:
+        # Lets a browser page (e.g. safearly.com/playground) call a gateway on
+        # localhost. Off unless SAAF_CORS_ORIGINS names the origins.
+        cors: dict[str, Any] = {
+            "allow_origins": list(gw.config.cors_origins),
+            "allow_methods": ["GET", "POST"],
+            "allow_headers": ["authorization", "content-type", "x-api-key", "anthropic-version", "x-saaf-tenant"],
+            "expose_headers": ["x-saaf-entities", "x-saaf-mode"],
+            "max_age": 600,
+        }
+        if "allow_private_network" in inspect.signature(CORSMiddleware.__init__).parameters:
+            cors["allow_private_network"] = True  # Chrome: public page -> localhost preflight
+        app.add_middleware(CORSMiddleware, **cors)
 
     @app.get("/healthz")
     async def healthz() -> dict[str, str]:

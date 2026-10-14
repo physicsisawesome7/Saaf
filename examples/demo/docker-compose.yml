@@ -1,0 +1,26 @@
+# Saaf gateway for the browser playground (https://safearly.com/playground).
+# From the repository root:
+#
+#   docker compose -f examples/demo/docker-compose.yml up --build
+#
+# Then pick "Saaf gateway on this computer" in the playground and paste your
+# OpenAI key: it is passed through to OpenAI; your text is masked here first.
+#
+# Fully offline with Ollama instead of OpenAI:
+#   SAAF_UPSTREAM_OPENAI=http://host.docker.internal:11434 docker compose -f examples/demo/docker-compose.yml up --build
+services:
+  saaf-gateway:
+    build:
+      context: ../..
+      dockerfile: packages/saaf-gateway/Dockerfile
+    ports: ["127.0.0.1:8787:8787"]
+    environment:
+      SAAF_UPSTREAM_OPENAI: ${SAAF_UPSTREAM_OPENAI:-https://api.openai.com}
+      SAAF_UPSTREAM_ANTHROPIC: https://api.anthropic.com
+      SAAF_DEFAULT_POLICY: /policies/default.toml
+      SAAF_CORS_ORIGINS: https://safearly.com,http://localhost:5000,http://127.0.0.1:5000
+    volumes:
+      - ../policies:/policies:ro
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    read_only: true
+    tmpfs: [/tmp]

@@ -51,3 +51,12 @@ Thumbs.db
 .claude/settings.local.json
 .firebase/
 firebase-debug.log
+
+# Private research (not for the public repo)
+research_notes/
+reports/
+
+# IndicPII-Bench: raw downloads and locally built external slices (licences differ)
+bench/data/raw/
+bench/corpus/external/
+.venv-*/

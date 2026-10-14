@@ -1,0 +1,2120 @@
+{
+"source": "Razorpay IFSC",
+"licence": "MIT",
+"banks": [
+{
+"code": "ABHY",
+"name": "Abhyudaya Co-operative Bank",
+"ifsc": [
+"ABHY0065008",
+"ABHY0065024",
+"ABHY0065009"
+]
+},
+{
+"code": "ABNA",
+"name": "Royal Bank of Scotland N.V.",
+"ifsc": [
+"ABNA0NEFT02",
+"ABNA0101310",
+"ABNA0100310"
+]
+},
+{
+"code": "ADCC",
+"name": "Akola District Central Co-operative Bank",
+"ifsc": [
+"ADCC0000088",
+"ADCC0000064",
+"ADCC0000103"
+]
+},
+{
+"code": "AHDC",
+"name": "Ahmednagar District Central Co-operative Bank",
+"ifsc": [
+"AHDC0000018",
+"AHDC0000273",
+"AHDC0000153"
+]
+},
+{
+"code": "AIRP",
+"name": "Airtel Payments Bank",
+"ifsc": [
+"AIRP0000001",
+"AIRP00000SC"
+]
+},
+{
+"code": "AJAR",
+"name": "Ajara Urban Co-operative Bank",
+"ifsc": [
+"AJAR0000008",
+"AJAR0000028",
+"AJAR0000016"
+]
+},
+{
+"code": "AJHC",
+"name": "Ambarnath Jai-hind Co-operative Bank",
+"ifsc": [
+"AJHC0001015",
+"AJHC0001018",
+"AJHC0001009"
+]
+},
+{
+"code": "AKJB",
+"name": "Akola Janata Commercial Co-operative Bank",
+"ifsc": [
+"AKJB0000016",
+"AKJB0000017",
+"AKJB0000032"
+]
+},
+{
+"code": "ALLA",
+"name": "Allahabad Bank",
+"ifsc": [
+"ALLA0888888"
+]
+},
+{
+"code": "AMCB",
+"name": "Ahmedabad Mercantile Co-operative Bank",
+"ifsc": [
+"AMCB0RTGS4S",
+"AMCB0660033",
+"AMCB0660018"
+]
+},
+{
+"code": "AMDN",
+"name": "Ahmednagar Merchants Co-operative Bank",
+"ifsc": [
+"AMDN0000101",
+"AMDN0000106",
+"AMDN0000118"
+]
+},
+{
+"code": "ANDB",
+"name": "Andhra Bank",
+"ifsc": [
+"ANDB0TRESUY"
+]
+},
+{
+"code": "ANZB",
+"name": "Australia and New Zealand Banking Group",
+"ifsc": [
+"ANZB0000001",
+"ANZB00000SC"
+]
+},
+{
+"code": "APBL",
+"name": "Andhra Pradesh State Co-operative Bank",
+"ifsc": [
+"APBL0003007",
+"APBL0008015",
+"APBL0000010"
+]
+},
+{
+"code": "APGB",
+"name": "Andhra Pragathi Grameena Bank",
+"ifsc": [
+"APGB0000001"
+]
+},
+{
+"code": "APGV",
+"name": "Andhra Pradesh Grameena Vikas Bank",
+"ifsc": [
+"APGV0000001"
+]
+},
+{
+"code": "APMC",
+"name": "A.P. Mahesh Co-operative Urban Bank",
+"ifsc": [
+"APMC0000033",
+"APMC0000029",
+"APMC0000017"
+]
+},
+{
+"code": "ARBL",
+"name": "Arvind Sahakari Bank",
+"ifsc": [
+"ARBL0000001",
+"ARBL0000002",
+"ARBL0000011"
+]
+},
+{
+"code": "ASBL",
+"name": "Apna Sahakari Bank",
+"ifsc": [
+"ASBL0000082",
+"ASBL0000012",
+"ASBL0000042"
+]
+},
+{
+"code": "AUBL",
+"name": "AU Small Finance Bank",
+"ifsc": [
+"AUBL0004653",
+"AUBL0004455",
+"AUBL0004529"
+]
+},
+{
+"code": "AUCB",
+"name": "Almora Urban Co-operative Bank",
+"ifsc": [
+"AUCB0000031",
+"AUCB0000019",
+"AUCB0000007"
+]
+},
+{
+"code": "BACB",
+"name": "Bassein Catholic Co-operative Bank",
+"ifsc": [
+"BACB0000040",
+"BACB0000055",
+"BACB0000006"
+]
+},
+{
+"code": "BARA",
+"name": "Baramati Sahakari Bank",
+"ifsc": [
+"BARA0000021",
+"BARA0000034",
+"BARA0000017"
+]
+},
+{
+"code": "BARB",
+"name": "Bank of Baroda",
+"ifsc": [
+"BARB0VJSAPU",
+"BARB0VJBHUJ",
+"BARB0DBAKOT"
+]
+},
+{
+"code": "BARC",
+"name": "Barclays Bank",
+"ifsc": [
+"BARC0INBBSB",
+"BARC0INBB01",
+"BARC0INBBIR"
+]
+},
+{
+"code": "BBKM",
+"name": "Bank of Bahrein and Kuwait",
+"ifsc": [
+"BBKM0000003",
+"BBKM0000002",
+"BBKM0000001"
+]
+},
+{
+"code": "BCBM",
+"name": "Bharat Co-operative Bank",
+"ifsc": [
+"BCBM0000064",
+"BCBM0000089",
+"BCBM0000085"
+]
+},
+{
+"code": "BCEY",
+"name": "Bank of Ceylon",
+"ifsc": [
+"BCEY0NEFTSC",
+"BCEY0CHEN01",
+"BCEY0000001"
+]
+},
+{
+"code": "BDBL",
+"name": "Bandhan Bank",
+"ifsc": [
+"BDBL0001647",
+"BDBL0001842",
+"BDBL0001959"
+]
+},
+{
+"code": "BKDN",
+"name": "Dena Bank",
+"ifsc": [
+"BKDN0RTGSSC"
+]
+},
+{
+"code": "BKID",
+"name": "Bank of India",
+"ifsc": [
+"BKID000NEFT",
+"BKID0004547",
+"BKID000ZO39"
+]
+},
+{
+"code": "BMCB",
+"name": "Bombay Mercantile Co-operative Bank",
+"ifsc": [
+"BMCB0000003",
+"BMCB0000009",
+"BMCB0000032"
+]
+},
+{
+"code": "BNPA",
+"name": "BNP Paribas Bank",
+"ifsc": [
+"BNPA0RTGSMI",
+"BNPA0009065",
+"BNPA0009378"
+]
+},
+{
+"code": "BNSB",
+"name": "Bhagini Nivedita Sahakari Bank Pune",
+"ifsc": [
+"BNSB0000002",
+"BNSB0000001"
+]
+},
+{
+"code": "BOFA",
+"name": "Bank of America",
+"ifsc": [
+"BOFA0BG3978",
+"BOFA0CN6215",
+"BOFA0MUM000"
+]
+},
+{
+"code": "BOTM",
+"name": "MUFG Bank",
+"ifsc": [
+"BOTM0ND3611",
+"BOTM0BL3626",
+"BOTM0003611"
+]
+},
+{
+"code": "BUCB",
+"name": "THE BURDWAN CENTRAL CO OPERATIVE BANK LTD",
+"ifsc": [
+"BUCB0000123",
+"BUCB0000133",
+"BUCB0000117"
+]
+},
+{
+"code": "CBIN",
+"name": "Central Bank of India",
+"ifsc": [
+"CBIN0284255",
+"CBIN0283727",
+"CBIN0280659"
+]
+},
+{
+"code": "CCBL",
+"name": "Citizen Credit Co-operative Bank",
+"ifsc": [
+"CCBL0209003",
+"CCBL0GOA004",
+"CCBL0GOA007"
+]
+},
+{
+"code": "CHAS",
+"name": "JP Morgan Chase Bank NA",
+"ifsc": [
+"CHAS0INBX01",
+"CHAS0INBX03",
+"CHAS0INBX02"
+]
+},
+{
+"code": "CITI",
+"name": "CITI Bank",
+"ifsc": [
+"CITI0000004",
+"CITI00000MM",
+"CITI0000008"
+]
+},
+{
+"code": "CIUB",
+"name": "City Union Bank",
+"ifsc": [
+"CIUB0000429",
+"CIUB0000473",
+"CIUB0000089"
+]
+},
+{
+"code": "CLBL",
+"name": "Capital Small Finance Bank",
+"ifsc": [
+"CLBL0000059",
+"CLBL0000094",
+"CLBL0000080"
+]
+},
+{
+"code": "CNRB",
+"name": "Canara Bank",
+"ifsc": [
+"CNRB0005823",
+"CNRB0016142",
+"CNRB0003768"
+]
+},
+{
+"code": "COAS",
+"name": "Coastal Local Area Bank",
+"ifsc": [
+"COAS0000001",
+"COAS0009999",
+"COAS0000002"
+]
+},
+{
+"code": "CORP",
+"name": "Corporation Bank",
+"ifsc": [
+"CORP0000920"
+]
+},
+{
+"code": "COSB",
+"name": "Cosmos Co-operative Bank",
+"ifsc": [
+"COSB0000913",
+"COSB0000092",
+"COSB0000150"
+]
+},
+{
+"code": "CRES",
+"name": "Credit Suisse AG",
+"ifsc": [
+"CRES0000001",
+"CRES00000SC"
+]
+},
+{
+"code": "CRGB",
+"name": "Chhattisgarh Rajya Gramin Bank",
+"ifsc": [
+"CRGB0006023",
+"CRGB0000804",
+"CRGB0006011"
+]
+},
+{
+"code": "CRLY",
+"name": "Credit Agricole Corporate and Investment Bank",
+"ifsc": [
+"CRLY0000005",
+"CRLY0000001",
+"CRLY0000002"
+]
+},
+{
+"code": "CRUB",
+"name": "Shri Chhatrapati Rajashri Shahu Urban Co-operative Bank",
+"ifsc": [
+"CRUB0000027",
+"CRUB0000023",
+"CRUB0000016"
+]
+},
+{
+"code": "CSBK",
+"name": "Catholic Syrian Bank",
+"ifsc": [
+"CSBK0000383",
+"CSBK0000340",
+"CSBK0001287"
+]
+},
+{
+"code": "CSBX",
+"name": "Chartered Sahakari Bank Niyamitha",
+"ifsc": [
+"CSBX0CSB001"
+]
+},
+{
+"code": "CTCB",
+"name": "Chinatrust Commercial Bank",
+"ifsc": [
+"CTCB0000002",
+"CTCB0000001",
+"CTCB0000003"
+]
+},
+{
+"code": "DBSS",
+"name": "Development Bank of Singapore",
+"ifsc": [
+"DBSS0IN0541",
+"DBSS0IN0831",
+"DBSS0IN0799"
+]
+},
+{
+"code": "DCBL",
+"name": "DCB Bank",
+"ifsc": [
+"DCBL0000266",
+"DCBL0000338",
+"DCBL0000373"
+]
+},
+{
+"code": "DCUB",
+"name": "Darussalam Co-operative Urban Bank",
+"ifsc": [
+"DCUB0786102",
+"DCUB0786107",
+"DCUB0786103"
+]
+},
+{
+"code": "DEOB",
+"name": "Deogiri Nagari Sahakari Bank Aurangabad",
+"ifsc": [
+"DEOB0000035",
+"DEOB0000025",
+"DEOB0000027"
+]
+},
+{
+"code": "DEUT",
+"name": "Deutsche Bank",
+"ifsc": [
+"DEUT0274PBC",
+"DEUT0273PBC",
+"DEUT0784TRY"
+]
+},
+{
+"code": "DICG",
+"name": "Deposit Insurance and Credit Guarantee Corporation",
+"ifsc": [
+"DICG0000002",
+"DICG0000001"
+]
+},
+{
+"code": "DLSC",
+"name": "Delhi State Co-operative Bank",
+"ifsc": [
+"DLSC0000019",
+"DLSC0000041",
+"DLSC0000002"
+]
+},
+{
+"code": "DLXB",
+"name": "Dhanlaxmi Bank",
+"ifsc": [
+"DLXB0000270",
+"DLXB0000097",
+"DLXB0000139"
+]
+},
+{
+"code": "DMKJ",
+"name": "Dmk Jaoli Bank",
+"ifsc": [
+"DMKJ0000017",
+"DMKJ0000013",
+"DMKJ0000019"
+]
+},
+{
+"code": "DNSB",
+"name": "Dombivli Nagari Sahakari Bank",
+"ifsc": [
+"DNSB0000031",
+"DNSB0000038",
+"DNSB0000015"
+]
+},
+{
+"code": "DOHB",
+"name": "Doha Bank QSC",
+"ifsc": [
+"DOHB0000003",
+"DOHB0000001",
+"DOHB0000004"
+]
+},
+{
+"code": "DURG",
+"name": "Durgapur Steel Peoples Co-operative Bank",
+"ifsc": [
+"DURG0000006",
+"DURG0000003",
+"DURG0000002"
+]
+},
+{
+"code": "EBIL",
+"name": "Emirates NBD Bank",
+"ifsc": [
+"EBIL0000002",
+"EBIL0000003",
+"EBIL0000001"
+]
+},
+{
+"code": "EIBI",
+"name": "Export Import Bank of India",
+"ifsc": [
+"EIBI00000SC",
+"EIBI0HO0001"
+]
+},
+{
+"code": "ESFB",
+"name": "Equitas Small Finance Bank",
+"ifsc": [
+"ESFB0009132",
+"ESFB0014067",
+"ESFB0001176"
+]
+},
+{
+"code": "ESMF",
+"name": "Esaf Small Finance Bank",
+"ifsc": [
+"ESMF0001503",
+"ESMF0001445",
+"ESMF0001372"
+]
+},
+{
+"code": "FDRL",
+"name": "Federal Bank",
+"ifsc": [
+"FDRL0002558",
+"FDRL0WDCB01",
+"FDRL0002022"
+]
+},
+{
+"code": "FINO",
+"name": "Fino Payments Bank",
+"ifsc": [
+"FINO0009003",
+"FINO0001046",
+"FINO0001555"
+]
+},
+{
+"code": "FIRN",
+"name": "Firstrand Bank",
+"ifsc": [
+"FIRN0000001"
+]
+},
+{
+"code": "FSFB",
+"name": "Fincare Small Finance Bank",
+"ifsc": [
+"FSFB0000001"
+]
+},
+{
+"code": "GBCB",
+"name": "Greater Bombay Co-operative Bank",
+"ifsc": [
+"GBCB0000017",
+"GBCB0000002",
+"GBCB0000007"
+]
+},
+{
+"code": "GDCB",
+"name": "Gadchiroli District Central Co-operative Bank",
+"ifsc": [
+"GDCB0000001",
+"GDCB00000SC"
+]
+},
+{
+"code": "GSCB",
+"name": "Gujarat State Co-operative Bank",
+"ifsc": [
+"GSCB0ADC031",
+"GSCB0BKD104",
+"GSCB0BVN074"
+]
+},
+{
+"code": "HARC",
+"name": "Haryana State Co-operative Apex Bank",
+"ifsc": [
+"HARC0000014",
+"HARC0000007",
+"HARC0000008"
+]
+},
+{
+"code": "HCBL",
+"name": "HASTI Co-operative Bank",
+"ifsc": [
+"HCBL0000118",
+"HCBL0000123",
+"HCBL0000104"
+]
+},
+{
+"code": "HDFC",
+"name": "HDFC Bank",
+"ifsc": [
+"HDFC0009004",
+"HDFC0009516",
+"HDFC0004414"
+]
+},
+{
+"code": "HPSC",
+"name": "Himachal Pradesh State Co-operative Bank",
+"ifsc": [
+"HPSC0000301",
+"HPSC0000451",
+"HPSC0000336"
+]
+},
+{
+"code": "HSBC",
+"name": "Hongkong & Shanghai Banking Corporation",
+"ifsc": [
+"HSBC0400012",
+"HSBC02INDIA",
+"HSBC0395002"
+]
+},
+{
+"code": "HUSB",
+"name": "Hutatma Sahakari Bank",
+"ifsc": [
+"HUSB0000009",
+"HUSB0000018",
+"HUSB0000015"
+]
+},
+{
+"code": "HVBK",
+"name": "Woori Bank",
+"ifsc": [
+"HVBK0000004",
+"HVBK0000002",
+"HVBK0NEFTSC"
+]
+},
+{
+"code": "IBBK",
+"name": "PT Bank Maybank Indonesia TBK",
+"ifsc": [
+"IBBK00000SC",
+"IBBK0000001"
+]
+},
+{
+"code": "IBKL",
+"name": "IDBI",
+"ifsc": [
+"IBKL0000433",
+"IBKL0001325",
+"IBKL0001662"
+]
+},
+{
+"code": "IBKO",
+"name": "Industrial Bank of Korea",
+"ifsc": [
+"IBKO00000SC",
+"IBKO0000001"
+]
+},
+{
+"code": "ICBK",
+"name": "Industrial and Commercial Bank of China",
+"ifsc": [
+"ICBK0000001",
+"ICBK00000SC"
+]
+},
+{
+"code": "ICIC",
+"name": "ICICI Bank",
+"ifsc": [
+"ICIC0000457",
+"ICIC0008462",
+"ICIC0000237"
+]
+},
+{
+"code": "ICLL",
+"name": "Indian Clearing Corporation",
+"ifsc": [
+"ICLL0000001"
+]
+},
+{
+"code": "IDFB",
+"name": "IDFC FIRST Bank",
+"ifsc": [
+"IDFB0021194",
+"IDFB0041101",
+"IDFB0081191"
+]
+},
+{
+"code": "IDIB",
+"name": "Indian Bank",
+"ifsc": [
+"IDIB000T552",
+"IDIB000K721",
+"IDIB000T067"
+]
+},
+{
+"code": "INDB",
+"name": "Indusind Bank",
+"ifsc": [
+"INDB0000531",
+"INDB0001777",
+"INDB0001015"
+]
+},
+{
+"code": "IOBA",
+"name": "Indian Overseas Bank",
+"ifsc": [
+"IOBA0002375",
+"IOBA0000766",
+"IOBA0004000"
+]
+},
+{
+"code": "IPOS",
+"name": "India Post Payments Bank",
+"ifsc": [
+"IPOS0000001",
+"IPOS0000DOP",
+"IPOS0000ISU"
+]
+},
+{
+"code": "JAKA",
+"name": "Jammu and Kashmir Bank",
+"ifsc": [
+"JAKA0BRIDGE",
+"JAKA0SECBAN",
+"JAKA0MVIHAR"
+]
+},
+{
+"code": "JANA",
+"name": "Janaseva Sahakari Bank, Pune",
+"ifsc": [
+"JANA0NEFTSC",
+"JANA0000011",
+"JANA0000010"
+]
+},
+{
+"code": "JASB",
+"name": "Janaseva Sahakari Bank (Borivli)",
+"ifsc": [
+"JASB0000008",
+"JASB0000012",
+"JASB0000005"
+]
+},
+{
+"code": "JIOP",
+"name": "Jio Payments Bank",
+"ifsc": [
+"JIOP0000001",
+"JIOP0SC9999"
+]
+},
+{
+"code": "JJSB",
+"name": "Jalgaon Janata Bank",
+"ifsc": [
+"JJSB0000026",
+"JJSB0000013",
+"JJSB0000031"
+]
+},
+{
+"code": "JPCB",
+"name": "Jalgaon Peoples Co-operative Bank",
+"ifsc": [
+"JPCB0000011",
+"JPCB0000023",
+"JPCB0000043"
+]
+},
+{
+"code": "JSBL",
+"name": "Janakalyan Sahakari Bank",
+"ifsc": [
+"JSBL0000024",
+"JSBL0000008",
+"JSBL0000018"
+]
+},
+{
+"code": "JSBP",
+"name": "Janata Sahakari Bank (Pune)",
+"ifsc": [
+"JSBP0000012",
+"JSBP0000045",
+"JSBP0000056"
+]
+},
+{
+"code": "JSFB",
+"name": "Jana Small Finance Bank",
+"ifsc": [
+"JSFB0003246",
+"JSFB0004606",
+"JSFB0004757"
+]
+},
+{
+"code": "JTSC",
+"name": "Janatha Seva Co-operative Bank",
+"ifsc": [
+"JTSC0000003",
+"JTSC0000006",
+"JTSC0000005"
+]
+},
+{
+"code": "KACE",
+"name": "Kangra Central Co-operative Bank",
+"ifsc": [
+"KACE0000082",
+"KACE0000183",
+"KACE0000006"
+]
+},
+{
+"code": "KAIJ",
+"name": "Kallappanna Awade Ichalkaranji Janata Sahakari Bank",
+"ifsc": [
+"KAIJ0000026",
+"KAIJ0000008",
+"KAIJ0000024"
+]
+},
+{
+"code": "KANG",
+"name": "Kangra Co-operative Bank",
+"ifsc": [
+"KANG0000002",
+"KANG0000007",
+"KANG0000005"
+]
+},
+{
+"code": "KARB",
+"name": "Karnataka Bank",
+"ifsc": [
+"KARB0000056",
+"KARB0000397",
+"KARB0000520"
+]
+},
+{
+"code": "KBKB",
+"name": "Kookmin Bank",
+"ifsc": [
+"KBKB0000003",
+"KBKB0000002",
+"KBKB00000SC"
+]
+},
+{
+"code": "KCCB",
+"name": "Kalupur Commercial Co-operative Bank",
+"ifsc": [
+"KCCB0MJL036",
+"KCCB0BPN028",
+"KCCB0ANN022"
+]
+},
+{
+"code": "KJSB",
+"name": "Kalyan Janata Sahakari Bank",
+"ifsc": [
+"KJSB0000003",
+"KJSB0000028",
+"KJSB0000024"
+]
+},
+{
+"code": "KKBK",
+"name": "Kotak Mahindra Bank",
+"ifsc": [
+"KKBK0005897",
+"KKBK0009292",
+"KKBK0004447"
+]
+},
+{
+"code": "KLGB",
+"name": "Kerala Gramin Bank",
+"ifsc": [
+"KLGB0040371",
+"KLGB0040292",
+"KLGB0040583"
+]
+},
+{
+"code": "KNSB",
+"name": "Kurla Nagarik Sahakari Bank",
+"ifsc": [
+"KNSB0010023",
+"KNSB0010038",
+"KNSB0010020"
+]
+},
+{
+"code": "KOEX",
+"name": "KEB Hana Bank",
+"ifsc": [
+"KOEX0000003",
+"KOEX0000001",
+"KOEX0000002"
+]
+},
+{
+"code": "KOLH",
+"name": "Kolhapur Urban Co-operative Bank",
+"ifsc": [
+"KOLH0000004",
+"KOLH0000003",
+"KOLH0000019"
+]
+},
+{
+"code": "KSBK",
+"name": "Kerala State Co-operative Bank",
+"ifsc": [
+"KSBK0001420",
+"KSBK0001681",
+"KSBK0001425"
+]
+},
+{
+"code": "KSCB",
+"name": "Karnataka State Co-operative Apex Bank",
+"ifsc": [
+"KSCB0001011",
+"KSCB0001042",
+"KSCB0006003"
+]
+},
+{
+"code": "KUCB",
+"name": "Karad Urban Co-operative Bank",
+"ifsc": [
+"KUCB0488065",
+"KUCB0488056",
+"KUCB0488057"
+]
+},
+{
+"code": "KVBL",
+"name": "Karur Vysya Bank",
+"ifsc": [
+"KVBL0001181",
+"KVBL0001422",
+"KVBL0001785"
+]
+},
+{
+"code": "KVGB",
+"name": "Karnataka Vikas Grameena Bank",
+"ifsc": [
+"KVGB0000001"
+]
+},
+{
+"code": "LAVB",
+"name": "Laxmi Vilas Bank",
+"ifsc": [
+"LAVB0000883"
+]
+},
+{
+"code": "MAHB",
+"name": "Bank of Maharashtra",
+"ifsc": [
+"MAHB0001585",
+"MAHB0002072",
+"MAHB0000088"
+]
+},
+{
+"code": "MAHG",
+"name": "Maharashtra Gramin Bank",
+"ifsc": [
+"MAHG0004323",
+"MAHG0006908",
+"MAHG0004422"
+]
+},
+{
+"code": "MCAB",
+"name": "Meghalaya Co-operative Apex Bank",
+"ifsc": [
+"MCAB0000018",
+"MCAB0000015",
+"MCAB0000017"
+]
+},
+{
+"code": "MCBL",
+"name": "Mahanagar Co-operative Bank",
+"ifsc": [
+"MCBL0960029",
+"MCBL0960032",
+"MCBL0960079"
+]
+},
+{
+"code": "MDBK",
+"name": "Model Co-operative Bank",
+"ifsc": [
+"MDBK0000001",
+"MDBK0000027",
+"MDBK0000022"
+]
+},
+{
+"code": "MDCB",
+"name": "Mumbai District Central Co-operative Bank",
+"ifsc": [
+"MDCB0680001",
+"MDCB0680033",
+"MDCB0680383"
+]
+},
+{
+"code": "MHCB",
+"name": "Mizuho Bank",
+"ifsc": [
+"MHCB0000716",
+"MHCB0000718",
+"MHCB0000717"
+]
+},
+{
+"code": "MSBL",
+"name": "MAHESH SAHAKARI BANK LTD PUNE",
+"ifsc": [
+"MSBL0000003",
+"MSBL0000011",
+"MSBL0000009"
+]
+},
+{
+"code": "MSCI",
+"name": "Maharashtra State Co-operative Bank",
+"ifsc": [
+"MSCI0082053",
+"MSCI0082019",
+"MSCI0082005"
+]
+},
+{
+"code": "MSHQ",
+"name": "Mashreq Bank",
+"ifsc": [
+"MSHQ0000099",
+"MSHQ0000001"
+]
+},
+{
+"code": "MSLM",
+"name": "Muslim Co-operative Bank",
+"ifsc": [
+"MSLM0000025",
+"MSLM0000013",
+"MSLM0000024"
+]
+},
+{
+"code": "MSNU",
+"name": "Mehsana Urban Co-operative Bank",
+"ifsc": [
+"MSNU0000011",
+"MSNU0000013",
+"MSNU0000053"
+]
+},
+{
+"code": "MUBL",
+"name": "Municipal Co-operative Bank",
+"ifsc": [
+"MUBL0000006",
+"MUBL0000011",
+"MUBL0000024"
+]
+},
+{
+"code": "MVCB",
+"name": "Sir M Visvesvaraya Co-operative Bank",
+"ifsc": [
+"MVCB0000012",
+"MVCB0000008",
+"MVCB0000010"
+]
+},
+{
+"code": "NBAD",
+"name": "National Bank of Abu Dhabi PJSC",
+"ifsc": [
+"NBAD00000SC",
+"NBAD0000001"
+]
+},
+{
+"code": "NBRD",
+"name": "National Bank for Agriculture and Development",
+"ifsc": [
+"NBRD0000002",
+"NBRD0000001"
+]
+},
+{
+"code": "NCUB",
+"name": "Nilambur Co-operative Urban Bank",
+"ifsc": [
+"NCUB0000012",
+"NCUB0000024",
+"NCUB0000022"
+]
+},
+{
+"code": "NESF",
+"name": "North East Small Finance Bank",
+"ifsc": [
+"NESF0000142",
+"NESF0000133",
+"NESF0000065"
+]
+},
+{
+"code": "NGSB",
+"name": "Nagpur Nagarik Sahakari Bank",
+"ifsc": [
+"NGSB0000042",
+"NGSB0000016",
+"NGSB0000024"
+]
+},
+{
+"code": "NICB",
+"name": "New India Co-operative Bank",
+"ifsc": [
+"NICB0000001"
+]
+},
+{
+"code": "NJBK",
+"name": "Nav Jeevan Co-operative Bank",
+"ifsc": [
+"NJBK0790001",
+"NJBK0790007",
+"NJBK0790009"
+]
+},
+{
+"code": "NKGS",
+"name": "NKGSB Co-operative Bank",
+"ifsc": [
+"NKGS0INVEST",
+"NKGS0000009",
+"NKGS0000112"
+]
+},
+{
+"code": "NMCB",
+"name": "Nasik Merchants Co-operative Bank",
+"ifsc": [
+"NMCB0000014",
+"NMCB0000040",
+"NMCB0000015"
+]
+},
+{
+"code": "NNSB",
+"name": "Nutan Nagarik Sahakari Bank",
+"ifsc": [
+"NNSB0128014",
+"NNSB0128016",
+"NNSB0128024"
+]
+},
+{
+"code": "NOSC",
+"name": "Bank of Nova Scotia",
+"ifsc": [
+"NOSC000NEFT",
+"NOSC0000MUM"
+]
+},
+{
+"code": "NSPB",
+"name": "NSDL Payments Bank",
+"ifsc": [
+"NSPB0000002",
+"NSPB000TRSY",
+"NSPB0PYNRBY"
+]
+},
+{
+"code": "NTBL",
+"name": "Nainital Bank",
+"ifsc": [
+"NTBL0LUC166",
+"NTBL0BAR029",
+"NTBL0HAL144"
+]
+},
+{
+"code": "NVNM",
+"name": "Navnirman Co-operative Bank",
+"ifsc": [
+"NVNM0000009",
+"NVNM0000007",
+"NVNM0000016"
+]
+},
+{
+"code": "ORBC",
+"name": "Oriental Bank of Commerce",
+"ifsc": [
+"ORBC0100000"
+]
+},
+{
+"code": "ORCB",
+"name": "Odisha State Co-operative Bank",
+"ifsc": [
+"ORCB0ASK001",
+"ORCB0CTC001",
+"ORCB0BNK001"
+]
+},
+{
+"code": "PJSB",
+"name": "Gopinath Patil Parsik Janata Sahakari Bank",
+"ifsc": [
+"PJSB0000025",
+"PJSB0000045",
+"PJSB0000028"
+]
+},
+{
+"code": "PKGB",
+"name": "Karnataka Gramin Bank",
+"ifsc": [
+"PKGB0013558",
+"PKGB0012516",
+"PKGB0013529"
+]
+},
+{
+"code": "PMEC",
+"name": "Prime Co-operative Bank",
+"ifsc": [
+"PMEC0100809",
+"PMEC0104141",
+"PMEC0103128"
+]
+},
+{
+"code": "PSBL",
+"name": "Pavana Sahakari Bank",
+"ifsc": [
+"PSBL0000021",
+"PSBL0000023",
+"PSBL0000005"
+]
+},
+{
+"code": "PSIB",
+"name": "Punjab & Sind Bank",
+"ifsc": [
+"PSIB0021204",
+"PSIB0021451",
+"PSIB0021645"
+]
+},
+{
+"code": "PUCB",
+"name": "Pandharpur Urban Co-operative Bank",
+"ifsc": [
+"PUCB0000009",
+"PUCB0000026",
+"PUCB0000006"
+]
+},
+{
+"code": "PUNB",
+"name": "Punjab National Bank",
+"ifsc": [
+"PUNB0062220",
+"PUNB0105100",
+"PUNB0206810"
+]
+},
+{
+"code": "PYTM",
+"name": "Paytm Payments Bank",
+"ifsc": [
+"PYTM0000001"
+]
+},
+{
+"code": "QNBA",
+"name": "Qatar National Bank",
+"ifsc": [
+"QNBA0000001",
+"QNBA00000SC"
+]
+},
+{
+"code": "RABO",
+"name": "Rabobank International",
+"ifsc": [
+"RABO0000001"
+]
+},
+{
+"code": "RATN",
+"name": "RBL Bank",
+"ifsc": [
+"RATN0000485",
+"RATN0000602",
+"RATN0000137"
+]
+},
+{
+"code": "RBIN",
+"name": "Reserve Bank Of India",
+"ifsc": [
+"RBIN0RTGS00"
+]
+},
+{
+"code": "RBIP",
+"name": "Reserve Bank of India",
+"ifsc": [
+"RBIP0NEFTSC",
+"RBIP0NEFTBR"
+]
+},
+{
+"code": "RBIS",
+"name": "Reserve Bank of India",
+"ifsc": [
+"RBIS0GOKAER",
+"RBIS0RBIPI0",
+"RBIS0SLPA01"
+]
+},
+{
+"code": "RDCB",
+"name": "Rajnandgaon District Central Co-operative Bank",
+"ifsc": [
+"RDCB0000026",
+"RDCB0000025",
+"RDCB0000044"
+]
+},
+{
+"code": "RMGB",
+"name": "Rajasthan Marudhara Gramin Bank",
+"ifsc": [
+"RMGB0000284",
+"RMGB00000SC",
+"RMGB0000322"
+]
+},
+{
+"code": "RNSB",
+"name": "Rajkot Nagarik Sahakari Bank",
+"ifsc": [
+"RNSB0000001",
+"RNSB00000SC"
+]
+},
+{
+"code": "RRBP",
+"name": "Rajarambapu Sahakari Bank",
+"ifsc": [
+"RRBP0000013",
+"RRBP0000019",
+"RRBP0000023"
+]
+},
+{
+"code": "RSBL",
+"name": "Rajgurunagar Sahakari Bank",
+"ifsc": [
+"RSBL0000018",
+"RSBL0000004",
+"RSBL0000013"
+]
+},
+{
+"code": "RSCB",
+"name": "Rajasthan State Co-operative Bank",
+"ifsc": [
+"RSCB0019017",
+"RSCB0036010",
+"RSCB0000014"
+]
+},
+{
+"code": "RSSB",
+"name": "Rajarshi Shahu Sahakari Bank",
+"ifsc": [
+"RSSB0000018",
+"RSSB0000016",
+"RSSB0000006"
+]
+},
+{
+"code": "SABR",
+"name": "SBER Bank",
+"ifsc": [
+"SABR0000002",
+"SABR0000001",
+"SABR00000SC"
+]
+},
+{
+"code": "SAHE",
+"name": "Sahebrao Deshmukh Co-operative Bank",
+"ifsc": [
+"SAHE0000001"
+]
+},
+{
+"code": "SANT",
+"name": "Sant Sopankaka Sahakari Bank",
+"ifsc": [
+"SANT0000099",
+"SANT0000002",
+"SANT0000001"
+]
+},
+{
+"code": "SBIN",
+"name": "State Bank of India",
+"ifsc": [
+"SBIN0014256",
+"SBIN0063690",
+"SBIN0040925"
+]
+},
+{
+"code": "SCBL",
+"name": "Standard Chartered Bank",
+"ifsc": [
+"SCBL0036052",
+"SCBL0036097",
+"SCBL0036018"
+]
+},
+{
+"code": "SDCB",
+"name": "Surat District Co-operative Bank",
+"ifsc": [
+"SDCB0000077",
+"SDCB0000053",
+"SDCB0000090"
+]
+},
+{
+"code": "SDCE",
+"name": "Satara District Central Co-operative Bank",
+"ifsc": [
+"SDCE0001110",
+"SDCE0001279",
+"SDCE0001144"
+]
+},
+{
+"code": "SECB",
+"name": "Sree Charan Souhardha Co-operative Bank",
+"ifsc": [
+"SECB0000003",
+"SECB0000008",
+"SECB0000011"
+]
+},
+{
+"code": "SHBK",
+"name": "Shinhan Bank",
+"ifsc": [
+"SHBK0000002",
+"SHBK0000005",
+"SHBK0000003"
+]
+},
+{
+"code": "SIBL",
+"name": "South Indian Bank",
+"ifsc": [
+"SIBL0000988",
+"SIBL0000517",
+"SIBL0000460"
+]
+},
+{
+"code": "SIDC",
+"name": "Sindhudurg District Central Co-operative Bank",
+"ifsc": [
+"SIDC0001015",
+"SIDC0001019",
+"SIDC0001041"
+]
+},
+{
+"code": "SJSB",
+"name": "Solapur Janata Sahakari Bank",
+"ifsc": [
+"SJSB0000002",
+"SJSB0000018",
+"SJSB0000037"
+]
+},
+{
+"code": "SKNB",
+"name": "Shree Kadi Nagarik Sahakari Bank",
+"ifsc": [
+"SKNB0000019",
+"SKNB0000005",
+"SKNB0000009"
+]
+},
+{
+"code": "SKSB",
+"name": "Shikshak Sahakari Bank",
+"ifsc": [
+"SKSB0000002",
+"SKSB0000001"
+]
+},
+{
+"code": "SMBC",
+"name": "Sumitomo Mitsui Banking Corporation",
+"ifsc": [
+"SMBC0000003",
+"SMBC0000002",
+"SMBC0000001"
+]
+},
+{
+"code": "SMCB",
+"name": "Shivalik Small Finance Bank",
+"ifsc": [
+"SMCB0001028",
+"SMCB0001010",
+"SMCB0001021"
+]
+},
+{
+"code": "SMNB",
+"name": "Smriti Nagrik Sahakari Bank",
+"ifsc": [
+"SMNB0000009",
+"SMNB0000005",
+"SMNB0000015"
+]
+},
+{
+"code": "SNBK",
+"name": "Saraspur Nagrik Co-operative Bank",
+"ifsc": [
+"SNBK0000001",
+"SNBK0000003",
+"SNBK0000002"
+]
+},
+{
+"code": "SOGE",
+"name": "Societe Generale",
+"ifsc": [
+"SOGE0INBB00",
+"SOGE0INBB01",
+"SOGE0INDL01"
+]
+},
+{
+"code": "SPCB",
+"name": "Surat People's Co-operative Bank",
+"ifsc": [
+"SPCB0251001",
+"SPCB0251012",
+"SPCB0251023"
+]
+},
+{
+"code": "SRCB",
+"name": "Saraswat Co-operative Bank",
+"ifsc": [
+"SRCB0000379",
+"SRCB0000084",
+"SRCB0BCB020"
+]
+},
+{
+"code": "STCB",
+"name": "SBM Bank",
+"ifsc": [
+"STCB0000002",
+"STCB00CCPT1",
+"STCB0000065"
+]
+},
+{
+"code": "SUNB",
+"name": "Surat National Co-operative Bank",
+"ifsc": [
+"SUNB0000002",
+"SUNB0000014",
+"SUNB0000012"
+]
+},
+{
+"code": "SURY",
+"name": "Suryoday Small Finance Bank",
+"ifsc": [
+"SURY0HE0001",
+"SURY0000062",
+"SURY0000017"
+]
+},
+{
+"code": "SUSB",
+"name": "Suco Souharda Sahakari Bank",
+"ifsc": [
+"SUSB0000007",
+"SUSB0000019",
+"SUSB0000021"
+]
+},
+{
+"code": "SUTB",
+"name": "Sutex Co-operative Bank",
+"ifsc": [
+"SUTB0248022",
+"SUTB0248020",
+"SUTB0248008"
+]
+},
+{
+"code": "SVCB",
+"name": "SVC Co-operative Bank",
+"ifsc": [
+"SVCB0007012",
+"SVCB0000202",
+"SVCB0008008"
+]
+},
+{
+"code": "SVSH",
+"name": "Shree Veershaiv Co-operative Bank",
+"ifsc": [
+"SVSH0000016",
+"SVSH0000029",
+"SVSH0000004"
+]
+},
+{
+"code": "SYNB",
+"name": "Syndicate Bank",
+"ifsc": [
+"SYNB000RTGS"
+]
+},
+{
+"code": "TAUB",
+"name": "Ankola Urban Co-operative Bank",
+"ifsc": [
+"TAUB0001001",
+"TAUB0001010",
+"TAUB0001034"
+]
+},
+{
+"code": "TBMC",
+"name": "Banaskantha Mercantile Co-operative Bank",
+"ifsc": [
+"TBMC0001001",
+"TBMC0001008",
+"TBMC0001002"
+]
+},
+{
+"code": "TBSB",
+"name": "Thane Bharat Sahakari Bank",
+"ifsc": [
+"TBSB0000024",
+"TBSB0000002",
+"TBSB0000021"
+]
+},
+{
+"code": "TCBR",
+"name": "The Cooperative Bank Of Rajkot Limited",
+"ifsc": [
+"TCBR0000102",
+"TCBR0000116",
+"TCBR0000114"
+]
+},
+{
+"code": "TDCB",
+"name": "Thane District Central Co-operative Bank",
+"ifsc": [
+"TDCB0000002",
+"TDCB0000113",
+"TDCB0000027"
+]
+},
+{
+"code": "TGMB",
+"name": "Tumkur Grain Merchant's Co-operative Bank",
+"ifsc": [
+"TGMB0000005",
+"TGMB0000024",
+"TGMB0000001"
+]
+},
+{
+"code": "TGRB",
+"name": "TELANGANA GRAMEENA BANK",
+"ifsc": [
+"TGRB0007141",
+"TGRB0004188",
+"TGRB0000272"
+]
+},
+{
+"code": "TJSB",
+"name": "TJSB Sahakari Bank",
+"ifsc": [
+"TJSB0000080",
+"TJSB0000148",
+"TJSB0000121"
+]
+},
+{
+"code": "TMBL",
+"name": "Tamilnad Mercantile Bank",
+"ifsc": [
+"TMBL0000317",
+"TMBL0000546",
+"TMBL0000105"
+]
+},
+{
+"code": "TMSB",
+"name": "The Malad Sahakari Bank",
+"ifsc": [
+"TMSB0000009",
+"TMSB0000008",
+"TMSB0000010"
+]
+},
+{
+"code": "TNCB",
+"name": "Nawanagar Co-operative Bank",
+"ifsc": [
+"TNCB0000005",
+"TNCB0000011",
+"TNCB0000001"
+]
+},
+{
+"code": "TNSC",
+"name": "Tamilnadu State Apex Co-operative Bank",
+"ifsc": [
+"TNSC0000001",
+"TNSC0011700",
+"TNSC0010300"
+]
+},
+{
+"code": "TPSC",
+"name": "Punjab State Co-operative Bank",
+"ifsc": [
+"TPSC0000010",
+"TPSC0000013",
+"TPSC0000015"
+]
+},
+{
+"code": "TSAB",
+"name": "Telangana State Co-operative Apex Bank",
+"ifsc": [
+"TSAB0021039",
+"TSAB0018034",
+"TSAB0019041"
+]
+},
+{
+"code": "TSSB",
+"name": "Satara Sahakari Bank",
+"ifsc": [
+"TSSB0000009",
+"TSSB0000012",
+"TSSB0000015"
+]
+},
+{
+"code": "TTCB",
+"name": "Textile Traders Co-operative Bank",
+"ifsc": [
+"TTCB0000003",
+"TTCB0000005",
+"TTCB0000002"
+]
+},
+{
+"code": "UBIN",
+"name": "Union Bank of India",
+"ifsc": [
+"UBIN0541834",
+"UBIN0CG6368",
+"UBIN0802271"
+]
+},
+{
+"code": "UCBA",
+"name": "UCO Bank",
+"ifsc": [
+"UCBA0002639",
+"UCBA0000412",
+"UCBA0001138"
+]
+},
+{
+"code": "UJVN",
+"name": "Ujjivan Small Finance Bank",
+"ifsc": [
+"UJVN0002351",
+"UJVN0001771",
+"UJVN0004483"
+]
+},
+{
+"code": "UNBA",
+"name": "Unity Small finance Bank Limited",
+"ifsc": [
+"UNBA0000272",
+"UNBA0000324",
+"UNBA0000027"
+]
+},
+{
+"code": "UOVB",
+"name": "United Overseas Bank",
+"ifsc": [
+"UOVB0000001",
+"UOVB00000SC"
+]
+},
+{
+"code": "UPCB",
+"name": "Uttar Pradesh Co-operative Bank",
+"ifsc": [
+"UPCB00ZSBLG",
+"UPCB0000027",
+"UPCB0000023"
+]
+},
+{
+"code": "URBN",
+"name": "Urban Co-operative Bank Perinthalmanna",
+"ifsc": [
+"URBN0000B10",
+"URBN00000B3",
+"URBN00000B4"
+]
+},
+{
+"code": "USCB",
+"name": "UTTARAKHAND STATE COOPERATIVE BANK LIMITED",
+"ifsc": [
+"USCB0001004",
+"USCB0001011",
+"USCB0001005"
+]
+},
+{
+"code": "UTBI",
+"name": "United Bank of India",
+"ifsc": [
+"UTBI0HOA139"
+]
+},
+{
+"code": "UTIB",
+"name": "Axis Bank",
+"ifsc": [
+"UTIB0003684",
+"UTIB0000181",
+"UTIB0000079"
+]
+},
+{
+"code": "UTKS",
+"name": "Utkarsh Small Finance Bank",
+"ifsc": [
+"UTKS0001854",
+"UTKS0002066",
+"UTKS0001107"
+]
+},
+{
+"code": "UUCB",
+"name": "Udaipur Urban Co-operative Bank",
+"ifsc": [
+"UUCB0786007",
+"UUCB0786002",
+"UUCB0786006"
+]
+},
+{
+"code": "VARA",
+"name": "Varachha Co-operative Bank",
+"ifsc": [
+"VARA0289012",
+"VARA00000SC",
+"VARA0289010"
+]
+},
+{
+"code": "VASJ",
+"name": "Vasai Janata Sahakari Bank",
+"ifsc": [
+"VASJ0000006",
+"VASJ0000002",
+"VASJ0000014"
+]
+},
+{
+"code": "VCOB",
+"name": "The Vijay Co-operative Bank",
+"ifsc": [
+"VCOB0000020",
+"VCOB0000004",
+"VCOB00000SC"
+]
+},
+{
+"code": "VIJB",
+"name": "Vijaya Bank",
+"ifsc": [
+"VIJB0009502"
+]
+},
+{
+"code": "VSBL",
+"name": "Vishweshwar Sahakari Bank",
+"ifsc": [
+"VSBL0000029",
+"VSBL0000099",
+"VSBL0000015"
+]
+},
+{
+"code": "VVSB",
+"name": "Vasai Vikas Sahakari Bank",
+"ifsc": [
+"VVSB0000016",
+"VVSB0000014",
+"VVSB00000SC"
+]
+},
+{
+"code": "WBSC",
+"name": "West Bengal State Co-operative Bank",
+"ifsc": [
+"WBSC0DDCB05",
+"WBSC0HDCB14",
+"WBSC0000036"
+]
+},
+{
+"code": "XNSE",
+"name": "NSE Clearing Limited",
+"ifsc": [
+"XNSE0000001"
+]
+},
+{
+"code": "YESB",
+"name": "Yes Bank",
+"ifsc": [
+"YESB0001382",
+"YESB0000761",
+"YESB0VCA002"
+]
+},
+{
+"code": "ZCBL",
+"name": "Zoroastrian Co-operative Bank",
+"ifsc": [
+"ZCBL0000012",
+"ZCBL0000103",
+"ZCBL0000001"
+]
+},
+{
+"code": "ZSBL",
+"name": "Zila Sahakari Bank Ghaziabad",
+"ifsc": [
+"ZSBL0000091",
+"ZSBL0000231",
+"ZSBL0000031"
+]
+}
+]
+}

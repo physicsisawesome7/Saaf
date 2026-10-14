@@ -2,7 +2,9 @@
 
 | Document | For |
 |---|---|
+| [Try Saaf](try-it.md) | Playground, Python/CLI and gateway in minutes |
 | [Development plan](DEVELOPMENT_PLAN.md) | Phases, tasks, gates, process, quality bars |
+| [Competitive edge plan](COMPETITIVE_EDGE_PLAN.md) | How to beat Presidio, NeMo Guardrails and others; data sources |
 | [Architecture](architecture.md) | How detection, tokens, restore, vaults and the gateway fit together |
 | [Detector spec and conformance](detector-spec.md) | Adding or changing an entity |
 | [Policy reference](policy.md) | Configuring actions, modes, rules |

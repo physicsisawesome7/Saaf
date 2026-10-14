@@ -14,7 +14,7 @@ export interface Finding {
   severity: string;
   validated: boolean;
   contextHit: boolean;
-  detector: "regex" | "ocr";
+  detector: "regex" | "ocr" | "spelled";
   ocrRepaired: boolean;
   priority: number;
 }
@@ -25,6 +25,31 @@ const MAX_OCR_VARIANTS = 64;
 
 const escapeRx = (s: string) => s.replace(/[.*+?^${}()|[\]\\/-]/g, "\\$&");
 const isAscii = (s: string) => /^[\x00-\x7f]*$/.test(s);
+
+// Number words (English, Romanised Hindi, Devanagari); keep in step with detect.py.
+const DIGIT_WORDS: Record<string, string> = {
+  zero: "0", oh: "0", shunya: "0", shoonya: "0", sunya: "0", "शून्य": "0",
+  one: "1", ek: "1", "एक": "1",
+  two: "2", do: "2", "दो": "2",
+  three: "3", teen: "3", tin: "3", "तीन": "3",
+  four: "4", char: "4", chaar: "4", "चार": "4",
+  five: "5", paanch: "5", panch: "5", "पांच": "5", "पाँच": "5",
+  six: "6", chhah: "6", chhe: "6", che: "6", chah: "6", "छह": "6", "छः": "6",
+  seven: "7", saat: "7", sat: "7", "सात": "7",
+  eight: "8", aath: "8", aat: "8", "आठ": "8",
+  nine: "9", nau: "9", nao: "9", "नौ": "9",
+};
+const WORD_ALT = Object.keys(DIGIT_WORDS)
+  .sort((a, b) => b.length - a.length)
+  .map(escapeRx)
+  .join("|");
+const NOT_WORD = "a-z\\u0900-\\u097f";
+const SPELLED_WORD = new RegExp(`(?<![${NOT_WORD}])(?:${WORD_ALT})(?![${NOT_WORD}])`, "gi");
+const SPELLED_RUN = new RegExp(
+  `(?<![${NOT_WORD}])(?:${WORD_ALT})(?:[ ,.\\-]+(?:${WORD_ALT})){9,15}(?![${NOT_WORD}])`,
+  "gi",
+);
+const SPELLED_TARGETS_BY_LEN: Record<number, string> = { 12: "AADHAAR", 10: "PHONE_IN" };
 
 class ContextMatcher {
   private rx: RegExp | null;
@@ -128,8 +153,8 @@ export class Detector {
     let score = base + (hit ? e.contextBoost : 0);
     if (e.negativeContext.length) {
       const neg = this.neg.get(e.id)!.nearest(clauseBefore(before), clauseAfter(after));
-      // The nearest label wins: "Mobile: X (ref: Y)" keeps X.
-      if (neg !== null && (pos === null || neg < pos)) score -= e.negativePenalty;
+      // The nearest label wins outright: the nearer negative label also cancels a farther boost.
+      if (neg !== null && (pos === null || neg < pos)) score = base - e.negativePenalty;
     }
     return [Math.round(Math.max(0, Math.min(1, score)) * 1e6) / 1e6, hit];
   }
@@ -160,6 +185,31 @@ export class Detector {
         }
       }
       if (this.ocrRepair && e.ocr && e.validator) out.push(...this.ocrCandidates(e, original, norm));
+    }
+    out.push(...this.spelledCandidates(original, norm));
+    return out;
+  }
+
+  /** Identifiers written as number words ("two three four ...", "ek do teen ...", "एक दो ..."). */
+  private spelledCandidates(original: string, norm: Normalized): Finding[] {
+    const out: Finding[] = [];
+    const ntext = norm.text;
+    for (const m of ntext.matchAll(SPELLED_RUN)) {
+      const words = m[0].match(SPELLED_WORD) ?? [];
+      const digits = words.map((w) => DIGIT_WORDS[w.toLowerCase()] ?? "").join("");
+      const id = SPELLED_TARGETS_BY_LEN[digits.length];
+      const e = id ? this.entities.find((x) => x.id === id) : undefined;
+      if (!e || !e.validator || !e.validator(digits)) continue;
+      const s = m.index!;
+      const t = s + m[0].length;
+      const scored = this.score(e, e.validatedScore, this.windowAt(ntext, s, t));
+      if (!scored) continue;
+      const [os, ot] = toOriginal(norm, s, t);
+      out.push({
+        entity: e.id, start: os, end: ot, text: original.slice(os, ot), score: scored[0], canonical: digits,
+        severity: e.severity, validated: true, contextHit: scored[1], detector: "spelled", ocrRepaired: false,
+        priority: e.priority,
+      });
     }
     return out;
   }

@@ -238,3 +238,35 @@ def test_upstream_error_passthrough(make_client, upstream: Upstream) -> None:
     upstream._openai = lambda body: httpx.Response(429, json={"error": {"message": "rate limited"}})  # type: ignore[method-assign]
     r = make_client().post("/v1/chat/completions", json={"messages": [USER_MSG], "stream": True})
     assert r.status_code == 429
+
+
+def test_cors_off_by_default(make_client) -> None:
+    r = make_client().get("/healthz", headers={"origin": "https://safearly.com"})
+    assert "access-control-allow-origin" not in r.headers
+
+
+def test_cors_allows_configured_origin(make_client) -> None:
+    client = make_client(cors_origins=("https://safearly.com",))
+    pre = client.options(
+        "/v1/chat/completions",
+        headers={
+            "origin": "https://safearly.com",
+            "access-control-request-method": "POST",
+            "access-control-request-headers": "authorization,content-type",
+            "access-control-request-private-network": "true",
+        },
+    )
+    assert pre.status_code == 200
+    assert pre.headers["access-control-allow-origin"] == "https://safearly.com"
+    assert pre.headers["access-control-allow-private-network"] == "true"
+    r = client.post(
+        "/v1/chat/completions",
+        json={"model": "m", "messages": [{"role": "user", "content": f"PAN {PAN}"}]},
+        headers={"origin": "https://safearly.com"},
+    )
+    assert "x-saaf-entities" in r.headers["access-control-expose-headers"]
+    bad = client.options(
+        "/v1/chat/completions",
+        headers={"origin": "https://evil.example", "access-control-request-method": "POST"},
+    )
+    assert "access-control-allow-origin" not in bad.headers

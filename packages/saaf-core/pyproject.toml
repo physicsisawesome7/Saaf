@@ -41,10 +41,10 @@ ocr = ["pillow>=10"]
 saaf = "saaf.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/safearly/saaf"
-Documentation = "https://github.com/safearly/saaf/tree/main/docs"
-Issues = "https://github.com/safearly/saaf/issues"
-Changelog = "https://github.com/safearly/saaf/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/physicsisawesome7/Saaf"
+Documentation = "https://github.com/physicsisawesome7/Saaf/tree/main/docs"
+Issues = "https://github.com/physicsisawesome7/Saaf/issues"
+Changelog = "https://github.com/physicsisawesome7/Saaf/blob/main/CHANGELOG.md"
 
 [tool.hatch.version]
 path = "src/saaf/_version.py"

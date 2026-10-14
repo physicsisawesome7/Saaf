@@ -23,6 +23,26 @@ DIGIT_TO_LETTERS = {"0": ("O",), "1": ("I", "L"), "5": ("S",), "8": ("B",)}
 MAX_OCR_VARIANTS = 64
 SEPARATORS = " -"
 
+# Number words (English, Romanised Hindi, Devanagari). A run of 10+ of them is
+# read as digits; the validator then decides (keep in step with detect.ts).
+DIGIT_WORDS = {
+    "zero": "0", "oh": "0", "shunya": "0", "shoonya": "0", "sunya": "0", "शून्य": "0",
+    "one": "1", "ek": "1", "एक": "1",
+    "two": "2", "do": "2", "दो": "2",
+    "three": "3", "teen": "3", "tin": "3", "तीन": "3",
+    "four": "4", "char": "4", "chaar": "4", "चार": "4",
+    "five": "5", "paanch": "5", "panch": "5", "पांच": "5", "पाँच": "5",
+    "six": "6", "chhah": "6", "chhe": "6", "che": "6", "chah": "6", "छह": "6", "छः": "6",
+    "seven": "7", "saat": "7", "sat": "7", "सात": "7",
+    "eight": "8", "aath": "8", "aat": "8", "आठ": "8",
+    "nine": "9", "nau": "9", "nao": "9", "नौ": "9",
+}  # fmt: skip
+_WORD_ALT = "|".join(re.escape(w) for w in sorted(DIGIT_WORDS, key=len, reverse=True))
+SPELLED_WORD = re.compile(rf"(?<![a-zऀ-ॿ])(?:{_WORD_ALT})(?![a-zऀ-ॿ])", re.IGNORECASE)
+SPELLED_RUN = re.compile(rf"(?<![a-zऀ-ॿ])(?:{_WORD_ALT})(?:[ ,.\-]+(?:{_WORD_ALT})){{9,15}}(?![a-zऀ-ॿ])", re.IGNORECASE)
+SPELLED_TARGETS = ("AADHAAR", "PHONE_IN")
+SPELLED_TARGETS_BY_LEN = {12: "AADHAAR", 10: "PHONE_IN"}
+
 
 @dataclass(frozen=True)
 class Finding:
@@ -169,9 +189,10 @@ class Detector:
             m = _CLAUSE_BREAK.search(after)
             clause_after = after[: m.start()] if m else after
             neg = self._neg[e.id].nearest(clause_before, clause_after)
-            # The nearest label wins: "Mobile: X (ref: Y)" keeps X.
+            # The nearest label wins outright: "Mobile: X (ref: Y)" keeps X, and in
+            # "aadhaar … order X" the nearer "order" also cancels the farther boost.
             if neg is not None and (pos is None or neg < pos):
-                score -= e.negative_penalty
+                score = base - e.negative_penalty
         return round(max(0.0, min(1.0, score)), 6), hit
 
     def _candidates(self, original: str, norm: Normalized) -> Iterable[Finding]:
@@ -207,6 +228,39 @@ class Detector:
                     )
             if self.ocr_repair and e.ocr is not None and e.validator is not None:
                 yield from self._ocr_candidates(e, original, norm)
+        yield from self._spelled_candidates(original, norm)
+
+    def _spelled_candidates(self, original: str, norm: Normalized) -> Iterable[Finding]:
+        """Identifiers written as number words: "two three four five ...",
+        "ek do teen ...", "एक दो तीन ...". Validated like their digit form."""
+        targets = {e.id: e for e in self.entities if e.id in SPELLED_TARGETS}
+        if not targets:
+            return
+        ntext = norm.text
+        for m in SPELLED_RUN.finditer(ntext):
+            digits = "".join(DIGIT_WORDS[w.lower()] for w in SPELLED_WORD.findall(m.group(0)))
+            entity_id = SPELLED_TARGETS_BY_LEN.get(len(digits))
+            e = targets.get(entity_id or "")
+            if e is None or e.validator is None or not e.validator(digits):
+                continue
+            s, t = m.span()
+            scored = self._score(e, e.validated_score, self._window(ntext, s, t))
+            if scored is None:
+                continue
+            os_, ot = norm.to_original(s, t)
+            yield Finding(
+                entity=e.id,
+                start=os_,
+                end=ot,
+                text=original[os_:ot],
+                score=scored[0],
+                canonical=digits,
+                severity=e.severity,
+                validated=True,
+                context_hit=scored[1],
+                detector="spelled",
+                priority=e.priority,
+            )
 
     def _ocr_candidates(self, e: EntitySpec, original: str, norm: Normalized) -> Iterable[Finding]:
         assert e.ocr is not None

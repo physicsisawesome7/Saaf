@@ -16,7 +16,7 @@
   "sideEffects": false,
   "engines": { "node": ">=20" },
   "keywords": ["pii", "privacy", "llm", "dpdp", "aadhaar", "pan", "redaction", "india"],
-  "repository": { "type": "git", "url": "https://github.com/safearly/saaf.git", "directory": "packages/saaf-js" },
+  "repository": { "type": "git", "url": "https://github.com/physicsisawesome7/Saaf.git", "directory": "packages/saaf-js" },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",

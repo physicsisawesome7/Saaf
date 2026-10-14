@@ -37,3 +37,6 @@
 {"validator": "in_state_code", "input": "QQ1220110012345", "expect": false}
 {"validator": "udyam", "input": "UDYAMMH120001234", "expect": true}
 {"validator": "udyam", "input": "UDYAMQQ120001234", "expect": false}
+{"validator": "card", "input": "24924933535075", "expect": false, "note": "Mastercard 2-series range but 14 digits"}
+{"validator": "card", "input": "30569309025904", "expect": true, "note": "Diners, 14 digits"}
+{"validator": "card", "input": "41111111111111", "expect": false, "note": "Visa prefix, invalid length 14"}

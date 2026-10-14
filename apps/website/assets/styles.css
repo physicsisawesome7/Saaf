@@ -193,7 +193,7 @@ section { padding: 112px 0; }
 .tint .track { background: var(--line); }
 .fill { height: 100%; border-radius: 99px; background: #9aa0a6; }
 .fill.g { background: var(--green); }
-.w967 { width: 96.7%; } .w571 { width: 57.1%; } .w1 { width: 1%; min-width: 6px; } .w100 { width: 100%; }
+.w711 { width: 71.1%; } .w437 { width: 43.7%; } .w1 { width: 1%; min-width: 6px; } .w100 { width: 100%; }
 .val { font: 500 0.92rem var(--mono); text-align: right; }
 .note { font-size: 0.85rem; color: var(--muted); margin-top: 20px; }
 .ents { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px; }

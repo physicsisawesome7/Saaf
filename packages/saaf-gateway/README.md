@@ -22,6 +22,7 @@ Anthropic(base_url="http://localhost:8787")  # /v1/messages
 | `SAAF_DEFAULT_POLICY` | (unset) | fallback policy file |
 | `SAAF_TENANT_HEADER` | `x-saaf-tenant` | |
 | `SAAF_AUDIT_LOG` / `SAAF_AUDIT_KEY` | (unset) | signed JSONL audit (types and counts only) |
+| `SAAF_CORS_ORIGINS` | (unset) | browser origins allowed to call the gateway, e.g. `https://safearly.com` for the [playground](https://safearly.com/playground) |
 
 Behaviour:
 - A new masking session per request; tokens never cross requests or tenants.

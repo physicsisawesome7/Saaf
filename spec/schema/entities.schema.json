@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/safearly/saaf/spec/schema/entities.schema.json",
+  "$id": "https://github.com/physicsisawesome7/Saaf/spec/schema/entities.schema.json",
   "title": "Saaf detector spec",
   "type": "object",
   "required": ["spec_version", "entities"],

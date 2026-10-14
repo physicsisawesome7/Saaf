@@ -1,5 +1,5 @@
 # Hooks other repositories can use:
-#   - repo: https://github.com/safearly/saaf
+#   - repo: https://github.com/physicsisawesome7/Saaf
 #     rev: core-v0.1.0
 #     hooks: [{ id: saaf-scan }]
 - id: saaf-scan

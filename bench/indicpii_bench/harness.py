@@ -48,6 +48,9 @@ class Report:
     latencies_ms: list[float] = field(default_factory=list)
     restore_ok: int | None = None
     restore_total: int | None = None
+    slices: dict[str, dict[str, Counts]] = field(default_factory=lambda: defaultdict(lambda: defaultdict(Counts)))
+    chars: int = 0
+    cold_start_ms: float | None = None
 
     @staticmethod
     def _micro(table: dict[str, Counts]) -> Counts:
@@ -69,6 +72,18 @@ class Report:
             return rows
 
         lat = sorted(self.latencies_ms)
+        slices = {}
+        for name, t in sorted(self.slices.items()):
+            micro = self._micro(t)
+            p, r, f = micro.prf()
+            slices[name] = {
+                "precision": round(p, 4),
+                "recall": round(r, 4),
+                "f1": round(f, 4),
+                "support": micro.tp + micro.fn,
+                "recall_by_entity": {e: round(c.prf()[1], 4) for e, c in sorted(t.items()) if c.tp + c.fn},
+            }
+        total_ms = sum(lat)
         return {
             "system": self.system,
             "docs": self.docs,
@@ -79,7 +94,10 @@ class Report:
                 "p50": round(statistics.median(lat), 3) if lat else None,
                 "p99": round(lat[min(len(lat) - 1, int(0.99 * len(lat)))], 3) if lat else None,
             },
+            "latency_ms_per_kb": round(total_ms / max(1, self.chars / 1024), 3) if lat else None,
+            "cold_start_ms": round(self.cold_start_ms, 1) if self.cold_start_ms is not None else None,
             "restore_roundtrip": (round(self.restore_ok / self.restore_total, 4) if self.restore_total else None),
+            "slices": slices,
         }
 
 
@@ -88,11 +106,21 @@ def _overlap(a: Span, b: Span) -> bool:
 
 
 def evaluate(
-    system: str, adapter: Adapter, docs: list[dict[str, Any]], *, restore: bool = False, seed: int = 0
+    system: str,
+    adapter: Adapter,
+    docs: list[dict[str, Any]],
+    *,
+    restore: bool = False,
+    seed: int = 0,
+    cold_start_ms: float | None = None,
 ) -> Report:
-    rep = Report(system=system, docs=len(docs))
+    rep = Report(system=system, docs=len(docs), cold_start_ms=cold_start_ms)
+    for doc in docs[:3]:  # warm caches (spaCy, regex compilation) before timing
+        adapter(doc["text"])
     for doc in docs:
         text = doc["text"]
+        rep.chars += len(text.encode("utf-8"))
+        slice_name = doc.get("slice") or doc.get("domain", "all")
         gold: list[Span] = [(s["start"], s["end"], s["entity"]) for s in doc["spans"]]
         t0 = time.perf_counter()
         pred = adapter(text)
@@ -105,6 +133,10 @@ def evaluate(
             rep.strict[e].tp += len(g_e & p_e)
             rep.strict[e].fp += len(p_e - g_e)
             rep.strict[e].fn += len(g_e - p_e)
+            sc = rep.slices[slice_name][e]
+            sc.tp += len(g_e & p_e)
+            sc.fp += len(p_e - g_e)
+            sc.fn += len(g_e - p_e)
             matched_g = {g for g in g_e if any(_overlap(g, p) for p in p_e)}
             matched_p = {p for p in p_e if any(_overlap(g, p) for g in g_e)}
             rep.relaxed[e].tp += len(matched_g)
@@ -163,16 +195,33 @@ def load(path: str | Path) -> list[dict[str, Any]]:
 
 def markdown(reports: list[dict[str, Any]]) -> str:
     lines = [
-        "| System | Strict micro F1 | Relaxed micro F1 | Hard-neg FP / 1k tokens | Restore round-trip | p50 ms | p99 ms |",
-        "|---|---|---|---|---|---|---|",
+        "| System | Strict micro F1 | Relaxed micro F1 | Hard-neg FP / 1k tokens | Restore round-trip "
+        "| p50 ms | p99 ms | ms per KB | Cold start ms |",
+        "|---|---|---|---|---|---|---|---|---|",
     ]
     for r in reports:
         rr = r["restore_roundtrip"]
         lines.append(
             f"| {r['system']} | {r['strict']['MICRO']['f1']:.3f} | {r['relaxed']['MICRO']['f1']:.3f} | "
             f"{r['hard_negative_fp_per_1k_tokens']:.2f} | {'-' if rr is None else f'{rr:.3f}'} | "
-            f"{r['latency_ms']['p50']} | {r['latency_ms']['p99']} |"
+            f"{r['latency_ms']['p50']} | {r['latency_ms']['p99']} | {r.get('latency_ms_per_kb')} | "
+            f"{r.get('cold_start_ms') if r.get('cold_start_ms') is not None else '-'} |"
         )
+    slice_names = sorted({s for r in reports for s in r.get("slices", {})})
+    if slice_names:
+        lines += [
+            "",
+            "Strict F1 by slice (recall in brackets):",
+            "",
+            "| Slice | " + " | ".join(r["system"] for r in reports) + " |",
+            "|---|" + "---|" * len(reports),
+        ]
+        for name in slice_names:
+            cells = []
+            for r in reports:
+                sl = r.get("slices", {}).get(name)
+                cells.append("-" if not sl else f"{sl['f1']:.3f} ({sl['recall']:.2f})")
+            lines.append(f"| {name} | " + " | ".join(cells) + " |")
     lines += ["", "Per-entity (strict) for each system:", ""]
     for r in reports:
         lines += [f"**{r['system']}**", "", "| Entity | P | R | F1 | Support |", "|---|---|---|---|---|"]

@@ -1,0 +1,17 @@
+{
+  "saaf-core (zero dependencies)": {
+    "total_mb": 0.1,
+    "packages": 1
+  },
+  "presidio-analyzer + en_core_web_lg": {
+    "total_mb": 691.2,
+    "packages": 53,
+    "largest": {
+      "en-core-web-lg": 424.5,
+      "spacy": 92.4,
+      "numpy": 50.2,
+      "phonenumbers": 41.9,
+      "blis": 21.6
+    }
+  }
+}

@@ -11,6 +11,8 @@ SAAF_TENANT_HEADER         x-saaf-tenant                    request header namin
 SAAF_AUDIT_LOG             (unset)                          JSONL audit log path
 SAAF_AUDIT_KEY             (unset)                          hex HMAC key for audit signatures
 SAAF_TIMEOUT               120                              upstream timeout, seconds
+SAAF_CORS_ORIGINS          (unset)                          comma-separated browser origins allowed
+                                                            to call the gateway (e.g. the playground)
 =========================  ===============================  =====================================
 """
 
@@ -34,6 +36,7 @@ class GatewayConfig:
     audit_log: Path | None = None
     audit_key: bytes | None = field(default=None, repr=False)
     timeout: float = 120.0
+    cors_origins: tuple[str, ...] = ()
 
     @classmethod
     def from_env(cls) -> GatewayConfig:
@@ -48,6 +51,7 @@ class GatewayConfig:
             audit_log=Path(p) if (p := env("SAAF_AUDIT_LOG")) else None,
             audit_key=bytes.fromhex(key) if key else None,
             timeout=float(env("SAAF_TIMEOUT", "120")),
+            cors_origins=tuple(o.strip().rstrip("/") for o in env("SAAF_CORS_ORIGINS", "").split(",") if o.strip()),
         )
 
     @staticmethod

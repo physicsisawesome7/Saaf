@@ -6,6 +6,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8080", "--bind", "127.0.0.1", "--directory", "apps/website"],
       "port": 8080
+    },
+    {
+      "name": "website-firebase",
+      "runtimeExecutable": "firebase",
+      "runtimeArgs": ["emulators:start", "--only", "hosting", "--project", "safearly-1ee20"],
+      "port": 5000
     }
   ]
 }
