@@ -34,7 +34,7 @@ dependencies = []
 crypto = ["cryptography>=42"]
 redis = ["redis>=5", "cryptography>=42"]
 # Phase 3: distilled Indic NER model (ONNX, < 50 MB) and OCR pipeline.
-ner = ["onnxruntime>=1.18"]
+ner = ["onnxruntime>=1.30.0"]
 ocr = ["pillow>=10"]
 
 [project.scripts]
