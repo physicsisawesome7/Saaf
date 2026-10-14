@@ -92,12 +92,12 @@ section { padding: 112px 0; }
 .logo:hover { text-decoration: none; }
 .logo img { width: 34px; height: 34px; }
 .links { display: flex; gap: 2px; list-style: none; margin: 0 auto 0 12px; padding: 0; }
-.links a { display: block; padding: 8px 14px; border-radius: 99px; color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+.links a { display: block; white-space: nowrap; padding: 8px 14px; border-radius: 99px; color: var(--muted); font-size: 0.95rem; font-weight: 500; }
 .links a:hover, .links a.active { color: var(--text); background: var(--tint-2); text-decoration: none; }
-.nav .btn { height: 40px; padding: 0 18px; font-size: 0.93rem; }
+.nav .btn { height: 40px; padding: 0 18px; font-size: 0.93rem; white-space: nowrap; flex: none; }
 .menu { display: none; width: 40px; height: 40px; border-radius: 99px; border: 0; background: transparent; color: var(--text); cursor: pointer; place-items: center; margin-left: auto; }
 .menu svg { width: 22px; height: 22px; }
-@media (max-width: 980px) {
+@media (max-width: 1120px) {
   .menu { display: grid; }
   .nav .btn { display: none; }
   .links { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; background: var(--bg); padding: 8px 16px 20px; margin: 0; box-shadow: 0 8px 16px rgb(0 0 0 / 0.08); }
