@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 # Build from the repository root:
 #   docker build -f packages/saaf-gateway/Dockerfile -t saaf-gateway .
-FROM python:3.12-slim AS build
+FROM python:3.14-slim AS build
 WORKDIR /src
 RUN pip install --no-cache-dir build
 COPY packages/saaf-core packages/saaf-core
@@ -11,7 +11,7 @@ RUN cp LICENSE NOTICE packages/saaf-core/ \
  && python -m build --wheel --outdir /wheels packages/saaf-core \
  && python -m build --wheel --outdir /wheels packages/saaf-gateway
 
-FROM python:3.12-slim
+FROM python:3.14-slim
 RUN useradd --create-home --uid 10001 saaf
 COPY --from=build /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*.whl && rm -rf /wheels
