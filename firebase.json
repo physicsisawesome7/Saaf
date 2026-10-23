@@ -103,6 +103,18 @@
           }
         ]
       }
+    ],
+    "redirects": [
+      {
+        "source": "/lalitshukla",
+        "destination": "/about",
+        "type": 301
+      },
+      {
+        "source": "/lalit",
+        "destination": "/about",
+        "type": 301
+      }
     ]
   }
 }

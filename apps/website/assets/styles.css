@@ -100,7 +100,9 @@ section { padding: 112px 0; }
 .gh svg { width: 22px; height: 22px; }
 .menu { display: none; width: 40px; height: 40px; border-radius: 99px; border: 0; background: transparent; color: var(--text); cursor: pointer; place-items: center; margin-left: auto; }
 .menu svg { width: 22px; height: 22px; }
-@media (max-width: 1120px) {
+.nav.wrap { max-width: 1280px; }
+@media (min-width: 1241px) { .links a { padding: 8px 10px; } .nav { gap: 16px; } }
+@media (max-width: 1240px) {
   .menu { display: grid; }
   .nav .btn { display: none; }
   .gh { margin-left: auto; margin-right: 0; }
