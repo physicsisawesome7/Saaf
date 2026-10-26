@@ -1,0 +1,136 @@
+<!--page {"path": "/", "nav": "", "title": "Safearly · AI safety & trust lab from India", "ogTitle": "Safearly: making AI safe to use on real Indian data", "description": "Safearly is an AI safety & trust lab from India. We build open-source guardrails, benchmarks and research for teams putting LLMs and AI agents to work on Aadhaar, PAN, UPI and everyday Hinglish.", "scripts": ["/assets/main.js"], "head": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Safearly\",\"url\":\"https://safearly.com\",\"logo\":\"https://safearly.com/assets/brand/safearly-mark-512.png\",\"email\":\"lalit@safearly.com\",\"founder\":{\"@type\":\"Person\",\"name\":\"Lalit Shukla\",\"url\":\"https://safearly.com/about\"},\"sameAs\":[\"https://github.com/physicsisawesome7\"]}</script>"} -->
+  <section class="lab-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">AI safety &amp; trust lab · India</div>
+        <h1>Making AI safe to use on real Indian data.</h1>
+        <p class="lede">Safearly builds open-source guardrails, benchmarks and research for teams putting LLMs and AI agents to work on Aadhaar, PAN, UPI and everyday Hinglish. Measured in public. Built in India.</p>
+        <div class="btns">
+          <a class="btn btn-accent" href="/saaf">Explore Saaf</a>
+          <a class="btn btn-outline" href="/research">Read the research</a>
+        </div>
+        <p class="fine">Open source · Apache-2.0 · Runs on your infrastructure</p>
+      </div>
+      <div class="proof" role="img" aria-label="Saaf replaces an Aadhaar number and a PAN with tokens before the model sees them, and puts the real values back in the reply.">
+        <div class="row"><div class="lbl">You send</div><div class="val">Mera aadhaar <span class="hl">2345 6789 0124</span> hai, PAN <span class="hl">ABCPE1234F</span></div></div>
+        <div class="row"><div class="lbl">The model sees</div><div class="val">Mera aadhaar <span class="tk">[AADHAAR_1]</span> hai, PAN <span class="tk">[PAN_1]</span></div></div>
+        <div class="row"><div class="lbl">You get back</div><div class="val">Verified 2345 6789 0124 and ABCPE1234F.</div></div>
+        <div class="foot">Saaf · masked in your browser or gateway · restored mid-stream</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Focus areas</div><h2>Three problems we think India has to solve first.</h2></div></div>
+      <div class="focus">
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-lock"/></svg></div><h3>Privacy for LLMs</h3><p>Personal data leaks into prompts, logs and retrieval stores. We mask it before it leaves your network and restore it in the reply.</p></div>
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Agent security</h3><p>Agents act through tool calls, and that is where data walks out. We are researching guardrails that check every call before it runs.</p></div>
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-lang"/></svg></div><h3>Evaluations for India</h3><p>Most safety benchmarks are English-only. We build open benchmarks in Hinglish and Indian scripts and publish every number, including the ones we lose.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><div class="eyebrow">Products &amp; open source</div><h2>Things we ship, and things we are still testing.</h2></div>
+        <a class="arrow-link" href="/products">All projects →</a>
+      </div>
+      <div class="projects">
+        <article class="pcard reveal">
+          <div class="ph"><h3>Saaf</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
+          <p>India-first PII masking and restore for LLMs. Catches Aadhaar, PAN, GSTIN, UPI and 18 more identifiers with checksums, and puts the real values back in the reply, even mid-stream.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">Gateway</span><span class="tag">Plugins</span></div>
+          <div class="repo">physicsisawesome7/Saaf</div>
+          <div class="links-row"><a href="/saaf/playground">Try it</a><a href="/saaf">Overview</a><a href="https://github.com/physicsisawesome7/Saaf">GitHub</a></div>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>IndicPII-Bench</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
+          <p>An open benchmark for detecting Indian personal data: 2,500 documents across structured IDs, Hinglish, four Indian scripts and look-alike numbers that should be left alone.</p>
+          <div class="tags"><span class="tag">Benchmark</span><span class="tag">Open data</span><span class="tag">Reproducible</span></div>
+          <div class="repo">physicsisawesome7/Saaf/bench</div>
+          <div class="links-row"><a href="/research#indicpii-bench">Results</a><a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Method &amp; code</a></div>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>Saaf Guard</h3><span class="badge-s research">In research</span></div>
+          <p>Guardrails for AI agents: allow-lists, argument checks and human approval for risky tool calls, with signed evidence of what was allowed and why.</p>
+          <div class="tags"><span class="tag">Agents</span><span class="tag">MCP</span><span class="tag">Policy</span></div>
+          <div class="links-row"><a href="/blog/agents-need-a-firewall">Read the thesis</a></div>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>Indic name model</h3><span class="badge-s research">In research</span></div>
+          <p>A small model that finds Indian names and addresses in Indian scripts and code-mixed text, where every tool we tested, including ours, scores near zero today.</p>
+          <div class="tags"><span class="tag">NLP</span><span class="tag">Indic</span><span class="tag">Small model</span></div>
+          <div class="links-row"><a href="https://github.com/physicsisawesome7/Saaf">Follow on GitHub</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark">
+    <div class="wrap">
+      <div class="eyebrow">Benchmark · IndicPII-Bench v1</div>
+      <h2>Measured against Microsoft Presidio, in public.</h2>
+      <div class="metrics">
+        <div class="metric"><strong>0.711 vs 0.437</strong><span>strict F1, Saaf vs Presidio with its India recognizers on and tuned</span></div>
+        <div class="metric"><strong>0.35 vs 131</strong><span>false alarms per 1k tokens on look-alike numbers</span></div>
+        <div class="metric"><strong>44×</strong><span>faster per kilobyte on the same machine</span></div>
+        <div class="metric"><strong>0.1 vs 691 MB</strong><span>installed size, Saaf vs Presidio + spaCy</span></div>
+      </div>
+      <p>Most of the corpus is synthetic and Saaf's rules were tuned on the same families, so read Saaf's scores as optimistic until our human-labelled set is out. Names in Indian scripts remain unsolved for every tool, including ours.</p>
+      <div class="btns mt28"><a class="btn btn-ghost-dark" href="/research#indicpii-bench">Read the methodology</a></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div><div class="eyebrow">Writing</div><h2>Notes from the lab.</h2></div>
+        <a class="arrow-link" href="/blog">All posts →</a>
+      </div>
+      <div class="posts3">
+        <a class="post-card reveal" href="/blog/checksum-is-not-enough"><span class="meta">26 Oct 2026 · Research note</span><h3>A checksum is not enough: detecting Indian PII in the real world</h3><p>About one random 12-digit number in ten passes the Aadhaar checksum. Why detection needs labels, scripts and OCR repair.</p><span class="more">Read →</span></a>
+        <a class="post-card reveal" href="/blog/agents-need-a-firewall"><span class="meta">26 Oct 2026 · Essay</span><h3>Agents need a firewall</h3><p>Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call.</p><span class="more">Read →</span></a>
+        <a class="post-card reveal" href="/blog/india-ai-trust-rulebook"><span class="meta">26 Oct 2026 · Explainer</span><h3>India's AI trust rulebook, for builders</h3><p>DPDP, the Aadhaar Data Vault, CERT-In and RBI's FREE-AI: what is in force, what is draft, and what applies to your LLM app.</p><span class="more">Read →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Principles</div><h2>How we build.</h2></div></div>
+      <div class="principles">
+        <div class="reveal"><h3>Open by default</h3><p>Code, benchmarks and data are public under permissive licences.</p></div>
+        <div class="reveal"><h3>Measured in public</h3><p>Every claim comes with a number, a method and a way to reproduce it.</p></div>
+        <div class="reveal"><h3>Honest about limits</h3><p>We say what our tools miss, and label research as research.</p></div>
+        <div class="reveal"><h3>Private by design</h3><p>Our tools run on your infrastructure. We never see your data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="founder reveal">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="Lalit Shukla" width="128" height="128" loading="lazy">
+        <div>
+          <div class="eyebrow mb8">Founder</div>
+          <h3>Lalit Shukla</h3>
+          <p class="role">Chief of Product · Product-driven entrepreneur</p>
+          <p>Six years of building AI products for India's infrastructure and government, from drone analytics for NHAI and NTPC to automated project reports for railways and highways.</p>
+          <p class="mt14"><a class="arrow-link" href="/about">About Lalit →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band" id="contact">
+    <div class="wrap center">
+      <h2 class="reveal">Putting AI on Indian data?</h2>
+      <p class="lede lede-center reveal">Pilots for Saaf, research collaborations and partnerships. Tell us what you are building.</p>
+      <div class="btns center reveal">
+        <a class="btn btn-primary" href="mailto:lalit@safearly.com">Email lalit@safearly.com</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Star Saaf on GitHub</a>
+      </div>
+    </div>
+  </section>

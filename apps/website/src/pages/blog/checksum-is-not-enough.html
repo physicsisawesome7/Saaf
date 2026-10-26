@@ -1,0 +1,95 @@
+<!--page {"path": "/blog/checksum-is-not-enough", "nav": "blog", "title": "A checksum is not enough: detecting Indian PII in the real world · Safearly", "ogTitle": "A checksum is not enough: detecting Indian PII in the real world", "ogType": "article", "description": "About one random 12-digit number in ten passes the Aadhaar checksum. Why detecting Indian personal data needs labels, scripts and OCR repair, and what today's tools do.", "scripts": ["/assets/main.js"], "post": {"date": "2026-10-26", "type": "Research note", "title": "A checksum is not enough: detecting Indian PII in the real world"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#checksum">What the checksum tells you</a></li>
+        <li><a href="#identifiers">The other identifiers</a></li>
+        <li><a href="#real-text">Where real text breaks the rules</a></li>
+        <li><a href="#tools">What the tools do today</a></li>
+        <li><a href="#benchmark">No Indian benchmark, so we built one</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Research note</div>
+      <h1>A checksum is not enough: detecting Indian PII in the real world</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">26 Oct 2026 · Research note</div></div>
+        <div class="tags"><span class="tag">PII</span><span class="tag">Aadhaar</span><span class="tag">Benchmarks</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Aadhaar numbers end in a Verhoeff check digit, so it is tempting to think detecting them is solved: match twelve digits, run the checksum, done. It is not. About one random 12-digit number in ten passes the check.</p>
+
+        <h2 id="checksum">What the checksum actually tells you</h2>
+        <p>A check digit exists to catch typing mistakes: a wrong digit, two digits swapped. It was never designed to tell an identity number apart from every other number that happens to have twelve digits. With ten possible check digits, roughly one number in ten will satisfy it by chance.</p>
+        <p>We measured it. Our script draws one million uniformly random 12-digit strings with a fixed seed and applies the same rules a regex-plus-checksum detector uses (they match the ones in Microsoft Presidio's Aadhaar recognizer: twelve digits, first digit 2 to 9, Verhoeff valid, not a palindrome).</p>
+        <div class="figure"><strong>10.03<em>%</em></strong><span>of 1,000,000 random 12-digit strings pass Verhoeff (seed 2026). 8.04% pass every detector rule.</span></div>
+        <p>A second run is worse for anyone handling customer data: <strong>9.99%</strong> of Indian mobile numbers written as <code>91</code> plus ten digits, with no separator, also pass the Aadhaar checksum. A detector that trusts the checksum alone will flag one phone number in ten as an Aadhaar number, and will flag order IDs, UTRs and invoice numbers at the same rate. Raise the bar to cut those false alarms and you start missing real Aadhaar numbers written with spaces, in Devanagari digits or off a scanned card.</p>
+        <p>The script is <a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/scripts/verhoeff_collisions.py">in our repository</a>; rerun it with any seed.</p>
+
+        <h2 id="identifiers">The other identifiers are no easier</h2>
+        <ul>
+          <li><strong>Aadhaar Virtual ID.</strong> Sixteen digits ending in a Verhoeff digit, the same length as a payment card number checked with Luhn. Only the surrounding words tell them apart.</li>
+          <li><strong>Masked Aadhaar.</strong> In UIDAI's masked Aadhaar, only the last four digits of the number are visible. There is nothing left for a checksum to validate; whether to redact it is a policy choice.</li>
+          <li><strong>PAN.</strong> Ten characters with a holder-type letter in fourth place (P for a person, C for a company and so on), but no publicly documented check algorithm. Presidio's PAN recognizer is three regular expressions with fixed scores.</li>
+          <li><strong>GSTIN.</strong> Fifteen characters with a real mod-36 check character, yet Presidio's recognizer only checks that the last character is alphanumeric and never computes it. A GSTIN with a valid check character can still be cancelled.</li>
+          <li><strong>IFSC and UPI.</strong> IFSC has a fixed shape (four letters, a zero, six characters) and no checksum. UPI handles have no published grammar at all.</li>
+        </ul>
+        <p>Structure helps, but in both directions it is not enough: valid-looking numbers that are not identifiers, and real identifiers with nothing to validate.</p>
+
+        <h2 id="real-text">Where real text breaks the rules</h2>
+        <p>The numbers that matter rarely arrive in a clean form field. They arrive in support chats, call transcripts, scanned forms and emails, and Indian text is mixed. One peer-reviewed study of Indian tweets found 11.45% were code-mixed, and Hindi-English writers switch script inside a sentence. In practice that means:</p>
+        <ul>
+          <li><strong>Hinglish labels.</strong> “aadhar”, “adhaar”, “mera aadhaar” and “आधार”. Presidio's Aadhaar context words are “aadhaar” and “uidai”, so none of the others raise its score.</li>
+          <li><strong>Indian digits.</strong> २३४५ ६७८९ ०१२४ is the same number in Devanagari numerals and will not match <code>[0-9]</code>.</li>
+          <li><strong>OCR errors.</strong> A scanned card turns 0 into O and 8 into B, so the checksum fails on a real number until the errors are repaired.</li>
+          <li><strong>Look-alikes next to the real thing.</strong> “Order ID 234567890124” passes the checksum. A detector has to read the label next to it.</li>
+        </ul>
+        <pre><code>Order ID 234567890124 shipped        → unchanged: the nearest label says "order"
+mera aadhaar 2345 6789 0124 hai      → mera aadhaar [AADHAAR_1] hai
+AADHAAR: 2345 67B9 O124              → [AADHAAR_1]   (OCR repaired, then checked)</code></pre>
+        <p>That is how <a href="/saaf">Saaf</a> works: normalise scripts and digits first, check every candidate with its checksum, then let the nearest label decide, so a valid number under “order ID” stays and the same digits under “aadhaar” are masked. Try it in the <a href="/saaf/playground">playground</a> with the “Look-alikes” and “OCR scan” samples.</p>
+
+        <h2 id="tools">What the tools do today</h2>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Tool</th><th>Indian coverage out of the box</th></tr></thead>
+            <tbody>
+              <tr><td>Microsoft Presidio</td><td>Six India recognizers, all disabled in the default configuration and set up for English only</td></tr>
+              <tr><td>AWS Comprehend PII</td><td>Four India types; PII detection in English and Spanish only</td></tr>
+              <tr><td>Google Sensitive Data Protection</td><td>Four India infoTypes: Aadhaar, GST, PAN and passport</td></tr>
+              <tr class="us"><td>Saaf</td><td>22 types with checksums, Hinglish and Indian-script context, OCR repair</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Names and addresses need a model, not a pattern, and the best open option for Indian languages degrades quickly. AI4Bharat's IndicNER scores F1 around 80 to 83 for Hindi, Bengali and Telugu, but about 66 for Assamese and 26 to 39 for Odia, on silver test sets, and it covers only people, places and organisations.</p>
+        <div class="callout-v"><strong>Names are still unsolved</strong><p>On IndicPII-Bench, every tool we tested, including Saaf, scores near zero on Indian names in Indian scripts. It is the next thing we are working on.</p></div>
+
+        <h2 id="benchmark">No Indian benchmark, so we built one</h2>
+        <p>We could not find an established benchmark for Indian personal data. The closest public work is a 17,000-sentence semi-synthetic set spanning India, the UK and the US, plus a few small models with self-reported scores that cannot be compared with each other.</p>
+        <p>So we built <a href="/research#indicpii-bench">IndicPII-Bench</a>: 2,500 documents across structured IDs, Hinglish, four Indian scripts, real bank codes, obfuscation and look-alike numbers, plus Hindi, Marathi, Tamil and Telugu name slices drawn from the public Naamapadam and HiNER datasets. We ran Saaf against Presidio with all six India recognizers switched on and its threshold tuned, because comparing against a bare regex proves nothing. Saaf scored 0.711 strict F1 to Presidio's 0.437, with 0.35 false alarms per thousand tokens on look-alikes against 131.</p>
+        <p>Those numbers come with a warning we would want from anyone else: most of the corpus is synthetic, and Saaf's rules were tuned on the same families, so its scores are optimistic. The human-labelled, held-out set comes next, and we will publish it whether or not Saaf wins.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/scripts/verhoeff_collisions.py">verhoeff_collisions.py</a> (seed 2026, 1,000,000 samples).</li>
+          <li>Microsoft Presidio, <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/conf/default_recognizers.yaml">default_recognizers.yaml</a>, <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/predefined_recognizers/country_specific/india/in_aadhaar_recognizer.py">in_aadhaar_recognizer.py</a> and <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/predefined_recognizers/country_specific/india/in_pan_recognizer.py">in_pan_recognizer.py</a>.</li>
+          <li>UIDAI, <a href="https://uidai.gov.in/en/my-aadhaar">My Aadhaar</a>: masked Aadhaar shows only the last four digits.</li>
+          <li>The News Minute, <a href="https://www.thenewsminute.com/amp/story/atom/plugging-aadhaar-leaks-here-how-new-aadhaar-virtual-id-will-work-74520">how the Aadhaar Virtual ID works</a>.</li>
+          <li>python-stdnum, <a href="https://arthurdejong.org/python-stdnum/doc/stdnum.in_.gstin">GSTIN check character</a>.</li>
+          <li>AWS, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-pii.html">Detecting PII entities</a>; Google Cloud, <a href="https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference">infoType reference</a>.</li>
+          <li><a href="https://arxiv.org/pdf/2304.00634">MMT code-mixed tweets dataset</a> (arXiv 2304.00634).</li>
+          <li>Mhaske et al., <a href="https://arxiv.org/html/2212.10168">Naamapadam</a> (ACL 2023), AI4Bharat.</li>
+          <li><a href="https://arxiv.org/abs/2504.12308">arXiv 2504.12308</a>, multi-jurisdiction PII dataset.</li>
+        </ol>
+        <p class="note-box">Facts checked against the linked sources on 26 October 2026. Found an error? Email <a href="mailto:lalit@safearly.com">lalit@safearly.com</a> and we will correct it and say so here.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+          <a class="post-card" href="/blog/india-ai-trust-rulebook"><span class="meta">Explainer</span><h3>India's AI trust rulebook, for builders</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

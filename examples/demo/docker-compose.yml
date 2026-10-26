@@ -1,4 +1,4 @@
-# Saaf gateway for the browser playground (https://safearly.com/playground).
+# Saaf gateway for the browser playground (https://safearly.com/saaf/playground).
 # From the repository root:
 #
 #   docker compose -f examples/demo/docker-compose.yml up --build

@@ -10,7 +10,7 @@ There are three ways to try Saaf, from zero setup to production shape. Use made-
 
 ## 1. Browser playground
 
-Open **https://safearly.com/playground**.
+Open **https://safearly.com/saaf/playground**.
 
 - **Chat with a model.** Pick the simulated model (no key needed) or bring your own OpenAI, Anthropic, Gemini or OpenRouter key, or a local Ollama. Your message is masked in the tab before it is sent. Switch *View as → The model* to see exactly what the model received and wrote. Real values never reached it.
 - **Why it was caught.** For each detection you see the type, score and evidence: checksum passed, label nearby, OCR-repaired, or spelled-out digits.

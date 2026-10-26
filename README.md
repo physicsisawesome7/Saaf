@@ -6,7 +6,7 @@
 
 > **Clean prompts. Caught early.** Website: [safearly.com](https://safearly.com)
 >
-> **Try it now:** [safearly.com/playground](https://safearly.com/playground) — chat with a real model through Saaf, or mask a CSV, right in your browser. Running it yourself: [docs/try-it.md](docs/try-it.md).
+> **Try it now:** [safearly.com/saaf/playground](https://safearly.com/saaf/playground) — chat with a real model through Saaf, or mask a CSV, right in your browser. Running it yourself: [docs/try-it.md](docs/try-it.md).
 
 ```python
 from saaf import Saaf

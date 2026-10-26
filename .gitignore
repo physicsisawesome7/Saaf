@@ -60,3 +60,6 @@ reports/
 bench/data/raw/
 bench/corpus/external/
 .venv-*/
+
+# Superdesign working files
+.superdesign/

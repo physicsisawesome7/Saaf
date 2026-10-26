@@ -123,7 +123,7 @@ def create_app(config: GatewayConfig | None = None, transport: httpx.AsyncBaseTr
     app = FastAPI(title="Saaf gateway", version=__version__, lifespan=lifespan)
     app.state.gateway = gw
     if gw.config.cors_origins:
-        # Lets a browser page (e.g. safearly.com/playground) call a gateway on
+        # Lets a browser page (e.g. safearly.com/saaf/playground) call a gateway on
         # localhost. Off unless SAAF_CORS_ORIGINS names the origins.
         cors: dict[str, Any] = {
             "allow_origins": list(gw.config.cors_origins),

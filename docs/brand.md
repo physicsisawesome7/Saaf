@@ -2,14 +2,14 @@
 
 | | |
 |---|---|
-| Company | **Safearly** (`safearly.com`) |
-| Product | **Saaf** (साफ़, "clean"). On first mention write "Saaf by Safearly". |
-| Tagline | *Clean prompts. Caught early.* |
-| One-liner | India-first PII masking and restore for LLM traffic. |
+| Company | **Safearly** (`safearly.com`): an AI safety & trust lab from India |
+| Lab line | *AI safety & trust, built in India.* |
+| First product | **Saaf** (साफ़, "clean"). On first mention write "Saaf by Safearly". Tagline *Clean prompts. Caught early.* |
+| Saaf one-liner | India-first PII masking and restore for LLM traffic. |
 
 ## The mark: "the sun behind the bar"
 
-A saffron sun, partly hidden behind a green rounded bar.
+A violet sun, partly hidden behind a black rounded bar. (Until October 2026 the mark was a saffron sun behind a green bar; the shapes are unchanged.)
 
 - **Sun = early.** It sits mostly above the bar, so it reads as rising.
 - **Bar = safe.** It is the redaction mask Saaf puts over a value. The sun is still recognisable behind it, the way a masked prompt is still useful to the model.
@@ -43,16 +43,19 @@ Rules:
 
 | Token | Hex | Use |
 |---|---|---|
-| Green | `#137A5C` | Primary: the bar, buttons, links. Dark mode uses `#5FD3A8`. |
-| Saffron | `#F4A51C` | The sun, value highlights. Use sparingly. |
-| Ink | `#1F1F1F` | Text |
-| Grey | `#5F6368` | Secondary text |
-| Tint | `#F8F9FA` | Section and card backgrounds |
-| White | `#FFFFFF` | Page |
+| White | `#FFFFFF` | Page background, always. The site has no dark mode. |
+| Ink | `#0A0A0A` | Headings, primary buttons, the bar in the mark, the one black section per page |
+| Text / Muted | `#18181B` / `#52525B` | Body and secondary text |
+| Line | `#E4E4E7` | 1px borders and dividers (borders, not shadows) |
+| Surface | `#FAFAFA` / `#F4F4F5` | Section bands, code, tags |
+| Violet | `#6D28D9` (hover `#5B21B6`) | The only accent: links, accent buttons, tokens, eyebrows |
+| Violet sun | `#7C3AED` | The sun in the mark |
+| Violet tint | `#F5F3FF` / `#EDE9FE` | Highlights, callouts, licence badges |
+| Status green | `#15803D` on `#F0FDF4` | "Live" badges only |
 
 ## Layout and type
 
-The style is minimal and product-led: white space, centred section headings, borderless tinted cards with 24px radius, pill buttons, and one primary action per view. Type is the system UI stack (Google Sans or Segoe UI where present) at medium weight with tight tracking, and no web fonts, so the site makes no third-party requests.
+The style is an editorial research-lab look: white space, left-aligned section heads with a mono uppercase eyebrow in violet, 1px-bordered cards with 16px radius, 10px-radius buttons (black primary, violet accent, white outline), and mono for metadata (dates, repo paths, numbers). Type is Inter where installed, falling back to the system UI stack, with no web fonts, so the site makes no third-party requests. Design source of truth: `.superdesign/design-system.md` and `apps/website/assets/styles.css` + `lab.css`.
 
 ## Voice
 

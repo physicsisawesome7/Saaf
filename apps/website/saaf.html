@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saaf · India-first PII masking for LLMs · Safearly</title>
+  <meta name="description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
+  <link rel="canonical" href="https://safearly.com/saaf">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="Saaf · India-first PII masking for LLMs · Safearly">
+  <meta property="og:description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
+  <meta property="og:url" content="https://safearly.com/saaf">
+  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products" class="active" aria-current="page">Products</a></li>
+      <li><a href="/research">Research</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="/products">Products</a> / Saaf</div>
+      <div class="badge"><b>Live</b> Open source · Apache-2.0</div>
+      <h1>Clean prompts. <span>Caught early.</span></h1>
+      <p class="lead">Saaf finds Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers in your AI traffic, swaps them for tokens before they leave your network, and puts the real values back in the reply.</p>
+      <div class="btns center">
+        <a class="btn btn-accent" href="/saaf/playground">Open the playground</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">View on GitHub</a>
+      </div>
+
+      <div class="visual" role="img" aria-label="A prompt containing an Aadhaar number and PAN is sent to the model as tokens, and the reply is restored with the real values.">
+        <div class="vrow"><div class="vlabel">You send</div><div class="vtext">Mera aadhar <span class="swap"><span class="raw">2345 6789 0124</span><span class="tok">[AADHAAR_1]</span></span> hai, PAN <span class="swap"><span class="raw">ABCPE1234F</span><span class="tok">[PAN_1]</span></span>. Order ID 234567890124.</div></div>
+        <div class="vrow"><div class="vlabel">The model sees</div><div class="vtext">Mera aadhar <span class="tok">[AADHAAR_1]</span> hai, PAN <span class="tok">[PAN_1]</span>. Order ID 234567890124.</div></div>
+        <div class="vrow"><div class="vlabel">You get back</div><div class="vtext">Verified <span class="raw">2345 6789 0124</span> and <span class="raw">ABCPE1234F</span>'s record.</div></div>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><strong>22</strong><span>Indian identifier types</span></div>
+        <div class="fact"><strong>0</strong><span>runtime dependencies</span></div>
+        <div class="fact"><strong>0.35</strong><span>false alarms per 1k tokens*</span></div>
+        <div class="fact"><strong>100%</strong><span>on your infrastructure</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how" class="tint">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">How it works</div>
+        <h2>Mask on the way out. Restore on the way back.</h2>
+        <p class="lead">Saaf sits between your users and any LLM, as a library, a gateway or a plugin. Real values stay in a short-lived vault on your side.</p>
+      </div>
+      <div class="steps">
+        <div class="tile step reveal"><div class="num">1</div><h3>Detect</h3><p>It cleans up hidden characters, lookalike letters and Indic digits, then checks every match with Verhoeff, Luhn and GSTIN maths.</p><div class="ex">2345 6789 0124 → <b>Aadhaar ✓</b></div></div>
+        <div class="tile step reveal"><div class="num">2</div><h3>Mask</h3><p>Your policy decides whether to mask, block, warn or allow. Each value keeps the same token for the whole conversation.</p><div class="ex"><span class="tok">[AADHAAR_1]</span> goes to the model</div></div>
+        <div class="tile step reveal"><div class="num">3</div><h3>Restore</h3><p>Values come back even when the model changes case, drops brackets or streams the reply chunk by chunk.</p><div class="ex">[aadhaar_1]'s → 2345 6789 0124's</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Live demo</div>
+        <h2>Try it. Nothing leaves this tab.</h2>
+        <p class="lead">This is the real Saaf engine, running in your browser. For a full round trip with a real model, streaming and file masking, open the <a href="/saaf/playground">playground</a>.</p>
+      </div>
+      <div class="demo">
+        <div class="pane">
+          <div class="pane-head">
+            <h3>Your text</h3>
+            <div class="seg" role="group" aria-label="Load a sample">
+              <button type="button" data-sample="kyc" aria-pressed="true">KYC form</button>
+              <button type="button" data-sample="hinglish" aria-pressed="false">Hinglish</button>
+              <button type="button" data-sample="ocr" aria-pressed="false">OCR scan</button>
+              <button type="button" data-sample="negatives" aria-pressed="false">Look-alikes</button>
+            </div>
+          </div>
+          <label class="sr-only" for="demo-input">Text to scan</label>
+          <textarea id="demo-input" spellcheck="false"></textarea>
+          <div class="out" id="demo-highlight" aria-live="polite"></div>
+          <div class="chips" id="demo-chips"></div>
+        </div>
+        <div class="pane">
+          <div class="pane-head"><h3>What the model sees</h3><span class="local">Processed on your device</span></div>
+          <pre class="out" id="demo-masked"></pre>
+          <div class="pane-head"><h3>Model reply, restored</h3><span class="small muted">Edit the reply to try messy tokens</span></div>
+          <label class="sr-only" for="demo-reply">Simulated model reply</label>
+          <textarea id="demo-reply" spellcheck="false"></textarea>
+          <pre class="out" id="demo-restored"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="tint">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Features</div>
+        <h2>Built for how Indian data really looks.</h2>
+      </div>
+      <div class="grid g3">
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Checksums, not guesses</h3><p>Any 12 digits match an "Aadhaar regex". Saaf checks the maths, and the nearest label wins, so "Order ID 2345…" stays untouched.</p></div>
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-lang"/></svg></div><h3>Hinglish &amp; Indic scripts</h3><p>"mera adhaar", आधार, and digits in Devanagari, Bengali, Tamil, Telugu and five more scripts.</p></div>
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-scan"/></svg></div><h3>OCR repair</h3><p>"2345 67B9 O124" from a scanned card is still an Aadhaar. The checksum confirms the repair before it counts.</p></div>
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-stream"/></svg></div><h3>Streaming-safe restore</h3><p>Only the few characters that could start a token are held back. Everything else streams straight through.</p></div>
+        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Shadow mode</h3><p>Watch what's really being sent for two weeks before you enforce anything. Types and counts only.</p></div>
+        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-doc"/></svg></div><h3>Signed audit &amp; evidence</h3><p>Hash-chained, signed records and an evidence pack (data flows, processors, retention) for your reviewers.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accuracy -->
+  <section id="accuracy">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Accuracy</div>
+        <h2>Measured in public.</h2>
+        <p class="lead">IndicPII-Bench is our open benchmark: 2,500 documents, including Hindi, Marathi, Tamil and Telugu text from the public Naamapadam and HiNER datasets. Here Saaf runs against Microsoft Presidio with all its India recognizers on and its threshold tuned.</p>
+      </div>
+      <div class="grid g2">
+        <div class="tile reveal">
+          <h3>Detection F1 <span class="muted small">higher is better</span></h3>
+          <div class="bars">
+            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w711"></div></div><span class="val">0.711</span></div>
+            <div class="bar"><span>Presidio</span><div class="track"><div class="fill w437"></div></div><span class="val">0.437</span></div>
+          </div>
+        </div>
+        <div class="tile reveal">
+          <h3>False alarms per 1k tokens <span class="muted small">lower is better</span></h3>
+          <div class="bars">
+            <div class="bar"><span>Saaf</span><div class="track"><div class="fill g w1"></div></div><span class="val">0.35</span></div>
+            <div class="bar"><span>Presidio</span><div class="track"><div class="fill w100"></div></div><span class="val">131.34</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="note center">*IndicPII-Bench v1, 2,500 documents; Presidio 2.2 with spaCy en_core_web_lg, threshold tuned on a separate dev set. Saaf is also about 44× faster per KB and 0.1 MB against 691 MB installed. Both tools still score near zero on unlabelled Indian names, and Saaf's rules were tuned on the same synthetic families, so treat its identifier scores as optimistic until our human-labelled gold set is out. <a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Reproduce it</a>.</p>
+
+      <div class="head reveal" id="coverage">
+        <h3 class="center">22 identifier types</h3>
+      </div>
+      <div class="ents reveal">
+        <span class="ent">Aadhaar</span><span class="ent ctx">Aadhaar VID</span><span class="ent">PAN</span><span class="ent">GSTIN</span>
+        <span class="ent">UPI ID</span><span class="ent">Mobile (+91)</span><span class="ent">Payment card</span><span class="ent">IFSC</span>
+        <span class="ent ctx">Bank account</span><span class="ent ctx">Voter ID</span><span class="ent ctx">Passport</span><span class="ent">Driving licence</span>
+        <span class="ent">Vehicle number</span><span class="ent ctx">TAN</span><span class="ent">Udyam</span><span class="ent ctx">ABHA number</span>
+        <span class="ent">ABHA address</span><span class="ent ctx">PIN code</span><span class="ent ctx">Date of birth</span><span class="ent">Email</span>
+        <span class="ent">Name with honorific</span><span class="ent">API keys</span>
+      </div>
+      <div class="legend"><span><i></i>validated by structure or checksum</span><span><i class="d"></i>needs a nearby label</span></div>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section id="integrations" class="tint">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Integrations</div>
+        <h2>Works where your teams already use AI.</h2>
+      </div>
+      <div class="integ">
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-server"/></svg></div><div><h3>Gateway</h3><p>An OpenAI- and Anthropic-compatible proxy. Change one URL.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-code"/></svg></div><div><h3>Python &amp; TypeScript</h3><p>Zero-dependency libraries for servers, browsers and notebooks.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-layers"/></svg></div><div><h3>LiteLLM</h3><p>One guardrail covers your whole model fleet.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-chat"/></svg></div><div><h3>Open WebUI</h3><p>A one-file filter with per-chat sessions.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-db"/></svg></div><div><h3>LangChain &amp; RAG</h3><p>Mask documents before you embed them.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-plug"/></svg></div><div><h3>MCP &amp; Claude Code</h3><p>Tools for agents and a hook that blocks PII.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-globe"/></svg></div><div><h3>Browser extension <span class="pill">beta</span></h3><p>Warns before you paste PII into AI chats.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-term"/></svg></div><div><h3>CLI &amp; pre-commit</h3><p>Keeps PII out of repositories and CI logs.</p></div></div>
+        <div class="it reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-bolt"/></svg></div><div><h3>n8n <span class="pill">soon</span></h3><p>Mask a field before any AI step.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developers -->
+  <section id="developers">
+    <div class="wrap grid g2">
+      <div class="reveal">
+        <div class="kicker">For developers</div>
+        <h2>Three lines to start.</h2>
+        <p class="lead mt16">Install the library or point your SDK at the gateway. Policies are TOML files you review like any other code.</p>
+        <ul class="checks">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Consistent tokens.</strong> The same value always gets the same token, so the model can reason across a conversation.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Tool calls handled.</strong> Function arguments come back as valid JSON.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Same results everywhere.</strong> Python and TypeScript pass one shared test suite.</span></li>
+        </ul>
+      </div>
+      <div class="code reveal">
+        <div class="tabs" role="tablist" aria-label="Code examples">
+          <button role="tab" id="t-py" aria-selected="true" aria-controls="p-py">Python</button>
+          <button role="tab" id="t-gw" aria-selected="false" aria-controls="p-gw" tabindex="-1">Gateway</button>
+          <button role="tab" id="t-ts" aria-selected="false" aria-controls="p-ts" tabindex="-1">TypeScript</button>
+          <button role="tab" id="t-pol" aria-selected="false" aria-controls="p-pol" tabindex="-1">Policy</button>
+        </div>
+        <div role="tabpanel" id="p-py" aria-labelledby="t-py"><button class="copy" type="button">Copy</button><pre><code><span class="c"># pip install "saaf @ git+https://github.com/physicsisawesome7/Saaf#subdirectory=packages/saaf-core"</span>
+<span class="k">from</span> saaf <span class="k">import</span> Saaf
+
+saaf = Saaf()
+masked = saaf.mask(<span class="s">"PAN ABCPE1234F, call +91 98765 43210"</span>)
+masked.text  <span class="c"># 'PAN [PAN_1], call [PHONE_IN_1]'</span>
+
+reply = llm(masked.text)
+saaf.restore(reply).text</code></pre></div>
+        <div role="tabpanel" id="p-gw" aria-labelledby="t-gw" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c"># Run it in two minutes: github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md</span>
+<span class="k">from</span> openai <span class="k">import</span> OpenAI
+
+client = OpenAI(base_url=<span class="s">"http://localhost:8787/v1"</span>)
+<span class="c"># masked on the way out, restored on the way back,</span>
+<span class="c"># streaming included</span></code></pre></div>
+        <div role="tabpanel" id="p-ts" aria-labelledby="t-ts" hidden><button class="copy" type="button">Copy</button><pre><code><span class="c">// npm package coming soon; build from packages/saaf-js meanwhile</span>
+<span class="k">import</span> { Saaf } <span class="k">from</span> <span class="s">"@safearly/saaf"</span>;
+
+<span class="k">const</span> saaf = <span class="k">new</span> Saaf();
+<span class="k">const</span> s = saaf.streamRestorer();
+<span class="k">for await</span> (<span class="k">const</span> chunk <span class="k">of</span> stream) out.write(s.feed(chunk));
+out.write(s.flush());</code></pre></div>
+        <div role="tabpanel" id="p-pol" aria-labelledby="t-pol" hidden><button class="copy" type="button">Copy</button><pre><code>[policy]
+mode = <span class="s">"shadow"</span>        <span class="c"># observe first, enforce later</span>
+default_action = <span class="s">"mask"</span>
+
+[entities.SECRET]
+action = <span class="s">"block"</span>
+
+[[rules]]                <span class="c"># approved in-region endpoint</span>
+entities = [<span class="s">"PAN"</span>]
+destinations = [<span class="s">"*.in-region.example.com"</span>]
+action = <span class="s">"allow"</span></code></pre></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Security -->
+  <section id="security" class="tint">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Security &amp; privacy</div>
+        <h2>Built so we never see your data.</h2>
+        <p class="lead">Saaf runs on your infrastructure. Safearly never receives your prompts, replies or token mappings.</p>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="table">
+          <thead><tr><th>Data</th><th>Where it lives</th><th>How long</th></tr></thead>
+          <tbody>
+            <tr><td>Your prompt</td><td>Your own process, in memory</td><td>For the request</td></tr>
+            <tr><td>Token ↔ value vault</td><td>In memory by default; optionally SQLite or Redis, encrypted with AES-GCM</td><td>Session, or a TTL you set</td></tr>
+            <tr><td>What the LLM receives</td><td>Tokens such as <code>[PAN_1]</code> in place of values</td><td>The provider's terms</td></tr>
+            <tr><td>Audit records</td><td>Your log sink: types and counts only, signed and hash-chained</td><td>Your retention policy</td></tr>
+            <tr><td>Anything sent to Safearly</td><td>Nothing. No telemetry.</td><td>n/a</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid g3 mt16">
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-lock"/></svg></div><h3>Careful by default</h3><p>Persistent vaults refuse to run without an encryption key. Destroying a key crypto-shreds its data. Values never appear in logs.</p></div>
+        <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Verifiable releases</h3><p>Signed packages and container images, an SBOM with every release, a public threat model, and an external review of the vault cryptography before enterprise availability.</p></div>
+        <div class="tile reveal"><div class="ic s"><svg aria-hidden="true"><use href="#i-eye"/></svg></div><h3>Honest limits</h3><p>Saaf can miss names without an honorific or a label such as “Name:”, free-text addresses, images and unlabelled numbers. <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">Full list</a>.</p></div>
+      </div>
+      <p class="callout reveal">Saaf provides evidence and safeguards for your own DPDP work. It is not a compliance certificate, and we will never claim it is. Found a vulnerability? Email <a href="mailto:lalit@safearly.com">lalit@safearly.com</a> (we acknowledge within 3 working days).</p>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="head reveal">
+        <div class="kicker">Pricing</div>
+        <h2>Free to start. Ready to scale.</h2>
+      </div>
+      <div class="plans">
+        <div class="plan reveal">
+          <h3>Open source</h3>
+          <div class="price">Free</div>
+          <p class="muted small">Apache-2.0, forever.</p>
+          <ul><li>Libraries, CLI and gateway</li><li>All plugins</li><li>IndicPII-Bench</li><li>Community support</li></ul>
+          <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Get started</a>
+        </div>
+        <div class="plan feat reveal">
+          <h3>Team</h3>
+          <div class="price">Design partners</div>
+          <p class="muted small">For teams putting AI on customer data.</p>
+          <ul><li>Console and policy editor</li><li>Shadow-mode findings feed</li><li>Audit viewer and evidence exports</li><li>BFSI sector pack</li></ul>
+          <a class="btn btn-primary" href="#contact">Join the pilot</a>
+        </div>
+        <div class="plan reveal">
+          <h3>Enterprise</h3>
+          <div class="price">Let's talk</div>
+          <p class="muted small">For regulated organisations.</p>
+          <ul><li>SSO and RBAC</li><li>KMS-backed vaults</li><li>On-prem and air-gapped installs</li><li>Health and HR packs, SLAs</li></ul>
+          <a class="btn btn-outline" href="mailto:lalit@safearly.com?subject=Saaf%20Enterprise">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="tint">
+    <div class="wrap">
+      <div class="head reveal"><div class="kicker">FAQ</div><h2>Questions, answered.</h2></div>
+      <div class="faq">
+        <details><summary>Can I try it without installing anything?</summary><p>Yes. The <a href="/saaf/playground">playground</a> runs the real engine in your browser: chat with a model of your choice (or a simulated one, no key needed) and see exactly what the model receives, or mask a whole CSV. To run it on your own machines, see <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md">Try Saaf</a>.</p></details>
+        <details><summary>Does our data leave our network?</summary><p>No. Saaf runs as a library, a gateway or a plugin on your own infrastructure. Only tokens reach the model provider, and Safearly never receives your traffic.</p></details>
+        <details><summary>Is Saaf "DPDP compliant"?</summary><p>No tool can make you compliant on its own. Saaf reduces how much personal data reaches LLMs and produces evidence (policies, signed audit logs, an evidence pack) for your own DPDP programme. Have your counsel review how you use it.</p></details>
+        <details><summary>How is it different from a regex?</summary><p>It validates checksums (Verhoeff, Luhn, GSTIN), scores the surrounding words, repairs OCR errors and normalises Unicode. On look-alike numbers such as order IDs, a bare regex raised 245.66 false alarms per 1,000 tokens and Microsoft Presidio (tuned) 131.34; Saaf raised 0.35.</p></details>
+        <details><summary>Does it work with streaming responses?</summary><p>Yes. Text streams through as it arrives; only the few characters that could start a token are held back. Tests check that any chunking gives the same result.</p></details>
+        <details><summary>What doesn't it catch?</summary><p>Names without an honorific or a label such as “Name:”, free-text addresses, images, and unlabelled generic numbers such as bank accounts or PIN codes. An Indic name-recognition model is on the roadmap.</p></details>
+        <details><summary>What does this website collect?</summary><p>Nothing. There are no cookies, no analytics and no third-party scripts. The demo runs entirely in your browser. In the <a href="/saaf/playground">playground</a>, if you pick a model provider, your browser sends the masked text straight to that provider with your key; Safearly never sees either. If you email us, we use your address only to reply.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="cta">
+    <div class="wrap reveal">
+      <img class="cta-mark" src="/assets/brand/safearly-mark.svg" alt="" width="72" height="72">
+      <h2>Start in shadow mode this week.</h2>
+      <p class="lead cta-lead">We're onboarding design partners in fintech, health, legal and BPO. Your pilot is free, with a weekly findings review. We only ever see types and counts.</p>
+      <div class="btns center">
+        <a class="btn btn-primary" href="mailto:lalit@safearly.com?subject=Saaf%20shadow-mode%20pilot">Request a pilot</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Read the code</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">An AI safety &amp; trust lab from India. We build open-source tools, benchmarks and research for using AI on real Indian data.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
+          <li><a href="/products">All projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

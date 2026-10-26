@@ -1,0 +1,86 @@
+<!--page {"path": "/blog/agents-need-a-firewall", "nav": "blog", "title": "Agents need a firewall · Safearly", "ogTitle": "Agents need a firewall: tool calls are the new perimeter", "ogType": "article", "description": "Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call. That is where the guardrail belongs.", "scripts": ["/assets/main.js"], "post": {"date": "2026-10-26", "type": "Essay", "title": "Agents need a firewall"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#unsolved">The admission</a></li>
+        <li><a href="#incidents">Every leak left through a tool</a></li>
+        <li><a href="#mcp">MCP widens the perimeter</a></li>
+        <li><a href="#defenses">What actually works</a></li>
+        <li><a href="#position">Where we stand</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Essay</div>
+      <h1>Agents need a firewall</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">26 Oct 2026 · Essay</div></div>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">Prompt injection</span><span class="tag">MCP</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">The companies that build frontier models now say prompt injection may never be fully solved. In every major agent leak of the past year, the data did not escape through the prompt. It left through a legitimate tool call. That is where the guardrail belongs.</p>
+
+        <h2 id="unsolved">The admission</h2>
+        <p>For two years the industry treated prompt injection like SQL injection: a bug class you could eventually escape your way out of. The people closest to the models have stopped saying that.</p>
+        <ul>
+          <li>The UK's National Cyber Security Centre says current LLMs “simply do not enforce a security boundary between instructions and data”, and that prompt injection may never be mitigated the way SQL injection was.</li>
+          <li>OpenAI called it “unlikely to ever be fully solved” when it hardened its Atlas browser agent in December 2025.</li>
+          <li>Anthropic reported that professional red-teamers succeeded 17.6% of the time against Claude Opus 4.5 in browser use without extra safeguards, and 16.7% with them.</li>
+          <li><em>The Attacker Moves Second</em> (USENIX Security 2026), written by researchers from OpenAI, Anthropic and Google DeepMind, used adaptive attacks to bypass 12 published defenses, most with over 90% success, although most of those defenses had originally reported near-zero attack rates. A human red team reached 100%.</li>
+        </ul>
+        <p>If the model cannot reliably tell your instructions from an attacker's, then a better filter in front of the prompt is a speed bump, not a wall.</p>
+
+        <h2 id="incidents">Every leak left through a tool</h2>
+        <p>Look at how the damage actually happened in the incidents of 2025 and 2026:</p>
+        <ul>
+          <li><strong>EchoLeak</strong> (CVE-2025-32711, CVSS 9.3): one email made Microsoft 365 Copilot exfiltrate data with no click from the user.</li>
+          <li><strong>The GitHub MCP case:</strong> a malicious public issue led an agent using the official GitHub MCP server to copy private repository contents into a public pull request.</li>
+          <li><strong>Perplexity Comet:</strong> asked to summarise a Reddit page, the browser agent read a Gmail one-time password and sent it to the attacker.</li>
+          <li><strong>ShareLeak</strong> (CVE-2026-21520): Microsoft's own safety checks flagged the malicious request, and the Copilot Studio agent emailed SharePoint customer data anyway. Data-loss prevention stayed silent because the email went out through a normal Outlook action.</li>
+          <li><strong>ForcedLeak and PipeLeak:</strong> Salesforce closed the URL channel after ForcedLeak (CVSS 9.4); in April 2026 PipeLeak used email instead. Salesforce then made human confirmation the default for email actions.</li>
+        </ul>
+        <p>The pattern is the same each time. Enforcement at the prompt either failed or fired too late, and the harm happened at the action: a <code>send_email</code>, a <code>create_pull_request</code>, a fetch to an attacker's URL. Each call was authorised. None of them reflected what the user wanted.</p>
+
+        <h2 id="mcp">MCP widens the perimeter</h2>
+        <p>The Model Context Protocol made tools easy to plug in, and with them came a supply chain. AuthZed's breach timeline runs from tool poisoning in April 2025 to postmark-mcp, the first malicious MCP server found in the wild, which shipped 15 clean versions before quietly copying every email to its author. It includes remote-code-execution flaws in core tooling such as mcp-remote, downloaded more than 437,000 times. In April 2026 a single design flaw in the STDIO transport produced 10 CVEs across tools with more than 150 million downloads.</p>
+        <p>The MCP specification has responded: it now forbids passing tokens through to other services and documents the confused-deputy problem. Those fixes are about identity and transport. They cannot tell whether a correctly authorised <code>send_email</code> call is what the user asked for or what a poisoned web page asked for. That gap is what a firewall for agents has to close.</p>
+        <p>The standards bodies point the same way. OWASP's Top 10 for Agentic Applications, published in December 2025, ranks <strong>Agent Goal Hijack</strong> first, with EchoLeak as the example, and OWASP maps prompt injection to six of its ten agentic risks.</p>
+
+        <h2 id="defenses">What actually works</h2>
+        <p>The evidence supports a layered answer, not a better classifier.</p>
+        <ul>
+          <li><strong>Detection helps against known attacks.</strong> On the AgentDojo benchmark, Meta's LlamaFirewall cut attack success from 17.6% to 1.75%, while task success fell from 47.7% to 42.7%. The authors note the attacks were mostly of one style, and adaptive attackers break detectors, as the USENIX paper shows.</li>
+          <li><strong>Architecture gives guarantees.</strong> Simon Willison's “lethal trifecta” says an agent that holds private data, reads untrusted content and can talk to the outside world can be made to exfiltrate. Meta's “Rule of Two” says an unsupervised agent should hold at most two of those three. Google DeepMind's CaMeL enforces policy on every tool call by tracking where each value came from, and solved 77% of AgentDojo tasks with provable security, against 84% with no defense.</li>
+        </ul>
+        <blockquote>Put deterministic policy on tool calls and data flows, and layer probabilistic detection underneath. Do not bet the perimeter on a classifier.</blockquote>
+        <p>In practice that means checking every tool call before it runs: is this tool allowed for this task, are the arguments within bounds, is data about to leave for a destination nobody approved, and does this action need a human to say yes? It also means keeping a signed record of each decision, because the regulators and auditors who will ask about agents want evidence, not assurances.</p>
+
+        <h2 id="position">Where we stand</h2>
+        <p>Two honest notes. First, <a href="/saaf">Saaf</a> today is a PII mask-and-restore layer, not a general agent firewall. It is one control on the data-flow boundary: raw Aadhaar numbers, PANs and phone numbers never reach the model or a tool's arguments, so an agent that is hijacked has less to leak. It does not stop goal hijack on its own.</p>
+        <p>Second, the market has noticed. Large security vendors bought most of the guardrail startups in 2025 and 2026: F5 paid $180 million for CalypsoAI, Check Point bought Lakera, CrowdStrike bought Pangea, Fortinet bought Virtue AI and Harvey bought Guardrails AI. That validates the firewall idea, and it leaves open, independent evaluation without an owner, especially for Indian languages and Indian data.</p>
+        <p>That is the gap we are working on. <a href="/products#research">Saaf Guard</a> is our research project on deterministic tool-call policy for agents, built on the same principles as Saaf: open source, runs on your infrastructure, and measured in public. We will publish the thesis, the benchmark and the failures before we call it a product.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>UK NCSC, <a href="https://www.ncsc.gov.uk/blog-post/prompt-injection-is-not-sql-injection">Prompt injection is not SQL injection</a>.</li>
+          <li>CyberScoop, <a href="https://cyberscoop.com/openai-chatgpt-atlas-prompt-injection-browser-agent-security-update-head-of-preparedness/">OpenAI on hardening Atlas against prompt injection</a> (Dec 2025).</li>
+          <li>Anthropic, <a href="https://claude.com/blog/claude-in-chrome-generally-available">Claude in Chrome generally available</a>.</li>
+          <li><a href="https://arxiv.org/abs/2510.09023">The Attacker Moves Second</a> (arXiv 2510.09023, USENIX Security 2026).</li>
+          <li>VentureBeat, <a href="https://venturebeat.com/security/microsoft-salesforce-copilot-agentforce-prompt-injection-cve-agent-remediation-playbook">EchoLeak, ShareLeak, ForcedLeak and PipeLeak</a>.</li>
+          <li>AuthZed, <a href="https://authzed.com/blog/timeline-mcp-breaches">A timeline of MCP breaches</a>; Brave, <a href="https://brave.com/blog/comet-prompt-injection/">Comet prompt injection</a>.</li>
+          <li>Model Context Protocol, <a href="https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices">Security best practices</a>.</li>
+          <li>Cycode, <a href="https://cycode.com/blog/owasp-top-10-agentic-applications/">OWASP Top 10 for Agentic Applications</a>; Help Net Security, <a href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">OWASP on prompt injection and the Rule of Two</a>.</li>
+          <li>Meta, <a href="https://arxiv.org/pdf/2505.03574">LlamaFirewall</a>; Google DeepMind, <a href="https://arxiv.org/abs/2503.18813">CaMeL</a> (arXiv 2503.18813).</li>
+          <li>Washington Technology, <a href="https://www.washingtontechnology.com/companies/2025/09/f5-acquire-calypsoai-180m-ai-security-move/408072">F5 to acquire CalypsoAI</a>; SecurityWeek, <a href="https://www.securityweek.com/check-point-to-acquire-ai-security-firm-lakera/">Check Point to acquire Lakera</a>; Harvey, <a href="https://www.harvey.ai/blog/guardrails-ai-joins-harvey">Guardrails AI joins Harvey</a>.</li>
+        </ol>
+        <p class="note-box">Facts checked against the linked sources on 26 October 2026. Figures we could not confirm from a primary or reputable source, such as quarterly CVE counts and market-size forecasts, are left out on purpose.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/checksum-is-not-enough"><span class="meta">Research note</span><h3>A checksum is not enough</h3></a>
+          <a class="post-card" href="/blog/india-ai-trust-rulebook"><span class="meta">Explainer</span><h3>India's AI trust rulebook, for builders</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

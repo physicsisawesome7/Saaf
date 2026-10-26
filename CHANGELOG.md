@@ -5,6 +5,13 @@ All notable changes to this repository. The format follows [Keep a Changelog](ht
 ## [Unreleased]
 
 ### Changed
+- **website**: safearly.com relaunched as the site of Safearly, an AI safety & trust lab, in a white, black and violet theme designed with Superdesign. New pages: lab home, `/products` (projects by stage), `/research` (IndicPII-Bench results with caveats, notes, datasets), `/blog` with three sourced articles and an RSS feed. Saaf moved to `/saaf` and the playground to `/saaf/playground` (old `/playground` links redirect). Pages are built from `apps/website/src/` with one shared layout by `apps/website/build.mjs`, which also writes the sitemap and feed and stamps the footer year.
+- **brand**: the mark keeps its shape but is now a violet sun behind a black bar; favicons, app icons, extension icons and the social card were regenerated.
+
+### Added
+- **bench**: `bench/scripts/verhoeff_collisions.py`: with seed 2026, 10.03% of random 12-digit strings pass the Aadhaar checksum, and 9.99% of "91"-prefixed mobile numbers do too.
+
+### Changed
 - **all**: renamed from the working name "Veil" to **Saaf by Safearly**. Import `saaf`, CLI `saaf`, npm `@safearly/saaf`, env vars `SAAF_*`, headers `x-saaf-*`. See docs/naming.md.
 
 ### Added

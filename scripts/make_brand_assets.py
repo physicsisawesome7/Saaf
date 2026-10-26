@@ -27,11 +27,14 @@ SITE = ROOT / "apps" / "website"
 BRAND = SITE / "assets" / "brand"
 EXT_ICONS = ROOT / "plugins" / "browser-extension" / "icons"
 
-# Palette (keep in sync with docs/brand.md and apps/website/assets/styles.css)
-GREEN = "#137A5C"
-SAFFRON = "#F4A51C"
-INK = "#1F1F1F"
-GREY = "#5F6368"
+# Palette v2: white, black and violet (keep in sync with docs/brand.md and apps/website/assets/styles.css).
+# GREEN and SAFFRON keep their names for the mark's two parts: the bar (now black) and the sun (now violet).
+GREEN = "#0A0A0A"
+SAFFRON = "#7C3AED"
+VIOLET = "#6D28D9"
+VIOLET_TINT = "#F5F3FF"
+INK = "#0A0A0A"
+GREY = "#52525B"
 WHITE = "#FFFFFF"
 
 FONT_STACK = "'Google Sans', 'Segoe UI', Inter, system-ui, -apple-system, Roboto, Arial, sans-serif"
@@ -179,10 +182,10 @@ def og_image() -> Image.Image:
     x0 = (W * s - total) / 2
     draw_mark(img, x0, 92 * s, mark)
     d.text((x0 + mark + 18 * s, 104 * s), "safearly", font=f_word, fill=_rgb(INK))
-    centered(d, W * s / 2, 238 * s, "Clean prompts. Caught early.", font("bold", 72 * s), _rgb(INK))
+    centered(d, W * s / 2, 238 * s, "AI safety & trust, built in India.", font("bold", 64 * s), _rgb(INK))
     sub = font("regular", 30 * s)
-    centered(d, W * s / 2, 345 * s, "Saaf masks Aadhaar, PAN, GSTIN and UPI before they reach an LLM,", sub, _rgb(GREY))
-    centered(d, W * s / 2, 387 * s, "and puts them back in the reply.", sub, _rgb(GREY))
+    centered(d, W * s / 2, 345 * s, "Open-source guardrails, benchmarks and research for teams", sub, _rgb(GREY))
+    centered(d, W * s / 2, 387 * s, "putting LLMs and AI agents to work on real Indian data.", sub, _rgb(GREY))
     chips = [("2345 6789 0124", "[AADHAAR_1]"), ("ABCPE1234F", "[PAN_1]")]
     f = font("mono", 28 * s)
     widths = [
@@ -192,12 +195,12 @@ def og_image() -> Image.Image:
     row = sum(a + b + c for a, b, c in widths) + 56 * s
     x, y = (W * s - row) / 2, 476 * s
     for (raw, tok), (wa, wb, wc) in zip(chips, widths, strict=True):
-        d.rounded_rectangle([x, y, x + wa, y + 56 * s], radius=28 * s, fill=_rgb("#FEF3DD"))
+        d.rounded_rectangle([x, y, x + wa, y + 56 * s], radius=28 * s, fill=_rgb(VIOLET_TINT))
         d.text((x + 20 * s, y + 11 * s), raw, font=f, fill=_rgb(INK))
         x += wa
         d.text((x + 14 * s, y + 11 * s), "→", font=f, fill=_rgb(GREY))
         x += wb
-        d.rounded_rectangle([x, y, x + wc, y + 56 * s], radius=28 * s, fill=_rgb(GREEN))
+        d.rounded_rectangle([x, y, x + wc, y + 56 * s], radius=28 * s, fill=_rgb(VIOLET))
         d.text((x + 20 * s, y + 11 * s), tok, font=f, fill=_rgb(WHITE))
         x += wc + 56 * s
     return img.resize((W, H), Image.LANCZOS).convert("RGB")

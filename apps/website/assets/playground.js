@@ -1,4 +1,4 @@
-// safearly.com/playground: chat with a real model through Saaf, or mask a file.
+// safearly.com/saaf/playground: chat with a real model through Saaf, or mask a file.
 // Everything runs in this tab. Provider calls go straight from the browser to
 // the provider the user picked; keys live only in memory. No analytics.
 

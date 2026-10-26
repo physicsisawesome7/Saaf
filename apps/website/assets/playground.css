@@ -1,4 +1,4 @@
-/* safearly.com/playground: builds on styles.css tokens. */
+/* safearly.com/saaf/playground: builds on styles.css tokens. */
 
 .pg { padding: 40px 0 72px; }
 .pg-intro { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
@@ -92,8 +92,7 @@
 .preview { font: 0.88rem/1.65 var(--mono); white-space: pre-wrap; word-break: break-word; color: var(--muted); padding: 0 4px; }
 .preview:empty { display: none; }
 .preview mark { background: var(--saffron-tint); color: var(--text); border-radius: 4px; padding: 0 2px; }
-.preview mark small { font: 500 0.62rem var(--font); color: #a35f00; margin-left: 4px; }
-@media (prefers-color-scheme: dark) { .preview mark small { color: var(--saffron); } }
+.preview mark small { font: 500 0.62rem var(--font); color: var(--violet); margin-left: 4px; }
 .composer-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
 /* Why table */

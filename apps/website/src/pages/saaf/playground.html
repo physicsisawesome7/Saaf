@@ -1,0 +1,167 @@
+<!--page {"path": "/saaf/playground", "nav": "products", "mainClass": "pg", "title": "Saaf Playground · Safearly", "description": "Chat with a real LLM through Saaf. Aadhaar, PAN, UPI and other Indian identifiers are masked in your browser before anything is sent, and restored as the reply streams in. Or mask a whole file.", "css": ["/assets/playground.css"], "scripts": ["/assets/playground.js"]} -->
+  <div class="wrap">
+    <div class="pg-intro">
+      <div>
+        <h1>Playground</h1>
+        <p class="lead">Talk to a real model through Saaf, or mask a whole file. Indian identifiers are swapped for placeholders <strong>in this tab</strong> before anything is sent, and put back as the reply streams in.</p>
+      </div>
+      <ul class="trust">
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>Masking runs on your device</li>
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>API keys stay in memory, never saved</li>
+        <li><svg aria-hidden="true"><use href="#i-lock"/></svg>No Safearly server in the path</li>
+      </ul>
+    </div>
+
+    <div class="pg-tabs" role="tablist" aria-label="Playground mode">
+      <button role="tab" id="tab-chat" aria-selected="true" aria-controls="panel-chat">Chat with a model</button>
+      <button role="tab" id="tab-files" aria-selected="false" aria-controls="panel-files" tabindex="-1">Mask a file</button>
+    </div>
+
+    <div class="pg-grid">
+      <!-- Settings -->
+      <aside class="side" aria-label="Settings">
+        <section class="card" id="model-card">
+          <h2 class="card-h">Model</h2>
+          <label class="fld">Provider
+            <select id="provider">
+              <option value="sim">Simulated model (no key needed)</option>
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="gemini">Google Gemini</option>
+              <option value="openrouter">OpenRouter (many models)</option>
+              <option value="ollama">Ollama on this computer</option>
+              <option value="gateway">Saaf gateway on this computer</option>
+            </select>
+          </label>
+          <div id="model-fields" hidden>
+            <label class="fld">Model
+              <input id="model" list="model-list" autocomplete="off" spellcheck="false">
+              <datalist id="model-list"></datalist>
+            </label>
+            <label class="fld" id="key-row">API key
+              <span class="key"><input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste a key"><button type="button" id="key-toggle" class="mini" aria-label="Show key" aria-pressed="false"><svg aria-hidden="true"><use href="#i-eye"/></svg></button></span>
+            </label>
+            <label class="fld" id="url-row" hidden>Address
+              <input id="base-url" spellcheck="false">
+            </label>
+            <p class="hint" id="provider-hint"></p>
+          </div>
+          <p class="hint" id="sim-hint">The simulated model needs no key. It replies with your placeholders mangled the way real models do (lower case, escaped brackets, split across stream chunks), so you can see restore work.</p>
+        </section>
+
+        <section class="card">
+          <h2 class="card-h">Policy</h2>
+          <div class="fld">Mode
+            <div class="seg" role="group" aria-label="Mode">
+              <button type="button" data-mode="enforce" aria-pressed="true">Enforce</button>
+              <button type="button" data-mode="shadow" aria-pressed="false">Shadow</button>
+            </div>
+          </div>
+          <p class="hint" id="mode-hint">Values are replaced before sending.</p>
+          <label class="fld">Confidence threshold <output id="thr-out">0.50</output>
+            <input id="threshold" type="range" min="0.3" max="0.9" step="0.05" value="0.5">
+          </label>
+          <details class="ents-box">
+            <summary>Entity rules <span id="ent-summary" class="muted small"></span></summary>
+            <div id="ent-rules" class="ent-rules"></div>
+          </details>
+        </section>
+
+        <section class="card" id="session-card">
+          <h2 class="card-h">Session</h2>
+          <dl class="stats" id="session-stats"></dl>
+          <div class="btn-col">
+            <button type="button" class="btn btn-outline sm" id="evidence"><svg aria-hidden="true"><use href="#i-down"/></svg>Evidence log</button>
+            <button type="button" class="btn btn-outline sm" id="reset">New session</button>
+          </div>
+          <p class="hint">The evidence log lists what left this tab (masked text, types and counts). It never contains the real values.</p>
+        </section>
+      </aside>
+
+      <!-- Chat -->
+      <section class="main-col" id="panel-chat" role="tabpanel" aria-labelledby="tab-chat">
+        <div class="card thread-card">
+          <div class="thread-head">
+            <div class="seg" role="group" aria-label="View the conversation as">
+              <span class="muted small">View as</span>
+              <button type="button" data-view="you" aria-pressed="true">You</button>
+              <button type="button" data-view="model" aria-pressed="false">The model</button>
+            </div>
+            <span class="muted small" id="thread-note">Switch to see exactly what the model received and wrote.</span>
+          </div>
+          <div class="thread" id="thread" aria-live="polite">
+            <div class="empty" id="empty">
+              <p><strong>Try a sample</strong> or type your own message. Use made-up values, not real ones.</p>
+            </div>
+          </div>
+          <form class="composer" id="composer">
+            <div class="seg samples" role="group" aria-label="Load a sample message">
+              <button type="button" data-sample="kyc">KYC check</button>
+              <button type="button" data-sample="hinglish">Hinglish</button>
+              <button type="button" data-sample="loan">Loan email</button>
+              <button type="button" data-sample="ocr">OCR scan</button>
+              <button type="button" data-sample="indic">हिंदी / தமிழ்</button>
+              <button type="button" data-sample="spelled">Spelled out</button>
+              <button type="button" data-sample="negatives">Look-alikes</button>
+            </div>
+            <label class="sr-only" for="msg">Message</label>
+            <div class="msg-box">
+              <textarea id="msg" rows="4" spellcheck="false" placeholder="Type a message with an Aadhaar, PAN, UPI ID, phone number…"></textarea>
+              <div class="preview" id="preview" aria-live="polite"></div>
+            </div>
+            <div class="composer-foot">
+              <span class="small muted" id="preview-note">Nothing detected yet.</span>
+              <button type="submit" class="btn btn-primary sm" id="send"><svg aria-hidden="true"><use href="#i-send"/></svg>Send</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card" id="why-card" hidden>
+          <div class="thread-head">
+            <h2 class="card-h">Why it was caught</h2>
+            <button type="button" class="link-btn" id="report">Report a wrong detection</button>
+          </div>
+          <div class="table-wrap"><table class="table why" id="why"></table></div>
+        </div>
+      </section>
+
+      <!-- Files -->
+      <section class="main-col" id="panel-files" role="tabpanel" aria-labelledby="tab-files" hidden>
+        <div class="card">
+          <h2 class="card-h">Mask a file</h2>
+          <p class="muted small">Text, CSV, JSON, JSONL, Markdown or logs, up to 25 MB. Every value gets the same placeholder everywhere in the file, so the masked file stays joinable and analysable. Nothing is uploaded: the file is read and masked inside this tab.</p>
+          <label class="drop" id="drop">
+            <input type="file" id="file" accept=".txt,.csv,.tsv,.json,.jsonl,.ndjson,.md,.log,.xml,.html,text/*,application/json">
+            <svg aria-hidden="true"><use href="#i-up"/></svg>
+            <span><strong>Choose a file</strong> or drop it here</span>
+            <span class="small muted" id="drop-note">or <button type="button" class="link-btn" id="file-sample">use a sample CSV</button></span>
+          </label>
+          <div class="progress" id="progress" hidden><div class="bar-in" id="progress-bar"></div></div>
+          <div id="file-result" hidden>
+            <dl class="stats wide" id="file-stats"></dl>
+            <div class="chips" id="file-chips"></div>
+            <div class="pane-head"><h3>Masked preview <span class="muted small" id="preview-lines"></span></h3></div>
+            <pre class="out code-out" id="file-preview"></pre>
+            <div class="btns">
+              <button type="button" class="btn btn-primary sm" id="dl-masked"><svg aria-hidden="true"><use href="#i-down"/></svg>Masked file</button>
+              <button type="button" class="btn btn-outline sm" id="dl-vault"><svg aria-hidden="true"><use href="#i-down"/></svg>Vault (real values)</button>
+            </div>
+            <p class="hint warn">The vault holds the real values for every placeholder. Keep it like you would keep the original file. You need it to restore.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-h">Restore a file</h2>
+          <p class="muted small">Have a masked file back from a model or a vendor? Pick it and its vault to put the real values back. Placeholders that were lower-cased, escaped or split by a model are still found.</p>
+          <div class="restore-row">
+            <label class="fld">File with placeholders<input type="file" id="r-file"></label>
+            <label class="fld">Vault (.json)<input type="file" id="r-vault" accept=".json,application/json"></label>
+          </div>
+          <button type="button" class="btn btn-outline sm" id="r-go" disabled>Restore and download</button>
+          <p class="small muted" id="r-note"></p>
+        </div>
+      </section>
+    </div>
+
+    <p class="note center pg-foot">Saaf finds structured identifiers well. It can miss names without a label, free-text addresses and unlabelled numbers: see the <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">limitations</a>. Want this inside your network? Run the <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/try-it.md">gateway in two minutes</a>.</p>
+  </div>

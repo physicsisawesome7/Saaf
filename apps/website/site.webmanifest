@@ -1,7 +1,7 @@
 {
   "name": "Safearly",
   "short_name": "Safearly",
-  "description": "Saaf by Safearly: India-first PII masking and restore for LLMs.",
+  "description": "Safearly: an AI safety & trust lab from India. Open-source guardrails, benchmarks and research.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

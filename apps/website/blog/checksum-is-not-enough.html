@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A checksum is not enough: detecting Indian PII in the real world · Safearly</title>
+  <meta name="description" content="About one random 12-digit number in ten passes the Aadhaar checksum. Why detecting Indian personal data needs labels, scripts and OCR repair, and what today's tools do.">
+  <link rel="canonical" href="https://safearly.com/blog/checksum-is-not-enough">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="A checksum is not enough: detecting Indian PII in the real world">
+  <meta property="og:description" content="About one random 12-digit number in ten passes the Aadhaar checksum. Why detecting Indian personal data needs labels, scripts and OCR repair, and what today's tools do.">
+  <meta property="og:url" content="https://safearly.com/blog/checksum-is-not-enough">
+  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
+      <li><a href="/research">Research</a></li>
+      <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
+      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#checksum">What the checksum tells you</a></li>
+        <li><a href="#identifiers">The other identifiers</a></li>
+        <li><a href="#real-text">Where real text breaks the rules</a></li>
+        <li><a href="#tools">What the tools do today</a></li>
+        <li><a href="#benchmark">No Indian benchmark, so we built one</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Research note</div>
+      <h1>A checksum is not enough: detecting Indian PII in the real world</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">26 Oct 2026 · Research note</div></div>
+        <div class="tags"><span class="tag">PII</span><span class="tag">Aadhaar</span><span class="tag">Benchmarks</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Aadhaar numbers end in a Verhoeff check digit, so it is tempting to think detecting them is solved: match twelve digits, run the checksum, done. It is not. About one random 12-digit number in ten passes the check.</p>
+
+        <h2 id="checksum">What the checksum actually tells you</h2>
+        <p>A check digit exists to catch typing mistakes: a wrong digit, two digits swapped. It was never designed to tell an identity number apart from every other number that happens to have twelve digits. With ten possible check digits, roughly one number in ten will satisfy it by chance.</p>
+        <p>We measured it. Our script draws one million uniformly random 12-digit strings with a fixed seed and applies the same rules a regex-plus-checksum detector uses (they match the ones in Microsoft Presidio's Aadhaar recognizer: twelve digits, first digit 2 to 9, Verhoeff valid, not a palindrome).</p>
+        <div class="figure"><strong>10.03<em>%</em></strong><span>of 1,000,000 random 12-digit strings pass Verhoeff (seed 2026). 8.04% pass every detector rule.</span></div>
+        <p>A second run is worse for anyone handling customer data: <strong>9.99%</strong> of Indian mobile numbers written as <code>91</code> plus ten digits, with no separator, also pass the Aadhaar checksum. A detector that trusts the checksum alone will flag one phone number in ten as an Aadhaar number, and will flag order IDs, UTRs and invoice numbers at the same rate. Raise the bar to cut those false alarms and you start missing real Aadhaar numbers written with spaces, in Devanagari digits or off a scanned card.</p>
+        <p>The script is <a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/scripts/verhoeff_collisions.py">in our repository</a>; rerun it with any seed.</p>
+
+        <h2 id="identifiers">The other identifiers are no easier</h2>
+        <ul>
+          <li><strong>Aadhaar Virtual ID.</strong> Sixteen digits ending in a Verhoeff digit, the same length as a payment card number checked with Luhn. Only the surrounding words tell them apart.</li>
+          <li><strong>Masked Aadhaar.</strong> In UIDAI's masked Aadhaar, only the last four digits of the number are visible. There is nothing left for a checksum to validate; whether to redact it is a policy choice.</li>
+          <li><strong>PAN.</strong> Ten characters with a holder-type letter in fourth place (P for a person, C for a company and so on), but no publicly documented check algorithm. Presidio's PAN recognizer is three regular expressions with fixed scores.</li>
+          <li><strong>GSTIN.</strong> Fifteen characters with a real mod-36 check character, yet Presidio's recognizer only checks that the last character is alphanumeric and never computes it. A GSTIN with a valid check character can still be cancelled.</li>
+          <li><strong>IFSC and UPI.</strong> IFSC has a fixed shape (four letters, a zero, six characters) and no checksum. UPI handles have no published grammar at all.</li>
+        </ul>
+        <p>Structure helps, but in both directions it is not enough: valid-looking numbers that are not identifiers, and real identifiers with nothing to validate.</p>
+
+        <h2 id="real-text">Where real text breaks the rules</h2>
+        <p>The numbers that matter rarely arrive in a clean form field. They arrive in support chats, call transcripts, scanned forms and emails, and Indian text is mixed. One peer-reviewed study of Indian tweets found 11.45% were code-mixed, and Hindi-English writers switch script inside a sentence. In practice that means:</p>
+        <ul>
+          <li><strong>Hinglish labels.</strong> “aadhar”, “adhaar”, “mera aadhaar” and “आधार”. Presidio's Aadhaar context words are “aadhaar” and “uidai”, so none of the others raise its score.</li>
+          <li><strong>Indian digits.</strong> २३४५ ६७८९ ०१२४ is the same number in Devanagari numerals and will not match <code>[0-9]</code>.</li>
+          <li><strong>OCR errors.</strong> A scanned card turns 0 into O and 8 into B, so the checksum fails on a real number until the errors are repaired.</li>
+          <li><strong>Look-alikes next to the real thing.</strong> “Order ID 234567890124” passes the checksum. A detector has to read the label next to it.</li>
+        </ul>
+        <pre><code>Order ID 234567890124 shipped        → unchanged: the nearest label says "order"
+mera aadhaar 2345 6789 0124 hai      → mera aadhaar [AADHAAR_1] hai
+AADHAAR: 2345 67B9 O124              → [AADHAAR_1]   (OCR repaired, then checked)</code></pre>
+        <p>That is how <a href="/saaf">Saaf</a> works: normalise scripts and digits first, check every candidate with its checksum, then let the nearest label decide, so a valid number under “order ID” stays and the same digits under “aadhaar” are masked. Try it in the <a href="/saaf/playground">playground</a> with the “Look-alikes” and “OCR scan” samples.</p>
+
+        <h2 id="tools">What the tools do today</h2>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Tool</th><th>Indian coverage out of the box</th></tr></thead>
+            <tbody>
+              <tr><td>Microsoft Presidio</td><td>Six India recognizers, all disabled in the default configuration and set up for English only</td></tr>
+              <tr><td>AWS Comprehend PII</td><td>Four India types; PII detection in English and Spanish only</td></tr>
+              <tr><td>Google Sensitive Data Protection</td><td>Four India infoTypes: Aadhaar, GST, PAN and passport</td></tr>
+              <tr class="us"><td>Saaf</td><td>22 types with checksums, Hinglish and Indian-script context, OCR repair</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Names and addresses need a model, not a pattern, and the best open option for Indian languages degrades quickly. AI4Bharat's IndicNER scores F1 around 80 to 83 for Hindi, Bengali and Telugu, but about 66 for Assamese and 26 to 39 for Odia, on silver test sets, and it covers only people, places and organisations.</p>
+        <div class="callout-v"><strong>Names are still unsolved</strong><p>On IndicPII-Bench, every tool we tested, including Saaf, scores near zero on Indian names in Indian scripts. It is the next thing we are working on.</p></div>
+
+        <h2 id="benchmark">No Indian benchmark, so we built one</h2>
+        <p>We could not find an established benchmark for Indian personal data. The closest public work is a 17,000-sentence semi-synthetic set spanning India, the UK and the US, plus a few small models with self-reported scores that cannot be compared with each other.</p>
+        <p>So we built <a href="/research#indicpii-bench">IndicPII-Bench</a>: 2,500 documents across structured IDs, Hinglish, four Indian scripts, real bank codes, obfuscation and look-alike numbers, plus Hindi, Marathi, Tamil and Telugu name slices drawn from the public Naamapadam and HiNER datasets. We ran Saaf against Presidio with all six India recognizers switched on and its threshold tuned, because comparing against a bare regex proves nothing. Saaf scored 0.711 strict F1 to Presidio's 0.437, with 0.35 false alarms per thousand tokens on look-alikes against 131.</p>
+        <p>Those numbers come with a warning we would want from anyone else: most of the corpus is synthetic, and Saaf's rules were tuned on the same families, so its scores are optimistic. The human-labelled, held-out set comes next, and we will publish it whether or not Saaf wins.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/scripts/verhoeff_collisions.py">verhoeff_collisions.py</a> (seed 2026, 1,000,000 samples).</li>
+          <li>Microsoft Presidio, <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/conf/default_recognizers.yaml">default_recognizers.yaml</a>, <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/predefined_recognizers/country_specific/india/in_aadhaar_recognizer.py">in_aadhaar_recognizer.py</a> and <a href="https://raw.githubusercontent.com/microsoft/presidio/main/presidio-analyzer/presidio_analyzer/predefined_recognizers/country_specific/india/in_pan_recognizer.py">in_pan_recognizer.py</a>.</li>
+          <li>UIDAI, <a href="https://uidai.gov.in/en/my-aadhaar">My Aadhaar</a>: masked Aadhaar shows only the last four digits.</li>
+          <li>The News Minute, <a href="https://www.thenewsminute.com/amp/story/atom/plugging-aadhaar-leaks-here-how-new-aadhaar-virtual-id-will-work-74520">how the Aadhaar Virtual ID works</a>.</li>
+          <li>python-stdnum, <a href="https://arthurdejong.org/python-stdnum/doc/stdnum.in_.gstin">GSTIN check character</a>.</li>
+          <li>AWS, <a href="https://docs.aws.amazon.com/comprehend/latest/dg/how-pii.html">Detecting PII entities</a>; Google Cloud, <a href="https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-reference">infoType reference</a>.</li>
+          <li><a href="https://arxiv.org/pdf/2304.00634">MMT code-mixed tweets dataset</a> (arXiv 2304.00634).</li>
+          <li>Mhaske et al., <a href="https://arxiv.org/html/2212.10168">Naamapadam</a> (ACL 2023), AI4Bharat.</li>
+          <li><a href="https://arxiv.org/abs/2504.12308">arXiv 2504.12308</a>, multi-jurisdiction PII dataset.</li>
+        </ol>
+        <p class="note-box">Facts checked against the linked sources on 26 October 2026. Found an error? Email <a href="mailto:lalit@safearly.com">lalit@safearly.com</a> and we will correct it and say so here.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+          <a class="post-card" href="/blog/india-ai-trust-rulebook"><span class="meta">Explainer</span><h3>India's AI trust rulebook, for builders</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">An AI safety &amp; trust lab from India. We build open-source tools, benchmarks and research for using AI on real Indian data.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
+          <li><a href="/products">All projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

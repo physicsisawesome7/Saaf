@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>India's AI trust rulebook, for builders · Safearly</title>
+  <meta name="description" content="DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app, as of October 2026.">
+  <link rel="canonical" href="https://safearly.com/blog/india-ai-trust-rulebook">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="India's AI trust rulebook, for builders">
+  <meta property="og:description" content="DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app, as of October 2026.">
+  <meta property="og:url" content="https://safearly.com/blog/india-ai-trust-rulebook">
+  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
+      <li><a href="/research">Research</a></li>
+      <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
+      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#dpdp">DPDP: six months to go</a></li>
+        <li><a href="#ai-rules">AI rules are mostly voluntary</a></li>
+        <li><a href="#finance">Finance moves fastest</a></li>
+        <li><a href="#hooks">Two rules that bite today</a></li>
+        <li><a href="#table">The rulebook on one page</a></li>
+        <li><a href="#builders">What to do now</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>India's AI trust rulebook, for builders</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">26 Oct 2026 · Explainer · status as of October 2026</div></div>
+        <div class="tags"><span class="tag">DPDP</span><span class="tag">Regulation</span><span class="tag">India</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">If you are putting an LLM or an agent on Indian customer data, the honest summary is this: most binding duties are still ahead of you, a few hard rules already apply, and the regulators who move fastest are the financial ones. Here is what is in force, what is draft, and what it means for your app.</p>
+        <p class="note-box">This is an explainer for builders, not legal advice. Dates and penalties are from the sources listed at the end, checked on 26 October 2026. Ask your counsel how they apply to you.</p>
+
+        <h2 id="dpdp">DPDP: six months to go, not “already in force”</h2>
+        <p>MeitY notified the Digital Personal Data Protection Rules on <strong>13 November 2025</strong> and set up the Data Protection Board the same day. The Act then applies in three stages:</p>
+        <ul>
+          <li><strong>From November 2025:</strong> the provisions that create the Board.</li>
+          <li><strong>From about 13 November 2026:</strong> registration of consent managers.</li>
+          <li><strong>From about 13 May 2027:</strong> the core duties: notice, consent, reasonable security safeguards, breach notification, children's data and the extra duties of Significant Data Fiduciaries.</li>
+        </ul>
+        <p>Sources disagree by a day on the later dates; the Gazette settles them. Once the core duties apply, penalties reach <strong>₹250 crore</strong> for failing to take reasonable security safeguards and <strong>₹200 crore</strong> for failures on breach notification or children's data, and Rule 7 requires a detailed breach report to the Board within <strong>72 hours</strong>.</p>
+        <p>Two things most vendor content leaves out. The Board is, in one lawyer's words, “established in law, absent in fact”: applications for members were invited in May 2026 and no appointments had been announced by early October. And a January 2026 proposal to shorten the runway from 18 months to 12 has not been notified. Separately, DPDP does not restrict sending data abroad today: its cross-border rule is a negative list, and no country has been put on it.</p>
+        <p>So the honest case for masking personal data before it reaches an LLM is not “the law requires this exact control”. It is evidence of reasonable safeguards, and a much smaller blast radius if something leaks.</p>
+
+        <h2 id="ai-rules">AI rules are mostly voluntary</h2>
+        <p>India has no standalone AI law. MeitY's <strong>India AI Governance Guidelines</strong> (5 November 2025) are voluntary. They set out seven principles, or sutras, adapted from RBI's FREE-AI report, rely on existing laws and sector regulators, and propose an AI Governance Group, a technology and policy expert committee and the AI Safety Institute for technical validation. Because RBI and MeitY now share the same seven sutras, they are worth learning as India's common vocabulary for AI principles.</p>
+        <p>The <strong>IndiaAI Safety Institute</strong> was announced on 30 January 2025 as a hub-and-spoke network. In October 2025 it selected five Safe &amp; Trusted AI projects from more than 400 proposals: three on deepfake detection, one on gender bias in agricultural language models, and one on penetration testing for LLMs. None of the five targets personal-data leakage or Indian identifiers, as far as the published list shows.</p>
+        <p>The one binding AI-specific rule so far is an amendment to the IT Rules, in force since <strong>20 February 2026</strong>. It requires labels on AI-generated content and sets takedown windows of three hours for flagged content and two hours for non-consensual intimate imagery.</p>
+
+        <h2 id="finance">Finance regulators move fastest</h2>
+        <ul>
+          <li><strong>RBI.</strong> The FREE-AI committee report (13 August 2025) has 7 sutras, 6 pillars and 26 recommendations, including board-approved AI policies, audit and incident reporting. It is advisory, not a Master Direction. RBI's June 2026 draft on model risk goes further, with a model inventory, independent validation including of vendor models, and stronger cyber controls on customer-facing generative AI. It is still a draft.</li>
+          <li><strong>SEBI.</strong> Its AI/ML guidelines remain a June 2025 consultation paper, which keeps regulated entities liable for the third-party AI tools they use.</li>
+          <li><strong>IRDAI.</strong> The most active in 2026: revised cyber security guidelines on 6 April, an order to assess exposure to frontier-AI cyber threats with action-taken reports due 22 May, and an AI working group from 17 June.</li>
+        </ul>
+
+        <h2 id="hooks">Two rules that bite today</h2>
+        <p><strong>UIDAI Circular 14 of 2025</strong> (4 November 2025) allows Aadhaar numbers and eKYC data to be stored only in an Aadhaar Data Vault: on-premises, on a MeitY-empanelled government community cloud, or as a vault service. Other systems may hold only tokens or data without the number. Civil penalties under section 33A of the Aadhaar Act reach <strong>₹1 crore per contravention</strong>. Whether a raw Aadhaar number sitting in a prompt log, a vector store or a model provider's request counts as “storage” outside the vault is a question for your counsel. The circular is about storage and does not mention prompts, but the argument is easy to make and hard to wave away.</p>
+        <p><strong>CERT-In's advisory on generative AI</strong> (26 March 2025) names prompt injection, model inversion and the risk of sharing sensitive data with AI apps. It is the clearest official Indian statement of the problem: personal data going into AI tools is a security risk, not only a privacy one.</p>
+
+        <h2 id="table">The rulebook on one page</h2>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Instrument</th><th>Status, Oct 2026</th><th>What it means for an LLM builder</th></tr></thead>
+            <tbody>
+              <tr><td>DPDP Act and Rules 2025</td><td>Board in force; core duties from ~13 May 2027</td><td>Security safeguards (up to ₹250 crore), 72-hour breach report</td></tr>
+              <tr><td>MeitY AI Governance Guidelines</td><td>Voluntary</td><td>Shared seven-sutra vocabulary; no new AI law</td></tr>
+              <tr><td>IndiaAI Safety Institute</td><td>Operating, funds projects</td><td>Deepfakes, bias, LLM pen-testing; no PII project</td></tr>
+              <tr><td>RBI FREE-AI and draft model-risk rules</td><td>Advisory and draft</td><td>Model inventory, vendor-model validation, audit trails</td></tr>
+              <tr><td>SEBI AI/ML paper</td><td>Consultation</td><td>You stay liable for third-party AI</td></tr>
+              <tr><td>IRDAI 2026 actions</td><td>Cyber guidelines in force; AI working group</td><td>Frontier-AI cyber review; policyholder data</td></tr>
+              <tr><td>CERT-In genAI advisory</td><td>Advisory (Mar 2025)</td><td>Names prompt injection and sensitive-data sharing</td></tr>
+              <tr><td>UIDAI Circular 14/2025</td><td>In force</td><td>Aadhaar only in a vault; ₹1 crore per contravention</td></tr>
+              <tr><td>IT Rules amendment</td><td>In force from 20 Feb 2026</td><td>Labels on synthetic media; 2 to 3 hour takedowns</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="builders">What to do now</h2>
+        <ul>
+          <li><strong>Keep raw identifiers out of prompts, logs and vector stores.</strong> Mask Aadhaar, PAN, bank and phone numbers before text leaves your systems, and restore them only where the user sees the answer. That is what <a href="/saaf">Saaf</a> does, on your own infrastructure.</li>
+          <li><strong>Start in shadow mode.</strong> Measure what personal data actually flows into your AI tools for two weeks before you enforce anything.</li>
+          <li><strong>Keep evidence.</strong> Signed logs of what was masked, blocked or allowed (types and counts, never the values) are what an auditor, a Board inquiry or a bank's model-risk team will ask for.</li>
+          <li><strong>Inventory your models and vendors.</strong> RBI's draft and SEBI's paper both point the same way: you are responsible for the third-party AI you use.</li>
+          <li><strong>Plan for May 2027, not for “someday”.</strong> Breach notification within 72 hours needs logging and a process, not just a policy.</li>
+        </ul>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>MediaNama, <a href="https://www.medianama.com/2025/11/223-india-notifies-dpdp-rules-2025-dpbi-activation/">India notifies DPDP Rules 2025</a>; AZB &amp; Partners, <a href="https://www.azbpartners.com/bank/indias-digital-personal-data-protection-act-phased-rollout-and-key-compliance-milestones/">phased rollout and milestones</a>; MirvoLegal, <a href="https://www.mirvolegal.com/insights/dpdp-rules-2025-compliance-timeline/">DPDP Rules compliance timeline</a>.</li>
+          <li>LiveLaw, <a href="https://www.livelaw.in/articles/india-data-protection-board-established-law-543751">Data Protection Board: established in law</a>; Legal500, <a href="https://www.legal500.com/intelligence/india/privacy/compression-of-dpdp-enforcement-timeline-proposed-by-meity">proposed compression of the DPDP timeline</a>; Bar &amp; Bench, <a href="https://www.barandbench.com/columns/the-dpdp-cross-border-transfer-rules-arent-live-yet-so-why-are-contracts-being-redrafted-as-if-they-are">cross-border transfer rules</a>.</li>
+          <li>Inc42, <a href="https://inc42.com/buzz/meity-unveils-ai-governance-framework">MeitY unveils AI governance framework</a>; S.S. Rana, <a href="https://ssrana.in/articles/meity-unveils-indias-approach-towards-regulating-artificial-intelligence/">India's approach to regulating AI</a>.</li>
+          <li>IndiaAI, <a href="https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation">IndiaAI Safety Institute</a>; PIB via NeGD, <a href="https://negd.gov.in/wp-content/uploads/2025/10/Press-Release_Press-Information-Bureau4.pdf">Safe &amp; Trusted AI projects</a>.</li>
+          <li>Hogan Lovells, <a href="https://www.hoganlovells.com/en/publications/india-introduces-mandatory-labelling-for-ai-and-3hour-takedown-for-illegal-content">mandatory AI labelling and takedowns</a>.</li>
+          <li>KPMG, <a href="https://kpmg.com/in/en/insights/2025/08/rbi-free-ai-committee-report-on-framework-for-responsible-and-ethical-enablement-of-artificial-intelligence.html">RBI FREE-AI committee report</a>; DSCI, <a href="https://www.dsci.in/files/content/knowledge-centre/2026/dsci-brief-on-rbi-draft-guidelines-for-mrm-june-2026.pdf">brief on RBI's draft model-risk guidelines</a>.</li>
+          <li>Taxmann, <a href="https://www.taxmann.com/post/blog/sebi-proposes-ai-ml-governance-framework-for-securities-markets">SEBI AI/ML framework</a>; GI Council, <a href="https://www.gicouncil.in/news-media/gic-in-the-news/irdai-asks-insurers-to-assess-exposure-to-frontier-ai-cyber-threats-seeks-atr-by-may-22/">IRDAI frontier-AI review</a>; Protean, <a href="https://www.proteantech.in/articles/irdai-ai-governance-for-insurers/">IRDAI AI governance</a>.</li>
+          <li>UIDAI, <a href="https://www.uidai.gov.in/images/Circular-No.14_of-2025.pdf">Circular No. 14 of 2025</a>; Khaitan &amp; Co, <a href="https://www.khaitanco.com/sites/default/files/2025-12/ERGO%20-%20Aadhaar%20Data%20Vault%20-%2010%20December%202025.pdf">Aadhaar Data Vault ERGO</a>; Aadhaar Act, <a href="https://www.advocatekhoj.com/library/bareacts/aadhaar2016/33a.php">section 33A</a>.</li>
+          <li>S.S. Rana, <a href="https://ssrana.in/articles/cert-in-issues-advisory-against-use-of-ai-models/">CERT-In advisory on AI models</a>.</li>
+        </ol>
+
+        <div class="related">
+          <a class="post-card" href="/blog/checksum-is-not-enough"><span class="meta">Research note</span><h3>A checksum is not enough</h3></a>
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">An AI safety &amp; trust lab from India. We build open-source tools, benchmarks and research for using AI on real Indian data.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
+          <li><a href="/products">All projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

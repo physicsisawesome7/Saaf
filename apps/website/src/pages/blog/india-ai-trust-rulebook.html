@@ -1,0 +1,100 @@
+<!--page {"path": "/blog/india-ai-trust-rulebook", "nav": "blog", "title": "India's AI trust rulebook, for builders · Safearly", "ogTitle": "India's AI trust rulebook, for builders", "ogType": "article", "description": "DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app, as of October 2026.", "scripts": ["/assets/main.js"], "post": {"date": "2026-10-26", "type": "Explainer", "title": "India's AI trust rulebook, for builders"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#dpdp">DPDP: six months to go</a></li>
+        <li><a href="#ai-rules">AI rules are mostly voluntary</a></li>
+        <li><a href="#finance">Finance moves fastest</a></li>
+        <li><a href="#hooks">Two rules that bite today</a></li>
+        <li><a href="#table">The rulebook on one page</a></li>
+        <li><a href="#builders">What to do now</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>India's AI trust rulebook, for builders</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">26 Oct 2026 · Explainer · status as of October 2026</div></div>
+        <div class="tags"><span class="tag">DPDP</span><span class="tag">Regulation</span><span class="tag">India</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">If you are putting an LLM or an agent on Indian customer data, the honest summary is this: most binding duties are still ahead of you, a few hard rules already apply, and the regulators who move fastest are the financial ones. Here is what is in force, what is draft, and what it means for your app.</p>
+        <p class="note-box">This is an explainer for builders, not legal advice. Dates and penalties are from the sources listed at the end, checked on 26 October 2026. Ask your counsel how they apply to you.</p>
+
+        <h2 id="dpdp">DPDP: six months to go, not “already in force”</h2>
+        <p>MeitY notified the Digital Personal Data Protection Rules on <strong>13 November 2025</strong> and set up the Data Protection Board the same day. The Act then applies in three stages:</p>
+        <ul>
+          <li><strong>From November 2025:</strong> the provisions that create the Board.</li>
+          <li><strong>From about 13 November 2026:</strong> registration of consent managers.</li>
+          <li><strong>From about 13 May 2027:</strong> the core duties: notice, consent, reasonable security safeguards, breach notification, children's data and the extra duties of Significant Data Fiduciaries.</li>
+        </ul>
+        <p>Sources disagree by a day on the later dates; the Gazette settles them. Once the core duties apply, penalties reach <strong>₹250 crore</strong> for failing to take reasonable security safeguards and <strong>₹200 crore</strong> for failures on breach notification or children's data, and Rule 7 requires a detailed breach report to the Board within <strong>72 hours</strong>.</p>
+        <p>Two things most vendor content leaves out. The Board is, in one lawyer's words, “established in law, absent in fact”: applications for members were invited in May 2026 and no appointments had been announced by early October. And a January 2026 proposal to shorten the runway from 18 months to 12 has not been notified. Separately, DPDP does not restrict sending data abroad today: its cross-border rule is a negative list, and no country has been put on it.</p>
+        <p>So the honest case for masking personal data before it reaches an LLM is not “the law requires this exact control”. It is evidence of reasonable safeguards, and a much smaller blast radius if something leaks.</p>
+
+        <h2 id="ai-rules">AI rules are mostly voluntary</h2>
+        <p>India has no standalone AI law. MeitY's <strong>India AI Governance Guidelines</strong> (5 November 2025) are voluntary. They set out seven principles, or sutras, adapted from RBI's FREE-AI report, rely on existing laws and sector regulators, and propose an AI Governance Group, a technology and policy expert committee and the AI Safety Institute for technical validation. Because RBI and MeitY now share the same seven sutras, they are worth learning as India's common vocabulary for AI principles.</p>
+        <p>The <strong>IndiaAI Safety Institute</strong> was announced on 30 January 2025 as a hub-and-spoke network. In October 2025 it selected five Safe &amp; Trusted AI projects from more than 400 proposals: three on deepfake detection, one on gender bias in agricultural language models, and one on penetration testing for LLMs. None of the five targets personal-data leakage or Indian identifiers, as far as the published list shows.</p>
+        <p>The one binding AI-specific rule so far is an amendment to the IT Rules, in force since <strong>20 February 2026</strong>. It requires labels on AI-generated content and sets takedown windows of three hours for flagged content and two hours for non-consensual intimate imagery.</p>
+
+        <h2 id="finance">Finance regulators move fastest</h2>
+        <ul>
+          <li><strong>RBI.</strong> The FREE-AI committee report (13 August 2025) has 7 sutras, 6 pillars and 26 recommendations, including board-approved AI policies, audit and incident reporting. It is advisory, not a Master Direction. RBI's June 2026 draft on model risk goes further, with a model inventory, independent validation including of vendor models, and stronger cyber controls on customer-facing generative AI. It is still a draft.</li>
+          <li><strong>SEBI.</strong> Its AI/ML guidelines remain a June 2025 consultation paper, which keeps regulated entities liable for the third-party AI tools they use.</li>
+          <li><strong>IRDAI.</strong> The most active in 2026: revised cyber security guidelines on 6 April, an order to assess exposure to frontier-AI cyber threats with action-taken reports due 22 May, and an AI working group from 17 June.</li>
+        </ul>
+
+        <h2 id="hooks">Two rules that bite today</h2>
+        <p><strong>UIDAI Circular 14 of 2025</strong> (4 November 2025) allows Aadhaar numbers and eKYC data to be stored only in an Aadhaar Data Vault: on-premises, on a MeitY-empanelled government community cloud, or as a vault service. Other systems may hold only tokens or data without the number. Civil penalties under section 33A of the Aadhaar Act reach <strong>₹1 crore per contravention</strong>. Whether a raw Aadhaar number sitting in a prompt log, a vector store or a model provider's request counts as “storage” outside the vault is a question for your counsel. The circular is about storage and does not mention prompts, but the argument is easy to make and hard to wave away.</p>
+        <p><strong>CERT-In's advisory on generative AI</strong> (26 March 2025) names prompt injection, model inversion and the risk of sharing sensitive data with AI apps. It is the clearest official Indian statement of the problem: personal data going into AI tools is a security risk, not only a privacy one.</p>
+
+        <h2 id="table">The rulebook on one page</h2>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Instrument</th><th>Status, Oct 2026</th><th>What it means for an LLM builder</th></tr></thead>
+            <tbody>
+              <tr><td>DPDP Act and Rules 2025</td><td>Board in force; core duties from ~13 May 2027</td><td>Security safeguards (up to ₹250 crore), 72-hour breach report</td></tr>
+              <tr><td>MeitY AI Governance Guidelines</td><td>Voluntary</td><td>Shared seven-sutra vocabulary; no new AI law</td></tr>
+              <tr><td>IndiaAI Safety Institute</td><td>Operating, funds projects</td><td>Deepfakes, bias, LLM pen-testing; no PII project</td></tr>
+              <tr><td>RBI FREE-AI and draft model-risk rules</td><td>Advisory and draft</td><td>Model inventory, vendor-model validation, audit trails</td></tr>
+              <tr><td>SEBI AI/ML paper</td><td>Consultation</td><td>You stay liable for third-party AI</td></tr>
+              <tr><td>IRDAI 2026 actions</td><td>Cyber guidelines in force; AI working group</td><td>Frontier-AI cyber review; policyholder data</td></tr>
+              <tr><td>CERT-In genAI advisory</td><td>Advisory (Mar 2025)</td><td>Names prompt injection and sensitive-data sharing</td></tr>
+              <tr><td>UIDAI Circular 14/2025</td><td>In force</td><td>Aadhaar only in a vault; ₹1 crore per contravention</td></tr>
+              <tr><td>IT Rules amendment</td><td>In force from 20 Feb 2026</td><td>Labels on synthetic media; 2 to 3 hour takedowns</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="builders">What to do now</h2>
+        <ul>
+          <li><strong>Keep raw identifiers out of prompts, logs and vector stores.</strong> Mask Aadhaar, PAN, bank and phone numbers before text leaves your systems, and restore them only where the user sees the answer. That is what <a href="/saaf">Saaf</a> does, on your own infrastructure.</li>
+          <li><strong>Start in shadow mode.</strong> Measure what personal data actually flows into your AI tools for two weeks before you enforce anything.</li>
+          <li><strong>Keep evidence.</strong> Signed logs of what was masked, blocked or allowed (types and counts, never the values) are what an auditor, a Board inquiry or a bank's model-risk team will ask for.</li>
+          <li><strong>Inventory your models and vendors.</strong> RBI's draft and SEBI's paper both point the same way: you are responsible for the third-party AI you use.</li>
+          <li><strong>Plan for May 2027, not for “someday”.</strong> Breach notification within 72 hours needs logging and a process, not just a policy.</li>
+        </ul>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>MediaNama, <a href="https://www.medianama.com/2025/11/223-india-notifies-dpdp-rules-2025-dpbi-activation/">India notifies DPDP Rules 2025</a>; AZB &amp; Partners, <a href="https://www.azbpartners.com/bank/indias-digital-personal-data-protection-act-phased-rollout-and-key-compliance-milestones/">phased rollout and milestones</a>; MirvoLegal, <a href="https://www.mirvolegal.com/insights/dpdp-rules-2025-compliance-timeline/">DPDP Rules compliance timeline</a>.</li>
+          <li>LiveLaw, <a href="https://www.livelaw.in/articles/india-data-protection-board-established-law-543751">Data Protection Board: established in law</a>; Legal500, <a href="https://www.legal500.com/intelligence/india/privacy/compression-of-dpdp-enforcement-timeline-proposed-by-meity">proposed compression of the DPDP timeline</a>; Bar &amp; Bench, <a href="https://www.barandbench.com/columns/the-dpdp-cross-border-transfer-rules-arent-live-yet-so-why-are-contracts-being-redrafted-as-if-they-are">cross-border transfer rules</a>.</li>
+          <li>Inc42, <a href="https://inc42.com/buzz/meity-unveils-ai-governance-framework">MeitY unveils AI governance framework</a>; S.S. Rana, <a href="https://ssrana.in/articles/meity-unveils-indias-approach-towards-regulating-artificial-intelligence/">India's approach to regulating AI</a>.</li>
+          <li>IndiaAI, <a href="https://indiaai.gov.in/article/india-takes-the-lead-establishing-the-indiaai-safety-institute-for-responsible-ai-innovation">IndiaAI Safety Institute</a>; PIB via NeGD, <a href="https://negd.gov.in/wp-content/uploads/2025/10/Press-Release_Press-Information-Bureau4.pdf">Safe &amp; Trusted AI projects</a>.</li>
+          <li>Hogan Lovells, <a href="https://www.hoganlovells.com/en/publications/india-introduces-mandatory-labelling-for-ai-and-3hour-takedown-for-illegal-content">mandatory AI labelling and takedowns</a>.</li>
+          <li>KPMG, <a href="https://kpmg.com/in/en/insights/2025/08/rbi-free-ai-committee-report-on-framework-for-responsible-and-ethical-enablement-of-artificial-intelligence.html">RBI FREE-AI committee report</a>; DSCI, <a href="https://www.dsci.in/files/content/knowledge-centre/2026/dsci-brief-on-rbi-draft-guidelines-for-mrm-june-2026.pdf">brief on RBI's draft model-risk guidelines</a>.</li>
+          <li>Taxmann, <a href="https://www.taxmann.com/post/blog/sebi-proposes-ai-ml-governance-framework-for-securities-markets">SEBI AI/ML framework</a>; GI Council, <a href="https://www.gicouncil.in/news-media/gic-in-the-news/irdai-asks-insurers-to-assess-exposure-to-frontier-ai-cyber-threats-seeks-atr-by-may-22/">IRDAI frontier-AI review</a>; Protean, <a href="https://www.proteantech.in/articles/irdai-ai-governance-for-insurers/">IRDAI AI governance</a>.</li>
+          <li>UIDAI, <a href="https://www.uidai.gov.in/images/Circular-No.14_of-2025.pdf">Circular No. 14 of 2025</a>; Khaitan &amp; Co, <a href="https://www.khaitanco.com/sites/default/files/2025-12/ERGO%20-%20Aadhaar%20Data%20Vault%20-%2010%20December%202025.pdf">Aadhaar Data Vault ERGO</a>; Aadhaar Act, <a href="https://www.advocatekhoj.com/library/bareacts/aadhaar2016/33a.php">section 33A</a>.</li>
+          <li>S.S. Rana, <a href="https://ssrana.in/articles/cert-in-issues-advisory-against-use-of-ai-models/">CERT-In advisory on AI models</a>.</li>
+        </ol>
+
+        <div class="related">
+          <a class="post-card" href="/blog/checksum-is-not-enough"><span class="meta">Research note</span><h3>A checksum is not enough</h3></a>
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

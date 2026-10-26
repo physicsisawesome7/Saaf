@@ -11,7 +11,8 @@
       "!.well-known/**",
       "**/node_modules/**",
       "README.md",
-      "build.mjs"
+      "build.mjs",
+      "src/**"
     ],
     "cleanUrls": true,
     "trailingSlash": false,
@@ -46,7 +47,7 @@
         ]
       },
       {
-        "source": "/playground**",
+        "source": "/saaf/playground**",
         "headers": [
           {
             "key": "Content-Security-Policy",
@@ -105,6 +106,16 @@
       }
     ],
     "redirects": [
+      {
+        "source": "/playground.html",
+        "destination": "/saaf/playground",
+        "type": 301
+      },
+      {
+        "source": "/playground",
+        "destination": "/saaf/playground",
+        "type": 301
+      },
       {
         "source": "/lalitshukla",
         "destination": "/about",

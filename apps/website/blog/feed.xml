@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Safearly blog</title>
+    <link>https://safearly.com/blog</link>
+    <atom:link href="https://safearly.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Essays, research notes and explainers on making AI safe for real Indian data.</description>
+    <language>en-in</language>
+    <item>
+      <title>Agents need a firewall</title>
+      <link>https://safearly.com/blog/agents-need-a-firewall</link>
+      <guid>https://safearly.com/blog/agents-need-a-firewall</guid>
+      <pubDate>Mon, 26 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Essay</category>
+      <description>Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call. That is where the guardrail belongs.</description>
+    </item>
+    <item>
+      <title>A checksum is not enough: detecting Indian PII in the real world</title>
+      <link>https://safearly.com/blog/checksum-is-not-enough</link>
+      <guid>https://safearly.com/blog/checksum-is-not-enough</guid>
+      <pubDate>Mon, 26 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Research note</category>
+      <description>About one random 12-digit number in ten passes the Aadhaar checksum. Why detecting Indian personal data needs labels, scripts and OCR repair, and what today's tools do.</description>
+    </item>
+    <item>
+      <title>India's AI trust rulebook, for builders</title>
+      <link>https://safearly.com/blog/india-ai-trust-rulebook</link>
+      <guid>https://safearly.com/blog/india-ai-trust-rulebook</guid>
+      <pubDate>Mon, 26 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app, as of October 2026.</description>
+    </item>
+  </channel>
+</rss>
