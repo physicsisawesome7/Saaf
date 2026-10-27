@@ -39,10 +39,11 @@ WHITE = "#FFFFFF"
 
 FONT_STACK = "'Google Sans', 'Segoe UI', Inter, system-ui, -apple-system, Roboto, Arial, sans-serif"
 
-# Geometry in a 100-unit box.
-SUN_C, SUN_R = (50, 47), 29  # full disc; the bar hides a band of it
-BAR = (11, 52, 89, 65)  # pill wider than the sun (height 13, radius 6.5)
-GAP = 4  # clear space between the bar and the visible parts of the sun
+# Geometry in a 100-unit box. The "two layers" mark (Oct 2026): two offset pills forming an
+# abstract S. The violet pill is the request guarded on the way in, the black one the reply
+# on the way out. (x0, y0, x1, y1); each pill is 58 x 32 with fully round ends.
+TOP = (27, 14, 85, 46)
+BOTTOM = (15, 54, 73, 86)
 BRACKET_W = 9
 
 
@@ -51,18 +52,15 @@ BRACKET_W = 9
 # --------------------------------------------------------------------------
 
 
-def mark_body(x: float = 0, y: float = 0, s: float = 100, uid: str = "m") -> str:
+def mark_body(x: float = 0, y: float = 0, s: float = 100, bottom: str = GREEN) -> str:
+    """The two-layers mark. GREEN names the dark pill (ink), SAFFRON the violet one."""
     k = s / 100
-    cx, cy = SUN_C
-    x0, y0, x1, y1 = BAR
-    return (
-        f'<g transform="translate({x} {y}) scale({k})">'
-        f'<defs><clipPath id="{uid}"><rect x="0" y="0" width="100" height="{y0 - GAP}"/>'
-        f'<rect x="0" y="{y1 + GAP}" width="100" height="{100 - y1 - GAP}"/></clipPath></defs>'
-        f'<circle cx="{cx}" cy="{cy}" r="{SUN_R}" fill="{SAFFRON}" clip-path="url(#{uid})"/>'
-        f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" rx="{(y1 - y0) / 2}" fill="{GREEN}"/>'
-        "</g>"
+    pills = ((TOP, SAFFRON), (BOTTOM, bottom))
+    rects = "".join(
+        f'<rect x="{x0}" y="{y0}" width="{x1 - x0}" height="{y1 - y0}" rx="{(y1 - y0) / 2}" fill="{c}"/>'
+        for (x0, y0, x1, y1), c in pills
     )
+    return f'<g transform="translate({x} {y}) scale({k})">{rects}</g>'
 
 
 def saaf_body(x: float = 0, y: float = 0, s: float = 100) -> str:
@@ -95,7 +93,7 @@ def write_svgs() -> None:
     (BRAND / "safearly-mark.svg").write_text(svg(100, 100, mark_body(), "Safearly"), encoding="utf-8")
     (BRAND / "saaf-mark.svg").write_text(svg(100, 100, saaf_body(), "Saaf"), encoding="utf-8")
     for name, color in (("safearly-logo.svg", INK), ("safearly-logo-light.svg", WHITE)):
-        body = mark_body(0, 0, 56) + wordmark(62, 38, 32, "safearly", color)
+        body = mark_body(0, 0, 56, bottom=color) + wordmark(62, 38, 32, "safearly", color)
         (BRAND / name).write_text(svg(200, 56, body, "Safearly"), encoding="utf-8")
     lockup = saaf_body(0, 0, 56) + wordmark(62, 36, 30, "Saaf", INK) + wordmark(129, 36, 15, "by Safearly", GREY, 500)
     (BRAND / "saaf-lockup.svg").write_text(svg(220, 56, lockup, "Saaf by Safearly"), encoding="utf-8")
@@ -116,18 +114,9 @@ def _rgb(hex_: str, a: int = 255) -> tuple[int, int, int, int]:
 
 def draw_mark(img: Image.Image, x: float, y: float, s: float) -> None:
     k = s / 100
-    cx, cy = SUN_C
-    x0, y0, x1, y1 = BAR
-    sun = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    sd = ImageDraw.Draw(sun)
-    sd.ellipse(
-        [x + (cx - SUN_R) * k, y + (cy - SUN_R) * k, x + (cx + SUN_R) * k, y + (cy + SUN_R) * k], fill=_rgb(SAFFRON)
-    )
-    sd.rectangle([x, y + (y0 - GAP) * k, x + s, y + (y1 + GAP) * k], fill=(0, 0, 0, 0))  # band behind the bar
-    img.alpha_composite(sun)
-    ImageDraw.Draw(img).rounded_rectangle(
-        [x + x0 * k, y + y0 * k, x + x1 * k, y + y1 * k], radius=(y1 - y0) / 2 * k, fill=_rgb(GREEN)
-    )
+    d = ImageDraw.Draw(img)
+    for (x0, y0, x1, y1), c in ((TOP, SAFFRON), (BOTTOM, GREEN)):
+        d.rounded_rectangle([x + x0 * k, y + y0 * k, x + x1 * k, y + y1 * k], radius=(y1 - y0) / 2 * k, fill=_rgb(c))
 
 
 def draw_saaf(img: Image.Image, x: float, y: float, s: float) -> None:

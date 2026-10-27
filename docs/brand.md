@@ -7,16 +7,16 @@
 | First product | **Saaf** (साफ़, "clean"). On first mention write "Saaf by Safearly". Tagline *Clean prompts. Caught early.* |
 | Saaf one-liner | India-first PII masking and restore for LLM traffic. |
 
-## The mark: "the sun behind the bar"
+## The mark: "two layers"
 
-A violet sun, partly hidden behind a black rounded bar. (Until October 2026 the mark was a saffron sun behind a green bar; the shapes are unchanged.)
+Two offset pills that form an abstract S: a violet pill above and to the right, a black pill below and to the left.
 
-- **Sun = early.** It sits mostly above the bar, so it reads as rising.
-- **Bar = safe.** It is the redaction mask Saaf puts over a value. The sun is still recognisable behind it, the way a masked prompt is still useful to the model.
-- **A sliver of sun below the bar** shows it is *behind* the mask rather than resting on it. This is what makes the silhouette unique: not a hat, not a sunset icon.
-- Two shapes, two flat colours, no container. It reads at 16px and can be drawn from memory.
+- **Two layers = the product.** Safearly sits between an application and its models: the violet pill is the request guarded on the way in, the black one the reply on the way out.
+- **The offset = speed.** The layers step forward rather than stacking square, so the mark reads as motion, not a wall.
+- **The S** is there for Safearly without spelling it out.
+- Two shapes, two flat colours, no container. It reads at 16px and can be drawn from memory. On dark backgrounds the black pill turns white.
 
-Rejected alternatives, kept for the record: a sun resting on a bar (read as a hat, then as a burger), a striped retro sun (a common motif, and its stripes vanish below 32px), and a sunrise with rays (a generic weather icon).
+Earlier marks, kept for the record: a sun partly hidden behind a bar (saffron and green until Oct 2026, then violet and black), retired for the two-layers mark when Safearly repositioned around inference, guardrails and agents.
 
 **Saaf product mark:** brackets around the same pill, `[▬]`, a token. It shares its DNA with the company mark.
 
