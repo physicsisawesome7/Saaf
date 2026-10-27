@@ -5,7 +5,7 @@
       <h1>Notes from the lab.</h1>
       <p class="lede">Essays, research notes and explainers on fast, safe AI in production: inference, guardrails and agents. We say what is measured, what is in force and what is still unsolved.</p>
       <div class="split mt28">
-        <div class="chips-row"><span class="chip-link on">All · 3</span><span class="chip-link">Research note · 1</span><span class="chip-link">Essay · 1</span><span class="chip-link">Explainer · 1</span></div>
+        <div class="chips-row"><span class="chip-link on">All · 6</span><span class="chip-link">Essay · 3</span><span class="chip-link">Research note · 2</span><span class="chip-link">Explainer · 1</span></div>
         <div class="chips-row mono"><a class="arrow-link" href="/blog/feed.xml">RSS</a></div>
       </div>
     </div>
@@ -13,20 +13,32 @@
 
   <section class="sec" id="posts">
     <div class="wrap">
-      <a class="post-feature" href="/blog/agents-need-a-firewall">
-        <span class="meta">26 Oct 2026 · Essay · Lalit Shukla</span>
-        <h2>Agents need a firewall</h2>
-        <p>Prompt injection is admitted to be unsolved by the people who build the models. In every major agent leak of the past year, the data left through a legitimate tool call. That is where the guardrail belongs.</p>
+      <a class="post-feature" href="/blog/where-inference-time-goes">
+        <span class="meta">27 Oct 2026 · Research note · Lalit Shukla</span>
+        <h2>Where inference time and money actually go</h2>
+        <p>Prefill is compute-bound, decode is memory-bound, and most serving waste hides in between. A field guide to the optimizations with real evidence behind them: continuous batching, paged KV cache, speculative decoding and disaggregation.</p>
         <span class="more">Read →</span>
       </a>
       <div class="post-list">
+        <a class="post-row" href="/blog/guardrails-latency-budget">
+          <span class="meta">27 Oct 2026 · Essay</span>
+          <div><h3>Guardrails have a latency budget</h3><p>A guardrail that adds noticeable latency gets switched off. Layered checks, measured numbers, and how to stay inside the stream.</p></div>
+        </a>
+        <a class="post-row" href="/blog/least-privilege-agent-skills">
+          <span class="meta">27 Oct 2026 · Essay</span>
+          <div><h3>Least privilege for agent skills</h3><p>Multipurpose agents load skills from strangers. A skill should declare what it needs, get nothing more, and leave a record.</p></div>
+        </a>
+        <a class="post-row" href="/blog/agents-need-a-firewall">
+          <span class="meta">26 Oct 2026 · Essay</span>
+          <div><h3>Agents need a firewall</h3><p>Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call.</p></div>
+        </a>
         <a class="post-row" href="/blog/checksum-is-not-enough">
           <span class="meta">26 Oct 2026 · Research note</span>
-          <div><h3>A checksum is not enough: detecting Indian PII in the real world</h3><p>About one random 12-digit number in ten passes the Aadhaar checksum. Why detection needs labels, scripts and OCR repair, with a script you can rerun.</p></div>
+          <div><h3>A checksum is not enough: detecting Indian PII in the real world</h3><p>About one random 12-digit number in ten passes a national-ID checksum. Why detection needs labels, scripts and OCR repair.</p></div>
         </a>
         <a class="post-row" href="/blog/india-ai-trust-rulebook">
           <span class="meta">26 Oct 2026 · Explainer</span>
-          <div><h3>India's AI trust rulebook, for builders</h3><p>DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app.</p></div>
+          <div><h3>India's AI trust rulebook, for builders</h3><p>A worked example of mapping data-protection, identity and AI rules onto an LLM app: what is in force, and what is still draft.</p></div>
         </a>
       </div>
       <div class="box split mt56">

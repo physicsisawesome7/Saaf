@@ -1,0 +1,86 @@
+<!--page {"path": "/blog/least-privilege-agent-skills", "nav": "blog", "title": "Least privilege for agent skills · Safearly", "ogTitle": "Least privilege for agent skills", "ogType": "article", "description": "Multipurpose agents load skills and tools from strangers. A skill should declare what it needs, get nothing more, and leave a record. A design for secure agent skills.", "scripts": ["/assets/main.js"], "post": {"date": "2026-10-27", "type": "Essay", "title": "Least privilege for agent skills"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#why">Skills are the new dependencies</a></li>
+        <li><a href="#trifecta">The lethal trifecta</a></li>
+        <li><a href="#principles">Five rules for a safe skill</a></li>
+        <li><a href="#manifest">What a manifest looks like</a></li>
+        <li><a href="#limits">What this does not solve</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Essay</div>
+      <h1>Least privilege for agent skills</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">27 Oct 2026 · Essay</div></div>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">Skills</span><span class="tag">Security</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">A multipurpose agent is only as safe as the most careless skill it can load. Today most skills get everything the agent has: its files, its tokens, its network. They should get what they declare, nothing more, and every use should leave a record.</p>
+
+        <h2 id="why">Skills are the new dependencies</h2>
+        <p>Agents grow by adding skills and tools: a calendar connector here, a database tool there, a set of instructions for filing expenses. With the Model Context Protocol, plugging one in takes minutes. That convenience is exactly how package ecosystems got their supply-chain problems, and agents are repeating the history faster.</p>
+        <ul>
+          <li><strong>postmark-mcp</strong>, the first malicious MCP server found in the wild, shipped fifteen clean versions before quietly copying every email it sent to its author.</li>
+          <li><strong>mcp-remote</strong>, a widely used helper with more than 437,000 downloads, had a remote-code-execution flaw.</li>
+          <li>In April 2026 a single design flaw in MCP's STDIO transport produced ten CVEs across tools with more than 150 million downloads.</li>
+        </ul>
+        <p>A skill is code and instructions from someone else, running with your agent's authority. We would never give a new npm package our production credentials by default. Agents do it every day.</p>
+
+        <h2 id="trifecta">The lethal trifecta</h2>
+        <p>Simon Willison names the combination that turns any agent into an exfiltration tool: access to <strong>private data</strong>, exposure to <strong>untrusted content</strong>, and the ability to <strong>communicate externally</strong>. If an agent has all three, a single poisoned web page, issue or email can instruct it to send your data somewhere else. Meta's “Rule of Two” turns that into a design rule: an agent running without human supervision should hold at most two of the three.</p>
+        <p>The useful insight for skills is that these are <em>capabilities</em>, and capabilities can be granted per skill rather than per agent. A summarise-this-web-page skill needs untrusted content but no private data and no outbound channel. A send-invoice skill needs private data and an outbound channel, so it should never read untrusted content in the same run without a human in the loop.</p>
+
+        <h2 id="principles">Five rules for a safe skill</h2>
+        <ol>
+          <li><strong>Declare, then grant.</strong> A skill ships a manifest listing the tools it calls, the data scopes it reads and writes, and the network destinations it may reach. Anything not declared is denied, not prompted for.</li>
+          <li><strong>Run sandboxed.</strong> Each skill runs in its own process or sandbox with no ambient credentials, no shared file system and no network beyond its declared destinations.</li>
+          <li><strong>Check every call.</strong> The runtime checks each tool call against the manifest and the policy before it runs: argument limits, data that must not leave (account numbers, IDs, secrets), and destinations nobody approved.</li>
+          <li><strong>Ask a human for the irreversible.</strong> Sending money or email, deleting data, and anything that reaches a new external destination needs explicit approval, the way Salesforce made confirmation the default for email actions after the PipeLeak attack.</li>
+          <li><strong>Leave a signed record.</strong> Every decision (allowed, blocked, approved and by whom) goes into a tamper-evident log. When something goes wrong you can replay what the skill asked for and what it got.</li>
+        </ol>
+        <p>None of this needs the model to behave. That is the point: the model will sometimes be fooled, so the guarantees have to live outside it. Google DeepMind's CaMeL shows the approach works, solving 77% of AgentDojo tasks with provable security against 84% with no defense.</p>
+
+        <h2 id="manifest">What a manifest looks like</h2>
+        <p>Here is the shape we are designing for <a href="/products#saaf-skills">Saaf Skills</a>. It is illustrative, not a released format.</p>
+        <pre><code>[skill]
+name = "invoice-sender"
+version = "0.3.1"
+
+[capabilities]
+tools   = ["crm.read_customer", "billing.create_invoice", "email.send"]
+data    = { read = ["customers:billing"], write = ["invoices"] }
+network = ["api.billing.example.com"]      # nothing else is reachable
+
+[policy]
+untrusted_content = false                  # never runs with web or inbox input
+redact_before_model = ["BANK_ACCOUNT", "TAX_ID", "PHONE"]
+require_approval  = ["email.send"]         # a human confirms every send
+max_calls_per_run = 20</code></pre>
+        <p>Read the manifest and you know the worst this skill can do. A reviewer can approve it in minutes, and a change that widens its capabilities shows up in the diff.</p>
+
+        <h2 id="limits">What this does not solve</h2>
+        <p>Least privilege limits the blast radius; it does not stop an agent from being misled inside its permissions. A skill allowed to email customers can still be tricked into emailing the wrong one. That is why approval for irreversible actions, data redaction before the model sees anything sensitive (what <a href="/saaf">Saaf</a> does today), and detection layered underneath all still matter. Our argument is about where to put the hard guarantees: outside the model, at the boundary where tools act. More on that in <a href="/blog/agents-need-a-firewall">Agents need a firewall</a>.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Simon Willison, <a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta for AI agents</a>.</li>
+          <li>Help Net Security, <a href="https://www.helpnetsecurity.com/2026/06/11/owasp-prompt-injection-ai-security-failures/">OWASP on prompt injection and Meta's Rule of Two</a>.</li>
+          <li>AuthZed, <a href="https://authzed.com/blog/timeline-mcp-breaches">A timeline of MCP breaches</a>.</li>
+          <li>Model Context Protocol, <a href="https://modelcontextprotocol.io/specification/2025-11-25/basic/security_best_practices">Security best practices</a>.</li>
+          <li>VentureBeat, <a href="https://venturebeat.com/security/microsoft-salesforce-copilot-agentforce-prompt-injection-cve-agent-remediation-playbook">ForcedLeak, PipeLeak and Salesforce's confirmation default</a>.</li>
+          <li>Google DeepMind, <a href="https://arxiv.org/abs/2503.18813">CaMeL: Defeating Prompt Injections by Design</a> (arXiv 2503.18813).</li>
+        </ol>
+        <p class="note-box">The manifest above is a design sketch for a research project, not a shipped format. Facts checked against the linked sources on 27 October 2026.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+          <a class="post-card" href="/blog/guardrails-latency-budget"><span class="meta">Essay</span><h3>Guardrails have a latency budget</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

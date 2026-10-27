@@ -1,0 +1,82 @@
+<!--page {"path": "/blog/guardrails-latency-budget", "nav": "blog", "title": "Guardrails have a latency budget · Safearly", "ogTitle": "Guardrails have a latency budget", "ogType": "article", "description": "A guardrail that adds noticeable latency gets switched off. How to design guardrails fast enough to run on every request and inside the stream, with measured numbers.", "scripts": ["/assets/main.js"], "post": {"date": "2026-10-27", "type": "Essay", "title": "Guardrails have a latency budget"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#off">The guardrail that gets turned off</a></li>
+        <li><a href="#layers">Cheap checks first</a></li>
+        <li><a href="#numbers">What a fast check costs</a></li>
+        <li><a href="#stream">Don't break the stream</a></li>
+        <li><a href="#budget">Write the budget down</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Essay</div>
+      <h1>Guardrails have a latency budget</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">27 Oct 2026 · Essay</div></div>
+        <div class="tags"><span class="tag">Guardrails</span><span class="tag">Latency</span><span class="tag">LLM</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Every team that ships an LLM feature eventually has the same meeting: the guardrail is slowing everything down, can we turn it off for this path? The guardrail that gets switched off protects nothing. Speed is a safety property.</p>
+
+        <h2 id="off">The guardrail that gets turned off</h2>
+        <p>Guardrails sit in the critical path twice: on the way in, before the prompt reaches the model, and on the way out, before the answer reaches the user. Whatever they cost is paid on every request, and users feel it most in time to first token. A check that adds a noticeable pause gets an exception for the “low-risk” endpoint, then for the batch job, then for the internal tool, and eventually the protected path is the minority of traffic.</p>
+        <p>The fix is not to choose between safe and fast. It is to design guardrails in layers, so that most requests only ever pay for the cheapest checks.</p>
+
+        <h2 id="layers">Cheap checks first</h2>
+        <ul>
+          <li><strong>Deterministic checks</strong>, in microseconds to a millisecond: validated patterns for identifiers and secrets, allow-lists, argument schemas, policy rules. They run on CPU, on every request, inline.</li>
+          <li><strong>Small models</strong>, in milliseconds: compact classifiers for things patterns cannot catch, such as names in free text or likely prompt injection. They run inline when a cheap signal says they are needed.</li>
+          <li><strong>LLM judges</strong>, slowest: a second model reviewing the first adds at least one more model call to the request path. Use them asynchronously, in shadow mode, or for the small set of high-risk actions where a human-scale delay is acceptable anyway.</li>
+        </ul>
+        <p>Detection also has a quality cost. Meta's LlamaFirewall cut attack success on AgentDojo from 17.6% to 1.75%, a big win, but task success fell from 47.7% to 42.7% at the same time. Every layer should be measured for what it blocks, what it breaks and what it costs in time.</p>
+
+        <h2 id="numbers">What a fast check costs</h2>
+        <p>Here is what the deterministic layer costs in practice, measured on our open benchmark with <a href="/saaf">Saaf</a> and Microsoft Presidio on the same machine. Presidio was configured with its spaCy model and all its recognizers on.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Per request</th><th>Saaf</th><th>Presidio</th></tr></thead>
+            <tbody>
+              <tr><td>Median latency per document</td><td>0.21 ms</td><td>9.0 ms</td></tr>
+              <tr><td>p99 latency per document</td><td>0.55 ms</td><td>19.9 ms</td></tr>
+              <tr><td>Time per kilobyte of text</td><td>0.94 ms</td><td>41.4 ms</td></tr>
+              <tr><td>Cold start</td><td>12 ms</td><td>1.2 s</td></tr>
+              <tr><td>Installed size</td><td>0.1 MB</td><td>691 MB</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A cold start of over a second matters more than it looks: it is paid by every new serverless instance and every autoscaled pod, which is exactly when traffic is spiking. Small, dependency-free checks also run in places a 691 MB stack cannot, such as the browser, an edge function or a pre-commit hook.</p>
+        <p>The accuracy side of the same benchmark comes with caveats we publish alongside it: most of the corpus is synthetic and our rules were tuned on similar data. The speed and size numbers are measured, not modelled. Full method on the <a href="/research">research page</a>.</p>
+
+        <h2 id="stream">Don't break the stream</h2>
+        <p>Output guardrails have a second latency trap: streaming. If a guardrail waits for the whole answer before checking it, the user waits for the whole answer too, and the product's main UX feature is gone.</p>
+        <p>Saaf restores masked values inside the stream. It only holds back the few characters that could be the start of a placeholder like <code>[PAN_1]</code>; everything else passes straight through as it arrives. Property tests split the same answer into randomly sized chunks and check the restored result is always identical. The same principle applies to any streaming check: buffer the minimum that could change the decision, never the whole response.</p>
+
+        <h2 id="budget">Write the budget down</h2>
+        <p>Treat guardrail latency like any other service-level objective:</p>
+        <ul>
+          <li>set a budget per layer, for example under a millisecond for deterministic checks and a few milliseconds for inline models;</li>
+          <li>measure p50 and p99 on real traffic, plus cold start, not just a warm benchmark;</li>
+          <li>fail safely and explicitly when a check times out, per endpoint, instead of silently skipping it;</li>
+          <li>publish the numbers, so the next “can we turn it off?” meeting starts from data.</li>
+        </ul>
+        <p>Fast guardrails stay on. That is the whole design goal.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/results/v1/README.md">IndicPII-Bench v1 results</a>: latency per document, per KB, cold start and footprint for Saaf and Presidio 2.2.364 with spaCy <code>en_core_web_lg</code>.</li>
+          <li>Meta, <a href="https://arxiv.org/pdf/2505.03574">LlamaFirewall</a>: AgentDojo attack success and utility.</li>
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/Saaf">Saaf source</a>: the streaming restorer and its chunking property tests.</li>
+        </ol>
+        <p class="note-box">Latency figures are from our own benchmark run on one machine; your hardware will differ, and the scripts to rerun them are public. Checked on 27 October 2026.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/where-inference-time-goes"><span class="meta">Research note</span><h3>Where inference time and money actually go</h3></a>
+          <a class="post-card" href="/blog/least-privilege-agent-skills"><span class="meta">Essay</span><h3>Least privilege for agent skills</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

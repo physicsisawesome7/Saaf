@@ -7,6 +7,30 @@
     <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
     <item>
+      <title>Guardrails have a latency budget</title>
+      <link>https://safearly.com/blog/guardrails-latency-budget</link>
+      <guid>https://safearly.com/blog/guardrails-latency-budget</guid>
+      <pubDate>Tue, 27 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Essay</category>
+      <description>A guardrail that adds noticeable latency gets switched off. How to design guardrails fast enough to run on every request and inside the stream, with measured numbers.</description>
+    </item>
+    <item>
+      <title>Least privilege for agent skills</title>
+      <link>https://safearly.com/blog/least-privilege-agent-skills</link>
+      <guid>https://safearly.com/blog/least-privilege-agent-skills</guid>
+      <pubDate>Tue, 27 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Essay</category>
+      <description>Multipurpose agents load skills and tools from strangers. A skill should declare what it needs, get nothing more, and leave a record. A design for secure agent skills.</description>
+    </item>
+    <item>
+      <title>Where inference time and money actually go</title>
+      <link>https://safearly.com/blog/where-inference-time-goes</link>
+      <guid>https://safearly.com/blog/where-inference-time-goes</guid>
+      <pubDate>Tue, 27 Oct 2026 03:30:00 GMT</pubDate>
+      <category>Research note</category>
+      <description>Prefill is compute-bound, decode is memory-bound, and most serving waste hides in between. A field guide to the inference optimizations that hold up: continuous batching, paged KV cache, speculative decoding and disaggregation.</description>
+    </item>
+    <item>
       <title>Agents need a firewall</title>
       <link>https://safearly.com/blog/agents-need-a-firewall</link>
       <guid>https://safearly.com/blog/agents-need-a-firewall</guid>
