@@ -4,7 +4,7 @@
     <title>Safearly blog</title>
     <link>https://safearly.com/blog</link>
     <atom:link href="https://safearly.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>Essays, research notes and explainers on making AI safe for real Indian data.</description>
+    <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
     <item>
       <title>Agents need a firewall</title>

@@ -182,10 +182,11 @@ def og_image() -> Image.Image:
     x0 = (W * s - total) / 2
     draw_mark(img, x0, 92 * s, mark)
     d.text((x0 + mark + 18 * s, 104 * s), "safearly", font=f_word, fill=_rgb(INK))
-    centered(d, W * s / 2, 238 * s, "AI safety & trust, built in India.", font("bold", 64 * s), _rgb(INK))
+    head = font("bold", 62 * s)
+    centered(d, W * s / 2, 222 * s, "The safety and speed layer", head, _rgb(INK))
+    centered(d, W * s / 2, 296 * s, "for AI in production.", head, _rgb(INK))
     sub = font("regular", 30 * s)
-    centered(d, W * s / 2, 345 * s, "Open-source guardrails, benchmarks and research for teams", sub, _rgb(GREY))
-    centered(d, W * s / 2, 387 * s, "putting LLMs and AI agents to work on real Indian data.", sub, _rgb(GREY))
+    centered(d, W * s / 2, 392 * s, "Fast inference  ·  Fast guardrails  ·  Secure agents", sub, _rgb(GREY))
     chips = [("2345 6789 0124", "[AADHAAR_1]"), ("ABCPE1234F", "[PAN_1]")]
     f = font("mono", 28 * s)
     widths = [

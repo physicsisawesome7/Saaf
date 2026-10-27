@@ -2,8 +2,8 @@
 
 | | |
 |---|---|
-| Company | **Safearly** (`safearly.com`): an AI safety & trust lab from India |
-| Lab line | *AI safety & trust, built in India.* |
+| Company | **Safearly** (`safearly.com`): the safety and speed layer for AI in production |
+| Positioning | Fast inference, fast guardrails, secure agents and skills. Global, product-led; no location in copy. India appears only where it is a product capability (Saaf's Indian-ID detection, IndicPII-Bench). |
 | First product | **Saaf** (साफ़, "clean"). On first mention write "Saaf by Safearly". Tagline *Clean prompts. Caught early.* |
 | Saaf one-liner | India-first PII masking and restore for LLM traffic. |
 

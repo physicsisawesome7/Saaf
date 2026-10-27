@@ -1,4 +1,4 @@
-<!--page {"path": "/research", "nav": "research", "title": "Research · Safearly", "description": "Benchmarks, data and notes from Safearly. Every number comes with the method, the data and the code to reproduce it, including the results where we lose.", "scripts": ["/assets/main.js"]} -->
+<!--page {"path": "/research", "nav": "research", "title": "Research · Safearly", "description": "Benchmarks, data and notes from Safearly on guardrails, inference and agents. Every number comes with the method, the data and the code to reproduce it, including the results where we lose.", "scripts": ["/assets/main.js"]} -->
   <section class="page-hero">
     <div class="wrap">
       <div class="eyebrow">Research</div>
@@ -13,7 +13,7 @@
       <article class="r-feature">
         <div class="tags"><span class="badge-s beta">Benchmark</span><span class="meta">Oct 2026 · Self-published: Safearly builds one of the tools it measures</span></div>
         <h2>IndicPII-Bench v1</h2>
-        <p>An open benchmark for Indian personal data: 2,500 documents across structured IDs, Hinglish, Hindi, Marathi, Tamil and Telugu, real bank codes, obfuscation, and look-alike numbers (order IDs, AWB, UTR) that should be left alone.</p>
+        <p>An open benchmark for personal-data detection on messy text: 2,500 documents across structured IDs, code-mixed language, Hindi, Marathi, Tamil and Telugu scripts, real bank codes, obfuscation, and look-alike numbers (order IDs, AWB, UTR) that should be left alone.</p>
         <div class="dtable-wrap">
           <table class="dtable">
             <thead><tr><th>System</th><th>Strict F1</th><th>False alarms / 1k tokens</th><th>ms per KB</th><th>Cold start</th><th>Installed</th></tr></thead>
@@ -29,7 +29,7 @@
         <div class="split mt28">
           <div class="callout-v">
             <strong>Where every tool loses, including ours</strong>
-            <p>Indian names in Hindi, Marathi, Tamil and Telugu text (slices drawn from the public Naamapadam and HiNER datasets): Saaf 0.00, Presidio 0.02 to 0.05. This is the next problem we are working on.</p>
+            <p>Names in Hindi, Marathi, Tamil and Telugu text (slices drawn from the public Naamapadam and HiNER datasets): Saaf 0.00, Presidio 0.02 to 0.05. This is the next problem we are working on.</p>
           </div>
         </div>
         <div class="note-box mt28">
@@ -46,12 +46,12 @@
         </article>
         <article class="r-row">
           <div class="meta">26 Oct 2026</div>
-          <div><span class="badge-s research">Note</span><h3>Presidio's India recognizers are off by default</h3><p>All six are disabled and English-only in Presidio's default configuration, and the GSTIN recognizer never computes the check character. What that means if you rely on Presidio for Indian data.</p></div>
+          <div><span class="badge-s research">Note</span><h3>Presidio's India recognizers are off by default</h3><p>All six are disabled and English-only in Presidio's default configuration, and the GSTIN recognizer never computes the check character. What that means if you rely on Presidio for national IDs.</p></div>
           <div class="r-links"><a href="/blog/checksum-is-not-enough#tools">Read</a><a href="https://github.com/physicsisawesome7/Saaf/tree/main/plugins/presidio">Saaf pack</a></div>
         </article>
         <article class="r-row" id="datasets">
           <div class="meta">12 Oct 2026</div>
-          <div><span class="badge-s live">Dataset</span><h3>Indian name, place and bank lexicons</h3><p>Name and place token pools for Hindi, Marathi, Tamil and Telugu from Naamapadam (CC0), with the most frequent public figures removed so synthetic people are never real ones, plus 242 banks with real IFSC codes (MIT).</p></div>
+          <div><span class="badge-s live">Dataset</span><h3>Name, place and bank lexicons for four scripts</h3><p>Name and place token pools for Hindi, Marathi, Tamil and Telugu from Naamapadam (CC0), with the most frequent public figures removed so synthetic people are never real ones, plus 242 banks with real IFSC codes (MIT).</p></div>
           <div class="r-links"><a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench/indicpii_bench/lexicons">Data</a><a href="https://github.com/physicsisawesome7/Saaf/blob/main/bench/corpus/PROVENANCE.md">Provenance</a></div>
         </article>
       </div>

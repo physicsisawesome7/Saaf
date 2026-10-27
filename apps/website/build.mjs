@@ -76,7 +76,7 @@ const footer = `<footer class="foot2">
     <div class="foot2-grid">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">An AI safety &amp; trust lab from India. We build open-source tools, benchmarks and research for using AI on real Indian data.</p>
+        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
       </div>
       <div>
         <h4>Products</h4>
@@ -200,7 +200,7 @@ writeFileSync(
     <title>Safearly blog</title>
     <link>${SITE}/blog</link>
     <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml"/>
-    <description>Essays, research notes and explainers on making AI safe for real Indian data.</description>
+    <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
 ${posts
   .map(

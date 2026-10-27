@@ -198,3 +198,7 @@
 .mt8 { margin-top: 8px; } .mt14 { margin-top: 14px; } .mt28 { margin-top: 28px; } .mt40 { margin-top: 40px; } .mt56 { margin-top: 56px; }
 .mb8 { margin-bottom: 8px; }
 .lede-center { margin: 16px auto 32px; }
+
+/* Homepage pipeline card */
+.proof.pipeline .row + .row { margin-top: 18px; padding-top: 18px; }
+.proof .stage-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; font-size: 0.78rem; color: var(--muted); }

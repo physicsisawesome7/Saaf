@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Saaf · India-first PII masking for LLMs · Safearly</title>
-  <meta name="description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
+  <title>Saaf · Fast guardrails for LLM traffic · Safearly</title>
+  <meta name="description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
   <link rel="canonical" href="https://safearly.com/saaf">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -14,8 +14,8 @@
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
-  <meta property="og:title" content="Saaf · India-first PII masking for LLMs · Safearly">
-  <meta property="og:description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
+  <meta property="og:title" content="Saaf · Fast guardrails for LLM traffic · Safearly">
+  <meta property="og:description" content="Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.">
   <meta property="og:url" content="https://safearly.com/saaf">
   <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -78,7 +78,7 @@
       <div class="crumbs"><a href="/products">Products</a> / Saaf</div>
       <div class="badge"><b>Live</b> Open source · Apache-2.0</div>
       <h1>Clean prompts. <span>Caught early.</span></h1>
-      <p class="lead">Saaf finds Aadhaar, PAN, GSTIN, UPI and 18 more Indian identifiers in your AI traffic, swaps them for tokens before they leave your network, and puts the real values back in the reply.</p>
+      <p class="lead">Saaf finds Aadhaar, PAN, GSTIN, UPI and 18 more identifiers in your AI traffic, swaps them for tokens before they leave your network, and puts the real values back in the reply.</p>
       <div class="btns center">
         <a class="btn btn-accent" href="/saaf/playground">Open the playground</a>
         <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">View on GitHub</a>
@@ -91,7 +91,7 @@
       </div>
 
       <div class="facts">
-        <div class="fact"><strong>22</strong><span>Indian identifier types</span></div>
+        <div class="fact"><strong>22</strong><span>identifier types</span></div>
         <div class="fact"><strong>0</strong><span>runtime dependencies</span></div>
         <div class="fact"><strong>0.35</strong><span>false alarms per 1k tokens*</span></div>
         <div class="fact"><strong>100%</strong><span>on your infrastructure</span></div>
@@ -156,7 +156,7 @@
     <div class="wrap">
       <div class="head reveal">
         <div class="kicker">Features</div>
-        <h2>Built for how Indian data really looks.</h2>
+        <h2>Built for how real-world data actually looks.</h2>
       </div>
       <div class="grid g3">
         <div class="tile reveal"><div class="ic"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Checksums, not guesses</h3><p>Any 12 digits match an "Aadhaar regex". Saaf checks the maths, and the nearest label wins, so "Order ID 2345…" stays untouched.</p></div>
@@ -193,7 +193,7 @@
           </div>
         </div>
       </div>
-      <p class="note center">*IndicPII-Bench v1, 2,500 documents; Presidio 2.2 with spaCy en_core_web_lg, threshold tuned on a separate dev set. Saaf is also about 44× faster per KB and 0.1 MB against 691 MB installed. Both tools still score near zero on unlabelled Indian names, and Saaf's rules were tuned on the same synthetic families, so treat its identifier scores as optimistic until our human-labelled gold set is out. <a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Reproduce it</a>.</p>
+      <p class="note center">*IndicPII-Bench v1, 2,500 documents; Presidio 2.2 with spaCy en_core_web_lg, threshold tuned on a separate dev set. Saaf is also about 44× faster per KB and 0.1 MB against 691 MB installed. Both tools still score near zero on unlabelled names in non-Latin scripts, and Saaf's rules were tuned on the same synthetic families, so treat its identifier scores as optimistic until our human-labelled gold set is out. <a href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Reproduce it</a>.</p>
 
       <div class="head reveal" id="coverage">
         <h3 class="center">22 identifier types</h3>
@@ -385,7 +385,7 @@ action = <span class="s">"allow"</span></code></pre></div>
     <div class="foot2-grid">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">An AI safety &amp; trust lab from India. We build open-source tools, benchmarks and research for using AI on real Indian data.</p>
+        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
       </div>
       <div>
         <h4>Products</h4>

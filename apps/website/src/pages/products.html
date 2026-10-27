@@ -1,51 +1,63 @@
-<!--page {"path": "/products", "nav": "products", "title": "Products & open source · Safearly", "description": "Everything Safearly ships is open source. Live products you can use today, and research projects we are still testing.", "scripts": ["/assets/main.js"]} -->
+<!--page {"path": "/products", "nav": "products", "title": "Products & open source · Safearly", "description": "Fast guardrails, inference optimization and secure agents. What Safearly has shipped, and what is in research, all open source.", "scripts": ["/assets/main.js"]} -->
   <section class="page-hero">
     <div class="wrap">
       <div class="eyebrow">Products &amp; open source</div>
-      <h1>Everything we ship is open source.</h1>
-      <p class="lede">Projects are grouped by how far along they are. Live means you can use it today. In research means we are still testing the idea and the numbers.</p>
-      <div class="chips-row mt28"><a class="chip-link on" href="#live">Live · 2</a><a class="chip-link" href="#research">In research · 2</a></div>
+      <h1>Fast inference, fast guardrails, secure agents.</h1>
+      <p class="lede">Everything we ship is open source. Live means you can run it today. In research means we are still testing the idea, and we publish the thesis and the numbers before we call it a product.</p>
+      <div class="chips-row mt28"><a class="chip-link on" href="#live">Live · 2</a><a class="chip-link" href="#research">In research · 4</a></div>
     </div>
   </section>
 
   <section class="sec" id="live">
     <div class="wrap">
-      <div class="group-head"><h2>Live</h2><span class="meta">Use it today. Versioned releases, tests in CI.</span></div>
+      <div class="group-head"><h2>Live</h2><span class="meta">Released, tested in CI, ready to run.</span></div>
       <div class="projects">
         <article class="pcard">
           <div class="ph"><h3>Saaf</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
-          <p>India-first PII masking and restore for LLMs. Catches Aadhaar, PAN, GSTIN, UPI and 18 more identifiers with checksums, and puts the real values back in the reply, even mid-stream.</p>
+          <p>Fast guardrails for LLM traffic. Masks personal data before it reaches a model and restores it in the reply, even mid-stream. 22 identifier types validated with checksums, including national IDs, tax and bank numbers, cards, emails and API keys.</p>
           <dl>
-            <dt>Ships as</dt><dd>Python library · TypeScript library · Gateway · Plugins</dd>
-            <dt>Runs</dt><dd>On your infrastructure, or in your browser</dd>
+            <dt>Speed</dt><dd>~1 ms per KB on CPU · 12 ms cold start</dd>
+            <dt>Ships as</dt><dd>Python · TypeScript · OpenAI/Anthropic gateway · plugins</dd>
             <dt>Repo</dt><dd>physicsisawesome7/Saaf</dd>
           </dl>
           <div class="btns mt8"><a class="btn btn-accent" href="/saaf/playground">Try it</a><a class="btn btn-outline" href="/saaf">Overview</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">GitHub</a></div>
         </article>
         <article class="pcard">
           <div class="ph"><h3>IndicPII-Bench</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
-          <p>An open benchmark for detecting Indian personal data: 2,500 documents across structured IDs, Hinglish, Hindi, Marathi, Tamil and Telugu, real bank codes, obfuscation, and look-alike numbers that should be left alone.</p>
+          <p>An open benchmark for personal-data detection on messy text: 2,500 documents across structured IDs, code-mixed language, four non-Latin scripts, OCR noise, obfuscation, and look-alike numbers that should be left alone.</p>
           <dl>
-            <dt>Compares</dt><dd>Saaf · Presidio (default and tuned) · bare regex</dd>
+            <dt>Compares</dt><dd>Saaf · Microsoft Presidio (default and tuned) · regex</dd>
             <dt>Data</dt><dd>Licence-checked sources with a SHA-256 manifest</dd>
             <dt>Repo</dt><dd>physicsisawesome7/Saaf/bench</dd>
           </dl>
-          <div class="btns mt8"><a class="btn btn-outline" href="/research#indicpii-bench">See results</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Method &amp; code</a></div>
+          <div class="btns mt8"><a class="btn btn-outline" href="/research">See results</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf/tree/main/bench">Method &amp; code</a></div>
         </article>
       </div>
 
-      <div class="group-head" id="research"><h2>In research</h2><span class="meta">Expect rough edges and changing results.</span></div>
+      <div class="group-head" id="research"><h2>In research</h2><span class="meta">Expect rough edges. No numbers until we can reproduce them.</span></div>
       <div class="projects">
-        <article class="pcard">
+        <article class="pcard" id="saaf-guard">
           <div class="ph"><h3>Saaf Guard</h3><span class="badge-s research">In research</span></div>
-          <p>Guardrails for AI agents. Deterministic policy on tool calls: allow-lists, argument checks, limits on where data can be sent, and human approval for risky actions, with signed evidence of every decision.</p>
+          <p>A firewall for agent tool calls. Deterministic policy checked before every call runs: allow-lists per task, argument checks, limits on where data can be sent, and human approval for risky actions, with a signed record of each decision. Detection layered underneath, never instead.</p>
           <div class="tags"><span class="tag">Agents</span><span class="tag">MCP</span><span class="tag">Policy as code</span></div>
           <div class="links-row"><a href="/blog/agents-need-a-firewall">Read the thesis</a></div>
         </article>
-        <article class="pcard">
-          <div class="ph"><h3>Indic name model</h3><span class="badge-s research">In research</span></div>
-          <p>A small model that finds Indian names and addresses in Indian scripts and code-mixed text. On IndicPII-Bench every tool we tested, including Saaf, scores near zero here today.</p>
-          <div class="tags"><span class="tag">NLP</span><span class="tag">Indic</span><span class="tag">Under 60 MB target</span></div>
+        <article class="pcard" id="saaf-infer">
+          <div class="ph"><h3>Saaf Infer</h3><span class="badge-s research">In research</span></div>
+          <p>Inference optimization for production models. We are testing continuous batching, prefix and KV-cache reuse, quantization and speculative decoding per workload, and measuring throughput, tail latency and cost per million tokens on the same hardware before we claim anything.</p>
+          <div class="tags"><span class="tag">Inference</span><span class="tag">Serving</span><span class="tag">GPU efficiency</span></div>
+          <div class="links-row"><a href="mailto:lalit@safearly.com">Join early access</a></div>
+        </article>
+        <article class="pcard" id="saaf-skills">
+          <div class="ph"><h3>Saaf Skills</h3><span class="badge-s research">In research</span></div>
+          <p>Secure skills for multipurpose agents. A skill declares the tools, data and network access it needs; it runs sandboxed with least privilege, every call passes Saaf Guard, and every run leaves an audit trail you can replay.</p>
+          <div class="tags"><span class="tag">Agents</span><span class="tag">Sandboxing</span><span class="tag">Least privilege</span></div>
+          <div class="links-row"><a href="mailto:lalit@safearly.com">Join early access</a></div>
+        </article>
+        <article class="pcard" id="name-model">
+          <div class="ph"><h3>Multilingual name model</h3><span class="badge-s research">In research</span></div>
+          <p>A small model that finds names and addresses in non-Latin scripts and code-mixed text, where every detector we tested, including Saaf, scores near zero today. Target: under 60 MB, CPU-friendly.</p>
+          <div class="tags"><span class="tag">NLP</span><span class="tag">Small model</span><span class="tag">Multilingual</span></div>
           <div class="links-row"><a href="https://github.com/physicsisawesome7/Saaf">Follow on GitHub</a></div>
         </article>
       </div>
@@ -55,7 +67,7 @@
         <ul class="checks">
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Live:</strong> released, tested in CI, and safe to try on your own data.</span></li>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>Beta:</strong> usable, but interfaces may change between versions.</span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>In research:</strong> an idea we are testing. We publish the thesis and the numbers before we call it a product.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><strong>In research:</strong> an idea we are testing. We publish the thesis and reproducible numbers before we call it a product.</span></li>
         </ul>
       </div>
     </div>
@@ -63,8 +75,8 @@
 
   <section class="sec band">
     <div class="wrap center">
-      <h2>Have a problem we should work on?</h2>
-      <p class="lede lede-center">We pick problems where Indian data, languages or rules make the global tools fall short.</p>
-      <div class="btns center"><a class="btn btn-primary" href="mailto:lalit@safearly.com">Tell us</a></div>
+      <h2>Want early access?</h2>
+      <p class="lede lede-center">We are looking for design partners running LLMs and agents in production: inference at scale, guardrails on every request, or agents with real tools.</p>
+      <div class="btns center"><a class="btn btn-primary" href="mailto:lalit@safearly.com">Talk to us</a></div>
     </div>
   </section>
