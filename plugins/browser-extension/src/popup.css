@@ -1,0 +1,31 @@
+:root { --ink: #0a0a0a; --text: #18181b; --muted: #52525b; --line: #e4e4e7; --violet: #6d28d9; --violet-600: #7c3aed; --tint: #f5f3ff; --ok: #15803d; }
+* { box-sizing: border-box; }
+body { width: 320px; margin: 0; font: 13px/1.45 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text); background: #fff; }
+header { display: flex; align-items: center; gap: 8px; padding: 14px 16px 10px; }
+h1 { font-size: 16px; margin: 0; color: var(--ink); letter-spacing: -0.01em; }
+.ver { margin-left: auto; color: var(--muted); font-size: 11px; }
+section { padding: 12px 16px; border-top: 1px solid var(--line); }
+h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+.site { background: var(--tint); border-top: 0; }
+.site-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.site-name { font-weight: 600; color: var(--ink); word-break: break-all; }
+.site-state { color: var(--muted); font-size: 12px; }
+.site-state.on { color: var(--ok); }
+.site-state.on::before { content: "● "; }
+button { font: inherit; cursor: pointer; }
+#site-btn { flex: none; min-height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--violet); background: var(--violet); color: #fff; font-weight: 500; }
+#site-btn.secondary { background: #fff; color: var(--violet); }
+.opt { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+.opt input { margin: 2px 0 0; accent-color: var(--violet); }
+.opt b { display: block; color: var(--ink); font-weight: 600; }
+.opt span { color: var(--muted); font-size: 12px; }
+.toggle { margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.muted { color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--tint); color: #5b21b6; border-radius: 999px; padding: 2px 9px; font-size: 12px; }
+.row-btns { display: flex; gap: 14px; margin-top: 10px; }
+.link { background: none; border: 0; padding: 0; color: var(--violet); font-size: 12px; }
+.link:hover { text-decoration: underline; }
+footer { padding: 10px 16px 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11.5px; }
+footer a { color: var(--violet); }
+:focus-visible { outline: 2px solid var(--violet-600); outline-offset: 2px; }

@@ -20,7 +20,7 @@ Saaf is an India-first PII firewall for LLM traffic. It detects Indian identifie
 | TypeScript port: detection, policy subset, mask/restore, streaming | Done, 105 tests | `packages/saaf-js` |
 | Gateway: OpenAI + Anthropic compatible, streaming restore, per-tenant policy, signed audit | Done (v0), 10 tests | `packages/saaf-gateway` |
 | LiteLLM guardrail, Open WebUI filter, LangChain, MCP server, Claude Code hook | Done (v0), tested | `plugins/*` |
-| Browser extension (warn and mask on submit) | v0, manual testing only | `plugins/browser-extension` |
+| Browser extension (mask on send, restore on screen, any site) | v0.2, harness-tested; store submission pending | `plugins/browser-extension` |
 | n8n node | Scaffold, not built in CI | `plugins/n8n-node` |
 | Website safearly.com: a minimal single page with the live demo, security, pricing and FAQ; brand assets | v2, verified in a browser (light/dark, mobile) | `apps/website` |
 | IndicPII-Bench: generator, harness, corpus v0 (420 docs) | v0; first results below | `bench/` |

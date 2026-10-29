@@ -52,7 +52,7 @@ Both tools score near zero on unlabelled Indian names, and Saaf's identifier rul
 | [`plugins/langchain`](plugins/langchain) | LangChain wrapper + RAG document masking | `pip install saaf-langchain` |
 | [`plugins/mcp-server`](plugins/mcp-server) | MCP tools for Claude and other clients | `pip install saaf-mcp` |
 | [`plugins/claude-code-hook`](plugins/claude-code-hook) | Blocks prompts and file writes containing PII | one script |
-| [`plugins/browser-extension`](plugins/browser-extension) | Warns and masks before you send to ChatGPT / Claude / Gemini | load unpacked (store listing in Phase 3) |
+| [`plugins/browser-extension`](plugins/browser-extension) | Masks PII before you send to ChatGPT, Claude, Gemini or any AI chat, and restores it on screen | [download](https://safearly.com/saaf/extension) · load unpacked (store listings next) |
 | [`plugins/n8n-node`](plugins/n8n-node) | n8n community node (scaffold) | — |
 | [`apps/website`](apps/website) | safearly.com: single page with the live in-browser demo, plus brand assets | static site |
 | [`bench`](bench) | IndicPII-Bench generator, harness, corpus | `pip install -e bench` |

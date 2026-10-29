@@ -3,25 +3,46 @@
 <head>
   <meta charset="utf-8">
   <title>Saaf</title>
-  <style>
-    body { width: 280px; margin: 0; padding: 14px; font: 13px/1.4 system-ui, sans-serif; color: #1a1a1a; background: #fff; }
-    h1 { font-size: 15px; margin: 0 0 10px; }
-    label { display: block; margin: 6px 0; }
-    .stats { margin-top: 12px; border-top: 1px solid #e5e5e5; padding-top: 10px; }
-    .muted { color: #666; font-size: 12px; }
-    @media (prefers-color-scheme: dark) { body { background: #1e1f22; color: #ececec; } .muted { color: #a0a0a0; } }
-  </style>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <h1>Saaf</h1>
-  <label><input type="radio" name="mode" value="warn"> Warn before sending</label>
-  <label><input type="radio" name="mode" value="auto-mask"> Mask automatically</label>
-  <label><input type="radio" name="mode" value="off"> Off</label>
-  <div class="stats">
-    <div><strong>Caught on this device</strong></div>
+  <header>
+    <img src="icons/saaf-32.png" alt="" width="24" height="24">
+    <h1>Saaf</h1>
+    <span class="ver" id="ver"></span>
+  </header>
+
+  <section class="site" id="site">
+    <div class="site-row">
+      <div>
+        <div class="site-name" id="site-name">This page</div>
+        <div class="site-state" id="site-state">Checking…</div>
+      </div>
+      <button type="button" id="site-btn" hidden></button>
+    </div>
+  </section>
+
+  <section>
+    <h2>When a message has personal data</h2>
+    <label class="opt"><input type="radio" name="mode" value="warn"> <span><b>Ask me</b> Show what was found, then mask or send.</span></label>
+    <label class="opt"><input type="radio" name="mode" value="auto-mask"> <span><b>Mask automatically</b> The AI only ever sees tokens.</span></label>
+    <label class="opt"><input type="radio" name="mode" value="off"> <span><b>Off</b> Saaf does nothing.</span></label>
+    <label class="opt toggle"><input type="checkbox" id="reveal"> <span><b>Show real values in replies</b> Swaps tokens back on your screen only.</span></label>
+  </section>
+
+  <section>
+    <h2>Caught on this device</h2>
     <div id="stats" class="muted">Nothing yet.</div>
-  </div>
-  <p class="muted">Detection runs locally. Saaf never uploads your messages.</p>
+    <div class="row-btns">
+      <button type="button" id="forget" class="link">Forget saved values</button>
+      <button type="button" id="reset" class="link">Reset counts</button>
+    </div>
+  </section>
+
+  <footer>
+    Runs on your device. No account, no tracking, no network requests.
+    <a href="https://safearly.com/saaf/extension" target="_blank" rel="noopener">How it works</a>
+  </footer>
   <script src="popup.js"></script>
 </body>
 </html>

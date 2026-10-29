@@ -71,3 +71,16 @@ test("offsets map through surrogate pairs and zero-width chars", () => {
   const v = new Saaf();
   assert.equal(v.mask(text).text, "😀 PAN​ [PAN_1]");
 });
+
+test("vault snapshot survives a restart without token collisions", () => {
+  const a = new Saaf();
+  a.mask(`PAN ${PAN} Aadhaar ${AADHAAR}`);
+  const snap = JSON.parse(JSON.stringify(a.exportVault()));
+  const b = new Saaf();
+  b.importVault(snap);
+  assert.equal(b.restore("[PAN_1] / [AADHAAR_1]").text, `${PAN} / ${AADHAAR}`);
+  assert.equal(b.mask(`again ${PAN}`).text, "again [PAN_1]");
+  assert.equal(b.mask("PAN ABCPE1235G").text.includes("[PAN_2]"), b.scan("PAN ABCPE1235G").length > 0);
+  b.clearVault();
+  assert.equal(b.restore("[PAN_1]").text, "[PAN_1]");
+});

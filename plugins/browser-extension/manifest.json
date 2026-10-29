@@ -1,60 +1,45 @@
 {
   "manifest_version": 3,
-  "name": "Saaf by Safearly – PII guard for AI chats",
+  "name": "Saaf: PII guard for AI chats",
   "short_name": "Saaf",
-  "version": "0.1.0",
-  "description": "Warns before you send Aadhaar, PAN, GSTIN, UPI and other Indian PII to ChatGPT, Claude or Gemini, and masks it in one click. Runs entirely on your device.",
-  "permissions": [
-    "storage"
-  ],
+  "version": "0.2.0",
+  "description": "Masks Aadhaar, PAN, card numbers, emails and other personal data before you send them to ChatGPT, Claude, Gemini or any AI chat. Runs on your device.",
+  "permissions": ["storage", "scripting", "activeTab"],
   "host_permissions": [
     "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
     "https://claude.ai/*",
-    "https://gemini.google.com/*"
+    "https://gemini.google.com/*",
+    "https://www.perplexity.ai/*",
+    "https://copilot.microsoft.com/*",
+    "https://chat.deepseek.com/*",
+    "https://chat.mistral.ai/*",
+    "https://grok.com/*"
   ],
+  "optional_host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
   "content_scripts": [
     {
       "matches": [
         "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
         "https://claude.ai/*",
-        "https://gemini.google.com/*"
+        "https://gemini.google.com/*",
+        "https://www.perplexity.ai/*",
+        "https://copilot.microsoft.com/*",
+        "https://chat.deepseek.com/*",
+        "https://chat.mistral.ai/*",
+        "https://grok.com/*"
       ],
-      "js": [
-        "src/content.js"
-      ],
-      "css": [
-        "src/overlay.css"
-      ],
+      "js": ["content.js"],
+      "css": ["overlay.css"],
       "run_at": "document_idle"
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "lib/*.js"
-      ],
-      "matches": [
-        "https://chatgpt.com/*",
-        "https://claude.ai/*",
-        "https://gemini.google.com/*"
-      ]
     }
   ],
   "action": {
     "default_title": "Saaf",
-    "default_popup": "src/popup.html",
-    "default_icon": {
-      "16": "icons/saaf-16.png",
-      "32": "icons/saaf-32.png",
-      "48": "icons/saaf-48.png"
-    }
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/saaf-16.png", "32": "icons/saaf-32.png", "48": "icons/saaf-48.png" }
   },
-  "icons": {
-    "16": "icons/saaf-16.png",
-    "32": "icons/saaf-32.png",
-    "48": "icons/saaf-48.png",
-    "128": "icons/saaf-128.png"
-  },
-  "minimum_chrome_version": "120",
-  "homepage_url": "https://safearly.com"
+  "icons": { "16": "icons/saaf-16.png", "32": "icons/saaf-32.png", "48": "icons/saaf-48.png", "128": "icons/saaf-128.png" },
+  "homepage_url": "https://safearly.com/saaf/extension"
 }

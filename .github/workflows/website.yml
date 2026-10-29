@@ -11,6 +11,7 @@ on:
     paths:
       - "apps/website/**"
       - "packages/saaf-js/**"
+      - "plugins/browser-extension/**"
       - "spec/**"
       - "firebase.json"
       - ".firebaserc"
@@ -36,8 +37,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Build engine, run tests, copy into the site
-        run: npm run build && npm test && node apps/website/build.mjs
+      - name: Build engine and extension, run tests, build the site
+        run: npm run build && npm test && node plugins/browser-extension/build.mjs && node apps/website/build.mjs
       - name: Check internal links
         run: |
           cd apps/website

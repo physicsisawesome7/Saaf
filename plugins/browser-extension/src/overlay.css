@@ -1,36 +1,57 @@
+/* Injected into chat pages. Everything is scoped under .saaf-* classes. */
 .saaf-overlay {
   position: fixed;
   inset: 0;
   z-index: 2147483647;
   display: grid;
   place-items: center;
-  background: rgb(0 0 0 / 0.35);
-  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: rgb(10 10 10 / 0.4);
+  font: 14px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 .saaf-card {
-  width: min(420px, calc(100vw - 32px));
+  width: min(440px, calc(100vw - 32px));
   padding: 20px;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #fff;
-  color: #1a1a1a;
-  box-shadow: 0 12px 40px rgb(0 0 0 / 0.25);
+  color: #18181b;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 16px 48px rgb(10 10 10 / 0.22);
+  text-align: left;
 }
-.saaf-title { font-weight: 600; font-size: 16px; margin-bottom: 6px; }
-.saaf-note { color: #666; font-size: 12px; margin-top: 6px; }
+.saaf-head { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; color: #0a0a0a; }
+.saaf-mark { position: relative; width: 22px; height: 22px; flex: none; }
+.saaf-mark i { position: absolute; height: 7px; width: 13px; border-radius: 4px; }
+.saaf-mark i:first-child { left: 6px; top: 3px; background: #7c3aed; }
+.saaf-mark i:last-child { left: 3px; top: 12px; background: #0a0a0a; }
+.saaf-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; }
+.saaf-list li {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 8px 10px; border-radius: 8px; background: #f5f3ff; color: #18181b;
+}
+.saaf-list b { font-weight: 600; color: #5b21b6; }
+.saaf-list span { font-family: ui-monospace, Consolas, monospace; color: #52525b; }
+.saaf-note { color: #52525b; font-size: 12.5px; margin: 12px 0 0; }
+.saaf-note code { font: 12px ui-monospace, Consolas, monospace; background: #f4f4f5; padding: 1px 4px; border-radius: 4px; }
 .saaf-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
 .saaf-actions button {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #f6f6f6;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
+  min-height: 38px; padding: 0 14px; border-radius: 9px;
+  border: 1px solid #d4d4d8; background: #fff; color: #18181b;
+  cursor: pointer; font: inherit; font-weight: 500;
 }
-.saaf-actions .saaf-primary { background: #1f5f4a; border-color: #1f5f4a; color: #fff; }
-.saaf-actions button:focus-visible { outline: 2px solid #1f5f4a; outline-offset: 2px; }
-@media (prefers-color-scheme: dark) {
-  .saaf-card { background: #1e1f22; color: #ececec; }
-  .saaf-note { color: #a0a0a0; }
-  .saaf-actions button { background: #2b2d31; border-color: #444; }
+.saaf-actions button:hover { background: #f4f4f5; }
+.saaf-actions .saaf-primary { background: #6d28d9; border-color: #6d28d9; color: #fff; }
+.saaf-actions .saaf-primary:hover { background: #5b21b6; }
+.saaf-actions button:focus-visible, .saaf-always input:focus-visible { outline: 2px solid #7c3aed; outline-offset: 2px; }
+.saaf-always { display: flex; align-items: center; gap: 8px; margin-top: 12px; color: #52525b; font-size: 13px; cursor: pointer; }
+.saaf-always input { accent-color: #6d28d9; margin: 0; }
+
+.saaf-toast {
+  position: fixed; right: 16px; bottom: 16px; z-index: 2147483647;
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 10px 14px; border-radius: 10px;
+  background: #0a0a0a; color: #fff; border-left: 4px solid #7c3aed;
+  font: 13px/1.45 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  box-shadow: 0 8px 24px rgb(10 10 10 / 0.25);
 }
+
+::highlight(saaf-restored) { background-color: rgb(124 58 237 / 0.18); }

@@ -98,7 +98,7 @@ jobs:
       - name: Build + tests (incl. shared conformance vectors)
         run: npm run build && npm test
       - name: Website and extension bundles build
-        run: node apps/website/build.mjs && node plugins/browser-extension/build.mjs
+        run: node plugins/browser-extension/build.mjs && node apps/website/build.mjs
 
   bench-gate:
     name: Benchmark regression gate

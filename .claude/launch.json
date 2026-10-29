@@ -4,14 +4,42 @@
     {
       "name": "website",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8080", "--bind", "127.0.0.1", "--directory", "apps/website"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8080",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "apps/website"
+      ],
       "port": 8080
     },
     {
       "name": "website-firebase",
       "runtimeExecutable": "firebase",
-      "runtimeArgs": ["emulators:start", "--only", "hosting", "--project", "safearly-1ee20"],
+      "runtimeArgs": [
+        "emulators:start",
+        "--only",
+        "hosting",
+        "--project",
+        "safearly-1ee20"
+      ],
       "port": 5000
+    },
+    {
+      "name": "extension-harness",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8091",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "plugins/browser-extension"
+      ],
+      "port": 8091
     }
   ]
 }

@@ -1,0 +1,42 @@
+<!--page {"path": "/saaf/extension/privacy", "nav": "products", "title": "Privacy policy · Saaf browser extension · Safearly", "description": "The Saaf browser extension collects no data and makes no network requests. What it stores on your device, for how long, and why it needs each permission.", "scripts": ["/assets/main.js"]} -->
+  <div class="wrap">
+    <article class="article">
+      <div class="crumbs"><a href="/saaf">Saaf</a> / <a href="/saaf/extension">Extension</a> / Privacy</div>
+      <h1>Saaf browser extension: privacy policy</h1>
+      <div class="prose">
+        <p class="standfirst">Short version: the Saaf extension does not collect, sell, share or transmit any data. Everything it does happens in your browser.</p>
+
+        <h2>What the extension does</h2>
+        <p>It reads the message you are about to send in an AI chat, looks for personal identifiers such as Aadhaar, PAN, card numbers and emails, and, if you choose, replaces them with tokens before the site sends the message. When a reply on the page contains one of those tokens, it shows the real value in its place on your screen.</p>
+
+        <h2>What it stores, where and for how long</h2>
+        <ul>
+          <li><strong>Token-to-value table (the "vault").</strong> To show real values in replies, the extension keeps a table such as <code>[PAN_1] → ABCPE1234F</code>. It is held in the browser's extension session storage, which websites cannot read, and it is deleted when you close the browser or choose <b>Forget saved values</b>.</li>
+          <li><strong>Settings.</strong> Your mode (ask, mask automatically or off), whether to show real values, and the sites you turned on. These are stored with the browser's extension sync storage, so they follow your browser profile if you use browser sync.</li>
+          <li><strong>Counts.</strong> How many items of each type were found, for example "PAN · 3". Only types and numbers, never values. Stored locally; <b>Reset counts</b> clears them.</li>
+        </ul>
+
+        <h2>What it never does</h2>
+        <ul>
+          <li>It makes no network requests. There is no server, analytics, telemetry, crash reporting or advertising.</li>
+          <li>It never stores the text of your messages or of the AI's replies.</li>
+          <li>It does not run on any site you have not allowed: only the AI chat sites listed in the store listing, plus sites you turn on yourself.</li>
+        </ul>
+
+        <h2>Why it needs each permission</h2>
+        <ul>
+          <li><strong>Access to named AI chat sites</strong> (ChatGPT, Claude, Gemini, Perplexity, Copilot, DeepSeek, Le Chat, Grok): to check messages before they are sent and show values in replies.</li>
+          <li><strong>Optional access to other sites:</strong> only requested, one site at a time, when you choose <b>Turn on</b> for that site.</li>
+          <li><strong>Storage:</strong> for the settings, counts and session vault described above.</li>
+          <li><strong>Scripting and active tab:</strong> to start Saaf on a site you have just turned on, without reloading it, and to show the current site's status in the menu.</li>
+        </ul>
+
+        <h2>Limits you should know</h2>
+        <p>Detection is automatic and can miss things, especially names in free text and identifiers inside uploaded files or images, which the extension does not read. The site and AI provider still receive everything that is not masked. See the <a href="https://github.com/physicsisawesome7/Saaf/blob/main/docs/limitations.md">documented limitations</a>.</p>
+
+        <h2>Open source and contact</h2>
+        <p>The extension is open source under Apache-2.0; you can read every line on <a href="https://github.com/physicsisawesome7/Saaf/tree/main/plugins/browser-extension">GitHub</a>. Questions or concerns: <a href="mailto:lalit@safearly.com?subject=Saaf%20extension%20privacy">lalit@safearly.com</a>. If this policy changes, the new version will be published on this page with a new date.</p>
+        <p class="note-box">Effective 29 October 2026. Applies to Saaf extension version 0.2 and later.</p>
+      </div>
+    </article>
+  </div>

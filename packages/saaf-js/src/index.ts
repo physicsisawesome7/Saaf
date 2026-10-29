@@ -11,6 +11,7 @@ export {
   type MaskResult,
   type PolicyOptions,
   type RestoreResult,
+  type VaultSnapshot,
 } from "./saaf.js";
 
 export const VERSION = "0.1.0-dev.0";

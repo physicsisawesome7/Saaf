@@ -4,6 +4,11 @@ All notable changes to this repository. The format follows [Keep a Changelog](ht
 
 ## [Unreleased]
 
+### Added
+- **browser-extension 0.2.0**, the first launch-ready plugin: masks personal data before it is sent to ChatGPT, Claude, Gemini, Perplexity, Copilot, DeepSeek, Le Chat and Grok, and on any other site the user turns on from the popup (one-origin optional permission). New: real values are restored in replies on screen only, mid-stream and in loose forms, highlighted with the CSS Custom Highlight API. The vault lives in extension session storage and survives reloads. The dialog lists what was found, partly hidden, with an "always mask" option. Clean messages are no longer delayed. New popup with a per-site switch, mode, reveal switch, counts and "Forget saved values". Bundled with esbuild into Chrome and Firefox packages (`npm run extension` writes `dist/*.zip`), with no web-accessible resources. Includes a test harness page and `STORE.md`.
+- **saaf-js**: `Saaf.exportVault()`, `importVault()` and `clearVault()`, so a session can survive a restart without token collisions.
+- **website**: `/saaf/extension` (install and how it works, with zip downloads) and `/saaf/extension/privacy` (store privacy policy).
+
 ### Changed
 - **website**: safearly.com relaunched as the site of Safearly, an AI safety & trust lab, in a white, black and violet theme designed with Superdesign. New pages: lab home, `/products` (projects by stage), `/research` (IndicPII-Bench results with caveats, notes, datasets), `/blog` with three sourced articles and an RSS feed. Saaf moved to `/saaf` and the playground to `/saaf/playground` (old `/playground` links redirect). Pages are built from `apps/website/src/` with one shared layout by `apps/website/build.mjs`, which also writes the sitemap and feed and stamps the footer year.
 - **brand**: the mark keeps its shape but is now a violet sun behind a black bar; favicons, app icons, extension icons and the social card were regenerated.

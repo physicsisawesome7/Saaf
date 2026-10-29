@@ -32,6 +32,13 @@ rmSync(engineOut, { recursive: true, force: true });
 mkdirSync(engineOut, { recursive: true });
 cpSync(dist, engineOut, { recursive: true, filter: (src) => !src.endsWith(".map") && !src.endsWith(".d.ts") });
 
+// Browser extension downloads (built by plugins/browser-extension/build.mjs).
+const extDist = resolve(here, "../../plugins/browser-extension/dist");
+const downloads = resolve(here, "downloads");
+rmSync(downloads, { recursive: true, force: true });
+if (existsSync(extDist)) cpSync(extDist, downloads, { recursive: true });
+else console.warn("plugins/browser-extension/dist is missing: /downloads will be empty (run `npm run extension`)");
+
 // 2. pages ---------------------------------------------------------------------
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const icons = readFileSync(resolve(here, "src/icons.svg"), "utf8").trim();

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Saaf extension harness</title>
+  <link rel="stylesheet" href="../build/chrome/overlay.css">
+  <style>
+    body { font: 15px/1.5 system-ui, sans-serif; max-width: 760px; margin: 24px auto; padding: 0 16px; }
+    .msg { padding: 10px 12px; border-radius: 10px; margin: 8px 0; white-space: pre-wrap; }
+    .user { background: #eef; } .bot { background: #f4f4f5; }
+    .composer { display: flex; gap: 8px; margin-top: 12px; align-items: flex-end; }
+    textarea, [contenteditable] { flex: 1; min-height: 44px; padding: 10px; border: 1px solid #ccc; border-radius: 10px; font: inherit; }
+  </style>
+</head>
+<body>
+  <!--
+    A stand-in chat site for manually and automatically testing the built
+    content script (build/chrome/content.js) without installing it:
+      1. npm run extension
+      2. serve the repo root (python -m http.server) and open this file.
+    The page echoes each sent message back as a streamed "assistant" reply, the
+    way a model repeats tokens. window.sent records what the "server" received.
+  -->
+  <h1>Harness chat</h1>
+  <div id="log"></div>
+  <form class="composer" id="f1">
+    <textarea id="ta" placeholder="Textarea composer"></textarea>
+    <button type="submit" aria-label="Send message">Send</button>
+  </form>
+  <div class="composer">
+    <div id="ce" contenteditable="true" aria-label="Rich composer"></div>
+    <button type="button" id="ce-send" aria-label="Send prompt">↑</button>
+  </div>
+
+  <script>
+    // Minimal stand-in for the extension APIs the content script uses.
+    // Persisted in this page's sessionStorage so reload tests behave like the real extension.
+    const mem = JSON.parse(sessionStorage.getItem("shim") || '{"sync":{},"local":{},"session":{}}');
+    const save = () => sessionStorage.setItem("shim", JSON.stringify(mem));
+    const listeners = [];
+    const area = (name) => ({
+      async get(defaults) {
+        if (defaults === null) return { ...mem[name] };
+        if (typeof defaults === "string") return defaults in mem[name] ? { [defaults]: mem[name][defaults] } : {};
+        return { ...defaults, ...mem[name] };
+      },
+      async set(obj) {
+        const changes = {};
+        for (const [k, v] of Object.entries(obj)) { changes[k] = { oldValue: mem[name][k], newValue: v }; mem[name][k] = v; }
+        save();
+        for (const l of listeners) l(changes, name);
+      },
+      async remove(keys) {
+        const changes = {};
+        for (const k of [].concat(keys)) { changes[k] = { oldValue: mem[name][k] }; delete mem[name][k]; }
+        save();
+        for (const l of listeners) l(changes, name);
+      },
+    });
+    window.chrome = {
+      storage: { sync: area("sync"), local: area("local"), session: area("session"), onChanged: { addListener: (f) => listeners.push(f) } },
+      runtime: { getURL: (p) => p },
+    };
+    window.__mem = mem;
+
+    // The fake "site": sends, then streams the message back as the reply.
+    window.sent = [];
+    const log = document.getElementById("log");
+    function deliver(text) {
+      window.sent.push(text);
+      const u = document.createElement("div"); u.className = "msg user"; u.textContent = text; log.append(u);
+      const b = document.createElement("div"); b.className = "msg bot"; log.append(b);
+      const reply = "Noted. I have " + text + " on file.";
+      const t = document.createTextNode(""); b.append(t);
+      let i = 0;
+      const tick = () => { t.data = reply.slice(0, (i += 3)); if (i < reply.length) setTimeout(tick, 15); };
+      tick();
+    }
+    document.getElementById("f1").addEventListener("submit", (e) => {
+      e.preventDefault(); const ta = document.getElementById("ta"); deliver(ta.value); ta.value = "";
+    });
+    document.getElementById("ta").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); document.getElementById("f1").requestSubmit(); }
+    });
+    const ce = document.getElementById("ce");
+    const sendCe = () => { deliver(ce.innerText); ce.textContent = ""; };
+    document.getElementById("ce-send").addEventListener("click", sendCe);
+    ce.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendCe(); } });
+  </script>
+  <script src="../build/chrome/content.js"></script>
+</body>
+</html>

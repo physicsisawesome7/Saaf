@@ -48,6 +48,12 @@ interface VaultEntry {
   original: string;
 }
 
+/** A serialisable copy of a session's vault (see Saaf.exportVault). */
+export interface VaultSnapshot {
+  v: 1;
+  entries: { token: string; entity: string; original: string; canonical?: string }[];
+}
+
 const TOKEN_SHAPE = /\[([A-Z][A-Z0-9_]*?)_([0-9]+|[0-9a-f]{8})\]/g;
 
 const escapeRx = (s: string) => s.replace(/[.*+?^${}()|[\]\\/-]/g, "\\$&");
@@ -75,6 +81,7 @@ export class Saaf {
   private byKey = new Map<string, string>();
   private byToken = new Map<string, VaultEntry>();
   private counters = new Map<string, number>();
+  private canonicalOf = new Map<string, string>();
   private compiled: [RegExp, VaultEntry][] = [];
   private compiledFor = -1;
 
@@ -114,6 +121,7 @@ export class Saaf {
     const token = `[${f.entity}_${n}]`;
     this.byKey.set(key, token);
     this.byToken.set(token, { token, entity: f.entity, original: f.text });
+    this.canonicalOf.set(token, f.canonical);
     return token;
   }
 
@@ -151,6 +159,38 @@ export class Saaf {
   /** Register a token -> original mapping (used by tests and integrations). */
   store(token: string, entity: string, original: string): void {
     this.byToken.set(token, { token, entity, original });
+  }
+
+  /**
+   * Copy the vault so a session can survive a restart (a page reload, a new
+   * worker). The snapshot holds the real values: keep it where the values
+   * themselves may live, never in logs or on the wire.
+   */
+  exportVault(): VaultSnapshot {
+    return {
+      v: 1,
+      entries: [...this.byToken.values()].map((e) => ({ ...e, canonical: this.canonicalOf.get(e.token) })),
+    };
+  }
+
+  /** Load a snapshot from exportVault. New tokens continue the numbering, so they never collide. */
+  importVault(snapshot: VaultSnapshot): void {
+    if (snapshot?.v !== 1 || !Array.isArray(snapshot.entries)) throw new Error("unsupported vault snapshot");
+    for (const { token, entity, original, canonical } of snapshot.entries) {
+      this.byToken.set(token, { token, entity, original });
+      if (canonical !== undefined) {
+        this.canonicalOf.set(token, canonical);
+        this.byKey.set(`${entity}\u001f${canonical}`, token);
+      }
+      const n = Number(/_(\d+)\]$/.exec(token)?.[1]);
+      if (n > (this.counters.get(entity) ?? 0)) this.counters.set(entity, n);
+    }
+  }
+
+  /** Forget every stored value. */
+  clearVault(): void {
+    for (const m of [this.byKey, this.byToken, this.counters, this.canonicalOf]) m.clear();
+    this.compiledFor = -1;
   }
 
   tokens(): string[] {

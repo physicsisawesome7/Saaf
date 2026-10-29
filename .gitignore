@@ -23,7 +23,9 @@ plugins/n8n-node/dist/
 
 # Generated copies of saaf-js (rebuilt by build.mjs)
 apps/website/assets/saaf/
-plugins/browser-extension/lib/
+apps/website/downloads/
+plugins/browser-extension/build/
+plugins/browser-extension/dist/
 plugins/browser-extension/*.zip
 
 # Vaults, keys, audit logs: never commit
