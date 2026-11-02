@@ -1,0 +1,21 @@
+guardrails:
+  input:
+    injection: {action: block, threshold: 0.7}
+    pii: {engine: saaf, entities: [AADHAAR, PAN, PHONE_IN, EMAIL, VOTER_ID], action: mask_and_restore}
+    scope:
+      allowed_topics: [engineering, contracts, tender, land, procurement, safety, works, finance, railway]
+      action: log  # tuned on the tenant's vocabulary before switching to redirect
+  retrieval:
+    untrusted_content: {wrap: data_block, scan: true}
+    require_current_version: true
+  output:
+    citations: {required: true, min_per_answer: 1}
+    faithfulness: {min_score: 0.6, on_fail: abstain}
+    numeric_check: {recompute: true}
+    secrets: {block: true}
+  domain:
+    draft_mark: required
+    estimates_from_code: true
+    land_owner_data: masked_by_default
+  tools:
+    send_letter: {requires: approval, approvers: [associate-finance, chief-engineer-construction]}

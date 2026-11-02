@@ -1,0 +1,44 @@
+# Demo tenant: a construction organisation of a zonal railway.
+# Every document in corpus/ and demo-site/ is SYNTHETIC, written for this demo.
+# Clause numbers mirror the real GCC layout; the text and figures do not.
+id: railways-demo
+name: Northern Construction Organisation (synthetic demo)
+locale: en-IN
+languages: [en, hi]
+extends: [../../verticals/railways]
+
+models:
+  bundle: sovereign
+  # Point these at any OpenAI-compatible server to switch from the built-in
+  # offline components to open-weight models, for example:
+  # chat:   {base_url: http://vllm:8000/v1, model: sarvam-30b}
+  # embed:  {base_url: http://tei-embed:8080/v1, model: Qwen/Qwen3-Embedding-4B}
+  # rerank: {base_url: http://tei-rerank:8080, model: BAAI/bge-reranker-v2-m3}
+  # guard:  {base_url: http://vllm:8000/v1, model: Qwen/Qwen3Guard-Gen-4B}
+  chat: {}
+  byo_api_fallback: false
+  licence_register:
+    smriti-hash-v1: Apache-2.0 (built in)
+    extractive-v1: Apache-2.0 (built in)
+
+retrieval:
+  candidates: 50
+  top_k: 8
+  min_support: 0.2
+  index_pii: false
+  boilerplate: ['^Synthetic document for the Smriti demo', 'यह डेमो के लिए बनाया गया काल्पनिक दस्तावेज़']
+
+retention:
+  audit_log_days: 400   # DPDP Rules 8(3) one-year duty, confirm with counsel
+  raw_documents_days: 3650
+
+policy: |
+  Write in plain, formal English suitable for official correspondence.
+  Quote clause numbers and dates exactly. Never advise on matters outside
+  railway engineering, procurement, land and finance.
+
+# Markdown files carry their metadata as front matter; other files can have a
+# sidecar `<name>.meta.yaml`.
+seed:
+  - {path: corpus, source: seed}
+  - {path: inbox, source: shared-drive, access: {doc_class: internal, divisions: [NR-DLI]}}

@@ -1,0 +1,29 @@
+# Abbreviations are expanded at query time; synonyms bridge Hindi and English.
+abbreviations:
+  LOA: letter of acceptance
+  LOI: letter of intent
+  GCC: general conditions of contract
+  SCC: special conditions of contract
+  NIT: notice inviting tender
+  PG: performance guarantee
+  EMD: bid security earnest money
+  LD: liquidated damages
+  POA: powers of acceptance
+  SOR: schedule of rates
+  TC: tender committee
+  AF: associate finance vetting
+  DRM: divisional railway manager
+  CE: chief engineer
+  LAR: land acquisition proposal
+  IREPS: e-tendering portal
+synonyms:
+  performance guarantee: [performance security, पीजी, कार्य निष्पादन गारंटी]
+  tender: [bid, निविदा]
+  letter of acceptance: [award letter, स्वीकृति पत्र]
+  safety: [सुरक्षा]
+  track maintenance: [पटरी रखरखाव, ट्रैक अनुरक्षण]
+  land acquisition: [भूमि अधिग्रहण]
+  liquidated damages: [penalty for delay, compensation for delay]
+  correction slip: [amendment slip, शुद्धि पत्र]
+  village: [gram, गाँव]
+  area: [क्षेत्रफल]

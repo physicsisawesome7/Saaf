@@ -47,7 +47,7 @@
 /* Project cards */
 .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 @media (max-width: 860px) { .projects { grid-template-columns: 1fr; } }
-.pcard { display: flex; flex-direction: column; gap: 14px; border: 1px solid var(--line); border-radius: 16px; padding: 28px; background: var(--bg); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.pcard { display: flex; flex-direction: column; gap: 14px; min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 28px; background: var(--bg); transition: border-color 0.15s ease, box-shadow 0.15s ease; }
 .pcard:hover { border-color: var(--line-strong); box-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06); }
 .pcard .ph { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .pcard h3 { font-size: 1.35rem; }
@@ -57,6 +57,7 @@
 .pcard dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; font: 400 0.84rem var(--mono); }
 .pcard dt { color: var(--faint); }
 .pcard dd { margin: 0; color: var(--text); }
+.pcard pre { max-width: 100%; overflow-x: auto; }
 .badge-s { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; font: 500 0.75rem/1 var(--font); }
 .badge-s.live { background: var(--ok-tint); color: var(--ok); }
 .badge-s.beta { background: var(--violet-tint); color: var(--violet); }

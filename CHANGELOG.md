@@ -5,6 +5,9 @@ All notable changes to this repository. The format follows [Keep a Changelog](ht
 ## [Unreleased]
 
 ### Added
+- **website**: Smriti pages: `/smriti` (overview), `/smriti/agents`, `/smriti/workflows`, `/smriti/tools` (tools and integrations) and `/smriti/docs` (install, tour, concepts, API, links to the reference). Two new posts: "An agent should never know more than the person asking" and "Check every sentence, not just the answer". Smriti added to the home page, products and footer.
+
+### Added
 - **browser-extension 0.2.0**, the first launch-ready plugin: masks personal data before it is sent to ChatGPT, Claude, Gemini, Perplexity, Copilot, DeepSeek, Le Chat and Grok, and on any other site the user turns on from the popup (one-origin optional permission). New: real values are restored in replies on screen only, mid-stream and in loose forms, highlighted with the CSS Custom Highlight API. The vault lives in extension session storage and survives reloads. The dialog lists what was found, partly hidden, with an "always mask" option. Clean messages are no longer delayed. New popup with a per-site switch, mode, reveal switch, counts and "Forget saved values". Bundled with esbuild into Chrome and Firefox packages (`npm run extension` writes `dist/*.zip`), with no web-accessible resources. Includes a test harness page and `STORE.md`.
 - **saaf-js**: `Saaf.exportVault()`, `importVault()` and `clearVault()`, so a session can survive a restart without token collisions.
 - **website**: `/saaf/extension` (install and how it works, with zip downloads) and `/saaf/extension/privacy` (store privacy policy).

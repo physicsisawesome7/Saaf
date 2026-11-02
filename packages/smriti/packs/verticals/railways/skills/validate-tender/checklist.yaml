@@ -1,0 +1,8 @@
+# Mandatory annexures: each needs at least one of its phrases in the document.
+annexures:
+  performance_guarantee_bond: ["performance guarantee bond", "performance guarantee"]
+  bid_security_declaration: ["bid security declaration", "bid security"]
+  land_border_eligibility: ["land border", "bidders from countries sharing a land border"]
+  integrity_pact: ["integrity pact"]
+  schedule_of_rates: ["schedule of rates", "schedule of quantities"]
+min_bid_days: 21

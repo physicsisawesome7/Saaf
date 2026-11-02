@@ -1,0 +1,42 @@
+# Single-server appliance: Smriti + PostgreSQL + Qdrant.
+#   docker compose -f packages/smriti/deploy/docker-compose.yml up --build
+# Uncomment the vllm and tei services on a GPU host and point tenant.yaml at them.
+services:
+  smriti:
+    build: {context: ../../.., dockerfile: packages/smriti/Dockerfile}
+    ports: ["8000:8000"]
+    environment:
+      SMRITI_DATABASE_URL: postgresql+psycopg://smriti:smriti@postgres:5432/smriti
+      SMRITI_VECTOR_BACKEND: qdrant
+      SMRITI_QDRANT_URL: http://qdrant:6333
+      SMRITI_AUTH: demo            # set to "token" with SMRITI_API_TOKENS=token:user,... behind your SSO proxy
+      # SMRITI_CLAMD: clamav:3310
+      # SMRITI_BLOB_URL: s3://smriti-raw/prod   (SeaweedFS / Garage / Ceph)
+    volumes: ["smriti-data:/data"]
+    depends_on: [postgres, qdrant]
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16.4
+    environment: {POSTGRES_USER: smriti, POSTGRES_PASSWORD: smriti, POSTGRES_DB: smriti}
+    volumes: ["pg-data:/var/lib/postgresql/data"]
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    volumes: ["qdrant-data:/qdrant/storage"]
+    restart: unless-stopped
+
+  # vllm:
+  #   image: vllm/vllm-openai:v0.10.1
+  #   command: ["--model", "sarvamai/sarvam-m", "--max-model-len", "32768"]
+  #   deploy: {resources: {reservations: {devices: [{capabilities: [gpu]}]}}}
+  #   ports: ["8001:8000"]
+  # tei-embed:
+  #   image: ghcr.io/huggingface/text-embeddings-inference:1.5
+  #   command: ["--model-id", "Qwen/Qwen3-Embedding-0.6B"]
+
+volumes:
+  smriti-data: {}
+  pg-data: {}
+  qdrant-data: {}

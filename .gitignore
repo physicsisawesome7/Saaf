@@ -65,3 +65,4 @@ bench/corpus/external/
 
 # Superdesign working files
 .superdesign/
+packages/smriti/data/

@@ -1,0 +1,9 @@
+# The synthetic "Board circulars" site that the board-circulars adapter crawls.
+# Items with published: false appear when someone presses "Publish next
+# circular" in the Watch view, to demonstrate change detection and impact alerts.
+items:
+  - {ref: "GCC-2022/CS-07", title: "Correction Slip No. 7 to GCC April 2022", date: "25.09.2024", file: correction-slip-07.md}
+  - {ref: "GCC-2022/CS-08", title: "Correction Slip No. 8 to GCC April 2022", date: "20.12.2024", file: correction-slip-08.md}
+  - {ref: "NR/ENG/2025/11", title: "Monsoon preparedness of formation and bridges", date: "02.06.2025", file: circular-monsoon-preparedness.html}
+  - {ref: "GCC-2022/CS-11", title: "Correction Slip No. 11 to GCC April 2022", date: "16.03.2026", file: correction-slip-11.md, published: false}
+  - {ref: "NR/ENG/2026/03", title: "Use of drones for bridge inspection", date: "02.04.2026", file: circular-drone-inspection.md, published: false}

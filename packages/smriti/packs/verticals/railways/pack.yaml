@@ -1,0 +1,5 @@
+# Railways vertical pack: glossary, document schemas, skills and domain
+# guardrails shared by every Railways tenant. Tenants extend it and override.
+name: railways
+description: Indian Railways engineering and procurement add-on
+owner: domain-team@safearly.com

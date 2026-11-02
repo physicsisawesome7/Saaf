@@ -1,0 +1,65 @@
+<!--page {"path": "/blog/check-every-sentence", "nav": "blog", "title": "Check every sentence, not just the answer · Safearly", "ogTitle": "Check every sentence, not just the answer", "ogType": "article", "description": "A citation at the end of an answer proves little. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails, is how retrieval answers become something people can act on.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Research note", "title": "Check every sentence, not just the answer"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#citations">A citation is a claim</a></li>
+        <li><a href="#sentence">Sentence by sentence</a></li>
+        <li><a href="#numbers">Numbers are where it breaks</a></li>
+        <li><a href="#fail">What to do when it fails</a></li>
+        <li><a href="#agents">Agents and tools too</a></li>
+        <li><a href="#limits">Limits</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Research note</div>
+      <h1>Check every sentence, not just the answer</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Research note</div></div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">Verification</span><span class="tag">Hallucination</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Retrieval-augmented answers come with citations, and citations look like proof. They aren't. A citation is the model's claim about where a sentence came from, and it can be wrong in exactly the cases that matter.</p>
+
+        <h2 id="citations">A citation is a claim</h2>
+        <p>A typical answer cites one or two passages at the end of a paragraph. Inside that paragraph, one sentence is copied from the source, one is a fair paraphrase, and one, often the one with the number in it, came from somewhere else. The citation covers all three. A reader who checks the first sentence and finds it right will trust the third.</p>
+        <p>Evaluation work on retrieval systems calls the property we want <em>faithfulness</em>: every claim in the answer should be supported by the retrieved context. It is usually measured offline, over a test set, as a score. We think it has to be enforced online, on every answer, before anyone sees it.</p>
+
+        <h2 id="sentence">Sentence by sentence</h2>
+        <p>In <a href="/smriti">Smriti</a>, an answer is split into sentences, and each one must end with the numbers of the passages it relies on. Each sentence is then compared with the passages it cites, not with everything retrieved. A sentence that cites nothing, cites a passage that doesn't support it, or cites a passage the reader can't open fails on its own. The answer's score is the share of sentences that pass, and the interface shows it next to the answer.</p>
+        <p>Checking per sentence changes what errors look like. Instead of "this answer is 80% good", you learn that the third sentence has no support, which is something a person can act on.</p>
+
+        <h2 id="numbers">Numbers are where it breaks</h2>
+        <p>In contracts, circulars and rules, the costly mistakes are numeric: a period of 21 days instead of 30, a cap of 10% instead of 5%, the old figure from before an amendment. Fuzzy text similarity is bad at these, because "within 30 days" and "within 21 days" are nearly identical strings.</p>
+        <p>So numbers get their own check. Every amount, percentage, date and clause number in a sentence must appear in the passage it cites. When an answer needs arithmetic, a total or a percentage of an amount, the arithmetic is done in code from the source values, and the result cites the rows or figures it came from. The model is never trusted to add.</p>
+
+        <h2 id="fail">What to do when it fails</h2>
+        <p>Verification is only useful if failing means something. When a model's answer doesn't pass, Smriti doesn't show it with a warning. It does one of two things:</p>
+        <ul>
+          <li><strong>Replace it with a verified extract.</strong> The relevant sentences from the sources themselves, cited, which pass by construction.</li>
+          <li><strong>Abstain, and say what is missing.</strong> "The closest results don't state it directly" is a more useful answer than a confident wrong one, because it sends the person to the right document or the right colleague.</li>
+        </ul>
+        <p>Abstaining feels like failure in a demo. In production it is the behaviour that lets people stop double-checking everything.</p>
+
+        <h2 id="agents">Agents and tools too</h2>
+        <p>The same check applies when an agent uses tools. A web page, an API response or a database result becomes a numbered passage like any document, and the final answer is verified against those passages. A research agent's report is checked sub-answer by sub-answer, with citations renumbered into one list. A workflow's final answer is scored against the evidence gathered by all of its steps.</p>
+
+        <h2 id="limits">Limits</h2>
+        <p>Sentence-level checking catches unsupported claims. It does not catch a source that is itself wrong or out of date. That is why version and amendment handling sits underneath it, and why answers can be asked "as of" a date. It is also stricter than people are: a correct sentence that synthesises two passages without citing both will fail. We accept a few unnecessary abstentions in exchange for not showing unsupported text.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Es et al., <a href="https://arxiv.org/abs/2309.15217">RAGAS: Automated Evaluation of Retrieval Augmented Generation</a> (arXiv 2309.15217): faithfulness as a retrieval metric.</li>
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/smriti">Smriti source</a>: the verification and abstention behaviour described here, and the release gates that test it.</li>
+        </ol>
+        <p class="note-box">This note describes Smriti's design. We will publish measured abstention and faithfulness rates on an open evaluation set before quoting them as numbers.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-act-as-the-asker"><span class="meta">Essay</span><h3>An agent should never know more than the person asking</h3></a>
+          <a class="post-card" href="/blog/guardrails-latency-budget"><span class="meta">Essay</span><h3>Guardrails have a latency budget</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

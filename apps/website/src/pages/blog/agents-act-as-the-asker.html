@@ -1,0 +1,68 @@
+<!--page {"path": "/blog/agents-act-as-the-asker", "nav": "blog", "title": "An agent should never know more than the person asking · Safearly", "ogTitle": "An agent should never know more than the person asking", "ogType": "article", "description": "Most enterprise agents run on a service account that can read everything. That turns every shared assistant, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Essay", "title": "An agent should never know more than the person asking"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#problem">The service-account shortcut</a></li>
+        <li><a href="#rule">One rule</a></li>
+        <li><a href="#surfaces">Every surface needs an identity</a></li>
+        <li><a href="#leaving">When answers leave the building</a></li>
+        <li><a href="#cost">What it costs</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Essay</div>
+      <h1>An agent should never know more than the person asking</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Essay</div></div>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">Access control</span><span class="tag">RAG</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">The fastest way to ship an internal AI assistant is to give it one account that can read everything. It is also the fastest way to make access control meaningless. Whoever can talk to the assistant can now read whatever the assistant can.</p>
+
+        <h2 id="problem">The service-account shortcut</h2>
+        <p>Access control in most organisations is already carefully designed. The land officer can see owners' names; the site engineer sees the plot but not the owner; the vigilance team sees case files no one else does. Then an assistant arrives. It needs to search documents, so it gets a service account, and the service account needs to answer everyone's questions, so it gets read access to everything.</p>
+        <p>From that moment the assistant is a side door. It doesn't need a clever attack. The engineer just asks it who owns the plot. OWASP's list of the top risks for LLM applications names both halves of this: <em>sensitive information disclosure</em>, and <em>excessive agency</em>, where an assistant holds more permissions than its task needs.</p>
+        <p>Filtering the answer afterwards doesn't fix it. Once restricted text has reached the model, it can surface in a summary, a comparison or a number that no keyword filter catches.</p>
+
+        <h2 id="rule">One rule</h2>
+        <p>The rule we build <a href="/smriti">Smriti</a> on is simple to state: <strong>an agent acts as the person asking, and never as the person who built it.</strong> In practice that means:</p>
+        <ul>
+          <li><strong>Retrieval is filtered to the asker first.</strong> The agent's own sources can only narrow what is searched, never widen it. An agent built by someone with wide access shows less to someone with less.</li>
+          <li><strong>Tools carry their own role lists.</strong> Connecting a database or an API to an agent doesn't make it available to everyone who can chat with that agent.</li>
+          <li><strong>Sharing a conversation shares no access.</strong> When someone opens a shared link, answers citing documents they can't open are withheld.</li>
+          <li><strong>Keys never outrank their creator.</strong> An API key acts as the person who created it, for one agent only.</li>
+        </ul>
+        <p>None of this depends on the model behaving. A model can't reveal a passage it was never given.</p>
+
+        <h2 id="surfaces">Every surface needs an identity</h2>
+        <p>The rule gets harder the moment an agent leaves its own app. A widget on the intranet, a Slack bot or a Telegram bot for field staff all receive questions from people Smriti didn't authenticate. Each one has to answer the question <em>as whom?</em> explicitly, and we give three answers:</p>
+        <ul>
+          <li><strong>As its creator.</strong> Everyone sees what the creator can see and no more. That is right for a public help desk over public documents, and wrong for anything else.</li>
+          <li><strong>As the signed-in user.</strong> The host site's own server signs a short-lived token for the person who is logged in, and the widget answers as them.</li>
+          <li><strong>As a mapped person.</strong> An administrator maps chat-app accounts to people in the directory. Anyone unmapped is refused rather than given a default.</li>
+        </ul>
+        <p>Approvals follow the same logic. When an agent wants to do something that changes data, the button to approve it works only for the person who asked. Someone else in the Slack channel can't press it for them.</p>
+
+        <h2 id="leaving">When answers leave the building</h2>
+        <p>A chat app is a third party that keeps a copy of every message. Two extra checks apply to answers sent there. Personal data in the reply is masked by default, with a note that it was hidden. And an answer citing documents above the integration's classification limit is replaced by a link back to Smriti, where the reader's own access decides what they see.</p>
+
+        <h2 id="cost">What it costs</h2>
+        <p>Acting as the asker is not free. The same question can get different answers for different people, which surprises users who compare notes, so the interface says when results were limited. Caches have to be keyed by access, not just by question. Scheduled agents need an owner to act as. And a mapped bot needs someone to keep the mapping current.</p>
+        <p>We think those costs are worth paying. The alternative is an assistant that quietly undoes every access decision the organisation ever made.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>OWASP GenAI Security Project, <a href="https://genai.owasp.org/llm-top-10/">Top 10 for LLM Applications</a>: sensitive information disclosure and excessive agency.</li>
+          <li>Safearly, <a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/agents.md">Smriti agents</a> and <a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/integrations.md">integrations</a>: the design described here, with tests.</li>
+        </ol>
+
+        <div class="related">
+          <a class="post-card" href="/blog/check-every-sentence"><span class="meta">Research note</span><h3>Check every sentence, not just the answer</h3></a>
+          <a class="post-card" href="/blog/least-privilege-agent-skills"><span class="meta">Essay</span><h3>Least privilege for agent skills</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

@@ -5,7 +5,7 @@
       <h1>Notes from the lab.</h1>
       <p class="lede">Essays, research notes and explainers on fast, safe AI in production: inference, guardrails and agents. We say what is measured, what is in force and what is still unsolved.</p>
       <div class="split mt28">
-        <div class="chips-row"><span class="chip-link on">All · 6</span><span class="chip-link">Essay · 3</span><span class="chip-link">Research note · 2</span><span class="chip-link">Explainer · 1</span></div>
+        <div class="chips-row"><span class="chip-link on">All · 8</span><span class="chip-link">Essay · 4</span><span class="chip-link">Research note · 3</span><span class="chip-link">Explainer · 1</span></div>
         <div class="chips-row mono"><a class="arrow-link" href="/blog/feed.xml">RSS</a></div>
       </div>
     </div>
@@ -13,13 +13,21 @@
 
   <section class="sec" id="posts">
     <div class="wrap">
-      <a class="post-feature" href="/blog/where-inference-time-goes">
-        <span class="meta">27 Oct 2026 · Research note · Lalit Shukla</span>
-        <h2>Where inference time and money actually go</h2>
-        <p>Prefill is compute-bound, decode is memory-bound, and most serving waste hides in between. A field guide to the optimizations with real evidence behind them: continuous batching, paged KV cache, speculative decoding and disaggregation.</p>
+      <a class="post-feature" href="/blog/agents-act-as-the-asker">
+        <span class="meta">2 Nov 2026 · Essay · Lalit Shukla</span>
+        <h2>An agent should never know more than the person asking</h2>
+        <p>Most enterprise assistants run on an account that can read everything, which turns every shared agent, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.</p>
         <span class="more">Read →</span>
       </a>
       <div class="post-list">
+        <a class="post-row" href="/blog/check-every-sentence">
+          <span class="meta">2 Nov 2026 · Research note</span>
+          <div><h3>Check every sentence, not just the answer</h3><p>A citation is a claim, not proof. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails.</p></div>
+        </a>
+        <a class="post-row" href="/blog/where-inference-time-goes">
+          <span class="meta">27 Oct 2026 · Research note</span>
+          <div><h3>Where inference time and money actually go</h3><p>Prefill is compute-bound, decode is memory-bound. The serving optimizations with real evidence behind them.</p></div>
+        </a>
         <a class="post-row" href="/blog/guardrails-latency-budget">
           <span class="meta">27 Oct 2026 · Essay</span>
           <div><h3>Guardrails have a latency budget</h3><p>A guardrail that adds noticeable latency gets switched off. Layered checks, measured numbers, and how to stay inside the stream.</p></div>

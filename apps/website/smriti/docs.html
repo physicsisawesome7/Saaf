@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docs · Smriti · Safearly</title>
+  <meta name="description" content="Get Smriti running: one-command install on a GPU or CPU, the demo tenant, core concepts, and the API for agents, workflows and integrations.">
+  <link rel="canonical" href="https://safearly.com/smriti/docs">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="Docs · Smriti · Safearly">
+  <meta property="og:description" content="Get Smriti running: one-command install on a GPU or CPU, the demo tenant, core concepts, and the API for agents, workflows and integrations.">
+  <meta property="og:url" content="https://safearly.com/smriti/docs">
+  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products" class="active" aria-current="page">Products</a></li>
+      <li><a href="/research">Research</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#tour">A five-minute tour</a></li>
+        <li><a href="#concepts">Concepts</a></li>
+        <li><a href="#workflows">Agents and workflows</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#reference">Full reference</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/smriti">Smriti</a> / Docs</div>
+      <h1>Smriti documentation</h1>
+      <div class="chips-row mt14 mb8"><a class="chip-link" href="/smriti">Overview</a><a class="chip-link" href="/smriti/agents">Agents</a><a class="chip-link" href="/smriti/workflows">Workflows</a><a class="chip-link" href="/smriti/tools">Tools &amp; integrations</a><a class="chip-link on" href="/smriti/docs">Docs</a></div>
+      <div class="prose">
+        <p class="standfirst">Smriti is open source under Apache-2.0. These pages get you from nothing to a running system and explain the ideas you'll meet. The complete, versioned reference lives with the code on GitHub.</p>
+
+        <h2 id="install">Install</h2>
+        <p>With Docker and a GPU (or none), one command starts everything: the model server, embeddings and reranker, PostgreSQL, a vector store, the API and a crawler. The installer detects your card and picks a profile for 6, 12, 16 or 24 GB, or CPU only.</p>
+        <pre><code>git clone https://github.com/physicsisawesome7/smriti &amp;&amp; cd smriti
+./install.sh          # Linux, WSL2, macOS
+# Windows: powershell -ExecutionPolicy Bypass -File install.ps1</code></pre>
+        <p>For development, or without Docker, Python 3.11 or later is enough:</p>
+        <pre><code>pip install -e ".[dev]"
+smriti --data-dir data serve --seed     # http://127.0.0.1:8000
+pytest -q                               # unit tests and release gates</code></pre>
+        <p>Everything is configured in one <code>.env</code> file: models, memory split, ports, authentication and which tenant pack to load. Packs (documents, roles and sources) are mounted from a folder, so changing them needs no rebuild.</p>
+
+        <h2 id="tour">A five-minute tour</h2>
+        <p>The demo tenant is seeded on first start. Every document in it is synthetic.</p>
+        <ol>
+          <li>Open the app, choose a person under <b>Viewing as</b>, and ask about a clause. Note the citations and the verification score.</li>
+          <li>Ask the same question <b>as of</b> an earlier date and watch the answer switch to the text in force then.</li>
+          <li>Switch people and ask about a restricted document: one person sees it, another sees it with names masked, a third is told nothing was found.</li>
+          <li>Open <b>Agents</b>, start from a template, and try it in the side panel before saving.</li>
+          <li>Open <b>Agents → Integrations</b>, create a website widget for this address, and press <b>Try it on this page</b>.</li>
+        </ol>
+
+        <h2 id="concepts">Concepts</h2>
+        <ul>
+          <li><strong>Tenant and pack.</strong> An organisation's documents, roles, sources, glossary and skills, loaded as a pack.</li>
+          <li><strong>Principal.</strong> The person asking, with roles and grants (<code>view</code>, <code>upload</code>, <code>curate</code>, <code>administer</code>, <code>audit</code>). Every search, tool and answer is filtered to them.</li>
+          <li><strong>Versions.</strong> Documents supersede and amend each other. Retrieval follows the graph to the text in force on the date asked.</li>
+          <li><strong>Verification.</strong> Each sentence of an answer is matched to the passage it cites. Failing answers are replaced by a verified extract or withheld.</li>
+          <li><strong>Masking.</strong> Personal data is masked by role and category, before models and external tools. Built on <a href="/saaf">Saaf</a>.</li>
+          <li><strong>Ingestion and watch.</strong> Sources are crawled or pulled on a schedule. Changes produce a "what changed" note and an impact list of documents that cite the changed text.</li>
+          <li><strong>Audit.</strong> A hash-chained log of answers, tool calls, approvals and access decisions.</li>
+        </ul>
+
+        <h2 id="workflows">Agents and workflows</h2>
+        <p>An agent is a saved assistant: instructions, sources, tools, approval policy, sharing and an optional schedule. Kinds are <b>classic</b> (cited lookup), <b>agentic</b> (a tool loop), <b>research</b> (verified sub-questions merged into a report) and <b>workflow</b> (a graph of steps). See <a href="/smriti/agents">Agents</a> and <a href="/smriti/workflows">Workflows</a>.</p>
+        <p>Workflow templates use <code>{{ expression }}</code>; conditions use the same safe expression language:</p>
+        <pre><code>len(answer) &gt; 0 and contains(answer, 'clause')
+[strip(q) for q in split(query, ';')]
+join(pluck(answers, 'answer'), '\n\n')</code></pre>
+
+        <h2 id="api">API</h2>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Endpoint</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>POST /api/ask</code>, <code>/api/ask/stream</code></td><td>Ask the memory directly, with citations and verification.</td></tr>
+              <tr><td><code>GET/POST /api/agents</code></td><td>List and create agents and workflows.</td></tr>
+              <tr><td><code>POST /api/agents/{id}/chat</code></td><td>Run an agent, streamed or not. A paused run returns a <code>run_id</code>.</td></tr>
+              <tr><td><code>POST /api/runs/{id}/approve</code></td><td>Approve or decline a paused action.</td></tr>
+              <tr><td><code>POST /v1/chat/completions</code></td><td>OpenAI-compatible, with model <code>agent/&lt;id&gt;</code> and an agent key.</td></tr>
+              <tr><td><code>GET/POST /api/channels</code></td><td>Widget and chat-app integrations.</td></tr>
+              <tr><td><code>GET /api/agents/catalog</code></td><td>Kinds, tools, workflow steps, templates and functions.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="reference">Full reference</h2>
+        <ul>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/README.md">README</a>: architecture, what is different, release gates</li>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/deploy/README.md">Deployment</a>: profiles, memory budgets, tuning and troubleshooting</li>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/ingestion.md">Ingestion</a>: connectors, jobs and schedules</li>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/agents.md">Agents, tools and API keys</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/workflows.md">Workflows</a>: steps, expressions and the graph format</li>
+          <li><a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/integrations.md">Integrations</a>: widget, Slack, Telegram and Discord</li>
+        </ul>
+        <p class="note-box">Found a gap in the docs? <a href="https://github.com/physicsisawesome7/smriti/issues">Open an issue</a> or write to <a href="mailto:lalit@safearly.com?subject=Smriti%20docs">lalit@safearly.com</a>.</p>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
+      </div>
+      <div>
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/smriti">Smriti</a></li>
+          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
+          <li><a href="/products">All projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

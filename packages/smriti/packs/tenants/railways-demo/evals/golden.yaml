@@ -1,0 +1,72 @@
+# Golden questions: real-shaped questions with the asker, an as-of date where
+# it matters, the expected sources, and traps (permission, superseded,
+# unanswerable). Grow to 300-500 from domain experts; review every synthetic one.
+cases:
+  - id: pg-current
+    as_user: asha
+    question: What is the period for submitting the performance guarantee under clause 16.1?
+    expect_docs: [GCC-2022, GCC-2022/CS-07]
+    expect_text: ["30 days"]
+  - id: pg-as-of-2024
+    as_user: asha
+    as_of: "2024-06-01"
+    question: What was the period for submitting the performance guarantee under clause 16.1?
+    expect_docs: [GCC-2022]
+    expect_text: ["21 days"]
+  - id: ld-ceiling
+    as_user: asha
+    question: What is the maximum liquidated damages under clause 46.1?
+    expect_docs: [GCC-2022, GCC-2022/CS-08]
+    expect_text: ["5%"]
+  - id: poa-ce
+    as_user: meera
+    question: Up to what value can the Chief Engineer (Construction) accept a works tender, and above what value is finance vetting needed?
+    expect_docs: [BRD/2024/W1/POA]
+    forbidden_docs: [BRD/2019/W1/POA]
+    expect_text: ["100"]
+  - id: nit-value
+    as_user: asha
+    question: What is the estimated value and completion period of tender NR-DLI-ENG-2025-14?
+    expect_docs: [NR-DLI-ENG-2025-14]
+    expect_text: ["42.50"]
+  - id: hindi-safety
+    as_user: asha
+    question: पटरी रखरखाव के दौरान सुरक्षा के क्या निर्देश हैं?
+    expect_docs: [NR/SAFETY/2025/04]
+  - id: bid-security-bidder
+    as_user: bidder
+    question: How much bid security must a bidder furnish?
+    expect_docs: [GCC-2022]
+    expect_text: ["2%"]
+  - id: land-total
+    as_user: rakesh
+    question: What is the total area in hectare of plots in village Rampur?
+    expect_docs: [LA/P-17/SCH/2025]
+    expect_text: ["1.516"]
+  - id: trap-land-asha
+    as_user: asha
+    question: Who are the land owners in the P-17 land schedule?
+    must_abstain: true
+    forbidden_docs: [LA/P-17/SCH/2025]
+  - id: trap-other-division
+    as_user: asha
+    question: What is the estimated value of tender NR-LKO-ENG-2025-03 for platform extension at Barabanki?
+    must_abstain: true
+    forbidden_docs: [NR-LKO-ENG-2025-03]
+  - id: trap-vigilance-km
+    as_user: km
+    question: What irregularities were found in vigilance case 12?
+    must_abstain: true
+    forbidden_docs: [VIG/2025/12]
+  - id: vigilance-nadia
+    as_user: nadia
+    question: What irregularities were found in vigilance case 12?
+    expect_docs: [VIG/2025/12]
+  - id: unanswerable
+    as_user: asha
+    question: What is the canteen subsidy for night shift staff?
+    must_abstain: true
+  - id: admin-not-reader
+    as_user: admin
+    question: What is the period for submitting the performance guarantee?
+    must_abstain: true

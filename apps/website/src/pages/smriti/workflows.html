@@ -1,0 +1,73 @@
+<!--page {"path": "/smriti/workflows", "nav": "products", "title": "Workflows · Smriti · Safearly", "description": "Smriti workflows: chain agents, conditions, variables, sandboxed code, loops and human approval on a visual canvas. Every step cites its sources and acts as the person running it.", "scripts": ["/assets/main.js"]} -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="/smriti">Smriti</a> / Workflows</div>
+      <div class="eyebrow">Workflows</div>
+      <h1>Draw the process. Keep the guarantees.</h1>
+      <p class="lede">Some work is more than one question. A workflow chains agents, conditions, variables, code and human sign-off into a single run on a visual canvas. Every agent step still acts as the person running it, cites its sources and masks personal data.</p>
+      <div class="chips-row mt28"><a class="chip-link" href="/smriti">Overview</a><a class="chip-link" href="/smriti/agents">Agents</a><a class="chip-link on" href="/smriti/workflows">Workflows</a><a class="chip-link" href="/smriti/tools">Tools &amp; integrations</a><a class="chip-link" href="/smriti/docs">Docs</a></div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Example</div>
+        <h2>Answer, then a person signs off.</h2>
+        <p class="lede">A research agent drafts a cited answer. If it found one, the run pauses for a reviewer. Approved, it is released; declined, it is held back. No answer, and the asker is told so. It is one of three templates you can start from.</p>
+      </div>
+      <div class="proof pipeline reveal" role="img" aria-label="A workflow: start, a research agent drafts an answer, a condition checks one was found, a human approval step, and two end steps.">
+        <div class="row"><div class="lbl">01 · AI agent · research</div><div class="val">draft = cited answer to <span class="hl">{{ query }}</span></div></div>
+        <div class="row"><div class="lbl">02 · If / else</div><div class="val">len(draft) &gt; 0 → sign-off, else → "no supported answer"</div></div>
+        <div class="row"><div class="lbl">03 · Human approval</div><div class="val">Release this answer? <span class="tk">approve</span> / decline</div></div>
+        <div class="row"><div class="lbl">04 · End</div><div class="val">{{ draft }}, with every citation renumbered into one list</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Steps</div><h2>Nine building blocks.</h2></div></div>
+      <div class="dtable-wrap reveal">
+        <table class="dtable">
+          <thead><tr><th>Step</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td>Start</td><td>Every run begins here with the question and the chat history.</td></tr>
+            <tr><td>AI agent</td><td>Runs a classic, agentic or research agent on a templated prompt, with its own tools and instructions. Writes its cited answer to a variable.</td></tr>
+            <tr><td>If / else</td><td>Checks conditions in order and follows the first that is true, or the else branch.</td></tr>
+            <tr><td>Set state</td><td>Sets variables from expressions, without calling a model.</td></tr>
+            <tr><td>Code</td><td>Runs Python in a sandbox with no network, reading the workflow's variables and returning a value.</td></tr>
+            <tr><td>Human approval</td><td>Pauses until the person running the workflow approves or declines, and branches on the answer.</td></tr>
+            <tr><td>Loop</td><td>Runs one agent prompt for each item in a list and collects the answers.</td></tr>
+            <tr><td>End</td><td>Renders the final answer from a template.</td></tr>
+            <tr><td>Note</td><td>A comment for the people reading the workflow.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Safe by construction</div><h2>What still holds inside a workflow.</h2></div></div>
+      <div class="focus">
+        <div class="reveal"><h3>No eval, anywhere</h3><p>Conditions and templates use a small expression language that Smriti parses itself. Attribute access, imports and unknown functions are rejected when the workflow is saved, not when it runs.</p></div>
+        <div class="reveal"><h3>Approvals pause everything</h3><p>A human approval step pauses the run, and so does a tool action inside an agent step that needs approval. Only the person who started the run can approve it.</p></div>
+        <div class="reveal"><h3>Bounded and explained</h3><p>A run stops after 50 steps, so a loop back through a condition can't run forever. Any failure ends the run with an answer that names the step that failed and why.</p></div>
+      </div>
+      <div class="callout-v mt40"><strong>Validated before it can run</strong><p>Saving checks the graph: exactly one start, at least one end, every output connected, every step reachable, valid variable names and safe expressions. Errors read like "'If / else' (else) is not connected to a next step".</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Templates</div><h2>Start from a working example.</h2></div></div>
+      <div class="principles">
+        <div class="reveal"><h3>Sign-off before release</h3><p>Draft, check, approve, release. For answers that go into official correspondence.</p></div>
+        <div class="reveal"><h3>A list of questions</h3><p>Paste several questions and get each answered with citations, combined into one reply.</p></div>
+        <div class="reveal"><h3>Route by topic</h3><p>Money questions go to an agent with a calculator; everything else to cited lookup.</p></div>
+        <div class="reveal"><h3>Yours</h3><p>Every workflow is an agent: share it, schedule it, give it an API key or put it in Slack.</p></div>
+      </div>
+      <div class="btns mt40"><a class="btn btn-primary" href="/smriti/docs#workflows">Workflow docs</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti/blob/main/docs/workflows.md">Reference on GitHub</a></div>
+    </div>
+  </section>

@@ -1,0 +1,43 @@
+# Document types. `match` keywords classify a document when its source or
+# front matter does not say; `pii_columns` names table columns that carry
+# personal names, which have no checksum for Saaf to validate.
+schemas:
+  gcc:
+    label: General Conditions of Contract
+    match: [general conditions of contract]
+    chunking: clause
+  correction-slip:
+    label: Correction slip
+    match: [correction slip, shall be read as, in partial modification]
+    chunking: paragraph
+  powers-of-acceptance:
+    label: Powers of acceptance
+    match: [powers of acceptance, power to accept]
+  nit:
+    label: Notice inviting tender
+    match: [notice inviting tender, e-tender, bid closing]
+  loa:
+    label: Letter of acceptance
+    match: [letter of acceptance, your offer is accepted, acceptance of your bid]
+  land-schedule:
+    label: Land schedule
+    match: [land schedule, khasra, plot schedule]
+    pii_columns: [owner, father, khatedar]
+  circular:
+    label: Circular
+    match: [circular, instructions are issued, all concerned]
+  sop:
+    label: Standard operating procedure
+    match: [standard operating procedure, sop]
+  vigilance-note:
+    label: Vigilance note
+    match: [vigilance]
+  minutes:
+    label: Minutes
+    match: [minutes of, tender committee meeting]
+  correspondence:
+    label: Correspondence
+    match: ["subject:", "dear sir"]
+  memory-note:
+    label: Team or personal note
+    match: []

@@ -26,6 +26,7 @@ package = false
 members = [
   "packages/saaf-core",
   "packages/saaf-gateway",
+  "packages/smriti",
   "plugins/litellm",
   "plugins/langchain",
   "plugins/mcp-server",
@@ -58,9 +59,10 @@ ignore = [
 "**/test_*.py" = ["S603", "PT018"]
 "**/tests/**" = ["S105", "S106", "S108", "PT011", "PT018", "E402"]
 "bench/**" = ["S"]
+"packages/smriti/**" = ["SIM905", "RUF007", "PT018"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["saaf", "saaf_gateway", "saaf_litellm", "saaf_langchain", "saaf_mcp", "saaf_presidio", "indicpii_bench"]
+known-first-party = ["saaf", "smriti", "saaf_gateway", "saaf_litellm", "saaf_langchain", "saaf_mcp", "saaf_presidio", "indicpii_bench"]
 
 [tool.mypy]
 python_version = "3.11"

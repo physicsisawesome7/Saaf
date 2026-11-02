@@ -1,0 +1,12 @@
+cases:
+  - name: tender with planted defects
+    as_user: meera
+    expect_fail: ["annexure:integrity_pact", "annexure:land_border_eligibility", "clause_ref:99.9", "slips_current", "bid_period"]
+    inputs:
+      notice_date: "2025-03-01"
+      tender_text: |
+        Notice Inviting Tender No. NR-DLI-ENG-2025-99 (synthetic).
+        The contract shall be governed by the GCC April 2022 as amended up to Correction Slip No. 7.
+        Performance guarantee as per Clause 16.1 of GCC. Liquidated damages as per Clause 99.9 of GCC.
+        Bid security declaration is enclosed. Schedule of rates at Annexure II.
+        Bid closing date: 10.03.2025

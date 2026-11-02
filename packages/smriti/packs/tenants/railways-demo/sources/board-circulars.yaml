@@ -1,0 +1,31 @@
+# Site adapter. Points at the synthetic demo site served by Smriti itself at
+# /demo-site/circulars; in production this is the Board's circulars page.
+source: board-circulars
+adapter_version: 3
+mode: http                 # http | playwright | rss | file
+schedule: '0 */6 * * *'
+legal_status: public-government-site (GODL-India reuse terms; demo is synthetic)
+start_urls:
+  - http://127.0.0.1:8000/demo-site/circulars
+discover:
+  list_selector: 'table.circulars tr:has(td)'
+  fields:
+    no: 'td:nth-child(1)'
+    title: 'td:nth-child(2)'
+    issued_on: 'td:nth-child(3)'
+    file: 'a@href'
+  pagination: {type: next_link, max_pages: 5}
+fetch:
+  rate_limit: '5 requests per 1 s'   # production default: 1 request per 2 s
+  respect_robots: true
+  conditional_get: true
+documents:
+  types: [pdf, docx, xlsx, zip, md, html]
+  max_size_mb: 100
+volatile:
+  selectors: [p.counter]
+dedupe: {key: sha256, normalise_url: true}
+supersession:
+  detect: ['supersedes', 'in partial modification of', 'correction slip']
+access: {doc_class: public, divisions: ['*']}
+alert: {to: [section-engineer, chief-engineer-construction, associate-finance, knowledge-manager], when: [new, changed]}

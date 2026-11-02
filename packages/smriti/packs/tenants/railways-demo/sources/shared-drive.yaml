@@ -1,0 +1,10 @@
+# File connector: a watched shared folder (in production an SMB share,
+# SharePoint or Drive with permission sync).
+source: shared-drive
+adapter_version: 1
+mode: file
+path: inbox
+schedule: '*/30 * * * *'
+legal_status: customer-owned
+access: {doc_class: internal, divisions: [NR-DLI]}
+alert: {to: [knowledge-manager], when: [new, changed]}

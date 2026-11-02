@@ -2,6 +2,36 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "smriti-dev",
+      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/C--presentation-content-Presentations-Extras-veil/db54910a-fdba-4dc4-ba66-032b2f7a9807/scratchpad/smriti-venv/Scripts/python.exe",
+      "runtimeArgs": [
+        "-m",
+        "smriti",
+        "--data-dir",
+        "C:/presentation content/Presentations/Extras/smriti/data-dev",
+        "serve",
+        "--seed",
+        "--port",
+        "8010"
+      ],
+      "port": 8010
+    },
+    {
+      "name": "smriti",
+      "runtimeExecutable": ".venv/Scripts/python.exe",
+      "runtimeArgs": [
+        "-m",
+        "smriti",
+        "--data-dir",
+        "packages/smriti/data",
+        "serve",
+        "--seed",
+        "--port",
+        "8000"
+      ],
+      "port": 8000
+    },
+    {
       "name": "website",
       "runtimeExecutable": "python",
       "runtimeArgs": [
@@ -40,6 +70,21 @@
         "plugins/browser-extension"
       ],
       "port": 8091
+    },
+    {
+      "name": "smriti-workflows",
+      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/C--presentation-content-Presentations-Extras-veil/db54910a-fdba-4dc4-ba66-032b2f7a9807/scratchpad/smriti-venv/Scripts/python.exe",
+      "runtimeArgs": [
+        "-m",
+        "smriti",
+        "--data-dir",
+        "C:/Users/lalit/AppData/Local/Temp/claude/C--presentation-content-Presentations-Extras-veil/df3243fa-aadf-4513-9f19-55484f23b2a4/scratchpad/smriti-wf-data",
+        "serve",
+        "--seed",
+        "--port",
+        "8013"
+      ],
+      "port": 8013
     }
   ]
 }

@@ -1,0 +1,88 @@
+<!--page {"path": "/smriti/tools", "nav": "products", "title": "Tools & integrations · Smriti · Safearly", "description": "The tools Smriti agents can use, from library search and sandboxed Python to REST APIs, MCP servers and SQL, and the integrations that put agents in your intranet, Slack, Telegram and Discord.", "scripts": ["/assets/main.js"]} -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="/smriti">Smriti</a> / Tools &amp; integrations</div>
+      <div class="eyebrow">Tools &amp; integrations</div>
+      <h1>Connect what agents use. Reach people where they work.</h1>
+      <p class="lede">Tools give agents the ability to look things up and act. Integrations put those agents in front of people, in a web page or a chat app. Both come with the same rule: nothing an agent does or says goes beyond what the person behind it may see and do.</p>
+      <div class="chips-row mt28"><a class="chip-link" href="/smriti">Overview</a><a class="chip-link" href="/smriti/agents">Agents</a><a class="chip-link" href="/smriti/workflows">Workflows</a><a class="chip-link on" href="/smriti/tools">Tools &amp; integrations</a><a class="chip-link" href="/smriti/docs">Docs</a></div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Built-in tools</div><h2>Ready on every installation.</h2></div></div>
+      <div class="dtable-wrap reveal">
+        <table class="dtable">
+          <thead><tr><th>Tool</th><th>What it does</th><th>Safety</th></tr></thead>
+          <tbody>
+            <tr><td>Search the library</td><td>Permission-aware search with version rules, limited to the agent's sources.</td><td>Filtered to the asker.</td></tr>
+            <tr><td>Calculator</td><td>Exact arithmetic, with Indian digit grouping where it helps.</td><td>A real parser, never <code>eval</code>.</td></tr>
+            <tr><td>Read a web page</td><td>Fetches one URL for the agent to read.</td><td>Egress guard; content treated as untrusted.</td></tr>
+            <tr><td>Web search</td><td>Self-hosted SearxNG, or Brave or Tavily with a key.</td><td>Personal data masked in the query before it leaves.</td></tr>
+            <tr><td>Run Python</td><td>Analyses tables and makes files.</td><td>No network, read-only root, non-root, memory and time limits.</td></tr>
+            <tr><td>Create a file</td><td>Markdown, CSV, JSON, HTML or text for the person to download.</td><td>Always a download, never rendered in Smriti.</td></tr>
+            <tr><td>Skills</td><td>Coded checks for your domain, such as validating a tender.</td><td>Each skill checks its own grants.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Connected tools</div><h2>Bring your own systems.</h2></div></div>
+      <div class="focus">
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-plug"/></svg></div><h3>REST APIs</h3><p>Import operations from an OpenAPI spec, or list them by hand. Write operations stay hidden until you allow them, and then always need approval. Bearer, header, basic or query-key auth.</p></div>
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-server"/></svg></div><h3>MCP servers</h3><p>Every tool on a server, over streamable HTTP or SSE. Tools not marked read-only need approval. Smriti is also an MCP server itself, so other assistants can search its memory.</p></div>
+        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-db"/></svg></div><h3>Databases</h3><p>Read-only SELECT in a read-only transaction, with a row cap. Add table notes so the model writes good SQL.</p></div>
+      </div>
+      <p class="meta mt28">Every connected tool lists the roles that may use it and how sensitive its results are. Credentials are encrypted at rest and never returned by the API. Saving a tool reads its actions from the target, so you see exactly what agents can call.</p>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Integrations</div><h2>An agent in your intranet, Slack, Telegram or Discord.</h2></div></div>
+      <div class="projects">
+        <article class="pcard reveal">
+          <div class="ph"><h3>Website widget</h3></div>
+          <p>One script tag adds a chat bubble with streamed, cited answers. It renders in its own shadow root, so your page's styles can't break it, and it only runs on the sites you allow.</p>
+          <pre class="cmd"><code>&lt;script src="https://smriti.example/widget.js"
+  data-smriti-widget="wg_…" async&gt;&lt;/script&gt;</code></pre>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>Slack</h3></div>
+          <p>Mention the app in a channel or message it directly. Answers arrive in the thread, and a thread is one conversation. Approvals are buttons only the asker can press.</p>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>Telegram</h3></div>
+          <p>A bot for field staff. Paste the token from BotFather and connect the webhook from Smriti. Each chat continues one conversation.</p>
+        </article>
+        <article class="pcard reveal">
+          <div class="ph"><h3>Discord</h3></div>
+          <p>An app with an <code>/ask</code> command. Every interaction is verified with Discord's signature before Smriti reads it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Identity and safety</div><h2>Every integration answers as someone.</h2></div></div>
+      <div class="principles">
+        <div class="reveal"><h3>A stated identity</h3><p>Its creator; the signed-in user of your site, through a short-lived signed token; or chat users mapped to people by an administrator. Unmapped people are refused.</p></div>
+        <div class="reveal"><h3>Masked on the way out</h3><p>Chat apps store every message on their own servers, so personal data in replies sent there is masked by default.</p></div>
+        <div class="reveal"><h3>Classified stays home</h3><p>An answer citing documents above the integration's limit is replaced by a link back to Smriti, and the event is audited.</p></div>
+        <div class="reveal"><h3>Verified requests</h3><p>Slack signing secrets, Telegram secret tokens, Discord Ed25519 signatures, and an origin allow-list with rate limits for the widget.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Ingestion</div><h2>Where Smriti's memory comes from.</h2></div></div>
+      <p class="lede">Multi-page website crawls, single links, file uploads, REST and JSON APIs, SQL databases, MCP servers, RSS feeds and sitemaps, and server folders. Each source has a test-connection dry run, its own access and schedule, and background jobs you can watch and cancel. Requests go through an egress guard, credentials are encrypted, and SQL is read-only.</p>
+      <div class="btns mt28"><a class="btn btn-primary" href="/smriti/docs">Read the docs</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti/blob/main/docs/integrations.md">Integration reference</a></div>
+    </div>
+  </section>

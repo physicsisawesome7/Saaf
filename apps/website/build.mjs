@@ -90,6 +90,7 @@ const footer = `<footer class="foot2">
         <ul>
           <li><a href="/saaf">Saaf</a></li>
           <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/smriti">Smriti</a></li>
           <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
           <li><a href="/products">All projects</a></li>
         </ul>

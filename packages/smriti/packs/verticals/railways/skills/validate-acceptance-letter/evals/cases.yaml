@@ -1,0 +1,30 @@
+# Planted-defect cases. `expect_fail` lists the checks that must come back
+# critical or major; the eval reports defect recall and false alarms.
+cases:
+  - name: clean letter
+    as_user: meera
+    expect_fail: []
+    inputs:
+      letter_date: "2025-06-10"
+      acceptor: Chief Engineer (Construction)
+      finance_vetted: true
+      make_draft: true
+      bid: {tender_no: NR-DLI-ENG-2025-14, value_cr: 42.5, completion_months: 18, offer_valid_until: "2025-07-31", contractor: "M/s Example Infra Pvt Ltd (synthetic)", work: "doubling of the Shakurbasti-Rohtak section, earthwork and minor bridges"}
+      letter_text: |
+        Tender No. NR-DLI-ENG-2025-14. Your offer is accepted for Rs 42.50 crore.
+        The work shall be completed within 18 months.
+        You shall submit a Performance Guarantee of 5% of the contract value within 30 days of this letter,
+        as per GCC April 2022 as amended up to Correction Slip No. 8.
+  - name: planted defects
+    as_user: meera
+    expect_fail: [pg_terms_current, value_matches, acceptor_power, finance_vetting, offer_validity]
+    inputs:
+      letter_date: "2025-08-05"
+      acceptor: Senior Divisional Engineer
+      finance_vetted: false
+      bid: {tender_no: NR-DLI-ENG-2025-14, value_cr: 42.5, completion_months: 18, offer_valid_until: "2025-07-31"}
+      letter_text: |
+        Tender No. NR-DLI-ENG-2025-14. Your offer is accepted for Rs 45.00 crore.
+        The work shall be completed within 18 months.
+        You shall submit a Performance Guarantee of 5% of the contract value within 21 days of this letter,
+        as per GCC April 2022 as amended up to Correction Slip No. 7.

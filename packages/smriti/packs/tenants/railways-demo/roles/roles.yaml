@@ -1,0 +1,51 @@
+# Illustrative role grid. The real grid comes from the customer's delegation
+# of powers; production reads people from Keycloak (OIDC/SAML) claims.
+roles:
+  section-engineer:
+    description: Own division's works files plus public rules
+    grants: [view, draft]
+    scope: {division: own, doc_class: [public, internal]}
+    prompt: A section engineer who needs exact clause text and practical next steps.
+  chief-engineer-construction:
+    description: Own organisation's projects plus all public rules
+    grants: [view, draft, validate, recommend]
+    scope: {division: own, projects: assigned, doc_class: [public, internal, confidential]}
+    prompt: A Chief or Deputy Chief Engineer deciding on recommendations; be concise.
+  associate-finance:
+    description: Tender and contract files in the scope they vet
+    grants: [view, validate, approve]
+    scope:
+      division: own
+      doc_class: [public, internal, confidential]
+      doc_types: [gcc, correction-slip, powers-of-acceptance, nit, loa, circular, sop, minutes, correspondence, memory-note, document]
+    prompt: An Associate Finance officer vetting financial implications.
+  land-officer:
+    description: Land plans and schedules for assigned projects, owner data unmasked
+    grants: [view, draft]
+    scope: {division: own, projects: assigned, doc_class: [public, internal, confidential]}
+    unmask: [land_owner_name, land_owner_address, aadhaar]
+  vigilance:
+    description: Read-only trail and documents under specific case grants
+    grants: [view, audit]
+    scope: {division: all, doc_class: [public, internal, confidential, secret]}
+  knowledge-manager:
+    description: Curates sources, approves ingestion and memory, marks documents superseded
+    grants: [view, upload, curate]
+    scope: {division: all, doc_class: [public, internal]}
+  org-admin:
+    description: Configures the tenant; not a reader of content
+    grants: [administer, upload]
+  external-bidder:
+    description: Published tender rules only
+    grants: [view]
+    scope: {division: all, doc_class: [public], doc_types: [gcc, correction-slip, circular]}
+
+users:
+  - {id: asha, name: Asha Verma, title: Section Engineer (Works), roles: [section-engineer], divisions: [NR-DLI]}
+  - {id: vikram, name: Vikram Singh, title: Deputy Chief Engineer (Construction), roles: [chief-engineer-construction], divisions: [NR-DLI, NR-LKO], projects: [P-17], clearance: confidential}
+  - {id: meera, name: Meera Iyer, title: Associate Finance, roles: [associate-finance], divisions: [NR-DLI], clearance: confidential}
+  - {id: rakesh, name: Rakesh Yadav, title: Land Acquisition Officer, roles: [land-officer], divisions: [NR-DLI], projects: [P-17], clearance: confidential}
+  - {id: nadia, name: Nadia Khan, title: Vigilance Officer, roles: [vigilance], groups: [vigilance-case-12], clearance: secret}
+  - {id: km, name: Kiran Mehta, title: Knowledge Manager, roles: [knowledge-manager]}
+  - {id: admin, name: Platform Admin, title: Organisation admin, roles: [org-admin]}
+  - {id: bidder, name: Example Bidder, title: External contractor, roles: [external-bidder], clearance: public}
