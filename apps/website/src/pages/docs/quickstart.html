@@ -1,0 +1,31 @@
+<!--page {"path": "/docs/quickstart", "nav": "docs", "docs": true, "title": "Quickstart · Smriti docs", "description": "Install Smriti, open the seeded demo and ask your first verified question in about five minutes.", "scripts": ["/assets/main.js"], "source": "README.md"} -->
+      <h1>Quickstart</h1>
+      <p class="lead">Run Smriti on your machine, open the demo organisation, and see verified answers, access control and versions at work. It takes about five minutes.</p>
+
+      <h2>1. Install</h2>
+      <p>You need Docker. A GPU is optional: without one, Smriti uses its CPU profile and answers with verified extracts.</p>
+      <pre><code>git clone https://github.com/physicsisawesome7/smriti
+cd smriti
+./install.sh                                          # Linux, WSL2, macOS
+powershell -ExecutionPolicy Bypass -File install.ps1  # Windows</code></pre>
+      <p>The installer checks Docker and GPU access, picks a hardware profile from your graphics memory, writes <code>.env</code>, starts the stack and waits until every model server is ready.</p>
+      <div class="callout">No Docker? With Python 3.11 or later: <code>pip install -e ".[dev]"</code>, then <code>smriti --data-dir data serve --seed</code>. It starts on <code>http://127.0.0.1:8000</code> with the demo seeded.</div>
+
+      <h2>2. Ask a question</h2>
+      <p>Open the app. Under <b>Viewing as</b>, pick a person: the demo directory has people with different roles. Ask:</p>
+      <pre><code>What is the period for submitting the performance guarantee under clause 16.1?</code></pre>
+      <p>You get an answer with numbered citations, the steps Smriti took, and a verification score. Open a citation to see the passage it came from.</p>
+
+      <h2>3. Ask it as of a date</h2>
+      <p>Ask the same question <b>as of</b> an earlier date. The answer changes to the text that applied then, because the demo includes an amendment that came into force later.</p>
+
+      <h2>4. Switch people</h2>
+      <p>Ask about a restricted document as different people. One sees it in full, one sees it with names masked, and one is told nothing relevant was found. The same holds for every agent, workflow and integration.</p>
+
+      <h2>5. Build an agent</h2>
+      <p>Open <b>Agents</b>, start from a template, and use <b>Try it</b> to run it before saving. Then open <b>Start from a workflow</b> and run the sign-off template to see a human approval step.</p>
+
+      <h2>6. Put it on a page</h2>
+      <p>As a knowledge manager, publish an agent, open <b>Agents → Integrations</b>, add a website widget for this address, and press <b>Try it on this page</b>.</p>
+
+      <div class="callout warn">Every document in the demo is synthetic. To use your own documents, roles and sources, see <a href="/docs/install#your-data">Install and deploy</a>.</div>

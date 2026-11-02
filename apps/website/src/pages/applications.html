@@ -1,0 +1,40 @@
+<!--page {"path": "/applications", "nav": "applications", "title": "Applications · Smriti · Safearly", "description": "Where Smriti runs and what teams use it for: the web app, a website widget, Slack, Telegram, Discord, an OpenAI-compatible API and an MCP server, for support, internal knowledge, legal, compliance, engineering and the public sector.", "scripts": ["/assets/main.js"]} -->
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Applications</div>
+      <h1>One memory, wherever people work.</h1>
+      <p class="lede">Smriti's agents and workflows run in its own web app, inside your website, in chat apps and in your code. Wherever they run, the same rule applies: the answer is checked, and it never shows more than the person behind it may see.</p>
+      <div class="chips-row mt28"><a class="chip-link on" href="#surfaces">Where it runs</a><a class="chip-link" href="#uses">What teams use it for</a></div>
+    </div>
+  </section>
+
+  <section class="sec band" id="surfaces">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Where it runs</div><h2>Seven ways in.</h2></div><a class="arrow-link" href="/docs/integrations">Integration docs →</a></div>
+      <div class="grid4">
+        <div class="card2 reveal"><div class="ic">◎</div><h3>Web app</h3><p>Ask with evidence and a trace, build agents and workflows, browse versions and diffs, approve drafts, check the audit chain.</p></div>
+        <div class="card2 reveal"><div class="ic">◱</div><h3>Website widget</h3><p>One script tag adds a chat bubble with streamed, cited answers. It runs only on sites you allow, as you or as the signed-in user.</p></div>
+        <div class="card2 reveal"><div class="ic">#</div><h3>Slack</h3><p>Mention the app or message it. Answers arrive in the thread, approvals are buttons only the asker can press.</p></div>
+        <div class="card2 reveal"><div class="ic">✈</div><h3>Telegram</h3><p>A bot for staff in the field. Each chat continues one conversation, with personal data masked in replies.</p></div>
+        <div class="card2 reveal"><div class="ic">◆</div><h3>Discord</h3><p>An app with an <code>/ask</code> command, with every request verified by Discord's signature.</p></div>
+        <div class="card2 reveal"><div class="ic">{}</div><h3>OpenAI-compatible API</h3><p>Point any SDK or chat client at <code>/v1/chat/completions</code> and choose an agent as the model.</p></div>
+        <div class="card2 reveal"><div class="ic">⇄</div><h3>MCP server</h3><p>Let assistants such as Claude or IDE agents search Smriti, with the caller's permissions fixed when it starts.</p></div>
+        <div class="card2 dark reveal"><div class="ic">✓</div><h3>Same rules everywhere</h3><p>Every surface states who it answers as. Chat-app replies are masked, and answers citing confidential documents stay in Smriti.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="uses">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">What teams use it for</div><h2>Six common starting points.</h2></div></div>
+      <div class="grid3">
+        <article class="card2 reveal" id="support"><h3>Customer support</h3><p>Answer customers and support staff from manuals, release notes and resolved tickets, without sending customer data to a model.</p><dl><dt>Sources</dt><dd>docs site, release notes, ticket export</dd><dt>Agent</dt><dd>support assistant (classic)</dd><dt>Runs in</dt><dd>help-centre widget, Slack</dd></dl></article>
+        <article class="card2 reveal" id="internal"><h3>Internal knowledge</h3><p>HR, IT and policy questions answered as each employee, so the salary bands and the board minutes stay where they belong.</p><dl><dt>Sources</dt><dd>intranet, shared drives, wiki</dd><dt>Agent</dt><dd>policy desk, IT helpdesk</dd><dt>Runs in</dt><dd>signed intranet widget, Slack</dd></dl></article>
+        <article class="card2 reveal" id="legal"><h3>Legal and contracts</h3><p>Clauses with every amendment in force, comparisons across agreements, and a reviewer's sign-off before anything leaves the team.</p><dl><dt>Sources</dt><dd>contracts, amendments, playbooks</dd><dt>Workflow</dt><dd>sign-off before release</dd><dt>Runs in</dt><dd>web app</dd></dl></article>
+        <article class="card2 reveal" id="compliance"><h3>Finance, risk and compliance</h3><p>Regulations and circulars watched for you. Each change gets a "what changed" note and a list of the internal documents it affects.</p><dl><dt>Sources</dt><dd>regulator sites, RSS, policies</dd><dt>Workflow</dt><dd>weekly change digest</dd><dt>Runs in</dt><dd>web app, scheduled</dd></dl></article>
+        <article class="card2 reveal" id="engineering"><h3>Engineering and product</h3><p>Specs, runbooks and API references in one place, plus read-only queries and analysis code when the answer is in the data.</p><dl><dt>Sources</dt><dd>repos' docs, runbooks, database</dd><dt>Agent</dt><dd>data analyst, reporting assistant</dd><dt>Runs in</dt><dd>MCP in the IDE, Discord</dd></dl></article>
+        <article class="card2 reveal" id="public"><h3>Public sector</h3><p>Rules, orders and notices with full version history, on infrastructure you control, with an audit trail for every answer.</p><dl><dt>Sources</dt><dd>gazettes, orders, internal files</dd><dt>Agent</dt><dd>research brief</dd><dt>Runs in</dt><dd>offline install, Telegram for field staff</dd></dl></article>
+      </div>
+      <div class="callout-v mt40"><strong>See it with your own documents</strong><p>The demo tenant shows every feature on synthetic documents. For a pilot on your data, on your hardware, <a href="mailto:lalit@safearly.com?subject=Smriti%20pilot">write to us</a>.</p></div>
+    </div>
+  </section>

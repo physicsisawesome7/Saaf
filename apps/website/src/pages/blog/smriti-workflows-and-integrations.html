@@ -1,0 +1,54 @@
+<!--page {"path": "/blog/smriti-workflows-and-integrations", "nav": "blog", "title": "Smriti now does workflows and lives where your team works · Safearly", "ogTitle": "Smriti now does workflows and lives where your team works", "ogType": "article", "description": "Release notes: visual workflows with human approval, a website widget, Slack, Telegram and Discord bots, and the safety rules that come with them.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Release", "title": "Smriti now does workflows and lives where your team works"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#workflows">Workflows</a></li>
+        <li><a href="#integrations">Integrations</a></li>
+        <li><a href="#safety">What keeps it safe</a></li>
+        <li><a href="#upgrade">Try it</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Release</div>
+      <h1>Smriti now does workflows and lives where your team works</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Release</div></div>
+        <div class="tags"><span class="tag">Release</span><span class="tag">Workflows</span><span class="tag">Integrations</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Two big additions to Smriti. Workflows turn a process into a graph of steps you can draw. Integrations put any published agent in a web page, Slack, Telegram or Discord. Both keep the rules that make Smriti's answers worth trusting.</p>
+
+        <h2 id="workflows">Workflows</h2>
+        <p>A workflow is a new kind of agent, built on a canvas. It has nine step types: start, AI agent, if / else, set state, sandboxed code, human approval, loop, end and note. Steps share variables, and prompts and outputs are templates such as <code>{{ draft }}</code>.</p>
+        <p>Conditions use a small expression language that Smriti parses itself, with no <code>eval</code> anywhere, and unsafe expressions are rejected when you save. Three templates ship with it: sign-off before release, answering a list of questions, and routing by topic. <a href="/workflows">See more examples</a>.</p>
+
+        <h2 id="integrations">Integrations</h2>
+        <ul>
+          <li><strong>Website widget.</strong> One script tag. It renders in a shadow root, streams cited answers and runs only on the sites you allow.</li>
+          <li><strong>Slack.</strong> Mention the app or message it; answers arrive in the thread.</li>
+          <li><strong>Telegram.</strong> A bot for field staff, with one conversation per chat.</li>
+          <li><strong>Discord.</strong> An app with an <code>/ask</code> command.</li>
+        </ul>
+        <p>Each one is created from <b>Agents → Integrations</b>, with setup steps and test buttons built in. <a href="/applications">See all applications</a>.</p>
+
+        <h2 id="safety">What keeps it safe</h2>
+        <ul>
+          <li><strong>A stated identity.</strong> Every integration answers as its creator, as the signed-in user of your site, or as chat users an administrator has mapped. Unmapped people are refused.</li>
+          <li><strong>Masked on the way out.</strong> Replies to chat apps have personal data masked by default, and answers citing confidential documents become a link back to Smriti.</li>
+          <li><strong>One approval rule.</strong> A workflow pauses for a human step or for any tool action that needs approval, and only the person who asked can approve, in the app or with a chat button.</li>
+          <li><strong>Bounded runs.</strong> A workflow stops after 50 steps, and a failure names the step that failed.</li>
+          <li><strong>Verified requests.</strong> Slack signatures, Telegram secret tokens, Discord Ed25519 signatures and a widget origin allow-list.</li>
+        </ul>
+
+        <h2 id="upgrade">Try it</h2>
+        <p>Pull the latest code and re-run the installer, or follow the <a href="/docs/quickstart">quickstart</a>. The new reference pages are <a href="/docs/workflows">Workflows</a> and <a href="/docs/integrations">Integrations</a>.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-or-workflows"><span class="meta">Explainer</span><h3>Agents or workflows? How to choose</h3></a>
+          <a class="post-card" href="/blog/agents-act-as-the-asker"><span class="meta">Essay</span><h3>An agent should never know more than the person asking</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

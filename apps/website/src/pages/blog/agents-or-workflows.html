@@ -1,0 +1,56 @@
+<!--page {"path": "/blog/agents-or-workflows", "nav": "blog", "title": "Agents or workflows? How to choose · Safearly", "ogTitle": "Agents or workflows? How to choose", "ogType": "article", "description": "An agent decides what to do; a workflow follows a process you drew. A practical guide to picking one, with examples, and why most teams end up using both.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Explainer", "title": "Agents or workflows? How to choose"}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#difference">The difference</a></li>
+        <li><a href="#agent">When an agent fits</a></li>
+        <li><a href="#workflow">When a workflow fits</a></li>
+        <li><a href="#both">Using both</a></li>
+        <li><a href="#rules">Rules that hold either way</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>Agents or workflows? How to choose</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Explainer</div></div>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">Workflows</span><span class="tag">Design</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">"Should this be an agent or a workflow?" is the first question teams ask when they move past simple Q&amp;A. The short answer: let a model decide when the path isn't known in advance, and draw the path when it is.</p>
+
+        <h2 id="difference">The difference</h2>
+        <p>An <strong>agent</strong> is given a goal, some sources and some tools, and decides for itself which to use and in what order. A <strong>workflow</strong> is a process you drew: which steps run, in what order, under which conditions, and where a person must sign off. In Smriti a workflow's steps can themselves be agents, so the choice is about who owns the control flow: the model, or you.</p>
+
+        <h2 id="agent">When an agent fits</h2>
+        <ul>
+          <li><strong>The questions vary.</strong> A support assistant or a policy desk gets a different question every time, and the right lookups depend on it.</li>
+          <li><strong>The steps are cheap to get wrong.</strong> Searching one more source or doing one more calculation costs little.</li>
+          <li><strong>Exploration is the point.</strong> A research brief should split the question its own way.</li>
+        </ul>
+        <p>Good agents are narrow: a clear job, a few sources and the fewest tools that do it. Every tool you add is another thing the model can choose wrongly.</p>
+
+        <h2 id="workflow">When a workflow fits</h2>
+        <ul>
+          <li><strong>There is a process already.</strong> Draft, review, release. Classify, answer, escalate. If you can draw it on a whiteboard, draw it on the canvas.</li>
+          <li><strong>Someone has to sign off.</strong> A human approval step is explicit and recorded, not something you hope the model asks for.</li>
+          <li><strong>The same thing happens to many items.</strong> A questionnaire with forty questions is a loop, not a forty-turn conversation.</li>
+          <li><strong>A number decides the route.</strong> "Over the limit goes to a person" belongs in a condition, not in a prompt.</li>
+        </ul>
+
+        <h2 id="both">Using both</h2>
+        <p>Most real processes are a workflow with agents inside. A ticket-triage workflow might use a classic agent to try to answer from runbooks, branch on whether it found an answer, and only then hand off to an agentic step that opens a ticket after approval. The workflow fixes the order and the checkpoints. The agents handle the parts that need judgement.</p>
+        <p>A useful rule of thumb: start with an agent. When you notice you are writing "first do this, then always do that" into its instructions, it's time for a workflow.</p>
+
+        <h2 id="rules">Rules that hold either way</h2>
+        <p>Whichever you choose, the same guarantees apply in <a href="/">Smriti</a>. Every step acts as the person asking. Answers are checked sentence by sentence against what was retrieved. Personal data is masked before any model. And anything that changes data waits for that person's approval. The choice changes who decides the path, never who is allowed to see what.</p>
+
+        <div class="related">
+          <a class="post-card" href="/workflows"><span class="meta">Product</span><h3>Workflow examples</h3></a>
+          <a class="post-card" href="/agents#gallery"><span class="meta">Product</span><h3>Agent gallery</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

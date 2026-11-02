@@ -1,0 +1,80 @@
+<!--page {"path": "/workflows", "nav": "workflows", "title": "Workflows · Smriti · Safearly", "description": "Smriti workflows: chain AI agents, conditions, variables, sandboxed code, loops and human approval on a visual canvas. Every step cites its sources and acts as the person running it. Examples and templates.", "scripts": ["/assets/main.js"]} -->
+  <section class="lab-hero">
+    <div class="wrap">
+      <div class="eyebrow">Workflows</div>
+      <h1>Draw the process. Keep the guarantees.</h1>
+      <p class="lede">Some work is more than one question. A workflow chains agents, conditions, variables, code and human sign-off into one run on a visual canvas. Every agent step still acts as the person running it, cites its sources and masks personal data.</p>
+      <div class="btns"><a class="btn btn-accent" href="/docs/workflows">Build a workflow</a><a class="btn btn-outline" href="#examples">See examples</a></div>
+      <div class="canvas mt40 reveal" role="img" aria-label="A workflow on the canvas: Start, a research agent drafts an answer, an If/else checks it found one, a human approval step, then Released or Held back.">
+        <div class="lane">
+          <div class="node"><b>▶ Start</b><span>query</span></div>
+          <div class="edge"></div>
+          <div class="node k"><b>◎ Draft answer</b><span>research → draft</span></div>
+          <div class="edge"></div>
+          <div class="node"><b>⑂ Found one?</b><span>len(draft) &gt; 0</span></div>
+          <div class="edge"></div>
+          <div class="node h"><b>✋ Sign-off</b><span>approve / decline</span></div>
+          <div class="edge"></div>
+          <div class="fork"><div class="node"><b>■ Released</b><span>{{ draft }}</span></div><div class="node"><b>■ Held back</b><span>"Not released"</span></div></div>
+        </div>
+        <p class="cap">The "sign-off before release" template, as it looks in the builder.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Building blocks</div><h2>Nine steps, connected on a canvas.</h2></div></div>
+      <div class="grid3">
+        <div class="card2 reveal"><div class="ic">◎</div><h3>AI agent</h3><p>A classic, agentic or research agent on a templated prompt, with its own tools. Its cited answer goes into a variable.</p></div>
+        <div class="card2 reveal"><div class="ic">⑂</div><h3>If / else</h3><p>Conditions checked in order; the first true one wins, otherwise the else branch.</p></div>
+        <div class="card2 reveal"><div class="ic">≔</div><h3>Set state</h3><p>Variables from expressions such as <code>float(amount) * 0.05</code>, without calling a model.</p></div>
+        <div class="card2 reveal"><div class="ic">{}</div><h3>Code</h3><p>Python in a sandbox with no network. It reads the workflow's variables and prints a value back.</p></div>
+        <div class="card2 reveal"><div class="ic">✋</div><h3>Human approval</h3><p>Pauses until the person running it approves or declines, and branches on the answer.</p></div>
+        <div class="card2 reveal"><div class="ic">↻</div><h3>Loop</h3><p>One agent prompt for each item in a list, with the answers collected and their citations merged.</p></div>
+      </div>
+      <p class="meta mt28">Plus <b>Start</b>, <b>End</b> (renders the final answer from a template) and <b>Note</b> (a comment on the canvas).</p>
+    </div>
+  </section>
+
+  <section class="sec" id="examples">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Examples</div><h2>Workflows teams run.</h2></div><a class="arrow-link" href="/docs/workflows">Workflow docs →</a></div>
+      <div class="grid3">
+        <article class="card2 reveal"><span class="kindtag k-workflow">Template</span><h3>Sign-off before release</h3><p>A research agent drafts a cited answer; a reviewer approves it before it goes into official correspondence.</p><ol class="steps-mini"><li>research agent</li><li>if found</li><li>human approval</li><li>release or hold</li></ol></article>
+        <article class="card2 reveal"><span class="kindtag k-workflow">Template</span><h3>Answer a questionnaire</h3><p>Paste a security questionnaire or RFP. Each question is answered with citations and collected into one reply.</p><ol class="steps-mini"><li>split the questions</li><li>loop: cited answer</li><li>combine</li></ol></article>
+        <article class="card2 reveal"><span class="kindtag k-workflow">Template</span><h3>Route by topic</h3><p>Questions about money go to an agent with a calculator; everything else to cited lookup.</p><ol class="steps-mini"><li>if / else on the question</li><li>agentic or classic agent</li><li>end</li></ol></article>
+        <article class="card2 reveal"><span class="kindtag">Example</span><h3>Ticket triage</h3><p>Classify a request, answer it from runbooks if possible, and open a ticket through your API only after approval.</p><ol class="steps-mini"><li>classic agent: try to answer</li><li>if no answer</li><li>agentic: create ticket (approval)</li></ol></article>
+        <article class="card2 reveal"><span class="kindtag">Example</span><h3>Weekly change digest</h3><p>Every Monday, summarise what changed in watched sources and tabulate it for each team.</p><ol class="steps-mini"><li>schedule: Mon 09:00</li><li>research agent: what changed</li><li>code: build the table</li></ol></article>
+        <article class="card2 reveal"><span class="kindtag">Example</span><h3>Threshold check</h3><p>Pull a figure from a contract, compare it with your limit, and escalate to a person when it is over.</p><ol class="steps-mini"><li>agent: find the amount</li><li>set state: number(answer)</li><li>if over limit → approval</li></ol></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <div class="eyebrow">Variables and expressions</div>
+        <h2>Logic without a scripting engine.</h2>
+        <p class="lede">Prompts and outputs are templates with <code>{{ }}</code>. Conditions use a small expression language that Smriti parses itself. Attribute access, imports and unknown functions are rejected when you save, so a workflow can't reach anything it shouldn't.</p>
+      </div>
+      <pre class="cmd reveal"><code>len(answer) &gt; 0 and contains(answer, 'clause')
+float(amount) * 0.05
+[strip(q) for q in split(query, ';')]
+join(pluck(answers, 'answer'), '\n\n')
+'urgent' if matches(lower(query), 'today|now') else 'normal'</code></pre>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Safe by construction</div><h2>What still holds inside a workflow.</h2></div></div>
+      <div class="grid4">
+        <div class="card2 reveal"><h3>Acts as the runner</h3><p>Every agent step searches only what the person running the workflow may see.</p></div>
+        <div class="card2 reveal"><h3>One citation list</h3><p>Citations from every step are renumbered into one list, and the final answer is scored against them.</p></div>
+        <div class="card2 reveal"><h3>Approvals pause it all</h3><p>A human step, or a tool action inside an agent step, pauses the whole run. Only the runner can approve.</p></div>
+        <div class="card2 reveal"><h3>Bounded and explained</h3><p>A run stops after 50 steps. Any failure ends with an answer naming the step that failed, and why.</p></div>
+      </div>
+      <div class="callout-v mt40"><strong>Validated before it can run</strong><p>Saving checks the graph: one start, at least one end, every output connected, every step reachable, valid variable names and safe expressions. Errors read like "'If / else' (else) is not connected to a next step".</p></div>
+    </div>
+  </section>

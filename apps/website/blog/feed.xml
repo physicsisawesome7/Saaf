@@ -15,12 +15,28 @@
       <description>Most enterprise agents run on a service account that can read everything. That turns every shared assistant, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.</description>
     </item>
     <item>
+      <title>Agents or workflows? How to choose</title>
+      <link>https://safearly.com/blog/agents-or-workflows</link>
+      <guid>https://safearly.com/blog/agents-or-workflows</guid>
+      <pubDate>Mon, 02 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>An agent decides what to do; a workflow follows a process you drew. A practical guide to picking one, with examples, and why most teams end up using both.</description>
+    </item>
+    <item>
       <title>Check every sentence, not just the answer</title>
       <link>https://safearly.com/blog/check-every-sentence</link>
       <guid>https://safearly.com/blog/check-every-sentence</guid>
       <pubDate>Mon, 02 Nov 2026 03:30:00 GMT</pubDate>
       <category>Research note</category>
       <description>A citation at the end of an answer proves little. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails, is how retrieval answers become something people can act on.</description>
+    </item>
+    <item>
+      <title>Smriti now does workflows and lives where your team works</title>
+      <link>https://safearly.com/blog/smriti-workflows-and-integrations</link>
+      <guid>https://safearly.com/blog/smriti-workflows-and-integrations</guid>
+      <pubDate>Mon, 02 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Release</category>
+      <description>Release notes: visual workflows with human approval, a website widget, Slack, Telegram and Discord bots, and the safety rules that come with them.</description>
     </item>
     <item>
       <title>Guardrails have a latency budget</title>

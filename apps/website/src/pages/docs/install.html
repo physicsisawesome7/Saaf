@@ -1,0 +1,70 @@
+<!--page {"path": "/docs/install", "nav": "docs", "docs": true, "title": "Install and deploy · Smriti docs", "description": "Deploy Smriti with one command on a laptop, one consumer GPU or your own servers: hardware profiles, configuration, scaling, offline installs and troubleshooting.", "scripts": ["/assets/main.js"], "source": "deploy/README.md"} -->
+      <h1>Install and deploy</h1>
+      <p class="lead">One command brings up the whole stack on one machine. The same code scales out to separate databases, vector stores and model servers.</p>
+
+      <h2>What runs</h2>
+      <ul>
+        <li><b>smriti-api</b>: the web app and API. Stateless; run several processes.</li>
+        <li><b>smriti-worker</b>: ingestion jobs and scheduled crawls.</li>
+        <li><b>PostgreSQL</b>: documents, versions, conversations and the audit log.</li>
+        <li><b>Qdrant</b>: dense and sparse vectors.</li>
+        <li><b>Embeddings and reranker</b>: served by Text Embeddings Inference.</li>
+        <li><b>LLM</b>: vLLM serving an AWQ model with prefix caching. Optional.</li>
+        <li><b>Sandbox</b>: an isolated service for agents' Python, on an internal-only network.</li>
+      </ul>
+
+      <h2>Hardware profiles</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Profile</th><th>Card</th><th>Model</th><th>Encoders</th></tr></thead>
+        <tbody>
+          <tr><td><code>cpu</code></td><td>none</td><td>none: verified extractive answers</td><td>CPU</td></tr>
+          <tr><td><code>gpu-6gb</code></td><td>6 GB laptop cards</td><td>Qwen3-4B AWQ</td><td>CPU</td></tr>
+          <tr><td><code>gpu-12gb</code></td><td>12 GB</td><td>Qwen3-4B AWQ</td><td>GPU</td></tr>
+          <tr><td><code>gpu-16gb</code></td><td>16 GB</td><td>Qwen3-8B AWQ</td><td>GPU</td></tr>
+          <tr><td><code>gpu-24gb</code></td><td>24 GB</td><td>Qwen3-14B AWQ</td><td>GPU</td></tr>
+        </tbody>
+      </table></div>
+      <p>Each profile file shows its memory arithmetic. Force one with <code>./install.sh --profile gpu-12gb --reconfigure</code>. The default models, embeddings and reranker are Apache-2.0. The 12 and 16 GB profiles are sized from documented arithmetic and should be benchmarked on your card.</p>
+
+      <h2>Why it is cheap to run</h2>
+      <ul>
+        <li>Lookups and table questions are answered by verified quotes or by code, without the model.</li>
+        <li>A guarded cache reuses verified answers for people with identical access.</li>
+        <li>Evidence is compressed to the relevant sentences, under a token cap.</li>
+        <li>Prompts open with a fixed prefix that the model server caches.</li>
+        <li>Admission control serves the verified extract instead of queueing when the GPU is saturated.</li>
+      </ul>
+      <p>Measure on your hardware with <code>smriti bench --concurrency 8 --requests 200</code> (add <code>--no-cache</code> for the GPU path only). Prometheus metrics are at <code>/api/metrics</code>.</p>
+
+      <h2>Configuration</h2>
+      <p>Everything is set in <code>.env</code>. Common changes:</p>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Change</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>A different model</td><td><code>LLM_MODEL=…</code>, then restart the <code>llm</code> service</td></tr>
+          <tr><td>A model on another machine, Ollama or llama.cpp</td><td><code>SMRITI_CHAT_URL</code> and <code>SMRITI_CHAT_MODEL</code> pointing at any OpenAI-compatible endpoint</td></tr>
+          <tr><td>Serve your network</td><td><code>SMRITI_BIND=0.0.0.0</code> behind a TLS reverse proxy</td></tr>
+          <tr><td>Real logins</td><td><code>SMRITI_AUTH=token</code> with <code>SMRITI_API_TOKENS</code>, behind your SSO proxy</td></tr>
+          <tr><td>More API processes</td><td><code>SMRITI_WORKERS=4</code></td></tr>
+          <tr><td>Public address for bots and webhooks</td><td><code>SMRITI_PUBLIC_URL=https://smriti.example</code></td></tr>
+          <tr><td>Web search for agents</td><td>add <code>search</code> to <code>COMPOSE_PROFILES</code> and set <code>SMRITI_SEARXNG_URL</code></td></tr>
+          <tr><td>Turn code execution off</td><td><code>SMRITI_SANDBOX_URL=</code> (empty)</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="your-data">Your own documents and roles</h2>
+      <p>Each organisation is a <b>pack</b>: a folder of YAML and Markdown for documents, roles, sources, schemas, guardrails, glossary and skills. Copy the demo pack, edit it, and point <code>SMRITI_PACKS</code> at it. Check a pack without starting anything:</p>
+      <pre><code>smriti validate-pack packs/tenants/your-org</code></pre>
+
+      <h2>Scaling out</h2>
+      <p>API processes are stateless, and ingestion jobs are database rows that any number of workers claim atomically. For production, use PostgreSQL (<code>SMRITI_DATABASE_URL</code>), Qdrant (<code>SMRITI_VECTOR_BACKEND=qdrant</code>) and S3-compatible storage (<code>SMRITI_BLOB_URL=s3://…</code>).</p>
+
+      <h2>Offline installs</h2>
+      <p>Run the installer once online so the model cache fills, then set <code>HF_HUB_OFFLINE=1</code>. Move container images with <code>docker save</code> and <code>docker load</code>. After that, nothing needs the internet.</p>
+
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li><b>Containers can't see the GPU</b>: install the NVIDIA Container Toolkit on Linux, or update the driver and Docker Desktop (WSL2 backend) on Windows.</li>
+        <li><b>The model server runs out of memory</b>: lower <code>LLM_MAX_NUM_SEQS</code> or <code>LLM_MAX_MODEL_LEN</code>, or <code>LLM_GPU_MEMORY_UTILIZATION</code> by 0.05.</li>
+        <li><b>Newest GPUs without matching kernels</b>: set <code>VLLM_IMAGE</code> to a build that supports your card.</li>
+      </ul>

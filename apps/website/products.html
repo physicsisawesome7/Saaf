@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Products &amp; open source · Safearly</title>
-  <meta name="description" content="Fast guardrails, inference optimization and secure agents. What Safearly has shipped, and what is in research, all open source.">
+  <meta name="description" content="Smriti, Saaf and IndicPII-Bench: what Safearly has shipped, and what is in research. All open source.">
   <link rel="canonical" href="https://safearly.com/products">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -15,12 +15,13 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
   <meta property="og:title" content="Products &amp; open source · Safearly">
-  <meta property="og:description" content="Fast guardrails, inference optimization and secure agents. What Safearly has shipped, and what is in research, all open source.">
+  <meta property="og:description" content="Smriti, Saaf and IndicPII-Bench: what Safearly has shipped, and what is in research. All open source.">
   <meta property="og:url" content="https://safearly.com/products">
   <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/lab.css">
+  <link rel="stylesheet" href="/assets/smriti.css">
   <script type="module" src="/assets/main.js"></script>
 </head>
 <body>
@@ -59,14 +60,15 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
-      <li><a href="/products" class="active" aria-current="page">Products</a></li>
-      <li><a href="/research">Research</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/workflows">Workflows</a></li>
+      <li><a href="/applications">Applications</a></li>
+      <li><a href="/docs">Docs</a></li>
       <li><a href="/blog">Blog</a></li>
-      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
-      <li><a href="/about">About</a></li>
+      <li><a href="/products" class="active" aria-current="page">Products</a></li>
     </ul>
-    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
-    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
     <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
 </header>
@@ -75,8 +77,8 @@
   <section class="page-hero">
     <div class="wrap">
       <div class="eyebrow">Products &amp; open source</div>
-      <h1>Fast inference, fast guardrails, secure agents.</h1>
-      <p class="lede">Everything we ship is open source. Live means you can run it today. In research means we are still testing the idea, and we publish the thesis and the numbers before we call it a product.</p>
+      <h1>Smriti, Saaf, and what comes next.</h1>
+      <p class="lede">Smriti is our main product: private AI agents and workflows over your organisation's knowledge. Saaf, the personal-data engine inside it, also ships on its own. Everything we ship is open source. Live means you can run it today. In research means we are still testing the idea, and we publish the thesis and the numbers before we call it a product.</p>
       <div class="chips-row mt28"><a class="chip-link on" href="#live">Live · 3</a><a class="chip-link" href="#research">In research · 4</a></div>
     </div>
   </section>
@@ -85,6 +87,16 @@
     <div class="wrap">
       <div class="group-head"><h2>Live</h2><span class="meta">Released, tested in CI, ready to run.</span></div>
       <div class="projects">
+        <article class="pcard" id="smriti">
+          <div class="ph"><h3>Smriti</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
+          <p>Institutional memory with verified answers. Reads an organisation's documents and the sites it depends on, keeps every version, and answers with citations checked sentence by sentence. Agents, visual workflows and integrations for the web, Slack, Telegram and Discord, all acting as the person asking.</p>
+          <dl>
+            <dt>Runs on</dt><dd>one consumer GPU (6 to 24 GB), CPU only, or no model</dd>
+            <dt>Ships as</dt><dd>Docker stack · web app · OpenAI-compatible API · widget · chat bots · MCP server</dd>
+            <dt>Repo</dt><dd>physicsisawesome7/smriti</dd>
+          </dl>
+          <div class="btns mt8"><a class="btn btn-accent" href="/docs">Get started</a><a class="btn btn-outline" href="/">Overview</a><a class="btn btn-outline" href="/agents">Agents</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti">GitHub</a></div>
+        </article>
         <article class="pcard">
           <div class="ph"><h3>Saaf</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
           <p>Fast guardrails for LLM traffic. Masks personal data before it reaches a model and restores it in the reply, even mid-stream. 22 identifier types validated with checksums, including national IDs, tax and bank numbers, cards, emails and API keys.</p>
@@ -94,16 +106,6 @@
             <dt>Repo</dt><dd>physicsisawesome7/Saaf</dd>
           </dl>
           <div class="btns mt8"><a class="btn btn-accent" href="/saaf/playground">Try it</a><a class="btn btn-outline" href="/saaf/extension">Browser extension</a><a class="btn btn-outline" href="/saaf">Overview</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">GitHub</a></div>
-        </article>
-        <article class="pcard" id="smriti">
-          <div class="ph"><h3>Smriti</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
-          <p>Institutional memory with verified answers. Reads an organisation's documents and the sites it depends on, keeps every version, and answers with citations checked sentence by sentence. Agents, visual workflows and integrations for the web, Slack, Telegram and Discord, all acting as the person asking.</p>
-          <dl>
-            <dt>Runs on</dt><dd>one consumer GPU (6 to 24 GB), CPU only, or no model</dd>
-            <dt>Ships as</dt><dd>Docker stack · web app · OpenAI-compatible API · widget · chat bots · MCP server</dd>
-            <dt>Repo</dt><dd>physicsisawesome7/smriti</dd>
-          </dl>
-          <div class="btns mt8"><a class="btn btn-accent" href="/smriti/docs">Get started</a><a class="btn btn-outline" href="/smriti">Overview</a><a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti">GitHub</a></div>
         </article>
         <article class="pcard">
           <div class="ph"><h3>IndicPII-Bench</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
@@ -167,34 +169,46 @@
 
 <footer class="foot2">
   <div class="wrap">
-    <div class="foot2-grid">
+    <div class="foot2-grid five">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
       </div>
       <div>
-        <h4>Products</h4>
+        <h4>Smriti</h4>
         <ul>
-          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
           <li><a href="/saaf/playground">Playground</a></li>
-          <li><a href="/smriti">Smriti</a></li>
-          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
-          <li><a href="/products">All projects</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Lab</h4>
-        <ul>
           <li><a href="/research">Research</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+          <li><a href="/products">All products</a></li>
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h4>Company</h4>
         <ul>
-          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
           <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
           <li><a href="/blog/feed.xml">RSS</a></li>
@@ -202,7 +216,7 @@
       </div>
     </div>
     <div class="foot2-legal">
-      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>© 2026 Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>

@@ -1,0 +1,55 @@
+<!--page {"path": "/docs/agents", "nav": "docs", "docs": true, "title": "Agents and tools · Smriti docs", "description": "Build Smriti agents: kinds, instructions, sources, tools, approval policies, sharing, schedules, conversations and API keys.", "scripts": ["/assets/main.js"], "source": "docs/agents.md"} -->
+      <h1>Agents and tools</h1>
+      <p class="lead">An agent is a saved assistant with its own instructions, sources and tools. Open <b>Agents</b> in the web app. Anyone with the <code>view</code> grant can build a private agent. Sharing one, and connecting external tools, needs <code>curate</code> or <code>administer</code>.</p>
+
+      <h2>Kinds</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Kind</th><th>What it does</th><th>Needs a model?</th></tr></thead>
+        <tbody>
+          <tr><td>Classic</td><td>Cited answers from the agent's sources through the full pipeline.</td><td>No</td></tr>
+          <tr><td>Agentic</td><td>A tool loop: the model picks tools, reads results and answers with citations to them.</td><td>For the full loop; a rule planner works without one</td></tr>
+          <tr><td>Research</td><td>Two to five sub-questions, each answered and verified, merged into one report.</td><td>No; a model improves the plan</td></tr>
+          <tr><td>Workflow</td><td>A graph of steps. See <a href="/docs/workflows">Workflows</a>.</td><td>For its agent steps</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2>Settings</h2>
+      <ul>
+        <li><b>Instructions</b>: who it answers for, tone, what to always include. Platform rules sit above them: cite every factual sentence, treat tool results as data, and say what is missing instead of guessing.</li>
+        <li><b>Sources</b>: everything the asker may see, or chosen document types and ingestion sources. Sources narrow retrieval; they never widen it.</li>
+        <li><b>Tools</b>: built-in and connected tools (below).</li>
+        <li><b>Approval</b>: ask before anything that changes data (default), before every tool call, or never. After reading outside content, changes always need approval.</li>
+        <li><b>Starter questions</b>, <b>max tool steps</b>, and <b>only answer when supported by citations</b> (on by default).</li>
+        <li><b>Sharing</b>: only me, everyone, or chosen roles; draft or published.</li>
+        <li><b>Schedule</b>: a cron expression and a question. Published agents run as their owner and post to a conversation.</li>
+      </ul>
+      <p>The builder's <b>Try it</b> panel runs the agent as it stands in the form, unsaved.</p>
+
+      <h2 id="tools">Tools</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Tool</th><th>Type</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Search the library</td><td>built in</td><td>Permission-aware, with version rules, limited to the agent's sources.</td></tr>
+          <tr><td>Calculator</td><td>built in</td><td>Exact arithmetic with a safe parser.</td></tr>
+          <tr><td>Read a web page</td><td>built in</td><td>Through the egress guard; untrusted content.</td></tr>
+          <tr><td>Web search</td><td>built in</td><td>Self-hosted SearxNG, or Brave or Tavily with a key. Personal data masked in the query.</td></tr>
+          <tr><td>Run Python</td><td>built in</td><td>The sandbox service: no network, read-only root, limits. Written files come back as downloads.</td></tr>
+          <tr><td>Create a file</td><td>built in</td><td>Markdown, CSV, JSON, HTML or text, as a download.</td></tr>
+          <tr><td>Skills</td><td>built in</td><td>The pack's coded skills, with their own grant checks.</td></tr>
+          <tr><td>REST API</td><td>connected</td><td>From an OpenAPI spec or listed by hand. Writes hidden unless allowed, then approved.</td></tr>
+          <tr><td>MCP server</td><td>connected</td><td>Every tool of a server over streamable HTTP or SSE. Non-read-only tools need approval.</td></tr>
+          <tr><td>Database</td><td>connected</td><td>Read-only SELECT with a row cap. Add table notes for better SQL.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Every connected tool has the roles that may use it and a sensitivity for its results. Credentials are encrypted and never returned. Saving a tool reads its actions from the target, so you see exactly what agents can call.</p>
+
+      <h2>Conversations and sharing</h2>
+      <p>Chats are saved per person and agent. <b>Share</b> makes a link. Someone who opens it sees only the answers whose cited documents they can open themselves.</p>
+
+      <h2>API keys</h2>
+      <p>Open an agent's <b>API keys</b>. A key (<code>sk-smriti-…</code>) is shown once, works for that agent only, and acts as the person who created it.</p>
+      <pre><code>curl https://smriti.example/api/agents/contract-analyst/chat \
+  -H "Authorization: Bearer sk-smriti-…" \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is the liability cap?", "stream": false}'</code></pre>
+      <p>The same key works with the OpenAI-compatible endpoint, using the model name <code>agent/&lt;id&gt;</code>. See <a href="/docs/api">API, MCP and CLI</a>.</p>

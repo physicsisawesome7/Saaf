@@ -1,140 +1,138 @@
-<!--page {"path": "/", "nav": "", "title": "Safearly · The safety and speed layer for AI in production", "ogTitle": "Safearly: the safety and speed layer for AI in production", "description": "Safearly makes models faster to serve, guardrails fast enough to run on every request, and agents safe enough to trust with real tools. Open source, measured in public.", "scripts": ["/assets/main.js"], "head": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Safearly\",\"url\":\"https://safearly.com\",\"logo\":\"https://safearly.com/assets/brand/safearly-mark-512.png\",\"email\":\"lalit@safearly.com\",\"founder\":{\"@type\":\"Person\",\"name\":\"Lalit Shukla\",\"url\":\"https://safearly.com/about\"},\"sameAs\":[\"https://github.com/physicsisawesome7\"]}</script>"} -->
+<!--page {"path": "/", "nav": "", "title": "Smriti · Private AI agents and workflows that cite their sources · Safearly", "ogTitle": "Smriti: private AI agents and workflows that cite their sources", "description": "Smriti is open-source institutional memory. It connects your documents, sites, APIs and databases, and gives your teams agents and workflows that answer with checked citations, act as the person asking, and run on your own hardware.", "scripts": ["/assets/main.js"], "head": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"SoftwareApplication\",\"name\":\"Smriti\",\"applicationCategory\":\"BusinessApplication\",\"operatingSystem\":\"Linux, Windows, macOS (Docker)\",\"license\":\"https://www.apache.org/licenses/LICENSE-2.0\",\"url\":\"https://safearly.com/\",\"codeRepository\":\"https://github.com/physicsisawesome7/smriti\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"},\"publisher\":{\"@type\":\"Organization\",\"name\":\"Safearly\",\"url\":\"https://safearly.com\",\"email\":\"lalit@safearly.com\"}}</script>"} -->
   <section class="lab-hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">AI infrastructure · Guardrails · Agents</div>
-        <h1>The safety and speed layer for AI in production.</h1>
-        <p class="lede">We make models faster to serve, guardrails fast enough to run on every request, and agents safe enough to trust with real tools. Open source, and measured in public.</p>
+        <div class="eyebrow">Smriti · open-source institutional memory</div>
+        <h1>Private AI agents that cite their sources.</h1>
+        <p class="lede">Connect your documents, sites, APIs and databases. Give every team agents and workflows that answer with citations checked line by line, see only what the person asking may see, and run on your own hardware, with or without a GPU.</p>
         <div class="btns">
-          <a class="btn btn-accent" href="/products">See what we're building</a>
-          <a class="btn btn-outline" href="/saaf/playground">Try Saaf live</a>
+          <a class="btn btn-accent" href="/docs/quickstart">Self-host in 5 minutes</a>
+          <a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti">View on GitHub</a>
         </div>
-        <p class="fine">Open source · Apache-2.0 · Runs in your cloud or on-prem</p>
+        <p class="fine">Apache-2.0 · No account, no telemetry · Your models, your network</p>
       </div>
-      <div class="proof pipeline" role="img" aria-label="One request passing through Safearly: input guardrails, model serving, a checked agent tool call, and restore on the way back.">
-        <div class="row"><div class="lbl">01 · Guard the input</div><div class="val">PAN <span class="hl">ABCPE1234F</span> → <span class="tk">[PAN_1]</span></div><div class="stage-meta"><span class="badge-s live">Saaf · live</span><span>sub-millisecond, on CPU</span></div></div>
-        <div class="row"><div class="lbl">02 · Serve the model</div><div class="val">batching, cache reuse, speculative decoding</div><div class="stage-meta"><span class="badge-s research">Saaf Infer · in research</span></div></div>
-        <div class="row"><div class="lbl">03 · Check every tool call</div><div class="val">send_email(to="ext…") → <span class="hl">needs approval</span></div><div class="stage-meta"><span class="badge-s research">Saaf Guard · in research</span></div></div>
-        <div class="row"><div class="lbl">04 · Restore the reply</div><div class="val"><span class="tk">[PAN_1]</span> → ABCPE1234F, mid-stream</div><div class="stage-meta"><span class="badge-s live">Saaf · live</span></div></div>
+      <div class="hero-stack">
+        <div class="appwin" role="img" aria-label="Smriti answering a question: the steps it took, an answer with numbered citations, and badges showing the answer was verified and limited to what the asker may read.">
+          <div class="top"><i></i><i></i><i></i><b>Policy desk</b><span>· agent</span></div>
+          <div class="body">
+            <div class="q">How many days of notice does a supplier need to end the contract, and has that changed?</div>
+            <div class="steps"><span>Searched 4 sources you can open</span><span>Found the clause and its amendment</span><span>Checked 3 of 3 sentences</span></div>
+            <div class="a">Since the 2025 amendment, either party may end the contract with 60 days' written notice <span class="cite">[1]</span>. Before that, the notice period was 30 days <span class="cite">[2]</span>.</div>
+            <div class="meta-row"><span class="pill2 ok">✓ verified</span><span class="pill2 v">as you</span><span class="pill2">2 sources</span></div>
+          </div>
+        </div>
+        <div class="term" aria-label="Install commands"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> git clone https://github.com/physicsisawesome7/smriti
+<span class="p">$</span> cd smriti &amp;&amp; ./install.sh   <span class="c"># detects your GPU, or runs on CPU</span></pre></div>
       </div>
     </div>
   </section>
 
   <section class="sec band">
     <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">The problem</div><h2>Everything between a model and production.</h2></div></div>
-      <div class="focus">
-        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-bolt"/></svg></div><h3>Scaling inference</h3><p>Serving cost and latency decide what ships. We work on inference optimization: more tokens per GPU, lower tail latency, and numbers you can reproduce on your own workload.</p></div>
-        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-shield"/></svg></div><h3>Fast, secure guardrails</h3><p>A guardrail that adds a second to every request gets switched off. Ours run on CPU in about a millisecond, so they can stay on for every request, in the stream.</p></div>
-        <div class="reveal"><div class="fi"><svg aria-hidden="true"><use href="#i-plug"/></svg></div><h3>Secure agents and skills</h3><p>Agents act through tools, and that is where data leaves. We build skills that declare what they need, run with least privilege, and get checked before they act.</p></div>
+      <div class="sec-head reveal"><div><div class="eyebrow">Deploy your way</div><h2>Where your data already lives.</h2></div><a class="arrow-link" href="/docs/install">Deployment guide →</a></div>
+      <div class="grid4">
+        <div class="card2 reveal"><div class="ic">◻</div><h3>A laptop, no GPU</h3><p>The CPU profile answers with verified extracts and computes table maths in code. Useful from the first minute, on any machine with Docker.</p></div>
+        <div class="card2 reveal"><div class="ic">◼</div><h3>One consumer GPU</h3><p>Profiles for 6, 12, 16 and 24 GB cards pick an open-weight model, embeddings and a reranker that fit, and leave room for the cache.</p></div>
+        <div class="card2 reveal"><div class="ic">▦</div><h3>Your servers</h3><p>PostgreSQL, Qdrant and S3-compatible storage, with stateless API replicas and separate ingestion workers that scale on their own.</p></div>
+        <div class="card2 dark reveal"><div class="ic">⛨</div><h3>Fully offline</h3><p>Once installed, nothing needs the internet. Models are open weights you host, and the default ones are Apache-2.0. Outbound requests pass an egress guard.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="sec" id="projects">
+  <section class="sec">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div><div class="eyebrow">Products &amp; open source</div><h2>What's live, and what's next.</h2></div>
-        <a class="arrow-link" href="/products">All projects →</a>
+      <div class="sec-head reveal"><div><div class="eyebrow">The platform</div><h2>From scattered documents to work that gets done.</h2></div></div>
+      <div class="flow">
+        <a class="reveal" href="/docs/knowledge"><span class="n">Knowledge</span><h3>Connect</h3><p>Websites, uploads, folders, feeds, REST APIs, SQL and MCP servers. Every change becomes a new version.</p><span class="tagline">8 source types · scheduled sync · change alerts</span></a>
+        <a class="reveal" href="/docs/concepts"><span class="n">Answers</span><h3>Ask</h3><p>Hybrid search filtered to the asker, the version in force, amendments attached, and every sentence checked.</p><span class="tagline">as-of dates · table maths · abstains when unsure</span></a>
+        <a class="reveal" href="/agents"><span class="n">Agents</span><h3>Delegate</h3><p>Assistants with their own instructions, sources and tools, from cited lookup to research and tool use.</p><span class="tagline">4 kinds · 10 tool types · approvals</span></a>
+        <a class="reveal" href="/workflows"><span class="n">Workflows</span><h3>Automate</h3><p>Chain agents, conditions, code, loops and human sign-off on a visual canvas, with the same guarantees.</p><span class="tagline">9 step types · templates · step limit</span></a>
+        <a class="reveal" href="/applications"><span class="n">Applications</span><h3>Reach</h3><p>The web app, a website widget, Slack, Telegram, Discord, an OpenAI-compatible API and an MCP server.</p><span class="tagline">one identity rule everywhere</span></a>
       </div>
-      <div class="projects">
-        <article class="pcard reveal">
-          <div class="ph"><h3>Saaf</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
-          <p>Fast guardrails for LLM traffic. Masks personal data before it reaches a model and puts the real values back in the reply, even mid-stream. 22 identifier types with checksums, zero dependencies, in Python, TypeScript and as a gateway.</p>
-          <div class="tags"><span class="tag">Guardrails</span><span class="tag">PII</span><span class="tag">Gateway</span><span class="tag">Plugins</span></div>
-          <div class="links-row"><a href="/saaf/playground">Try it</a><a href="/saaf">Overview</a><a href="https://github.com/physicsisawesome7/Saaf">GitHub</a></div>
-        </article>
-        <article class="pcard reveal">
-          <div class="ph"><h3>Smriti</h3><span class="badge-s live">Live</span><span class="badge-s lic">Apache-2.0</span></div>
-          <p>Institutional memory with verified answers. Versioned documents, citations checked sentence by sentence, and agents, workflows and chat integrations that act as the person asking. On one GPU, or none.</p>
-          <div class="tags"><span class="tag">RAG</span><span class="tag">Agents</span><span class="tag">Workflows</span><span class="tag">Access control</span></div>
-          <div class="links-row"><a href="/smriti">Overview</a><a href="/smriti/docs">Docs</a><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></div>
-        </article>
-        <article class="pcard reveal">
-          <div class="ph"><h3>Saaf Guard</h3><span class="badge-s research">In research</span></div>
-          <p>A firewall for agent tool calls. Deterministic policy on every call: allow-lists, argument checks, limits on where data can go, and human approval for risky actions, with a signed record of each decision.</p>
-          <div class="tags"><span class="tag">Agents</span><span class="tag">MCP</span><span class="tag">Policy</span></div>
-          <div class="links-row"><a href="/blog/agents-need-a-firewall">Read the thesis</a></div>
-        </article>
-        <article class="pcard reveal">
-          <div class="ph"><h3>Saaf Infer</h3><span class="badge-s research">In research</span></div>
-          <p>Inference optimization for production models. We are testing batching, cache reuse and speculative decoding per workload, and will publish latency and cost numbers before anything ships.</p>
-          <div class="tags"><span class="tag">Inference</span><span class="tag">Serving</span><span class="tag">GPU efficiency</span></div>
-          <div class="links-row"><a href="/products#saaf-infer">Roadmap</a></div>
-        </article>
-        <article class="pcard reveal">
-          <div class="ph"><h3>Saaf Skills</h3><span class="badge-s research">In research</span></div>
-          <p>Secure skills for multipurpose agents. Each skill declares the tools, data and network access it needs, runs sandboxed with least privilege, and leaves an audit trail.</p>
-          <div class="tags"><span class="tag">Agents</span><span class="tag">Sandboxing</span><span class="tag">Least privilege</span></div>
-          <div class="links-row"><a href="/products#saaf-skills">Roadmap</a></div>
-        </article>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Why teams pick Smriti</div><h2>Built for answers someone will act on.</h2></div></div>
+      <div class="dtable-wrap reveal">
+        <table class="dtable">
+          <thead><tr><th></th><th>Typical AI document assistant</th><th>Smriti</th></tr></thead>
+          <tbody>
+            <tr><td>Wrong answers</td><td>Shown as written, with a citation at the end</td><td>Each sentence checked against the passage it cites, numbers included. Replaced by a verified extract, or Smriti says what is missing.</td></tr>
+            <tr><td>Who sees what</td><td>An assistant account that can read everything</td><td>Every agent, workflow, widget and bot acts as the person asking. Checked during search and again before display.</td></tr>
+            <tr><td>Changing documents</td><td>The latest upload wins</td><td>Versions, supersessions and amendments tracked. Ask "as of" any date.</td></tr>
+            <tr><td>Personal data</td><td>Sent to the model as is</td><td>Masked by role before any model or external tool, restored for the person on screen. Built on <a href="/saaf">Saaf</a>.</td></tr>
+            <tr><td>Agent actions</td><td>The model decides</td><td>Changes wait for approval. After reading outside content they always do, so injected text can't trigger a write.</td></tr>
+            <tr><td>Running cost</td><td>Every question calls a large model</td><td>Lookups and table questions skip the model. A guarded cache, compact prompts and load shedding keep one GPU busy, not overloaded.</td></tr>
+            <tr><td>Without a model</td><td>Nothing works</td><td>Search, cited extracts, table maths and research still work, so an offline install answers on day one.</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
   <section class="sec band-dark">
     <div class="wrap">
-      <div class="eyebrow">Benchmark · Saaf vs Microsoft Presidio</div>
-      <h2>Fast enough to stay on. Measured in public.</h2>
-      <div class="metrics">
-        <div class="metric"><strong>44×</strong><span>faster per kilobyte than Presidio on the same machine</span></div>
-        <div class="metric"><strong>12 ms</strong><span>cold start, against more than a second</span></div>
-        <div class="metric"><strong>0.1 vs 691 MB</strong><span>installed size, Saaf vs Presidio + spaCy</span></div>
-        <div class="metric"><strong>0.711 vs 0.437</strong><span>strict F1 against Presidio, tuned and with all recognizers on</span></div>
+      <div class="sec-head reveal"><div><div class="eyebrow">Release gates</div><h2>Every release has to pass these first.</h2></div></div>
+      <div class="stats4">
+        <div class="reveal"><strong>14 / 14</strong><span>golden questions, including permission, superseded-version and unanswerable traps</span></div>
+        <div class="reveal"><strong>0 of 102</strong><span>leakage probes returned a document the person may not see</span></div>
+        <div class="reveal"><strong>6 / 6</strong><span>red-team attacks stopped: direct, indirect and multilingual injection, escalation, extraction</span></div>
+        <div class="reveal"><strong>100%</strong><span>planted defects found by the coded document validators, with no false alarms</span></div>
       </div>
-      <p>On our open IndicPII-Bench v1. Most of the corpus is synthetic and Saaf's rules were tuned on the same families, so read the accuracy numbers as optimistic until the held-out human-labelled set is out. Speed and size are measured, not modelled.</p>
-      <div class="btns mt28"><a class="btn btn-ghost-dark" href="/research">Read the methodology</a></div>
+      <p class="fine mt28">Measured on Smriti's small synthetic demo corpus with the built-in offline components. These numbers show the gates work; real accuracy has to be measured on your own documents, and the same gates run on your golden set.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div><div class="eyebrow">Writing</div><h2>Notes from the lab.</h2></div>
-        <a class="arrow-link" href="/blog">All posts →</a>
-      </div>
-      <div class="posts3">
-        <a class="post-card reveal" href="/blog/agents-act-as-the-asker"><span class="meta">2 Nov 2026 · Essay</span><h3>An agent should never know more than the person asking</h3><p>Shared assistants on an all-seeing account undo access control. Agents should act as the asker, on every surface.</p><span class="more">Read →</span></a>
-        <a class="post-card reveal" href="/blog/check-every-sentence"><span class="meta">2 Nov 2026 · Research note</span><h3>Check every sentence, not just the answer</h3><p>A citation is a claim, not proof. Verify each sentence and its numbers, and refuse to show what fails.</p><span class="more">Read →</span></a>
-        <a class="post-card reveal" href="/blog/where-inference-time-goes"><span class="meta">27 Oct 2026 · Research note</span><h3>Where inference time and money actually go</h3><p>Prefill is compute-bound, decode is memory-bound. The serving optimizations with real evidence behind them.</p><span class="more">Read →</span></a>
+      <div class="sec-head reveal"><div><div class="eyebrow">Applications</div><h2>One memory, every team.</h2></div><a class="arrow-link" href="/applications">All applications →</a></div>
+      <div class="grid3">
+        <a class="card2 reveal" href="/applications#support"><h3>Customer support</h3><p>Answers from manuals, release notes and past tickets, embedded in your help centre, with personal data kept out of the model.</p><span class="more">See how →</span></a>
+        <a class="card2 reveal" href="/applications#internal"><h3>Internal knowledge</h3><p>HR, IT and policy questions in Slack or the intranet, answered as each employee, so private files stay private.</p><span class="more">See how →</span></a>
+        <a class="card2 reveal" href="/applications#legal"><h3>Legal and contracts</h3><p>Clause lookup with amendments in force, comparisons across agreements, and sign-off before anything leaves the team.</p><span class="more">See how →</span></a>
+        <a class="card2 reveal" href="/applications#compliance"><h3>Finance, risk and compliance</h3><p>Regulations and circulars that change, watched for you, with "what changed" notes and the documents each change affects.</p><span class="more">See how →</span></a>
+        <a class="card2 reveal" href="/applications#engineering"><h3>Engineering and product</h3><p>Specs, runbooks and API docs in one place, with an agent that can also query read-only data and run analysis code.</p><span class="more">See how →</span></a>
+        <a class="card2 reveal" href="/applications#public"><h3>Public sector</h3><p>Rules, orders and notices with version history, on infrastructure you control, with an audit trail for every answer.</p><span class="more">See how →</span></a>
       </div>
     </div>
   </section>
 
   <section class="sec band">
     <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">Principles</div><h2>How we build.</h2></div></div>
-      <div class="principles">
-        <div class="reveal"><h3>Fast by default</h3><p>Safety that adds latency gets turned off. We budget every millisecond and publish it.</p></div>
-        <div class="reveal"><h3>Open source</h3><p>Code, benchmarks and data are public under permissive licences.</p></div>
-        <div class="reveal"><h3>Measured in public</h3><p>Every claim ships with a number, a method and a way to reproduce it, including where we lose.</p></div>
-        <div class="reveal"><h3>Your infrastructure</h3><p>Everything runs in your cloud or on-prem. We never see your prompts or your data.</p></div>
+      <div class="sec-head reveal"><div><div class="eyebrow">Trust</div><h2>Security you can inspect, not just read about.</h2></div><a class="arrow-link" href="/docs/security">Security model →</a></div>
+      <div class="grid4">
+        <div class="card2 reveal"><h3>Identity</h3><p>Access is checked twice, in code. Administrators configure the system without reading its content.</p></div>
+        <div class="card2 reveal"><h3>Audit</h3><p>A hash-chained log of every answer, tool call, approval and access decision, verifiable from the CLI.</p></div>
+        <div class="card2 reveal"><h3>Guardrails</h3><p>Injection scanning, sentence verification, personal-data masking and human approval for anything that changes data.</p></div>
+        <div class="card2 reveal"><h3>Open code</h3><p>Apache-2.0, with the release gates and the leakage suite in the repository. Read it, run it, change it.</p></div>
       </div>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <div class="founder reveal">
-        <img src="/assets/people/lalit-shukla-320.jpg" alt="Lalit Shukla" width="128" height="128" loading="lazy">
-        <div>
-          <div class="eyebrow mb8">Founder</div>
-          <h3>Lalit Shukla</h3>
-          <p class="role">Chief of Product · Product-driven entrepreneur</p>
-          <p>Six years of building and shipping AI products, from computer vision on drone imagery to generative AI that writes engineering reports, and from first pilot to revenue.</p>
-          <p class="mt14"><a class="arrow-link" href="/about">About Lalit →</a></p>
-        </div>
+      <div class="sec-head reveal"><div><div class="eyebrow">Questions</div><h2>Frequently asked.</h2></div></div>
+      <div class="faq">
+        <details><summary>Is Smriti really open source?</summary><p>Yes. The whole platform is Apache-2.0, including agents, workflows, integrations and the release gates. There is no paid tier hidden behind the open one. Safearly offers help with pilots and deployments.</p></details>
+        <details><summary>Which models does it use?</summary><p>Any OpenAI-compatible server, chosen per task. The installer starts open-weight Qwen3 models with matching embeddings and a reranker sized for your GPU. With no model at all, it still searches, quotes verified extracts and computes tables.</p></details>
+        <details><summary>Does any data leave our network?</summary><p>Not unless you connect something that sends it. Models run on your hardware. Outbound requests from crawlers and tools pass an egress guard, personal data is masked before anything goes to an external tool, and chat-app replies are masked by default.</p></details>
+        <details><summary>How is this different from a chatbot over our PDFs?</summary><p>Three things: answers are verified sentence by sentence and withheld when they fail; access is enforced for the person asking on every surface; and document versions and amendments are tracked, so you get the rule in force, not just the newest file.</p></details>
+        <details><summary>Can we put it in our own app or website?</summary><p>Yes. Add a widget with one script tag, call any agent through an OpenAI-compatible API, connect assistants such as Claude or IDE agents over MCP, or put agents in Slack, Telegram and Discord.</p></details>
+        <details><summary>Is there a hosted version?</summary><p>Not yet. Smriti is built to run on infrastructure you control. If you'd like help with a pilot, <a href="mailto:lalit@safearly.com?subject=Smriti%20pilot">write to us</a>.</p></details>
       </div>
     </div>
   </section>
 
   <section class="sec band" id="contact">
     <div class="wrap center">
-      <h2 class="reveal">Putting AI into production?</h2>
-      <p class="lede lede-center reveal">Design partners for Saaf, early access to Saaf Guard, Infer and Skills, and research collaborations. Tell us what you are building.</p>
+      <h2 class="reveal">Give your organisation a memory it can trust.</h2>
+      <p class="lede lede-center reveal">Run the demo on your laptop today, or talk to us about a pilot on your own documents.</p>
       <div class="btns center reveal">
-        <a class="btn btn-primary" href="mailto:lalit@safearly.com">Email lalit@safearly.com</a>
-        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/Saaf">Star Saaf on GitHub</a>
+        <a class="btn btn-accent" href="/docs/quickstart">Self-host in 5 minutes</a>
+        <a class="btn btn-primary" href="mailto:lalit@safearly.com?subject=Smriti%20pilot">Plan a pilot</a>
+        <a class="btn btn-outline" href="https://github.com/physicsisawesome7/smriti">Star on GitHub</a>
       </div>
     </div>
   </section>

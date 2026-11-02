@@ -1,0 +1,47 @@
+<!--page {"path": "/docs/security", "nav": "docs", "docs": true, "title": "Security and access · Smriti docs", "description": "Smriti's security model: two access checks, agents that act as the asker, personal-data masking, prompt-injection defences, approvals, encrypted credentials, egress control and a hash-chained audit log.", "scripts": ["/assets/main.js"], "source": "README.md"} -->
+      <h1>Security and access</h1>
+      <p class="lead">Smriti assumes the model will sometimes be wrong or be fooled, and puts the guarantees in code around it.</p>
+
+      <h2>Access control</h2>
+      <ul>
+        <li><b>Two enforcement points.</b> A filter during search, then a bulk re-check against the source of truth before anything is used.</li>
+        <li><b>Administrators are not readers.</b> Configuring the system doesn't grant access to its content.</li>
+        <li><b>Agents act as the asker.</b> Agents, workflows, widgets and bots search only what the person behind them may see. An agent's sources narrow access, never widen it.</li>
+        <li><b>Leakage suite.</b> Every person is probed against every document they may not see, in CI.</li>
+      </ul>
+
+      <h2>Personal data</h2>
+      <p>Personal data is masked by category and role, using <a href="/saaf">Saaf</a>: before a model sees a question, document passage or tool result, and before anything is sent to an external tool. People who may see a value see it restored. The index holds masked text by default.</p>
+
+      <h2>Prompt injection</h2>
+      <ul>
+        <li>Inputs are scored for injection, with an optional guard model for unsure cases.</li>
+        <li>Documents and tool results are treated as data, scanned and flagged.</li>
+        <li>After a run has read outside content (web, API, MCP, SQL), every action that changes data waits for human approval, whatever the agent's setting.</li>
+      </ul>
+
+      <h2>Actions and approvals</h2>
+      <p>Agents ask before changing data by default. REST write operations are hidden until a curator allows them, and then always need approval. MCP tools not marked read-only need approval. Only the person who started a run can approve it.</p>
+
+      <h2>Infrastructure</h2>
+      <ul>
+        <li><b>Credentials</b> for sources, tools and bots are encrypted at rest and never returned by the API.</li>
+        <li><b>Egress guard</b> on every outbound request, including redirects.</li>
+        <li><b>Code sandbox</b>: no network, read-only root, non-root user, no capabilities, memory, process and time limits.</li>
+        <li><b>Downloads</b> created by agents are always served as attachments, never rendered.</li>
+        <li><b>Integrations</b> verify every inbound request: signing secrets, secret tokens, Ed25519 signatures or an origin allow-list.</li>
+      </ul>
+
+      <h2>Audit</h2>
+      <p>Answers, tool calls, approvals, access decisions and configuration changes are written to a hash-chained log. Verify the chain with <code>smriti audit-verify</code>.</p>
+
+      <h2>Deployment checklist</h2>
+      <ol>
+        <li>Turn on token auth (<code>SMRITI_AUTH=token</code>) behind your SSO proxy.</li>
+        <li>Serve over TLS through a reverse proxy.</li>
+        <li>Set <code>SMRITI_SECRET_KEY</code> from your secrets manager, rather than relying on the key file Smriti creates in its data directory.</li>
+        <li>Block private networks for crawlers if you don't crawl the intranet (<code>SMRITI_EGRESS_ALLOW_PRIVATE=0</code>).</li>
+        <li>Use read-only database accounts for SQL sources and tools.</li>
+        <li>Run the release gates on your own golden set before go-live.</li>
+      </ol>
+      <p>To report a vulnerability, write to <a href="mailto:lalit@safearly.com?subject=Smriti%20security">lalit@safearly.com</a>.</p>

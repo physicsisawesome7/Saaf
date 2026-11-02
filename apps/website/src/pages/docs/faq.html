@@ -1,0 +1,22 @@
+<!--page {"path": "/docs/faq", "nav": "docs", "docs": true, "title": "FAQ and limits · Smriti docs", "description": "Common questions about Smriti, and the honest limits of the current release.", "scripts": ["/assets/main.js"], "source": "README.md"} -->
+      <h1>FAQ and limits</h1>
+      <p class="lead">Answers to the questions people ask most, and what the current release does not do yet.</p>
+
+      <h2>Questions</h2>
+      <div class="faq">
+        <details><summary>Do I need a GPU?</summary><p>No. The CPU profile searches, quotes verified extracts, computes tables and runs research without a model. A GPU adds written answers and the full agentic tool loop.</p></details>
+        <details><summary>Can I use a hosted model instead?</summary><p>Yes. Point <code>SMRITI_CHAT_URL</code> at any OpenAI-compatible endpoint. Personal data is masked before it is sent, but the provider will still see the rest of the prompt, so check that this fits your rules.</p></details>
+        <details><summary>Why did it say it can't answer?</summary><p>Either nothing you may read covers the question, or the draft answer failed verification. The steps panel shows which. Rephrase, check the sources the agent may use, or ask your knowledge manager whether the document is in the memory.</p></details>
+        <details><summary>Why do two people get different answers?</summary><p>Because they may read different documents. Every answer is built only from what the person asking may see.</p></details>
+        <details><summary>Does it work in languages other than English?</summary><p>Search, glossary expansion and the default embeddings and reranker are multilingual, and the demo includes Hindi questions. Check quality on your own golden set.</p></details>
+        <details><summary>How do I add my own domain checks?</summary><p>Write a skill in the pack: an extractor, rules in Python, templates and evaluation cases. See the skills folder of the demo pack.</p></details>
+      </div>
+
+      <h2>Limits of the current release</h2>
+      <ul>
+        <li>OCR for scanned pages, advanced layout parsing and speech-to-text are plug-in points, not bundled. Scanned pages are flagged and queued.</li>
+        <li>The 12 GB and 16 GB profiles are sized from arithmetic and haven't been run on those cards yet. Benchmark after install.</li>
+        <li>OIDC single sign-on, fine-grained authorisation services and durable workflow engines are interfaces with local implementations. Adapters for live deployments still need to be written.</li>
+        <li>OAuth connectors for cloud drives and workspace suites are on the roadmap.</li>
+        <li>Release-gate numbers come from a small synthetic corpus. They show the gates work; measure accuracy on your own documents.</li>
+      </ul>

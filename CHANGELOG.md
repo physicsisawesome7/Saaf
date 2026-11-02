@@ -4,6 +4,9 @@ All notable changes to this repository. The format follows [Keep a Changelog](ht
 
 ## [Unreleased]
 
+### Changed
+- **website**: Smriti is now the main product and the home page. New top-level pages: `/agents` (kinds, an 8-agent gallery, tools, guarantees), `/workflows` (canvas illustration, steps, six examples, expressions) and `/applications` (seven surfaces, six use cases). A documentation section `/docs` with a sidebar and previous/next links covers quickstart, install and deploy, concepts, knowledge, security, agents, workflows, integrations, API/MCP/CLI and FAQ. Two new posts: a release note and "Agents or workflows? How to choose". New navigation and footer. The old `/smriti/*` URLs redirect (301).
+
 ### Added
 - **website**: Smriti pages: `/smriti` (overview), `/smriti/agents`, `/smriti/workflows`, `/smriti/tools` (tools and integrations) and `/smriti/docs` (install, tour, concepts, API, links to the reference). Two new posts: "An agent should never know more than the person asking" and "Check every sentence, not just the answer". Smriti added to the home page, products and footer.
 

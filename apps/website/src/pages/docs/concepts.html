@@ -1,0 +1,34 @@
+<!--page {"path": "/docs/concepts", "nav": "docs", "docs": true, "title": "How Smriti works · Smriti docs", "description": "How Smriti answers a question: guarded input, permission-filtered hybrid search, version rules and amendments, table maths, sentence-level verification, abstention and audit.", "scripts": ["/assets/main.js"], "source": "README.md"} -->
+      <h1>How Smriti works</h1>
+      <p class="lead">Every answer goes through the same pipeline, whether it comes from the web app, an agent, a workflow or a chat bot.</p>
+
+      <h2>The path of a question</h2>
+      <ol>
+        <li><b>Guard the input.</b> The question is scanned for injection attempts, and personal data is masked with <a href="/saaf">Saaf</a>.</li>
+        <li><b>Expand.</b> Abbreviations and synonyms from the organisation's glossary widen the search.</li>
+        <li><b>Search with the access filter.</b> Hybrid keyword and vector search runs with the asker's permissions as a filter.</li>
+        <li><b>Re-check access.</b> Every result is checked again against the source of truth before it can be used.</li>
+        <li><b>Apply version rules.</b> Superseded text is dropped, and amendments in force on the date asked are attached to the clause they change.</li>
+        <li><b>Rerank and write.</b> The best passages are reranked. Totals over tables are computed in code. Otherwise a model writes an answer, or a verified extract is used.</li>
+        <li><b>Verify.</b> Each sentence is checked against the passages it cites.</li>
+        <li><b>Answer or abstain.</b> A failing answer is replaced by a verified extract, or Smriti says what is missing.</li>
+        <li><b>Record.</b> A trace of the run and an entry in the audit log.</li>
+      </ol>
+
+      <h2>Verification</h2>
+      <p>An answer is split into sentences. Each factual sentence must cite passages. Its support is the share of its content words found in those passages, and every number, amount, percentage and clause id must appear verbatim in a cited passage. Uncited factual sentences count as unsupported. The score is shown with the answer and drives abstention.</p>
+
+      <h2>Versions and amendments</h2>
+      <p>Documents are linked by supersession and amendment relations. A question can carry an "as of" date. Retrieval returns the text in force on that date, and a clause always arrives together with every amendment that applies, so the answer leads with the amended text.</p>
+
+      <h2>People, roles and grants</h2>
+      <p>The person asking is a <b>principal</b> with roles. Roles give grants (<code>view</code>, <code>upload</code>, <code>curate</code>, <code>administer</code>, <code>audit</code>) and a scope: which divisions, projects, classifications and document types they may read, and which personal data they may see unmasked. An administrator configures the system without being a reader of its content.</p>
+
+      <h2>Packs</h2>
+      <p>An organisation is configured as layered packs. Platform defaults load first, then an optional vertical pack for an industry, then the tenant pack: models per task, roles, sources, document schemas, guardrails, glossary, skills and evaluation sets.</p>
+
+      <h2>Skills</h2>
+      <p>Skills are coded domain checks: an extractor, rules written in code, and an explanation. Thresholds are read from the document in force, never hard-coded, and results become drafts that go through maker-checker approval.</p>
+
+      <h2>Evaluation and release gates</h2>
+      <p><code>smriti eval gate</code> runs a golden question set, a leakage suite that probes every person against every document they may not see, a red-team set, and the skills' planted-defect tests. CI blocks a release when any gate fails. Run the same gates on your own golden set.</p>

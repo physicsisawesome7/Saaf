@@ -17,6 +17,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const SITE = "https://safearly.com";
 const GITHUB = "https://github.com/physicsisawesome7";
 const REPO = `${GITHUB}/Saaf`;
+const SMRITI = `${GITHUB}/smriti`;
 const LINKEDIN = "https://www.linkedin.com/in/lalit-shukla-884275188/";
 const EMAIL = "lalit@safearly.com";
 const YEAR = new Date().getFullYear();
@@ -51,12 +52,46 @@ function walk(dir) {
 }
 
 const NAV = [
-  ["products", "/products", "Products"],
-  ["research", "/research", "Research"],
+  ["agents", "/agents", "Agents"],
+  ["workflows", "/workflows", "Workflows"],
+  ["applications", "/applications", "Applications"],
+  ["docs", "/docs", "Docs"],
   ["blog", "/blog", "Blog"],
-  ["opensource", GITHUB, "Open source"],
-  ["about", "/about", "About"],
+  ["products", "/products", "Products"],
 ];
+
+// Documentation sidebar: [section, [[path, title], ...]]. Order sets prev/next.
+const DOCS = [
+  ["Get started", [["/docs", "Introduction"], ["/docs/quickstart", "Quickstart"], ["/docs/install", "Install and deploy"]]],
+  ["Core concepts", [["/docs/concepts", "How Smriti works"], ["/docs/knowledge", "Knowledge and sources"], ["/docs/security", "Security and access"]]],
+  ["Build", [["/docs/agents", "Agents and tools"], ["/docs/workflows", "Workflows"], ["/docs/integrations", "Integrations"]]],
+  ["Reference", [["/docs/api", "API, MCP and CLI"], ["/docs/faq", "FAQ and limits"]]],
+];
+const DOC_ORDER = DOCS.flatMap(([, items]) => items);
+
+function docsLayout(meta, body) {
+  const side = DOCS.map(
+    ([section, items]) => `      <div class="dside-group"><p>${section}</p><ul>${items
+      .map(([href, title]) => `<li><a href="${href}"${href === meta.path ? ' class="on" aria-current="page"' : ""}>${title}</a></li>`)
+      .join("")}</ul></div>`,
+  ).join("\n");
+  const i = DOC_ORDER.findIndex(([href]) => href === meta.path);
+  const prev = i > 0 ? DOC_ORDER[i - 1] : null;
+  const next = i >= 0 && i < DOC_ORDER.length - 1 ? DOC_ORDER[i + 1] : null;
+  const pn = `<nav class="dpn" aria-label="Previous and next">${prev ? `<a href="${prev[0]}"><span>Previous</span>${prev[1]}</a>` : "<span></span>"}${next ? `<a class="next" href="${next[0]}"><span>Next</span>${next[1]}</a>` : ""}</nav>`;
+  const edit = meta.source ? `<p class="dedit"><a href="${SMRITI}/blob/main/${meta.source}">Full reference on GitHub →</a></p>` : "";
+  return `<div class="wrap docs-grid">
+    <aside class="dside" aria-label="Documentation">
+      <a class="dside-home" href="/docs">Smriti docs</a>
+${side}
+    </aside>
+    <article class="dmain prose">
+${body}
+      ${edit}
+      ${pn}
+    </article>
+  </div>`;
+}
 
 function header(active) {
   const links = NAV.map(([key, href, label]) => {
@@ -71,8 +106,8 @@ function header(active) {
     <ul class="links" id="links">
 ${links}
     </ul>
-    <a class="gh" href="${GITHUB}" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
-    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <a class="gh" href="${SMRITI}" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
     <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
 </header>`;
@@ -80,34 +115,46 @@ ${links}
 
 const footer = `<footer class="foot2">
   <div class="wrap">
-    <div class="foot2-grid">
+    <div class="foot2-grid five">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
       </div>
       <div>
-        <h4>Products</h4>
+        <h4>Smriti</h4>
         <ul>
-          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="${SMRITI}">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
           <li><a href="/saaf/playground">Playground</a></li>
-          <li><a href="/smriti">Smriti</a></li>
-          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
-          <li><a href="/products">All projects</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Lab</h4>
-        <ul>
           <li><a href="/research">Research</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="${REPO}/blob/main/SECURITY.md">Security</a></li>
+          <li><a href="/products">All products</a></li>
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h4>Company</h4>
         <ul>
-          <li><a href="${GITHUB}">GitHub</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="${LINKEDIN}">LinkedIn</a></li>
           <li><a href="mailto:${EMAIL}">${EMAIL}</a></li>
           <li><a href="/blog/feed.xml">RSS</a></li>
@@ -115,7 +162,7 @@ const footer = `<footer class="foot2">
       </div>
     </div>
     <div class="foot2-legal">
-      <span>© ${YEAR} Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>© ${YEAR} Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>
@@ -124,7 +171,7 @@ const footer = `<footer class="foot2">
 function render(meta, body) {
   const url = SITE + (meta.path === "/" ? "/" : meta.path);
   const og = SITE + (meta.ogImage ?? "/assets/brand/og-image.png");
-  const css = ["/assets/styles.css", "/assets/lab.css", ...(meta.css ?? [])]
+  const css = ["/assets/styles.css", "/assets/lab.css", "/assets/smriti.css", ...(meta.css ?? [])]
     .map((h) => `  <link rel="stylesheet" href="${h}">`)
     .join("\n");
   const js = (meta.scripts ?? []).map((s) => `  <script type="module" src="${s}"></script>`).join("\n");
@@ -161,7 +208,7 @@ ${icons}
 ${header(meta.nav)}
 
 <main id="main"${meta.mainClass ? ` class="${meta.mainClass}"` : ""}>
-${body}
+${meta.docs ? docsLayout(meta, body) : body}
 </main>
 
 ${footer}

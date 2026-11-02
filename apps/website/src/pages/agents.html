@@ -1,0 +1,97 @@
+<!--page {"path": "/agents", "nav": "agents", "title": "Agents · Smriti · Safearly", "description": "Build private AI agents on your own knowledge: cited lookup, tool-using and research agents that act as the person asking, check every sentence, mask personal data and wait for approval before changing anything. Gallery of ready-made agents.", "scripts": ["/assets/main.js"]} -->
+  <section class="lab-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Agents</div>
+        <h1>Agents that cite their work and know their limits.</h1>
+        <p class="lede">Build an assistant in minutes: instructions, sources, tools. Whoever uses it sees only what they're allowed to see. Every answer is checked against what its tools returned, and anything that would change data waits for a person.</p>
+        <div class="btns"><a class="btn btn-accent" href="/docs/agents">Build your first agent</a><a class="btn btn-outline" href="#gallery">Browse the gallery</a></div>
+      </div>
+      <div class="appwin" role="img" aria-label="An agent run: it searched the library, called a ticketing API, and paused for approval before creating a ticket.">
+        <div class="top"><i></i><i></i><i></i><b>IT helpdesk</b><span>· agentic</span></div>
+        <div class="body">
+          <div class="q">My laptop VPN keeps dropping. Can you open a ticket?</div>
+          <div class="steps"><span>search · "VPN drops" → 3 passages</span><span>helpdesk.get_known_issues → 1 match</span></div>
+          <div class="a"><b>Approval needed</b><br>Helpdesk wants to run <b>create_ticket</b> (title="VPN disconnects every few minutes").<div class="meta-row" style="margin-top:10px"><span class="pill2 v">Approve</span><span class="pill2">Decline</span></div></div>
+          <div class="meta-row"><span class="pill2">acts as you</span><span class="pill2">changes need approval</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Four kinds</div><h2>Pick how much the agent does on its own.</h2></div></div>
+      <div class="grid4">
+        <div class="card2 reveal"><span class="kindtag">Classic</span><h3>Cited lookup</h3><p>Answers from the agent's sources through the full pipeline: version rules, "as of" dates, amendments and table maths. No model needed for lookups.</p></div>
+        <div class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>Uses tools</h3><p>Decides which tools to call, reads the results and answers with citations to them. Without a model, a rule planner still searches, reads links and calculates.</p></div>
+        <div class="card2 reveal"><span class="kindtag k-research">Research</span><h3>Plans and verifies</h3><p>Splits a broad question into two to five parts, answers each with its own verification, and merges them into one cited report.</p></div>
+        <div class="card2 reveal"><span class="kindtag k-workflow">Workflow</span><h3>Follows a process</h3><p>A graph of agent steps, conditions, code, loops and approvals that runs in order. <a href="/workflows">Workflows →</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="gallery">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Gallery</div><h2>Start from an agent that already works.</h2></div><a class="arrow-link" href="/docs/agents">How to build one →</a></div>
+      <div class="grid4">
+        <article class="card2 reveal"><span class="kindtag">Classic</span><h3>Support assistant</h3><p>Answers customers and agents from manuals, release notes and FAQs, and says when the docs don't cover it.</p><dl><dt>Sources</dt><dd>manuals, release notes</dd><dt>Tools</dt><dd>search</dd></dl><div class="ask">Does version 4.2 support single sign-on?</div></article>
+        <article class="card2 reveal"><span class="kindtag">Classic</span><h3>Policy and HR desk</h3><p>Leave, travel, expenses and conduct rules, quoting the policy in force on the date asked.</p><dl><dt>Sources</dt><dd>HR and finance policies</dd><dt>Tools</dt><dd>search</dd></dl><div class="ask">What was the travel allowance before the April revision?</div></article>
+        <article class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>Contract analyst</h3><p>Finds the clause, applies amendments, and does the arithmetic exactly, citing where every figure came from.</p><dl><dt>Sources</dt><dd>contracts, amendments</dd><dt>Tools</dt><dd>search, calculator, files</dd></dl><div class="ask">What is the liability cap, and what is 5% of 4,80,00,000?</div></article>
+        <article class="card2 reveal"><span class="kindtag k-research">Research</span><h3>Research brief</h3><p>Turns a broad question into a short, cited brief for a decision-maker, one verified section per sub-question.</p><dl><dt>Sources</dt><dd>everything you can see</dd><dt>Tools</dt><dd>search</dd></dl><div class="ask">What changed in our data-retention rules this year, and who is affected?</div></article>
+        <article class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>Data analyst</h3><p>Writes and runs Python in a sandbox with no network to analyse tables, then hands back a CSV or chart.</p><dl><dt>Sources</dt><dd>reports, exports</dd><dt>Tools</dt><dd>search, Python, files</dd></dl><div class="ask">Make a CSV of last quarter's incidents by team.</div></article>
+        <article class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>IT helpdesk</h3><p>Checks known issues in your ticketing API and opens a ticket only after the person approves it.</p><dl><dt>Sources</dt><dd>runbooks, IT policies</dd><dt>Tools</dt><dd>search, REST API</dd></dl><div class="ask">My VPN keeps dropping. Open a ticket.</div></article>
+        <article class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>Web researcher</h3><p>Searches the web through your own search engine, with personal data removed from the query before it leaves.</p><dl><dt>Sources</dt><dd>library and the web</dd><dt>Tools</dt><dd>web search, read page</dd></dl><div class="ask">What did the regulator publish this month about cloud outsourcing?</div></article>
+        <article class="card2 reveal"><span class="kindtag k-agentic">Agentic</span><h3>Reporting assistant</h3><p>Answers numeric questions with read-only SQL against a reporting database, with a row cap and table notes.</p><dl><dt>Sources</dt><dd>data dictionary</dd><dt>Tools</dt><dd>database (read-only)</dd></dl><div class="ask">How many orders were refunded in September, by region?</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Tools</div><h2>Ten kinds of tools, each with its own limits.</h2></div><a class="arrow-link" href="/docs/agents#tools">Tool reference →</a></div>
+      <div class="dtable-wrap reveal">
+        <table class="dtable">
+          <thead><tr><th>Tool</th><th>What it does</th><th>Built-in safety</th></tr></thead>
+          <tbody>
+            <tr><td>Search the library</td><td>Permission-aware search with version rules, limited to the agent's sources</td><td>Filtered to the asker</td></tr>
+            <tr><td>Calculator</td><td>Exact arithmetic</td><td>A real parser, never <code>eval</code></td></tr>
+            <tr><td>Read a web page</td><td>Fetches one URL</td><td>Egress guard; treated as untrusted</td></tr>
+            <tr><td>Web search</td><td>Self-hosted SearxNG, Brave or Tavily</td><td>Personal data masked in the query</td></tr>
+            <tr><td>Run Python</td><td>Analysis and file generation</td><td>No network, read-only root, non-root, memory and time limits</td></tr>
+            <tr><td>Create a file</td><td>Markdown, CSV, JSON, HTML or text</td><td>Always a download, never rendered</td></tr>
+            <tr><td>Skills</td><td>Coded checks for your domain</td><td>Their own grant checks</td></tr>
+            <tr><td>REST API</td><td>Operations from an OpenAPI spec</td><td>Writes hidden unless allowed, then always approved</td></tr>
+            <tr><td>MCP server</td><td>Every tool on a server</td><td>Non-read-only tools need approval</td></tr>
+            <tr><td>Database</td><td>SELECT queries</td><td>Read-only transaction and a row cap</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec band-dark">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Guarantees</div><h2>Why the answers can be trusted.</h2></div></div>
+      <div class="principles">
+        <div class="reveal"><h3>Acts as the asker</h3><p>An agent built by someone with wide access never shows more to someone with less. Its sources only narrow what is searched.</p></div>
+        <div class="reveal"><h3>Every result is citable</h3><p>Tool results become numbered passages. The answer is verified sentence by sentence against them, and a failing one is replaced or withheld.</p></div>
+        <div class="reveal"><h3>Personal data stays masked</h3><p>Masked before the model sees the question or a tool result, and before anything goes to an external tool, then restored on screen.</p></div>
+        <div class="reveal"><h3>Injected text can't act</h3><p>After a run reads outside content, every action that changes data waits for approval, whatever the agent's setting.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal"><div><div class="eyebrow">Everywhere</div><h2>Share it, schedule it, call it.</h2></div></div>
+      <div class="grid3">
+        <div class="card2 reveal"><h3>Share and publish</h3><p>Keep it private, share it with everyone or with chosen roles, as a draft or published. Shared conversations hide answers whose sources the viewer can't open.</p></div>
+        <div class="card2 reveal"><h3>Run on a schedule</h3><p>A cron expression and a question. Published agents run as their owner and post the result to a conversation.</p></div>
+        <div class="card2 reveal"><h3>Use from code</h3><p>Per-agent keys work with the OpenAI-compatible endpoint, so any SDK or chat client can call an agent and get its sources.</p></div>
+      </div>
+      <pre class="cmd mt28 reveal"><code>curl https://smriti.example/v1/chat/completions \
+  -H "Authorization: Bearer sk-smriti-…" \
+  -d '{"model": "agent/contract-analyst", "messages": [{"role": "user", "content": "What is the liability cap?"}]}'</code></pre>
+    </div>
+  </section>

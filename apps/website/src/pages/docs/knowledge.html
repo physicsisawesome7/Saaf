@@ -1,0 +1,44 @@
+<!--page {"path": "/docs/knowledge", "nav": "docs", "docs": true, "title": "Knowledge and sources · Smriti docs", "description": "Connect websites, files, folders, feeds, REST APIs, SQL databases and MCP servers to Smriti, with access settings, schedules, background jobs and safety controls.", "scripts": ["/assets/main.js"], "source": "docs/ingestion.md"} -->
+      <h1>Knowledge and sources</h1>
+      <p class="lead">Smriti's memory comes from sources you connect in the <b>Ingest</b> view. Each one has a test run, its own access and schedule settings, and background jobs you can watch and cancel.</p>
+
+      <h2>Source types</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Kind</th><th>What it reads</th></tr></thead>
+        <tbody>
+          <tr><td>Website</td><td>A whole site from a start page, scoped by path or domain, with linked PDF, Office and ZIP files. Honours robots.txt and a per-host rate limit.</td></tr>
+          <tr><td>Web page or file link</td><td>One URL. A re-sync stores a new version when it changes.</td></tr>
+          <tr><td>Upload files</td><td>Drag and drop, up to 200 MB each, ZIP archives unpacked. Parsed in the background.</td></tr>
+          <tr><td>REST / JSON API</td><td>Records from an HTTP API, with auth, pagination and field mapping, or a linked file per record.</td></tr>
+          <tr><td>Database (SQL)</td><td>One read-only query: each row a document, or the result as one table for exact totals.</td></tr>
+          <tr><td>MCP server</td><td>Every resource on a server, or the result of one tool call.</td></tr>
+          <tr><td>RSS, Atom or sitemap</td><td>Each linked page or document, with its title and date.</td></tr>
+          <tr><td>Server folder</td><td>Files under an allowed folder, such as a mounted shared drive.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2>Adding a source</h2>
+      <ol>
+        <li><b>Add source</b>: pick a kind, or start from a demo preset.</li>
+        <li><b>Test connection</b>: a dry run that finds a few items and parses the first ones. Nothing is stored.</li>
+        <li><b>Save &amp; run</b>: queues a job for the worker.</li>
+        <li><b>Jobs</b>: live progress, a result for each item linked to the library, a log, and Cancel.</li>
+      </ol>
+      <p>Re-runs are cheap: unchanged content is recognised by hash and skipped, changed content becomes a new version, and removed items are kept or marked removed.</p>
+
+      <h2>Access and schedules</h2>
+      <p>Every source sets the sensitivity, divisions, projects, need-to-know groups and document type of what it brings in, plus a cron schedule and what to do when an item disappears. If the same content arrives from two sources with different access, the stricter rule wins.</p>
+
+      <h2>Watching for change</h2>
+      <p>When a watched source changes, Smriti writes a "what changed" note and lists the documents that cite the changed text, filtered to what each reader may open.</p>
+
+      <h2>Safety</h2>
+      <ul>
+        <li><b>Egress guard</b>: every request and redirect is checked, blocking loopback, cloud-metadata and reserved addresses and Smriti's own internal services.</li>
+        <li><b>Credentials</b>: encrypted at rest and never returned by the API.</li>
+        <li><b>SQL</b>: a single SELECT, in a read-only transaction, with a row cap.</li>
+        <li><b>MCP</b>: network transports only, so a source can't run programs on the host.</li>
+        <li><b>Audit</b>: every create, change, run, preview and cancel is logged.</li>
+      </ul>
+
+      <div class="callout warn">Scanned pages without a text layer are flagged as low-confidence and queued. OCR and advanced layout parsing are plug-in points, not bundled.</div>

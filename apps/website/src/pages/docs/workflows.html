@@ -1,0 +1,61 @@
+<!--page {"path": "/docs/workflows", "nav": "docs", "docs": true, "title": "Workflows · Smriti docs", "description": "Build Smriti workflows on a visual canvas: steps, variables, templates, the safe expression language, approvals, limits and the graph format for the API.", "scripts": ["/assets/main.js"], "source": "docs/workflows.md"} -->
+      <h1>Workflows</h1>
+      <p class="lead">A workflow is an agent built as a graph of steps. Open <b>Agents → New agent</b>, choose <b>Workflow</b> and draw it on the canvas, or start from a template under <b>Start from a workflow</b>. It is saved, shared, scheduled, given API keys and chatted with like any other agent.</p>
+
+      <h2>Steps</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Step</th><th>What it does</th><th>Outputs</th></tr></thead>
+        <tbody>
+          <tr><td>Start</td><td>Every run begins here with <code>query</code> and <code>chat_history</code>.</td><td>one</td></tr>
+          <tr><td>AI agent</td><td>A classic, agentic or research agent on a templated prompt. Its cited answer goes into the output variable and <code>last</code>.</td><td>one</td></tr>
+          <tr><td>If / else</td><td>Checks conditions in order and follows the first that is true.</td><td>one per condition, plus else</td></tr>
+          <tr><td>Set state</td><td>Sets variables from expressions.</td><td>one</td></tr>
+          <tr><td>Code</td><td>Python in the sandbox. Variables are in a dict called <code>state</code>; print JSON on the last line to return a value.</td><td>one</td></tr>
+          <tr><td>Human approval</td><td>Pauses until the runner approves or declines.</td><td>approved, declined</td></tr>
+          <tr><td>Loop</td><td>One agent prompt per list item (up to 20), collecting <code>[{item, answer}]</code>.</td><td>one</td></tr>
+          <tr><td>End</td><td>Its template becomes the answer.</td><td>none</td></tr>
+          <tr><td>Note</td><td>A comment. Never runs.</td><td>none</td></tr>
+        </tbody>
+      </table></div>
+      <p>Every step also writes its result to <code>node_&lt;id&gt;</code>. On the canvas, drag a step to move it, drag from an output port onto another step to connect, click to edit, and press Delete to remove the selection.</p>
+
+      <h2>Templates and expressions</h2>
+      <p>Prompts, approval messages and End outputs are templates: <code>Release this answer?\n\n{{ draft }}</code>. Conditions and Set state take expressions:</p>
+      <pre><code>len(answer) &gt; 0 and contains(answer, 'clause')
+float(amount) * 0.05
+[strip(q) for q in split(query, ';')]
+join(pluck(answers, 'answer'), '\n\n')
+'urgent' if matches(lower(query), 'today|immediately') else 'normal'</code></pre>
+      <p>The language is a whitelisted subset of Python expressions, parsed and walked by Smriti, never passed to <code>eval</code>. Allowed: literals, variables, arithmetic, comparisons, <code>and</code>/<code>or</code>/<code>not</code>, <code>in</code>, indexing, conditional expressions, simple list comprehensions, and the functions <code>abs bool contains default float int join json keys len lower matches max min number pluck round split startswith str strip upper</code>. Anything else is rejected when the workflow is saved.</p>
+
+      <h2>Guarantees</h2>
+      <ul>
+        <li>Every agent step acts as the person running the workflow, masks personal data and verifies its answer.</li>
+        <li>Citations from all steps are renumbered into one list, and the final answer is scored against them.</li>
+        <li>A Human approval step, or a tool action inside an agent step that needs approval, pauses the whole run. Inside a Loop, such actions are skipped and recorded.</li>
+        <li>A run stops after 50 steps. Errors end the run with an answer naming the failing step.</li>
+        <li>Saving validates the graph: one Start, at least one End, every output connected, every step reachable, nothing into Start, valid names and safe expressions.</li>
+      </ul>
+
+      <h2>API</h2>
+      <p>Workflows are agents with <code>"kind": "workflow"</code> and a <code>graph</code>:</p>
+      <pre><code>{
+  "name": "Sign-off flow",
+  "kind": "workflow",
+  "graph": {
+    "nodes": [
+      {"id": "start", "type": "start"},
+      {"id": "draft", "type": "agent", "data": {"kind": "research", "prompt": "{{ query }}", "output": "draft"}},
+      {"id": "ok", "type": "approval", "data": {"message": "Release?\n\n{{ draft }}"}},
+      {"id": "yes", "type": "end", "data": {"output": "{{ draft }}"}},
+      {"id": "no", "type": "end", "data": {"output": "Held back."}}
+    ],
+    "edges": [
+      {"source": "start", "target": "draft"},
+      {"source": "draft", "target": "ok"},
+      {"source": "ok", "target": "yes", "handle": "approved"},
+      {"source": "ok", "target": "no", "handle": "declined"}
+    ]
+  }
+}</code></pre>
+      <p>Run it with <code>POST /api/agents/{id}/chat</code>, or try an unsaved graph with <code>POST /api/agents/preview</code>. A paused run returns <code>status: awaiting_approval</code> and a <code>run_id</code>; continue with <code>POST /api/runs/{run_id}/approve?approve=true</code>.</p>

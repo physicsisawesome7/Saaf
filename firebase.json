@@ -125,6 +125,31 @@
         "source": "/lalit",
         "destination": "/about",
         "type": 301
+      },
+      {
+        "source": "/smriti",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/smriti/agents",
+        "destination": "/agents",
+        "type": 301
+      },
+      {
+        "source": "/smriti/workflows",
+        "destination": "/workflows",
+        "type": 301
+      },
+      {
+        "source": "/smriti/tools",
+        "destination": "/applications",
+        "type": 301
+      },
+      {
+        "source": "/smriti/docs",
+        "destination": "/docs",
+        "type": 301
       }
     ]
   }

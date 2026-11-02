@@ -21,6 +21,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/lab.css">
+  <link rel="stylesheet" href="/assets/smriti.css">
   <script type="module" src="/assets/main.js"></script>
 </head>
 <body>
@@ -59,14 +60,15 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
-      <li><a href="/products">Products</a></li>
-      <li><a href="/research">Research</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/workflows">Workflows</a></li>
+      <li><a href="/applications">Applications</a></li>
+      <li><a href="/docs">Docs</a></li>
       <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
-      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
-      <li><a href="/about">About</a></li>
+      <li><a href="/products">Products</a></li>
     </ul>
-    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
-    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
     <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
 </header>
@@ -76,9 +78,9 @@
     <div class="wrap">
       <div class="eyebrow">Writing</div>
       <h1>Notes from the lab.</h1>
-      <p class="lede">Essays, research notes and explainers on fast, safe AI in production: inference, guardrails and agents. We say what is measured, what is in force and what is still unsolved.</p>
+      <p class="lede">Releases, essays, research notes and explainers on Smriti, agents, workflows and safe AI in production. We say what is measured, what is in force and what is still unsolved.</p>
       <div class="split mt28">
-        <div class="chips-row"><span class="chip-link on">All · 8</span><span class="chip-link">Essay · 4</span><span class="chip-link">Research note · 3</span><span class="chip-link">Explainer · 1</span></div>
+        <div class="chips-row"><span class="chip-link on">All · 10</span><span class="chip-link">Release · 1</span><span class="chip-link">Essay · 4</span><span class="chip-link">Research note · 3</span><span class="chip-link">Explainer · 2</span></div>
         <div class="chips-row mono"><a class="arrow-link" href="/blog/feed.xml">RSS</a></div>
       </div>
     </div>
@@ -86,13 +88,21 @@
 
   <section class="sec" id="posts">
     <div class="wrap">
-      <a class="post-feature" href="/blog/agents-act-as-the-asker">
-        <span class="meta">2 Nov 2026 · Essay · Lalit Shukla</span>
-        <h2>An agent should never know more than the person asking</h2>
-        <p>Most enterprise assistants run on an account that can read everything, which turns every shared agent, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.</p>
+      <a class="post-feature" href="/blog/smriti-workflows-and-integrations">
+        <span class="meta">2 Nov 2026 · Release · Lalit Shukla</span>
+        <h2>Smriti now does workflows and lives where your team works</h2>
+        <p>Visual workflows with human approval, a website widget, and Slack, Telegram and Discord bots, with the safety rules that come with them.</p>
         <span class="more">Read →</span>
       </a>
       <div class="post-list">
+        <a class="post-row" href="/blog/agents-or-workflows">
+          <span class="meta">2 Nov 2026 · Explainer</span>
+          <div><h3>Agents or workflows? How to choose</h3><p>An agent decides what to do; a workflow follows a process you drew. Why most teams end up using both.</p></div>
+        </a>
+        <a class="post-row" href="/blog/agents-act-as-the-asker">
+          <span class="meta">2 Nov 2026 · Essay</span>
+          <div><h3>An agent should never know more than the person asking</h3><p>Shared assistants on an all-seeing account undo access control. Agents should act as the asker, on every surface.</p></div>
+        </a>
         <a class="post-row" href="/blog/check-every-sentence">
           <span class="meta">2 Nov 2026 · Research note</span>
           <div><h3>Check every sentence, not just the answer</h3><p>A citation is a claim, not proof. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails.</p></div>
@@ -132,34 +142,46 @@
 
 <footer class="foot2">
   <div class="wrap">
-    <div class="foot2-grid">
+    <div class="foot2-grid five">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
       </div>
       <div>
-        <h4>Products</h4>
+        <h4>Smriti</h4>
         <ul>
-          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
           <li><a href="/saaf/playground">Playground</a></li>
-          <li><a href="/smriti">Smriti</a></li>
-          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
-          <li><a href="/products">All projects</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Lab</h4>
-        <ul>
           <li><a href="/research">Research</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+          <li><a href="/products">All products</a></li>
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h4>Company</h4>
         <ul>
-          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
           <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
           <li><a href="/blog/feed.xml">RSS</a></li>
@@ -167,7 +189,7 @@
       </div>
     </div>
     <div class="foot2-legal">
-      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>© 2026 Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>

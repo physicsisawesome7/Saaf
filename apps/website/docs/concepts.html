@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Agents · Smriti · Safearly</title>
-  <meta name="description" content="Smriti agents: cited lookup, tool-using and research agents that act as the person asking, verify every sentence, mask personal data and wait for approval before changing anything.">
-  <link rel="canonical" href="https://safearly.com/smriti/agents">
+  <title>How Smriti works · Smriti docs</title>
+  <meta name="description" content="How Smriti answers a question: guarded input, permission-filtered hybrid search, version rules and amendments, table maths, sentence-level verification, abstention and audit.">
+  <link rel="canonical" href="https://safearly.com/docs/concepts">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -14,13 +14,14 @@
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
-  <meta property="og:title" content="Agents · Smriti · Safearly">
-  <meta property="og:description" content="Smriti agents: cited lookup, tool-using and research agents that act as the person asking, verify every sentence, mask personal data and wait for approval before changing anything.">
-  <meta property="og:url" content="https://safearly.com/smriti/agents">
+  <meta property="og:title" content="How Smriti works · Smriti docs">
+  <meta property="og:description" content="How Smriti answers a question: guarded input, permission-filtered hybrid search, version rules and amendments, table maths, sentence-level verification, abstention and audit.">
+  <meta property="og:url" content="https://safearly.com/docs/concepts">
   <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/lab.css">
+  <link rel="stylesheet" href="/assets/smriti.css">
   <script type="module" src="/assets/main.js"></script>
 </head>
 <body>
@@ -59,113 +60,110 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
-      <li><a href="/products" class="active" aria-current="page">Products</a></li>
-      <li><a href="/research">Research</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/workflows">Workflows</a></li>
+      <li><a href="/applications">Applications</a></li>
+      <li><a href="/docs" class="active" aria-current="page">Docs</a></li>
       <li><a href="/blog">Blog</a></li>
-      <li><a href="https://github.com/physicsisawesome7">Open source</a></li>
-      <li><a href="/about">About</a></li>
+      <li><a href="/products">Products</a></li>
     </ul>
-    <a class="gh" href="https://github.com/physicsisawesome7" aria-label="Safearly on GitHub" title="Safearly on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
-    <a class="btn btn-primary" href="/#contact">Work with us</a>
+    <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
     <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
 </header>
 
 <main id="main">
-  <section class="page-hero">
-    <div class="wrap">
-      <div class="crumbs"><a href="/smriti">Smriti</a> / Agents</div>
-      <div class="eyebrow">Agents</div>
-      <h1>Agents that cite their work and know their limits.</h1>
-      <p class="lede">Build an assistant with its own instructions, sources and tools in a few minutes. Whoever uses it, it sees only what that person may see. Its answers are checked against what its tools returned, and anything that would change data waits for a person to approve it.</p>
-      <div class="chips-row mt28"><a class="chip-link" href="/smriti">Overview</a><a class="chip-link on" href="/smriti/agents">Agents</a><a class="chip-link" href="/smriti/workflows">Workflows</a><a class="chip-link" href="/smriti/tools">Tools &amp; integrations</a><a class="chip-link" href="/smriti/docs">Docs</a></div>
-    </div>
-  </section>
+<div class="wrap docs-grid">
+    <aside class="dside" aria-label="Documentation">
+      <a class="dside-home" href="/docs">Smriti docs</a>
+      <div class="dside-group"><p>Get started</p><ul><li><a href="/docs">Introduction</a></li><li><a href="/docs/quickstart">Quickstart</a></li><li><a href="/docs/install">Install and deploy</a></li></ul></div>
+      <div class="dside-group"><p>Core concepts</p><ul><li><a href="/docs/concepts" class="on" aria-current="page">How Smriti works</a></li><li><a href="/docs/knowledge">Knowledge and sources</a></li><li><a href="/docs/security">Security and access</a></li></ul></div>
+      <div class="dside-group"><p>Build</p><ul><li><a href="/docs/agents">Agents and tools</a></li><li><a href="/docs/workflows">Workflows</a></li><li><a href="/docs/integrations">Integrations</a></li></ul></div>
+      <div class="dside-group"><p>Reference</p><ul><li><a href="/docs/api">API, MCP and CLI</a></li><li><a href="/docs/faq">FAQ and limits</a></li></ul></div>
+    </aside>
+    <article class="dmain prose">
+      <h1>How Smriti works</h1>
+      <p class="lead">Every answer goes through the same pipeline, whether it comes from the web app, an agent, a workflow or a chat bot.</p>
 
-  <section class="sec band">
-    <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">Kinds</div><h2>Pick how much the agent does on its own.</h2></div></div>
-      <div class="dtable-wrap reveal">
-        <table class="dtable">
-          <thead><tr><th>Kind</th><th>What it does</th><th>Needs a model?</th></tr></thead>
-          <tbody>
-            <tr><td>Classic</td><td>Cited answers from the agent's sources, with version rules, "as of" dates, amendments and table maths.</td><td>No. Lookups never call the GPU.</td></tr>
-            <tr><td>Agentic</td><td>Decides which tools to call, reads the results and answers with citations to them.</td><td>For the full loop. Without one, a rule planner still searches, reads links and does the arithmetic.</td></tr>
-            <tr><td>Research</td><td>Splits a question into two to five parts, answers each with its own verification, and merges them into one report.</td><td>No. A model improves the plan and the summary.</td></tr>
-            <tr><td>Workflow</td><td>A graph of steps: agents, conditions, code, approvals and loops. <a href="/smriti/workflows">More →</a></td><td>Only for its agent steps.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+      <h2>The path of a question</h2>
+      <ol>
+        <li><b>Guard the input.</b> The question is scanned for injection attempts, and personal data is masked with <a href="/saaf">Saaf</a>.</li>
+        <li><b>Expand.</b> Abbreviations and synonyms from the organisation's glossary widen the search.</li>
+        <li><b>Search with the access filter.</b> Hybrid keyword and vector search runs with the asker's permissions as a filter.</li>
+        <li><b>Re-check access.</b> Every result is checked again against the source of truth before it can be used.</li>
+        <li><b>Apply version rules.</b> Superseded text is dropped, and amendments in force on the date asked are attached to the clause they change.</li>
+        <li><b>Rerank and write.</b> The best passages are reranked. Totals over tables are computed in code. Otherwise a model writes an answer, or a verified extract is used.</li>
+        <li><b>Verify.</b> Each sentence is checked against the passages it cites.</li>
+        <li><b>Answer or abstain.</b> A failing answer is replaced by a verified extract, or Smriti says what is missing.</li>
+        <li><b>Record.</b> A trace of the run and an entry in the audit log.</li>
+      </ol>
 
-  <section class="sec">
-    <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">What an agent is made of</div><h2>Six settings, one set of rules on top.</h2></div></div>
-      <div class="focus">
-        <div class="reveal"><h3>Instructions</h3><p>Who it answers for, the tone, what to always include. Platform rules sit above them and can't be overridden: cite every fact, treat tool results as data, and say what is missing instead of guessing.</p></div>
-        <div class="reveal"><h3>Sources</h3><p>Everything the asker may see, or only chosen document types and ingestion sources. Sources narrow what is searched. They never widen access.</p></div>
-        <div class="reveal"><h3>Tools</h3><p>Library search, calculator, web pages and search, sandboxed Python, file creation, coded skills, REST APIs, MCP servers and read-only SQL. <a href="/smriti/tools">See all tools →</a></p></div>
-        <div class="reveal"><h3>Approval</h3><p>Ask before anything that changes data (the default), before every tool call, or never. Once a run has read outside content, changes always wait for approval, whatever the setting.</p></div>
-        <div class="reveal"><h3>Sharing</h3><p>Private, everyone in the organisation, or chosen roles, as a draft or published. Shared conversations hide answers whose sources the viewer cannot open.</p></div>
-        <div class="reveal"><h3>Schedule and keys</h3><p>Run on a cron schedule as the owner. Per-agent API keys act as their creator, work only for that agent, and plug into OpenAI-compatible clients.</p></div>
-      </div>
-    </div>
-  </section>
+      <h2>Verification</h2>
+      <p>An answer is split into sentences. Each factual sentence must cite passages. Its support is the share of its content words found in those passages, and every number, amount, percentage and clause id must appear verbatim in a cited passage. Uncited factual sentences count as unsupported. The score is shown with the answer and drives abstention.</p>
 
-  <section class="sec band-dark">
-    <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">Guarantees</div><h2>Why the answers can be trusted.</h2></div></div>
-      <div class="principles">
-        <div class="reveal"><h3>Acts as the asker</h3><p>An agent built by someone with wide access never shows more to someone with less. Retrieval is filtered to the asker, then narrowed to the agent's sources.</p></div>
-        <div class="reveal"><h3>Every result is citable</h3><p>Tool results become numbered passages. The final answer is verified sentence by sentence against them, and a failing answer is replaced or withheld.</p></div>
-        <div class="reveal"><h3>Personal data stays masked</h3><p>Masked before the model sees the question or a tool result, and before anything goes to an external tool. The person sees the real values restored.</p></div>
-        <div class="reveal"><h3>Injected text can't act</h3><p>Tool output is scanned for instructions, flagged and wrapped as data. A web page can't trigger a write, because writes after outside content always need approval.</p></div>
-      </div>
-    </div>
-  </section>
+      <h2>Versions and amendments</h2>
+      <p>Documents are linked by supersession and amendment relations. A question can carry an "as of" date. Retrieval returns the text in force on that date, and a clause always arrives together with every amendment that applies, so the answer leads with the amended text.</p>
 
-  <section class="sec">
-    <div class="wrap">
-      <div class="sec-head reveal"><div><div class="eyebrow">API</div><h2>Call an agent from anything that speaks OpenAI.</h2></div></div>
-      <pre class="cmd reveal"><code>curl https://smriti.example/v1/chat/completions \
-  -H "Authorization: Bearer sk-smriti-…" \
-  -d '{"model": "agent/tender-desk", "messages": [{"role": "user", "content": "What is the maximum liquidated damages?"}]}'</code></pre>
-      <p class="meta mt14">Or use <code>POST /api/agents/{id}/chat</code> for streamed steps, approvals and citations. Details in the <a href="/smriti/docs#api">docs</a>.</p>
-    </div>
-  </section>
+      <h2>People, roles and grants</h2>
+      <p>The person asking is a <b>principal</b> with roles. Roles give grants (<code>view</code>, <code>upload</code>, <code>curate</code>, <code>administer</code>, <code>audit</code>) and a scope: which divisions, projects, classifications and document types they may read, and which personal data they may see unmasked. An administrator configures the system without being a reader of its content.</p>
+
+      <h2>Packs</h2>
+      <p>An organisation is configured as layered packs. Platform defaults load first, then an optional vertical pack for an industry, then the tenant pack: models per task, roles, sources, document schemas, guardrails, glossary, skills and evaluation sets.</p>
+
+      <h2>Skills</h2>
+      <p>Skills are coded domain checks: an extractor, rules written in code, and an explanation. Thresholds are read from the document in force, never hard-coded, and results become drafts that go through maker-checker approval.</p>
+
+      <h2>Evaluation and release gates</h2>
+      <p><code>smriti eval gate</code> runs a golden question set, a leakage suite that probes every person against every document they may not see, a red-team set, and the skills' planted-defect tests. CI blocks a release when any gate fails. Run the same gates on your own golden set.</p>
+      <p class="dedit"><a href="https://github.com/physicsisawesome7/smriti/blob/main/README.md">Full reference on GitHub →</a></p>
+      <nav class="dpn" aria-label="Previous and next"><a href="/docs/install"><span>Previous</span>Install and deploy</a><a class="next" href="/docs/knowledge"><span>Next</span>Knowledge and sources</a></nav>
+    </article>
+  </div>
 </main>
 
 <footer class="foot2">
   <div class="wrap">
-    <div class="foot2-grid">
+    <div class="foot2-grid five">
       <div>
         <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
-        <p class="about">The safety and speed layer for AI in production: fast inference, fast guardrails and secure agents. Open source.</p>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
       </div>
       <div>
-        <h4>Products</h4>
+        <h4>Smriti</h4>
         <ul>
-          <li><a href="/saaf">Saaf</a></li>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
           <li><a href="/saaf/playground">Playground</a></li>
-          <li><a href="/smriti">Smriti</a></li>
-          <li><a href="/research#indicpii-bench">IndicPII-Bench</a></li>
-          <li><a href="/products">All projects</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Lab</h4>
-        <ul>
           <li><a href="/research">Research</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="https://github.com/physicsisawesome7/Saaf/blob/main/SECURITY.md">Security</a></li>
+          <li><a href="/products">All products</a></li>
         </ul>
       </div>
       <div>
-        <h4>Connect</h4>
+        <h4>Company</h4>
         <ul>
-          <li><a href="https://github.com/physicsisawesome7">GitHub</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
           <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
           <li><a href="/blog/feed.xml">RSS</a></li>
@@ -173,7 +171,7 @@
       </div>
     </div>
     <div class="foot2-legal">
-      <span>© 2026 Safearly · Code under Apache-2.0 · Saaf (साफ़) means “clean”</span>
+      <span>© 2026 Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
       <span>No cookies. No trackers.</span>
     </div>
   </div>

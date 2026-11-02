@@ -1,0 +1,62 @@
+<!--page {"path": "/docs/api", "nav": "docs", "docs": true, "title": "API, MCP and CLI · Smriti docs", "description": "Smriti's REST API, OpenAI-compatible endpoint, MCP server and command line: endpoints, authentication, streaming events and commands.", "scripts": ["/assets/main.js"], "source": "README.md"} -->
+      <h1>API, MCP and CLI</h1>
+      <p class="lead">Everything in the web app is available over HTTP. Interactive OpenAPI docs are served by every installation at <code>/api/docs</code>.</p>
+
+      <h2>Authentication</h2>
+      <ul>
+        <li><b>Demo mode</b> uses the directory in the pack and a <code>X-Smriti-User</code> header. For local trials only.</li>
+        <li><b>Token mode</b> (<code>SMRITI_AUTH=token</code>) maps bearer tokens in <code>SMRITI_API_TOKENS</code> to people, behind your SSO proxy.</li>
+        <li><b>Agent keys</b> (<code>sk-smriti-…</code>) work only on that agent's chat endpoint and the OpenAI-compatible endpoint, and act as their creator.</li>
+      </ul>
+
+      <h2>Main endpoints</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Endpoint</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td><code>POST /api/ask</code>, <code>/api/ask/stream</code></td><td>Ask the memory, with citations, verification and an optional "as of" date.</td></tr>
+          <tr><td><code>GET /api/search</code></td><td>Permission-aware search without an answer.</td></tr>
+          <tr><td><code>GET /api/documents</code>, <code>/api/documents/{id}</code></td><td>Documents, versions, diffs and access explanations.</td></tr>
+          <tr><td><code>GET/POST /api/connectors</code>, <code>POST /api/ingest/upload</code></td><td>Sources and uploads; <code>/api/jobs</code> for progress.</td></tr>
+          <tr><td><code>GET /api/agents/catalog</code></td><td>Kinds, tools, workflow steps, templates and expression functions.</td></tr>
+          <tr><td><code>GET/POST/PUT/DELETE /api/agents</code></td><td>Agents and workflows.</td></tr>
+          <tr><td><code>POST /api/agents/{id}/chat</code></td><td>Run an agent. Set <code>stream</code> for server-sent events.</td></tr>
+          <tr><td><code>POST /api/agents/preview</code></td><td>Run an unsaved agent or workflow.</td></tr>
+          <tr><td><code>POST /api/runs/{id}/approve</code></td><td>Approve or decline a paused action.</td></tr>
+          <tr><td><code>GET/POST /api/tools</code></td><td>Connected tools.</td></tr>
+          <tr><td><code>GET/POST /api/channels</code></td><td>Widget and chat integrations.</td></tr>
+          <tr><td><code>GET /api/metrics</code>, <code>/api/health?deep=1</code></td><td>Prometheus metrics and readiness.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2>Streaming events</h2>
+      <p>Streamed runs send these server-sent events: <code>start</code> (run and conversation ids), <code>step</code> (a retrieval, plan, tool call or workflow step), <code>token</code> (answer text), <code>approval</code> (paused until approved) and <code>final</code> (the verified answer, citations, steps and files).</p>
+
+      <h2>OpenAI-compatible</h2>
+      <pre><code>from openai import OpenAI
+client = OpenAI(base_url="https://smriti.example/v1", api_key="sk-smriti-…")
+r = client.chat.completions.create(
+    model="agent/contract-analyst",
+    messages=[{"role": "user", "content": "What is the liability cap?"}],
+)
+print(r.choices[0].message.content)</code></pre>
+      <p>Use the model <code>smriti/&lt;tenant&gt;</code> with a user token to ask the memory directly. The answer carries its sources.</p>
+
+      <h2>MCP server</h2>
+      <pre><code>smriti mcp --as asha</code></pre>
+      <p>Exposes <code>search_knowledge</code>, <code>ask_question</code> and <code>get_document</code> to an MCP client, with the caller's permissions fixed when it starts.</p>
+
+      <h2>CLI</h2>
+      <div class="dtable-wrap"><table class="dtable">
+        <thead><tr><th>Command</th><th>Does</th></tr></thead>
+        <tbody>
+          <tr><td><code>smriti serve --seed</code></td><td>Run the API and web app, seeding the demo on first start.</td></tr>
+          <tr><td><code>smriti worker</code></td><td>Run schedules and background jobs.</td></tr>
+          <tr><td><code>smriti ingest</code>, <code>smriti crawl</code></td><td>Ingest files or crawl a configured source.</td></tr>
+          <tr><td><code>smriti ask</code></td><td>Ask from the terminal.</td></tr>
+          <tr><td><code>smriti eval gate</code></td><td>Run the release gates.</td></tr>
+          <tr><td><code>smriti bench</code></td><td>Load-test a running server.</td></tr>
+          <tr><td><code>smriti audit-verify</code></td><td>Check the audit hash chain.</td></tr>
+          <tr><td><code>smriti validate-pack</code></td><td>Check a pack without starting anything.</td></tr>
+          <tr><td><code>smriti sandbox</code></td><td>Run the code-execution service.</td></tr>
+        </tbody>
+      </table></div>

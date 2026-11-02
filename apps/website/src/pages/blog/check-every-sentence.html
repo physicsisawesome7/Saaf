@@ -28,7 +28,7 @@
         <p>Evaluation work on retrieval systems calls the property we want <em>faithfulness</em>: every claim in the answer should be supported by the retrieved context. It is usually measured offline, over a test set, as a score. We think it has to be enforced online, on every answer, before anyone sees it.</p>
 
         <h2 id="sentence">Sentence by sentence</h2>
-        <p>In <a href="/smriti">Smriti</a>, an answer is split into sentences, and each one must end with the numbers of the passages it relies on. Each sentence is then compared with the passages it cites, not with everything retrieved. A sentence that cites nothing, cites a passage that doesn't support it, or cites a passage the reader can't open fails on its own. The answer's score is the share of sentences that pass, and the interface shows it next to the answer.</p>
+        <p>In <a href="/">Smriti</a>, an answer is split into sentences, and each one must end with the numbers of the passages it relies on. Each sentence is then compared with the passages it cites, not with everything retrieved. A sentence that cites nothing, cites a passage that doesn't support it, or cites a passage the reader can't open fails on its own. The answer's score is the share of sentences that pass, and the interface shows it next to the answer.</p>
         <p>Checking per sentence changes what errors look like. Instead of "this answer is 80% good", you learn that the third sentence has no support, which is something a person can act on.</p>
 
         <h2 id="numbers">Numbers are where it breaks</h2>
