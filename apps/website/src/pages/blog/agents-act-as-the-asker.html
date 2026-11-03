@@ -1,4 +1,4 @@
-<!--page {"path": "/blog/agents-act-as-the-asker", "nav": "blog", "title": "An agent should never know more than the person asking · Safearly", "ogTitle": "An agent should never know more than the person asking", "ogType": "article", "description": "Most enterprise agents run on a service account that can read everything. That turns every shared assistant, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Essay", "title": "An agent should never know more than the person asking"}} -->
+<!--page {"path": "/blog/agents-act-as-the-asker", "nav": "blog", "title": "An agent should never know more than the person asking · Safearly", "ogTitle": "An agent should never know more than the person asking", "ogType": "article", "description": "Most enterprise agents run on a service account that can read everything. That turns every shared assistant, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-02", "type": "Essay", "title": "An agent should never know more than the person asking", "dek": "Shared assistants on an all-seeing account undo access control. Agents should act as the asker, on every surface."}} -->
   <div class="wrap article-grid">
     <nav class="toc" aria-label="On this page">
       <p>On this page</p>
@@ -26,6 +26,8 @@
         <p>Access control in most organisations is already carefully designed. The land officer can see owners' names; the site engineer sees the plot but not the owner; the vigilance team sees case files no one else does. Then an assistant arrives. It needs to search documents, so it gets a service account, and the service account needs to answer everyone's questions, so it gets read access to everything.</p>
         <p>From that moment the assistant is a side door. It doesn't need a clever attack. The engineer just asks it who owns the plot. OWASP's list of the top risks for LLM applications names both halves of this: <em>sensitive information disclosure</em>, and <em>excessive agency</em>, where an assistant holds more permissions than its task needs.</p>
         <p>Filtering the answer afterwards doesn't fix it. Once restricted text has reached the model, it can surface in a summary, a comparison or a number that no keyword filter catches.</p>
+
+        <figure class="figure2"><!--FIG:access--><figcaption>The same question gets three answers, because each is built only from what the asker may read.</figcaption></figure>
 
         <h2 id="rule">One rule</h2>
         <p>The rule we build <a href="/">Smriti</a> on is simple to state: <strong>an agent acts as the person asking, and never as the person who built it.</strong> In practice that means:</p>

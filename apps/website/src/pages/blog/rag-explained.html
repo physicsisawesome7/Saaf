@@ -1,0 +1,75 @@
+<!--page {"path": "/blog/rag-explained", "nav": "blog", "title": "RAG, explained for people who have to trust the answer · Safearly", "ogTitle": "RAG, explained for people who have to trust the answer", "ogType": "article", "description": "Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-03", "type": "Explainer", "title": "RAG, explained for people who have to trust the answer", "dek": "Chunking, search, reranking, citations and verification in plain language, and five questions to ask before you trust an answer."}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#idea">The idea</a></li>
+        <li><a href="#once">What happens once</a></li>
+        <li><a href="#every">What happens per question</a></li>
+        <li><a href="#fails">Where it goes wrong</a></li>
+        <li><a href="#ask">Five questions to ask</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>RAG, explained for people who have to trust the answer</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">3 Nov 2026 · Explainer</div></div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">Basics</span><span class="tag">Search</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Almost every "chat with your documents" product is built the same way. Knowing the parts helps you judge which answers to trust, and which products deserve your documents.</p>
+
+        <h2 id="idea">The idea</h2>
+        <p>A language model knows a lot about the world and nothing about your organisation. Retrieval-augmented generation, or RAG, fixes that by looking up relevant passages from your documents first, and giving them to the model with the question. The model writes its answer from those passages, and cites them. The term comes from a 2020 research paper; the pattern is now the default way to build assistants over private data.</p>
+
+        <figure class="figure2"><!--FIG:rag--><figcaption>Documents are prepared once. Every question then retrieves, reranks, generates and, in a careful system, verifies.</figcaption></figure>
+
+        <h2 id="once">What happens once, when documents arrive</h2>
+        <ul>
+          <li><strong>Parse.</strong> Text is pulled out of PDFs, Word files, web pages and spreadsheets. Scanned pages need OCR, and tables need to stay tables.</li>
+          <li><strong>Chunk.</strong> Documents are cut into passages small enough to search and quote, such as a clause, a section or a few paragraphs, each tagged with its title, date, section and who may read it.</li>
+          <li><strong>Index.</strong> Each passage is stored two ways: by its words, for exact terms such as clause numbers, and as an <em>embedding</em>, a list of numbers that places passages with similar meaning near each other.</li>
+        </ul>
+
+        <h2 id="every">What happens for every question</h2>
+        <ul>
+          <li><strong>Retrieve.</strong> The question is searched both ways at once (<em>hybrid search</em>) and the results are merged. This is where access control has to happen: only passages the person may read should come back.</li>
+          <li><strong>Rerank.</strong> A second, slower model reads the question next to each candidate and puts the best few first.</li>
+          <li><strong>Generate.</strong> The model gets the question, the top passages and instructions to answer only from them and to cite each claim with a passage number.</li>
+          <li><strong>Verify.</strong> A careful system checks the answer against the passages it cites before showing it. Many systems skip this step.</li>
+        </ul>
+
+        <h2 id="fails">Where it goes wrong</h2>
+        <ul>
+          <li><strong>The right passage isn't found.</strong> A question uses different words from the document, or the answer is split across two chunks. The model then answers from the next-best passage, confidently.</li>
+          <li><strong>The wrong version is found.</strong> An old policy and its replacement look alike to a search engine. Without knowing which one is in force, the system can quote the old one.</li>
+          <li><strong>The model goes beyond the passages.</strong> It fills gaps from its general knowledge, or gets a number slightly wrong, and the citation at the end makes it look sourced.</li>
+          <li><strong>The passage shouldn't have been seen.</strong> If the search isn't filtered to the person asking, the model can summarise a document they were never allowed to open.</li>
+        </ul>
+
+        <h2 id="ask">Five questions to ask before you trust one</h2>
+        <ol>
+          <li>Is every sentence checked against its citation, or is there one citation at the end?</li>
+          <li>Does it know which version of a document is in force, and can it answer "as of" a date?</li>
+          <li>Is access enforced during search, for the person asking, or only in the interface?</li>
+          <li>What does it do when it can't find support: guess, or say so?</li>
+          <li>Are numbers and totals computed from the source, or written by the model?</li>
+        </ol>
+        <p>These are the questions <a href="/">Smriti</a> was built to answer with "yes". You can read how in <a href="/docs/concepts">How Smriti works</a>.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Lewis et al., <a href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a> (arXiv 2005.11401), 2020.</li>
+          <li>Es et al., <a href="https://arxiv.org/abs/2309.15217">RAGAS: Automated Evaluation of Retrieval Augmented Generation</a> (arXiv 2309.15217): faithfulness and related metrics.</li>
+        </ol>
+
+        <div class="related">
+          <a class="post-card" href="/blog/check-every-sentence"><span class="meta">Research note</span><h3>Check every sentence, not just the answer</h3></a>
+          <a class="post-card" href="/blog/permission-aware-retrieval"><span class="meta">Explainer</span><h3>Permission-aware retrieval</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

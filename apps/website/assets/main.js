@@ -154,3 +154,16 @@ async function initDemo() {
   input.value = SAMPLES.kyc;
   render();
 }
+
+// --- blog: filter posts by type ---------------------------------------------
+const filters = [...document.querySelectorAll("[data-filter]")];
+for (const b of filters) {
+  b.addEventListener("click", () => {
+    const want = b.dataset.filter;
+    for (const x of filters) {
+      x.classList.toggle("on", x === b);
+      x.setAttribute("aria-pressed", String(x === b));
+    }
+    for (const post of document.querySelectorAll("[data-type]")) post.hidden = want !== "*" && post.dataset.type !== want;
+  });
+}

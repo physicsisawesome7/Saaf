@@ -7,6 +7,38 @@
     <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
     <item>
+      <title>Permission-aware retrieval: why filtering the answer is too late</title>
+      <link>https://safearly.com/blog/permission-aware-retrieval</link>
+      <guid>https://safearly.com/blog/permission-aware-retrieval</guid>
+      <pubDate>Tue, 03 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>An AI assistant must apply access control before the model reads anything. How permission-aware retrieval works, why filtering answers afterwards fails, and how to test it.</description>
+    </item>
+    <item>
+      <title>Running a private AI assistant on one GPU</title>
+      <link>https://safearly.com/blog/private-ai-on-one-gpu</link>
+      <guid>https://safearly.com/blog/private-ai-on-one-gpu</guid>
+      <pubDate>Tue, 03 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Guide</category>
+      <description>A practical guide to self-hosting an AI assistant on a single consumer graphics card: how memory is spent, which models fit, and the tricks that matter most, starting with not calling the model at all.</description>
+    </item>
+    <item>
+      <title>Prompt injection, explained with one example</title>
+      <link>https://safearly.com/blog/prompt-injection-explained</link>
+      <guid>https://safearly.com/blog/prompt-injection-explained</guid>
+      <pubDate>Tue, 03 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>What prompt injection is, why indirect injection through web pages and documents is the dangerous kind, why detection alone can't stop it, and the design rule that does: approval for actions after reading outside content.</description>
+    </item>
+    <item>
+      <title>RAG, explained for people who have to trust the answer</title>
+      <link>https://safearly.com/blog/rag-explained</link>
+      <guid>https://safearly.com/blog/rag-explained</guid>
+      <pubDate>Tue, 03 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.</description>
+    </item>
+    <item>
       <title>An agent should never know more than the person asking</title>
       <link>https://safearly.com/blog/agents-act-as-the-asker</link>
       <guid>https://safearly.com/blog/agents-act-as-the-asker</guid>

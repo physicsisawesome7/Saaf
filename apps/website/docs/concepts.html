@@ -11,6 +11,7 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
@@ -60,12 +61,12 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
       <li><a href="/agents">Agents</a></li>
       <li><a href="/workflows">Workflows</a></li>
       <li><a href="/applications">Applications</a></li>
       <li><a href="/docs" class="active" aria-current="page">Docs</a></li>
       <li><a href="/blog">Blog</a></li>
-      <li><a href="/products">Products</a></li>
     </ul>
     <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
@@ -87,6 +88,7 @@
       <p class="lead">Every answer goes through the same pipeline, whether it comes from the web app, an agent, a workflow or a chat bot.</p>
 
       <h2>The path of a question</h2>
+      <figure class="figure2"><svg viewBox="0 0 1140 160" role="img" aria-label="How Smriti makes an answer: guard the question, search filtered to the asker, re-check access, apply the version in force, write, verify every sentence, then answer with citations or abstain."><defs><marker id="a-pipe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow"/></marker><marker id="av-pipe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow v"/></marker></defs><rect class="ig-box " x="10" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="24" y="60">01</text><text class="ig-t" x="24" y="81.0">Guard</text><text class="ig-s" x="24" y="99.0">injection scan</text><text class="ig-s" x="24" y="114.0">mask personal data</text><path class="ig-line" d="M154,79.0 L170,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box v" x="172" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="186" y="60">02</text><text class="ig-t" x="186" y="81.0">Search</text><text class="ig-s" x="186" y="99.0">hybrid, filtered</text><text class="ig-s" x="186" y="114.0">to the asker</text><path class="ig-line" d="M316,79.0 L332,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="334" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="348" y="60">03</text><text class="ig-t" x="348" y="81.0">Re-check</text><text class="ig-s" x="348" y="99.0">access verified</text><text class="ig-s" x="348" y="114.0">against the source</text><path class="ig-line" d="M478,79.0 L494,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="496" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="510" y="60">04</text><text class="ig-t" x="510" y="81.0">Versions</text><text class="ig-s" x="510" y="99.0">rule in force +</text><text class="ig-s" x="510" y="114.0">amendments</text><path class="ig-line" d="M640,79.0 L656,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="658" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="672" y="60">05</text><text class="ig-t" x="672" y="81.0">Write</text><text class="ig-s" x="672" y="99.0">model, extract</text><text class="ig-s" x="672" y="114.0">or table maths</text><path class="ig-line" d="M802,79.0 L818,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box v" x="820" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="834" y="60">06</text><text class="ig-t" x="834" y="81.0">Verify</text><text class="ig-s" x="834" y="99.0">every sentence</text><text class="ig-s" x="834" y="114.0">and number</text><rect class="ig-box ok" x="982" y="12" width="156" height="56" rx="12"/><text class="ig-t" x="996" y="36.0">Answer</text><text class="ig-s" x="996" y="54.0">with citations</text><rect class="ig-box w" x="982" y="92" width="156" height="56" rx="12"/><text class="ig-t" x="996" y="116.0">Abstain</text><text class="ig-s" x="996" y="134.0">say what&#x27;s missing</text><path class="ig-line" d="M964,79.0 C972.0,79.0 972.0,40 980,40" marker-end="url(#a-pipe)"/><path class="ig-line" d="M964,79.0 C972.0,79.0 972.0,120 980,120" marker-end="url(#a-pipe)"/><text class="ig-s" x="10" y="20">Question</text><text class="ig-s" x="10" y="150">Every step is recorded in a trace and the hash-chained audit log.</text></svg><figcaption>The pipeline every answer goes through.</figcaption></figure>
       <ol>
         <li><b>Guard the input.</b> The question is scanned for injection attempts, and personal data is masked with <a href="/saaf">Saaf</a>.</li>
         <li><b>Expand.</b> Abbreviations and synonyms from the organisation's glossary widen the search.</li>

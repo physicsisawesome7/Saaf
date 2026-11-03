@@ -11,13 +11,18 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Safearly">
   <meta property="og:title" content="Check every sentence, not just the answer">
   <meta property="og:description" content="A citation at the end of an answer proves little. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails, is how retrieval answers become something people can act on.">
   <meta property="og:url" content="https://safearly.com/blog/check-every-sentence">
-  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta property="og:image" content="https://safearly.com/assets/og/check-every-sentence.png">
+  <meta property="article:published_time" content="2026-11-02">
+  <meta property="article:author" content="Lalit Shukla">
+  <meta property="article:section" content="Research note">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Check every sentence, not just the answer","description":"A citation at the end of an answer proves little. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails, is how retrieval answers become something people can act on.","datePublished":"2026-11-02","author":{"@type":"Person","name":"Lalit Shukla","url":"https://safearly.com/about"},"publisher":{"@type":"Organization","name":"Safearly","url":"https://safearly.com","logo":{"@type":"ImageObject","url":"https://safearly.com/assets/brand/safearly-mark-512.png"}},"image":"https://safearly.com/assets/og/check-every-sentence.png","mainEntityOfPage":"https://safearly.com/blog/check-every-sentence"}</script>
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/lab.css">
@@ -60,12 +65,12 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
       <li><a href="/agents">Agents</a></li>
       <li><a href="/workflows">Workflows</a></li>
       <li><a href="/applications">Applications</a></li>
       <li><a href="/docs">Docs</a></li>
       <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
-      <li><a href="/products">Products</a></li>
     </ul>
     <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
@@ -92,7 +97,7 @@
       <h1>Check every sentence, not just the answer</h1>
       <div class="byline">
         <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
-        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Research note</div></div>
+        <div><div class="who">Lalit Shukla</div><div class="meta">2 Nov 2026 · Research note · 4 min read</div></div>
         <div class="tags"><span class="tag">RAG</span><span class="tag">Verification</span><span class="tag">Hallucination</span></div>
       </div>
       <div class="prose">
@@ -105,6 +110,8 @@
         <h2 id="sentence">Sentence by sentence</h2>
         <p>In <a href="/">Smriti</a>, an answer is split into sentences, and each one must end with the numbers of the passages it relies on. Each sentence is then compared with the passages it cites, not with everything retrieved. A sentence that cites nothing, cites a passage that doesn't support it, or cites a passage the reader can't open fails on its own. The answer's score is the share of sentences that pass, and the interface shows it next to the answer.</p>
         <p>Checking per sentence changes what errors look like. Instead of "this answer is 80% good", you learn that the third sentence has no support, which is something a person can act on.</p>
+
+        <figure class="figure2"><svg viewBox="0 0 1140 160" role="img" aria-label="How Smriti makes an answer: guard the question, search filtered to the asker, re-check access, apply the version in force, write, verify every sentence, then answer with citations or abstain."><defs><marker id="a-pipe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow"/></marker><marker id="av-pipe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow v"/></marker></defs><rect class="ig-box " x="10" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="24" y="60">01</text><text class="ig-t" x="24" y="81.0">Guard</text><text class="ig-s" x="24" y="99.0">injection scan</text><text class="ig-s" x="24" y="114.0">mask personal data</text><path class="ig-line" d="M154,79.0 L170,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box v" x="172" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="186" y="60">02</text><text class="ig-t" x="186" y="81.0">Search</text><text class="ig-s" x="186" y="99.0">hybrid, filtered</text><text class="ig-s" x="186" y="114.0">to the asker</text><path class="ig-line" d="M316,79.0 L332,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="334" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="348" y="60">03</text><text class="ig-t" x="348" y="81.0">Re-check</text><text class="ig-s" x="348" y="99.0">access verified</text><text class="ig-s" x="348" y="114.0">against the source</text><path class="ig-line" d="M478,79.0 L494,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="496" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="510" y="60">04</text><text class="ig-t" x="510" y="81.0">Versions</text><text class="ig-s" x="510" y="99.0">rule in force +</text><text class="ig-s" x="510" y="114.0">amendments</text><path class="ig-line" d="M640,79.0 L656,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box " x="658" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="672" y="60">05</text><text class="ig-t" x="672" y="81.0">Write</text><text class="ig-s" x="672" y="99.0">model, extract</text><text class="ig-s" x="672" y="114.0">or table maths</text><path class="ig-line" d="M802,79.0 L818,79.0" marker-end="url(#a-pipe)"/><rect class="ig-box v" x="820" y="40" width="142" height="78" rx="12"/><text class="ig-n" x="834" y="60">06</text><text class="ig-t" x="834" y="81.0">Verify</text><text class="ig-s" x="834" y="99.0">every sentence</text><text class="ig-s" x="834" y="114.0">and number</text><rect class="ig-box ok" x="982" y="12" width="156" height="56" rx="12"/><text class="ig-t" x="996" y="36.0">Answer</text><text class="ig-s" x="996" y="54.0">with citations</text><rect class="ig-box w" x="982" y="92" width="156" height="56" rx="12"/><text class="ig-t" x="996" y="116.0">Abstain</text><text class="ig-s" x="996" y="134.0">say what&#x27;s missing</text><path class="ig-line" d="M964,79.0 C972.0,79.0 972.0,40 980,40" marker-end="url(#a-pipe)"/><path class="ig-line" d="M964,79.0 C972.0,79.0 972.0,120 980,120" marker-end="url(#a-pipe)"/><text class="ig-s" x="10" y="20">Question</text><text class="ig-s" x="10" y="150">Every step is recorded in a trace and the hash-chained audit log.</text></svg><figcaption>Verification is the last gate before an answer is shown.</figcaption></figure>
 
         <h2 id="numbers">Numbers are where it breaks</h2>
         <p>In contracts, circulars and rules, the costly mistakes are numeric: a period of 21 days instead of 30, a cap of 10% instead of 5%, the old figure from before an amendment. Fuzzy text similarity is bad at these, because "within 30 days" and "within 21 days" are nearly identical strings.</p>
@@ -131,6 +138,13 @@
         </ol>
         <p class="note-box">This note describes Smriti's design. We will publish measured abstention and faithfulness rates on an open evaluation set before quoting them as numbers.</p>
 
+        <div class="post-tools"><span>Share</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fcheck-every-sentence" rel="noopener" target="_blank">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fcheck-every-sentence&amp;text=Check%20every%20sentence%2C%20not%20just%20the%20answer" rel="noopener" target="_blank">X</a>
+          <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsafearly.com%2Fblog%2Fcheck-every-sentence&amp;t=Check%20every%20sentence%2C%20not%20just%20the%20answer" rel="noopener" target="_blank">Hacker News</a>
+          <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fcheck-every-sentence&amp;title=Check%20every%20sentence%2C%20not%20just%20the%20answer" rel="noopener" target="_blank">Reddit</a>
+          <a href="mailto:?subject=Check%20every%20sentence%2C%20not%20just%20the%20answer&amp;body=https%3A%2F%2Fsafearly.com%2Fblog%2Fcheck-every-sentence">Email</a>
+          <a href="/blog/feed.xml">RSS</a></div>
         <div class="related">
           <a class="post-card" href="/blog/agents-act-as-the-asker"><span class="meta">Essay</span><h3>An agent should never know more than the person asking</h3></a>
           <a class="post-card" href="/blog/guardrails-latency-budget"><span class="meta">Essay</span><h3>Guardrails have a latency budget</h3></a>

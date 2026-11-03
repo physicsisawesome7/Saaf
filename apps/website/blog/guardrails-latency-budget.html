@@ -11,13 +11,18 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Safearly">
   <meta property="og:title" content="Guardrails have a latency budget">
   <meta property="og:description" content="A guardrail that adds noticeable latency gets switched off. How to design guardrails fast enough to run on every request and inside the stream, with measured numbers.">
   <meta property="og:url" content="https://safearly.com/blog/guardrails-latency-budget">
-  <meta property="og:image" content="https://safearly.com/assets/brand/og-image.png">
+  <meta property="og:image" content="https://safearly.com/assets/og/guardrails-latency-budget.png">
+  <meta property="article:published_time" content="2026-10-27">
+  <meta property="article:author" content="Lalit Shukla">
+  <meta property="article:section" content="Essay">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Guardrails have a latency budget","description":"A guardrail that adds noticeable latency gets switched off. How to design guardrails fast enough to run on every request and inside the stream, with measured numbers.","datePublished":"2026-10-27","author":{"@type":"Person","name":"Lalit Shukla","url":"https://safearly.com/about"},"publisher":{"@type":"Organization","name":"Safearly","url":"https://safearly.com","logo":{"@type":"ImageObject","url":"https://safearly.com/assets/brand/safearly-mark-512.png"}},"image":"https://safearly.com/assets/og/guardrails-latency-budget.png","mainEntityOfPage":"https://safearly.com/blog/guardrails-latency-budget"}</script>
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/lab.css">
@@ -60,12 +65,12 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
       <li><a href="/agents">Agents</a></li>
       <li><a href="/workflows">Workflows</a></li>
       <li><a href="/applications">Applications</a></li>
       <li><a href="/docs">Docs</a></li>
       <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
-      <li><a href="/products">Products</a></li>
     </ul>
     <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
@@ -91,7 +96,7 @@
       <h1>Guardrails have a latency budget</h1>
       <div class="byline">
         <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
-        <div><div class="who">Lalit Shukla</div><div class="meta">27 Oct 2026 · Essay</div></div>
+        <div><div class="who">Lalit Shukla</div><div class="meta">27 Oct 2026 · Essay · 4 min read</div></div>
         <div class="tags"><span class="tag">Guardrails</span><span class="tag">Latency</span><span class="tag">LLM</span></div>
       </div>
       <div class="prose">
@@ -148,6 +153,13 @@
         </ol>
         <p class="note-box">Latency figures are from our own benchmark run on one machine; your hardware will differ, and the scripts to rerun them are public. Checked on 27 October 2026.</p>
 
+        <div class="post-tools"><span>Share</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fguardrails-latency-budget" rel="noopener" target="_blank">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fguardrails-latency-budget&amp;text=Guardrails%20have%20a%20latency%20budget" rel="noopener" target="_blank">X</a>
+          <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsafearly.com%2Fblog%2Fguardrails-latency-budget&amp;t=Guardrails%20have%20a%20latency%20budget" rel="noopener" target="_blank">Hacker News</a>
+          <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fsafearly.com%2Fblog%2Fguardrails-latency-budget&amp;title=Guardrails%20have%20a%20latency%20budget" rel="noopener" target="_blank">Reddit</a>
+          <a href="mailto:?subject=Guardrails%20have%20a%20latency%20budget&amp;body=https%3A%2F%2Fsafearly.com%2Fblog%2Fguardrails-latency-budget">Email</a>
+          <a href="/blog/feed.xml">RSS</a></div>
         <div class="related">
           <a class="post-card" href="/blog/where-inference-time-goes"><span class="meta">Research note</span><h3>Where inference time and money actually go</h3></a>
           <a class="post-card" href="/blog/least-privilege-agent-skills"><span class="meta">Essay</span><h3>Least privilege for agent skills</h3></a>

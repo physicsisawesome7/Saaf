@@ -1,0 +1,52 @@
+# Smriti by Safearly
+
+> Smriti is open-source (Apache-2.0) institutional memory: private AI agents and workflows over an organisation's documents, sites, APIs and databases. Answers cite their sources and are checked sentence by sentence. Every agent, workflow, widget and chat bot acts as the person asking. Personal data is masked before any model. It runs on your own hardware, with one GPU or none. Safearly also makes Saaf, an open-source PII masking engine for LLM traffic.
+
+Source code: https://github.com/physicsisawesome7/smriti
+Saaf: https://github.com/physicsisawesome7/Saaf
+Contact: lalit@safearly.com
+
+## Product
+- [Smriti: private AI agents and workflows that cite their sources](https://safearly.com/): Smriti is open-source institutional memory. It connects your documents, sites, APIs and databases, and gives your teams agents and workflows that answer with checked citations, act as the person asking, and run on your own hardware.
+- [Agents](https://safearly.com/agents): Build private AI agents on your own knowledge: cited lookup, tool-using and research agents that act as the person asking, check every sentence, mask personal data and wait for approval before changing anything. Gallery of ready-made agents.
+- [Workflows](https://safearly.com/workflows): Smriti workflows: chain AI agents, conditions, variables, sandboxed code, loops and human approval on a visual canvas. Every step cites its sources and acts as the person running it. Examples and templates.
+- [Applications](https://safearly.com/applications): Where Smriti runs and what teams use it for: the web app, a website widget, Slack, Telegram, Discord, an OpenAI-compatible API and an MCP server, for support, internal knowledge, legal, compliance, engineering and the public sector.
+- [Products & open source](https://safearly.com/products): Smriti, Saaf and IndicPII-Bench: what Safearly has shipped, and what is in research. All open source.
+
+## Docs
+- [Smriti documentation](https://safearly.com/docs): Documentation for Smriti, open-source institutional memory: quickstart, deployment, concepts, knowledge sources, agents, workflows, integrations, API and security.
+- [Quickstart](https://safearly.com/docs/quickstart): Install Smriti, open the seeded demo and ask your first verified question in about five minutes.
+- [Install and deploy](https://safearly.com/docs/install): Deploy Smriti with one command on a laptop, one consumer GPU or your own servers: hardware profiles, configuration, scaling, offline installs and troubleshooting.
+- [How Smriti works](https://safearly.com/docs/concepts): How Smriti answers a question: guarded input, permission-filtered hybrid search, version rules and amendments, table maths, sentence-level verification, abstention and audit.
+- [Knowledge and sources](https://safearly.com/docs/knowledge): Connect websites, files, folders, feeds, REST APIs, SQL databases and MCP servers to Smriti, with access settings, schedules, background jobs and safety controls.
+- [Security and access](https://safearly.com/docs/security): Smriti's security model: two access checks, agents that act as the asker, personal-data masking, prompt-injection defences, approvals, encrypted credentials, egress control and a hash-chained audit log.
+- [Agents and tools](https://safearly.com/docs/agents): Build Smriti agents: kinds, instructions, sources, tools, approval policies, sharing, schedules, conversations and API keys.
+- [Workflows](https://safearly.com/docs/workflows): Build Smriti workflows on a visual canvas: steps, variables, templates, the safe expression language, approvals, limits and the graph format for the API.
+- [Integrations](https://safearly.com/docs/integrations): Put a Smriti agent in a website widget, Slack, Telegram or Discord: identity modes, safety checks for external replies, setup steps and the integrations API.
+- [API, MCP and CLI](https://safearly.com/docs/api): Smriti's REST API, OpenAI-compatible endpoint, MCP server and command line: endpoints, authentication, streaming events and commands.
+- [FAQ and limits](https://safearly.com/docs/faq): Common questions about Smriti, and the honest limits of the current release.
+
+## Blog
+- [Permission-aware retrieval: why filtering the answer is too late](https://safearly.com/blog/permission-aware-retrieval): An AI assistant must apply access control before the model reads anything. How permission-aware retrieval works, why filtering answers afterwards fails, and how to test it.
+- [Running a private AI assistant on one GPU](https://safearly.com/blog/private-ai-on-one-gpu): A practical guide to self-hosting an AI assistant on a single consumer graphics card: how memory is spent, which models fit, and the tricks that matter most, starting with not calling the model at all.
+- [Prompt injection, explained with one example](https://safearly.com/blog/prompt-injection-explained): What prompt injection is, why indirect injection through web pages and documents is the dangerous kind, why detection alone can't stop it, and the design rule that does: approval for actions after reading outside content.
+- [RAG, explained for people who have to trust the answer](https://safearly.com/blog/rag-explained): Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.
+- [An agent should never know more than the person asking](https://safearly.com/blog/agents-act-as-the-asker): Most enterprise agents run on a service account that can read everything. That turns every shared assistant, chat bot and widget into a way around access control. A design where the agent always acts as the person asking.
+- [Agents or workflows? How to choose](https://safearly.com/blog/agents-or-workflows): An agent decides what to do; a workflow follows a process you drew. A practical guide to picking one, with examples, and why most teams end up using both.
+- [Check every sentence, not just the answer](https://safearly.com/blog/check-every-sentence): A citation at the end of an answer proves little. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails, is how retrieval answers become something people can act on.
+- [Smriti now does workflows and lives where your team works](https://safearly.com/blog/smriti-workflows-and-integrations): Release notes: visual workflows with human approval, a website widget, Slack, Telegram and Discord bots, and the safety rules that come with them.
+- [Guardrails have a latency budget](https://safearly.com/blog/guardrails-latency-budget): A guardrail that adds noticeable latency gets switched off. How to design guardrails fast enough to run on every request and inside the stream, with measured numbers.
+- [Least privilege for agent skills](https://safearly.com/blog/least-privilege-agent-skills): Multipurpose agents load skills and tools from strangers. A skill should declare what it needs, get nothing more, and leave a record. A design for secure agent skills.
+- [Where inference time and money actually go](https://safearly.com/blog/where-inference-time-goes): Prefill is compute-bound, decode is memory-bound, and most serving waste hides in between. A field guide to the inference optimizations that hold up: continuous batching, paged KV cache, speculative decoding and disaggregation.
+- [Agents need a firewall](https://safearly.com/blog/agents-need-a-firewall): Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call. That is where the guardrail belongs.
+- [A checksum is not enough: detecting Indian PII in the real world](https://safearly.com/blog/checksum-is-not-enough): About one random 12-digit number in ten passes the Aadhaar checksum. Why detecting Indian personal data needs labels, scripts and OCR repair, and what today's tools do.
+- [India's AI trust rulebook, for builders](https://safearly.com/blog/india-ai-trust-rulebook): DPDP, the Aadhaar Data Vault, CERT-In, RBI's FREE-AI and the IT Rules: what is in force, what is draft, and what it means for your LLM app, as of October 2026.
+
+## Optional
+- [Saaf](https://safearly.com/saaf): Saaf masks Aadhaar, PAN, GSTIN, UPI and 18 more identifiers before they reach an LLM, and puts the real values back in the reply, even mid-stream. Open source, from Safearly.
+- [Saaf for AI chats](https://safearly.com/saaf/extension): A free browser extension that masks Aadhaar, PAN, card numbers, emails and other personal data before you send them to ChatGPT, Claude, Gemini or any AI chat, and shows the real values in the reply on your screen. Runs on your device.
+- [Saaf Playground](https://safearly.com/saaf/playground): Chat with a real LLM through Saaf. Aadhaar, PAN, UPI and other identifiers are masked in your browser before anything is sent, and restored as the reply streams in. Or mask a whole file.
+- [Research](https://safearly.com/research): Benchmarks, data and notes from Safearly on guardrails, inference and agents. Every number comes with the method, the data and the code to reproduce it, including the results where we lose.
+- [Lalit Shukla](https://safearly.com/about): Lalit Shukla is a product-driven entrepreneur and Chief of Product, Head of AI Products at Aagento.ai. He builds AI products for infrastructure and government: automated DPRs, bridge design, drone analytics and digital twins.
+- [Full text of the product pages, docs and blog](https://safearly.com/llms-full.txt)
+- [RSS feed](https://safearly.com/blog/feed.xml)

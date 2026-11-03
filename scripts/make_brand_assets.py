@@ -171,28 +171,20 @@ def og_image() -> Image.Image:
     x0 = (W * s - total) / 2
     draw_mark(img, x0, 92 * s, mark)
     d.text((x0 + mark + 18 * s, 104 * s), "safearly", font=f_word, fill=_rgb(INK))
-    head = font("bold", 62 * s)
-    centered(d, W * s / 2, 222 * s, "The safety and speed layer", head, _rgb(INK))
-    centered(d, W * s / 2, 296 * s, "for AI in production.", head, _rgb(INK))
+    head = font("bold", 66 * s)
+    centered(d, W * s / 2, 222 * s, "Private AI agents that", head, _rgb(INK))
+    centered(d, W * s / 2, 300 * s, "cite their sources.", head, _rgb(INK))
     sub = font("regular", 30 * s)
-    centered(d, W * s / 2, 392 * s, "Fast inference  ·  Fast guardrails  ·  Secure agents", sub, _rgb(GREY))
-    chips = [("2345 6789 0124", "[AADHAAR_1]"), ("ABCPE1234F", "[PAN_1]")]
-    f = font("mono", 28 * s)
-    widths = [
-        (d.textlength(raw, font=f) + 40 * s, d.textlength("→", font=f) + 28 * s, d.textlength(tok, font=f) + 40 * s)
-        for raw, tok in chips
-    ]
-    row = sum(a + b + c for a, b, c in widths) + 56 * s
-    x, y = (W * s - row) / 2, 476 * s
-    for (raw, tok), (wa, wb, wc) in zip(chips, widths, strict=True):
-        d.rounded_rectangle([x, y, x + wa, y + 56 * s], radius=28 * s, fill=_rgb(VIOLET_TINT))
-        d.text((x + 20 * s, y + 11 * s), raw, font=f, fill=_rgb(INK))
-        x += wa
-        d.text((x + 14 * s, y + 11 * s), "→", font=f, fill=_rgb(GREY))
-        x += wb
-        d.rounded_rectangle([x, y, x + wc, y + 56 * s], radius=28 * s, fill=_rgb(VIOLET))
-        d.text((x + 20 * s, y + 11 * s), tok, font=f, fill=_rgb(WHITE))
-        x += wc + 56 * s
+    centered(d, W * s / 2, 398 * s, "Smriti  ·  open-source institutional memory", sub, _rgb(GREY))
+    chips = [("verified answers", VIOLET), ("acts as you", INK), ("your hardware", INK)]
+    f = font("semibold", 28 * s)
+    widths = [d.textlength(t, font=f) + 48 * s for t, _ in chips]
+    gap = 20 * s
+    x, y = (W * s - sum(widths) - gap * (len(chips) - 1)) / 2, 476 * s
+    for (t, c), w in zip(chips, widths, strict=True):
+        d.rounded_rectangle([x, y, x + w, y + 58 * s], radius=29 * s, fill=_rgb(c))
+        d.text((x + 24 * s, y + 11 * s), t, font=f, fill=_rgb(WHITE))
+        x += w + gap
     return img.resize((W, H), Image.LANCZOS).convert("RGB")
 
 

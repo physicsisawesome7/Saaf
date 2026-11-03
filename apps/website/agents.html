@@ -11,6 +11,7 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
@@ -60,12 +61,12 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
       <li><a href="/agents" class="active" aria-current="page">Agents</a></li>
       <li><a href="/workflows">Workflows</a></li>
       <li><a href="/applications">Applications</a></li>
       <li><a href="/docs">Docs</a></li>
       <li><a href="/blog">Blog</a></li>
-      <li><a href="/products">Products</a></li>
     </ul>
     <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
@@ -103,6 +104,7 @@
         <div class="card2 reveal"><span class="kindtag k-research">Research</span><h3>Plans and verifies</h3><p>Splits a broad question into two to five parts, answers each with its own verification, and merges them into one cited report.</p></div>
         <div class="card2 reveal"><span class="kindtag k-workflow">Workflow</span><h3>Follows a process</h3><p>A graph of agent steps, conditions, code, loops and approvals that runs in order. <a href="/workflows">Workflows →</a></p></div>
       </div>
+      <div class="mt40"><figure class="figure2 reveal"><svg viewBox="0 0 980 236" role="img" aria-label="The agent loop: plan, call a tool, read the result as a numbered passage, repeat until it can answer, then verify. Tool calls that change data wait for the asker&#x27;s approval."><defs><marker id="a-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow"/></marker><marker id="av-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow v"/></marker></defs><rect class="ig-box k" x="10" y="70" width="150" height="64" rx="12"/><text class="ig-t w" x="24" y="98.0">Question</text><text class="ig-s w" x="24" y="116.0">as the asker</text><path class="ig-line" d="M162,102 L208,102" marker-end="url(#a-loop)"/><rect class="ig-box " x="210" y="70" width="150" height="64" rx="12"/><text class="ig-t" x="224" y="98.0">Plan</text><text class="ig-s" x="224" y="116.0">pick the next tool</text><path class="ig-line" d="M362,102 L408,102" marker-end="url(#a-loop)"/><rect class="ig-box v" x="410" y="70" width="160" height="64" rx="12"/><text class="ig-t" x="424" y="98.0">Call a tool</text><text class="ig-s" x="424" y="116.0">search · API · code</text><path class="ig-line" d="M572,102 L618,102" marker-end="url(#a-loop)"/><rect class="ig-box " x="620" y="70" width="150" height="64" rx="12"/><text class="ig-t" x="634" y="98.0">Read result</text><text class="ig-s" x="634" y="116.0">numbered passage</text><path class="ig-line dash" d="M695,68 C695,20 285,20 285,68" marker-end="url(#a-loop)"/><text class="ig-s" x="400" y="26">repeat until it can answer (step limit)</text><path class="ig-line" d="M772,102 L818,102" marker-end="url(#a-loop)"/><rect class="ig-box ok" x="820" y="70" width="150" height="64" rx="12"/><text class="ig-t" x="834" y="98.0">Verified answer</text><text class="ig-s" x="834" y="116.0">cites the passages</text><path class="ig-line v" d="M490,136 L490,170" marker-end="url(#av-loop)"/><rect class="ig-box w" x="380" y="172" width="220" height="56" rx="12"/><text class="ig-t" x="394" y="196.0">Changes data?</text><text class="ig-s" x="394" y="214.0">wait for the asker&#x27;s approval</text></svg><figcaption>The agentic loop. Every tool result becomes a citable passage, and actions that change data wait for the asker.</figcaption></figure></div>
     </div>
   </section>
 

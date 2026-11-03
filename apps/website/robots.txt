@@ -1,4 +1,31 @@
+# safearly.com: everything public may be crawled and indexed, including by AI assistants.
+# A guide to the site for language models: https://safearly.com/llms.txt
 User-agent: *
+Allow: /
+Disallow: /downloads/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://safearly.com/sitemap.xml

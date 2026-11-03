@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAG, explained for people who have to trust the answer · Safearly</title>
+  <meta name="description" content="Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.">
+  <link rel="canonical" href="https://safearly.com/blog/rag-explained">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="RAG, explained for people who have to trust the answer">
+  <meta property="og:description" content="Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.">
+  <meta property="og:url" content="https://safearly.com/blog/rag-explained">
+  <meta property="og:image" content="https://safearly.com/assets/og/rag-explained.png">
+  <meta property="article:published_time" content="2026-11-03">
+  <meta property="article:author" content="Lalit Shukla">
+  <meta property="article:section" content="Explainer">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"RAG, explained for people who have to trust the answer","description":"Retrieval-augmented generation in plain language: chunking, indexing, hybrid search, reranking, citations and verification, and the questions to ask before you trust an answer from one.","datePublished":"2026-11-03","author":{"@type":"Person","name":"Lalit Shukla","url":"https://safearly.com/about"},"publisher":{"@type":"Organization","name":"Safearly","url":"https://safearly.com","logo":{"@type":"ImageObject","url":"https://safearly.com/assets/brand/safearly-mark-512.png"}},"image":"https://safearly.com/assets/og/rag-explained.png","mainEntityOfPage":"https://safearly.com/blog/rag-explained"}</script>
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <link rel="stylesheet" href="/assets/smriti.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/workflows">Workflows</a></li>
+      <li><a href="/applications">Applications</a></li>
+      <li><a href="/docs">Docs</a></li>
+      <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#idea">The idea</a></li>
+        <li><a href="#once">What happens once</a></li>
+        <li><a href="#every">What happens per question</a></li>
+        <li><a href="#fails">Where it goes wrong</a></li>
+        <li><a href="#ask">Five questions to ask</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>RAG, explained for people who have to trust the answer</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">3 Nov 2026 · Explainer · 3 min read</div></div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">Basics</span><span class="tag">Search</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Almost every "chat with your documents" product is built the same way. Knowing the parts helps you judge which answers to trust, and which products deserve your documents.</p>
+
+        <h2 id="idea">The idea</h2>
+        <p>A language model knows a lot about the world and nothing about your organisation. Retrieval-augmented generation, or RAG, fixes that by looking up relevant passages from your documents first, and giving them to the model with the question. The model writes its answer from those passages, and cites them. The term comes from a 2020 research paper; the pattern is now the default way to build assistants over private data.</p>
+
+        <figure class="figure2"><svg viewBox="0 0 970 210" role="img" aria-label="Retrieval-augmented generation: documents are chunked and indexed once; each question retrieves passages, reranks them, generates a cited answer and verifies it."><defs><marker id="a-rag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow"/></marker><marker id="av-rag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="ig-arrow v"/></marker></defs><text class="ig-n" x="10" y="18">ONCE, WHEN DOCUMENTS ARRIVE</text><rect class="ig-box " x="10" y="28" width="150" height="60" rx="12"/><text class="ig-t" x="24" y="54.0">Documents</text><text class="ig-s" x="24" y="72.0">PDF · pages · rows</text><path class="ig-line" d="M162,58 L198,58" marker-end="url(#a-rag)"/><rect class="ig-box " x="200" y="28" width="150" height="60" rx="12"/><text class="ig-t" x="214" y="54.0">Chunk</text><text class="ig-s" x="214" y="72.0">passages + metadata</text><path class="ig-line" d="M352,58 L388,58" marker-end="url(#a-rag)"/><rect class="ig-box v" x="390" y="28" width="170" height="60" rx="12"/><text class="ig-t" x="404" y="54.0">Index</text><text class="ig-s" x="404" y="72.0">keywords + vectors</text><text class="ig-n" x="10" y="128">EVERY QUESTION</text><rect class="ig-box k" x="10" y="138" width="150" height="60" rx="12"/><text class="ig-t w" x="24" y="176.0">Question</text><path class="ig-line" d="M162,168 L198,168" marker-end="url(#a-rag)"/><rect class="ig-box " x="200" y="138" width="150" height="60" rx="12"/><text class="ig-t" x="214" y="164.0">Retrieve</text><text class="ig-s" x="214" y="182.0">top passages</text><path class="ig-line dash" d="M475,90 L475,120 L275,120 L275,136" marker-end="url(#a-rag)"/><path class="ig-line" d="M352,168 L388,168" marker-end="url(#a-rag)"/><rect class="ig-box " x="390" y="138" width="170" height="60" rx="12"/><text class="ig-t" x="404" y="164.0">Rerank</text><text class="ig-s" x="404" y="182.0">best few first</text><path class="ig-line" d="M562,168 L598,168" marker-end="url(#a-rag)"/><rect class="ig-box " x="600" y="138" width="160" height="60" rx="12"/><text class="ig-t" x="614" y="164.0">Generate</text><text class="ig-s" x="614" y="182.0">answer + [n] cites</text><path class="ig-line v" d="M762,168 L798,168" marker-end="url(#av-rag)"/><rect class="ig-box ok" x="800" y="138" width="160" height="60" rx="12"/><text class="ig-t" x="814" y="164.0">Verify</text><text class="ig-s" x="814" y="182.0">each sentence</text></svg><figcaption>Documents are prepared once. Every question then retrieves, reranks, generates and, in a careful system, verifies.</figcaption></figure>
+
+        <h2 id="once">What happens once, when documents arrive</h2>
+        <ul>
+          <li><strong>Parse.</strong> Text is pulled out of PDFs, Word files, web pages and spreadsheets. Scanned pages need OCR, and tables need to stay tables.</li>
+          <li><strong>Chunk.</strong> Documents are cut into passages small enough to search and quote, such as a clause, a section or a few paragraphs, each tagged with its title, date, section and who may read it.</li>
+          <li><strong>Index.</strong> Each passage is stored two ways: by its words, for exact terms such as clause numbers, and as an <em>embedding</em>, a list of numbers that places passages with similar meaning near each other.</li>
+        </ul>
+
+        <h2 id="every">What happens for every question</h2>
+        <ul>
+          <li><strong>Retrieve.</strong> The question is searched both ways at once (<em>hybrid search</em>) and the results are merged. This is where access control has to happen: only passages the person may read should come back.</li>
+          <li><strong>Rerank.</strong> A second, slower model reads the question next to each candidate and puts the best few first.</li>
+          <li><strong>Generate.</strong> The model gets the question, the top passages and instructions to answer only from them and to cite each claim with a passage number.</li>
+          <li><strong>Verify.</strong> A careful system checks the answer against the passages it cites before showing it. Many systems skip this step.</li>
+        </ul>
+
+        <h2 id="fails">Where it goes wrong</h2>
+        <ul>
+          <li><strong>The right passage isn't found.</strong> A question uses different words from the document, or the answer is split across two chunks. The model then answers from the next-best passage, confidently.</li>
+          <li><strong>The wrong version is found.</strong> An old policy and its replacement look alike to a search engine. Without knowing which one is in force, the system can quote the old one.</li>
+          <li><strong>The model goes beyond the passages.</strong> It fills gaps from its general knowledge, or gets a number slightly wrong, and the citation at the end makes it look sourced.</li>
+          <li><strong>The passage shouldn't have been seen.</strong> If the search isn't filtered to the person asking, the model can summarise a document they were never allowed to open.</li>
+        </ul>
+
+        <h2 id="ask">Five questions to ask before you trust one</h2>
+        <ol>
+          <li>Is every sentence checked against its citation, or is there one citation at the end?</li>
+          <li>Does it know which version of a document is in force, and can it answer "as of" a date?</li>
+          <li>Is access enforced during search, for the person asking, or only in the interface?</li>
+          <li>What does it do when it can't find support: guess, or say so?</li>
+          <li>Are numbers and totals computed from the source, or written by the model?</li>
+        </ol>
+        <p>These are the questions <a href="/">Smriti</a> was built to answer with "yes". You can read how in <a href="/docs/concepts">How Smriti works</a>.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Lewis et al., <a href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a> (arXiv 2005.11401), 2020.</li>
+          <li>Es et al., <a href="https://arxiv.org/abs/2309.15217">RAGAS: Automated Evaluation of Retrieval Augmented Generation</a> (arXiv 2309.15217): faithfulness and related metrics.</li>
+        </ol>
+
+        <div class="post-tools"><span>Share</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-explained" rel="noopener" target="_blank">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-explained&amp;text=RAG%2C%20explained%20for%20people%20who%20have%20to%20trust%20the%20answer" rel="noopener" target="_blank">X</a>
+          <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-explained&amp;t=RAG%2C%20explained%20for%20people%20who%20have%20to%20trust%20the%20answer" rel="noopener" target="_blank">Hacker News</a>
+          <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-explained&amp;title=RAG%2C%20explained%20for%20people%20who%20have%20to%20trust%20the%20answer" rel="noopener" target="_blank">Reddit</a>
+          <a href="mailto:?subject=RAG%2C%20explained%20for%20people%20who%20have%20to%20trust%20the%20answer&amp;body=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-explained">Email</a>
+          <a href="/blog/feed.xml">RSS</a></div>
+        <div class="related">
+          <a class="post-card" href="/blog/check-every-sentence"><span class="meta">Research note</span><h3>Check every sentence, not just the answer</h3></a>
+          <a class="post-card" href="/blog/permission-aware-retrieval"><span class="meta">Explainer</span><h3>Permission-aware retrieval</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid five">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
+      </div>
+      <div>
+        <h4>Smriti</h4>
+        <ul>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/products">All products</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="https://www.linkedin.com/in/lalit-shukla-884275188/">LinkedIn</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

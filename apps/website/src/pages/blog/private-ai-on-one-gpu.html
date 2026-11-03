@@ -1,0 +1,67 @@
+<!--page {"path": "/blog/private-ai-on-one-gpu", "nav": "blog", "title": "Running a private AI assistant on one GPU · Safearly", "ogTitle": "Running a private AI assistant on one GPU", "ogType": "article", "description": "A practical guide to self-hosting an AI assistant on a single consumer graphics card: how memory is spent, which models fit, and the tricks that matter most, starting with not calling the model at all.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-03", "type": "Guide", "title": "Running a private AI assistant on one GPU", "dek": "How graphics memory is spent, which models fit, and why the biggest saving is not calling the model at all."}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#why">Why one GPU</a></li>
+        <li><a href="#memory">Where the memory goes</a></li>
+        <li><a href="#fit">What fits</a></li>
+        <li><a href="#skip">Don't call the model</a></li>
+        <li><a href="#tricks">The other tricks</a></li>
+        <li><a href="#measure">Measure, don't guess</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Guide</div>
+      <h1>Running a private AI assistant on one GPU</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">3 Nov 2026 · Guide</div></div>
+        <div class="tags"><span class="tag">Self-hosting</span><span class="tag">Inference</span><span class="tag">GPU</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">Many organisations can't send their documents to a cloud model, and can't wait for a data-centre budget either. A single consumer graphics card, used carefully, goes much further than most people expect.</p>
+
+        <h2 id="why">Why one GPU</h2>
+        <p>A card with 12 to 24 GB of memory costs about as much as a laptop and sits under a desk or in an existing server. Paired with open-weight models, it means questions, documents and answers never leave the building. The constraint is memory, so the job is to spend it well.</p>
+
+        <h2 id="memory">Where the memory goes</h2>
+        <ul>
+          <li><strong>Model weights.</strong> Quantised to 4 bits (for example AWQ), a model needs roughly half a gigabyte per billion parameters, plus some overhead.</li>
+          <li><strong>The KV cache.</strong> As the model reads a prompt and writes an answer, it keeps a cache for every token in flight. This decides how many questions can run at once and how long they can be. Storing it in 8-bit (FP8) on recent cards roughly doubles what fits.</li>
+          <li><strong>Embeddings and reranking.</strong> Small models, a few hundred megabytes each. On a small card they can run on the CPU instead.</li>
+        </ul>
+
+        <h2 id="fit">What fits</h2>
+        <p>Smriti's installer picks a profile from the card it finds. As a guide: a 6 GB laptop card runs a 4-billion-parameter model with encoders on the CPU; 16 GB runs an 8B model with an FP8 cache; 24 GB runs a 14B model. A machine with no GPU still answers with verified extracts. The profile files show the arithmetic, so you can adjust it.</p>
+
+        <h2 id="skip">The biggest saving: don't call the model</h2>
+        <p>The cheapest model call is the one you don't make. Many questions to an organisation's memory don't need a writer at all:</p>
+        <ul>
+          <li><strong>Lookups</strong>, such as "what does clause 16.1 say?", are answered with a verified quote.</li>
+          <li><strong>Table questions</strong>, such as "what is the total?", are computed in code from the source rows.</li>
+          <li><strong>Repeat questions</strong> from people with the same access reuse an answer that was already verified, through a guarded cache.</li>
+          <li><strong>Attacks and unanswerable questions</strong> are stopped or abstained on before generation.</li>
+        </ul>
+        <figure class="figure2"><!--FIG:gpu--><figcaption>Illustrative, not measured: only the questions that need writing cost GPU time.</figcaption></figure>
+        <p>On Smriti's small demo question set, half the questions never reach the model. Your share will differ, which is why the next section matters.</p>
+
+        <h2 id="tricks">The other tricks that matter</h2>
+        <ul>
+          <li><strong>Short prompts.</strong> Cut passages to their relevant sentences, under a fixed token budget, however long the source documents are.</li>
+          <li><strong>A fixed prefix.</strong> Start every prompt with the same rules, so the model server caches that part instead of recomputing it.</li>
+          <li><strong>No hidden reasoning tokens</strong> for retrieval answers. They are slow and unnecessary when the answer is in the passages.</li>
+          <li><strong>Admission control.</strong> When the card is saturated, serve the verified extract instead of letting requests queue until they time out.</li>
+          <li><strong>Continuous batching and paged caches</strong>, which modern servers such as vLLM do for you.</li>
+        </ul>
+
+        <h2 id="measure">Measure, don't guess</h2>
+        <p>Throughput depends on your documents, your questions and your card. Run a load test on your own hardware before you size anything. Smriti ships one: <code>smriti bench</code> reports p50, p95 and p99 latency, answers per second, the share of answers that needed the model, and GPU tokens per answer. Read more about the serving side in <a href="/blog/where-inference-time-goes">Where inference time and money actually go</a>, or start with the <a href="/docs/install">install guide</a>.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/where-inference-time-goes"><span class="meta">Research note</span><h3>Where inference time and money actually go</h3></a>
+          <a class="post-card" href="/docs/install"><span class="meta">Docs</span><h3>Install and deploy</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

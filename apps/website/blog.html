@@ -11,6 +11,7 @@
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Safearly">
@@ -60,12 +61,12 @@
       <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
     </a>
     <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
       <li><a href="/agents">Agents</a></li>
       <li><a href="/workflows">Workflows</a></li>
       <li><a href="/applications">Applications</a></li>
       <li><a href="/docs">Docs</a></li>
       <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
-      <li><a href="/products">Products</a></li>
     </ul>
     <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
     <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
@@ -80,7 +81,7 @@
       <h1>Notes from the lab.</h1>
       <p class="lede">Releases, essays, research notes and explainers on Smriti, agents, workflows and safe AI in production. We say what is measured, what is in force and what is still unsolved.</p>
       <div class="split mt28">
-        <div class="chips-row"><span class="chip-link on">All · 10</span><span class="chip-link">Release · 1</span><span class="chip-link">Essay · 4</span><span class="chip-link">Research note · 3</span><span class="chip-link">Explainer · 2</span></div>
+        <div class="chips-row" role="group" aria-label="Filter posts"><button type="button" class="chip-link on" data-filter="*" aria-pressed="true">All · 14</button><button type="button" class="chip-link" data-filter="Explainer" aria-pressed="false">Explainer · 5</button><button type="button" class="chip-link" data-filter="Guide" aria-pressed="false">Guide · 1</button><button type="button" class="chip-link" data-filter="Essay" aria-pressed="false">Essay · 4</button><button type="button" class="chip-link" data-filter="Research note" aria-pressed="false">Research note · 3</button><button type="button" class="chip-link" data-filter="Release" aria-pressed="false">Release · 1</button></div>
         <div class="chips-row mono"><a class="arrow-link" href="/blog/feed.xml">RSS</a></div>
       </div>
     </div>
@@ -88,47 +89,63 @@
 
   <section class="sec" id="posts">
     <div class="wrap">
-      <a class="post-feature" href="/blog/smriti-workflows-and-integrations">
-        <span class="meta">2 Nov 2026 · Release · Lalit Shukla</span>
-        <h2>Smriti now does workflows and lives where your team works</h2>
-        <p>Visual workflows with human approval, a website widget, and Slack, Telegram and Discord bots, with the safety rules that come with them.</p>
+      <a class="post-feature" href="/blog/permission-aware-retrieval" data-type="Explainer">
+        <span class="meta">3 Nov 2026 · Explainer · 3 min read</span>
+        <h2>Permission-aware retrieval: why filtering the answer is too late</h2>
+        <p>Access control has to happen before the model reads anything. How to do it, and how to test that it holds.</p>
         <span class="more">Read →</span>
       </a>
       <div class="post-list">
-        <a class="post-row" href="/blog/agents-or-workflows">
-          <span class="meta">2 Nov 2026 · Explainer</span>
-          <div><h3>Agents or workflows? How to choose</h3><p>An agent decides what to do; a workflow follows a process you drew. Why most teams end up using both.</p></div>
+        <a class="post-row" href="/blog/private-ai-on-one-gpu" data-type="Guide">
+          <span class="meta">3 Nov 2026 · Guide · 3 min</span>
+          <div><h3>Running a private AI assistant on one GPU</h3><p>How graphics memory is spent, which models fit, and why the biggest saving is not calling the model at all.</p></div>
         </a>
-        <a class="post-row" href="/blog/agents-act-as-the-asker">
-          <span class="meta">2 Nov 2026 · Essay</span>
+        <a class="post-row" href="/blog/prompt-injection-explained" data-type="Explainer">
+          <span class="meta">3 Nov 2026 · Explainer · 2 min</span>
+          <div><h3>Prompt injection, explained with one example</h3><p>Why a sentence hidden in a web page can hijack an agent, why detection alone can't stop it, and the rule that does.</p></div>
+        </a>
+        <a class="post-row" href="/blog/rag-explained" data-type="Explainer">
+          <span class="meta">3 Nov 2026 · Explainer · 3 min</span>
+          <div><h3>RAG, explained for people who have to trust the answer</h3><p>Chunking, search, reranking, citations and verification in plain language, and five questions to ask before you trust an answer.</p></div>
+        </a>
+        <a class="post-row" href="/blog/agents-act-as-the-asker" data-type="Essay">
+          <span class="meta">2 Nov 2026 · Essay · 4 min</span>
           <div><h3>An agent should never know more than the person asking</h3><p>Shared assistants on an all-seeing account undo access control. Agents should act as the asker, on every surface.</p></div>
         </a>
-        <a class="post-row" href="/blog/check-every-sentence">
-          <span class="meta">2 Nov 2026 · Research note</span>
+        <a class="post-row" href="/blog/agents-or-workflows" data-type="Explainer">
+          <span class="meta">2 Nov 2026 · Explainer · 2 min</span>
+          <div><h3>Agents or workflows? How to choose</h3><p>An agent decides what to do; a workflow follows a process you drew. Why most teams end up using both.</p></div>
+        </a>
+        <a class="post-row" href="/blog/check-every-sentence" data-type="Research note">
+          <span class="meta">2 Nov 2026 · Research note · 4 min</span>
           <div><h3>Check every sentence, not just the answer</h3><p>A citation is a claim, not proof. Checking each sentence against the passage it cites, numbers included, and refusing to show what fails.</p></div>
         </a>
-        <a class="post-row" href="/blog/where-inference-time-goes">
-          <span class="meta">27 Oct 2026 · Research note</span>
-          <div><h3>Where inference time and money actually go</h3><p>Prefill is compute-bound, decode is memory-bound. The serving optimizations with real evidence behind them.</p></div>
+        <a class="post-row" href="/blog/smriti-workflows-and-integrations" data-type="Release">
+          <span class="meta">2 Nov 2026 · Release · 2 min</span>
+          <div><h3>Smriti now does workflows and lives where your team works</h3><p>Visual workflows with human approval, a website widget, and Slack, Telegram and Discord bots, with the safety rules that come with them.</p></div>
         </a>
-        <a class="post-row" href="/blog/guardrails-latency-budget">
-          <span class="meta">27 Oct 2026 · Essay</span>
+        <a class="post-row" href="/blog/guardrails-latency-budget" data-type="Essay">
+          <span class="meta">27 Oct 2026 · Essay · 4 min</span>
           <div><h3>Guardrails have a latency budget</h3><p>A guardrail that adds noticeable latency gets switched off. Layered checks, measured numbers, and how to stay inside the stream.</p></div>
         </a>
-        <a class="post-row" href="/blog/least-privilege-agent-skills">
-          <span class="meta">27 Oct 2026 · Essay</span>
+        <a class="post-row" href="/blog/least-privilege-agent-skills" data-type="Essay">
+          <span class="meta">27 Oct 2026 · Essay · 4 min</span>
           <div><h3>Least privilege for agent skills</h3><p>Multipurpose agents load skills from strangers. A skill should declare what it needs, get nothing more, and leave a record.</p></div>
         </a>
-        <a class="post-row" href="/blog/agents-need-a-firewall">
-          <span class="meta">26 Oct 2026 · Essay</span>
+        <a class="post-row" href="/blog/where-inference-time-goes" data-type="Research note">
+          <span class="meta">27 Oct 2026 · Research note · 5 min</span>
+          <div><h3>Where inference time and money actually go</h3><p>Prefill is compute-bound, decode is memory-bound. The serving optimizations with real evidence behind them.</p></div>
+        </a>
+        <a class="post-row" href="/blog/agents-need-a-firewall" data-type="Essay">
+          <span class="meta">26 Oct 2026 · Essay · 6 min</span>
           <div><h3>Agents need a firewall</h3><p>Prompt injection is admitted to be unsolved. In every major agent leak of the past year, the data left through a legitimate tool call.</p></div>
         </a>
-        <a class="post-row" href="/blog/checksum-is-not-enough">
-          <span class="meta">26 Oct 2026 · Research note</span>
+        <a class="post-row" href="/blog/checksum-is-not-enough" data-type="Research note">
+          <span class="meta">26 Oct 2026 · Research note · 5 min</span>
           <div><h3>A checksum is not enough: detecting Indian PII in the real world</h3><p>About one random 12-digit number in ten passes a national-ID checksum. Why detection needs labels, scripts and OCR repair.</p></div>
         </a>
-        <a class="post-row" href="/blog/india-ai-trust-rulebook">
-          <span class="meta">26 Oct 2026 · Explainer</span>
+        <a class="post-row" href="/blog/india-ai-trust-rulebook" data-type="Explainer">
+          <span class="meta">26 Oct 2026 · Explainer · 6 min</span>
           <div><h3>India's AI trust rulebook, for builders</h3><p>A worked example of mapping data-protection, identity and AI rules onto an LLM app: what is in force, and what is still draft.</p></div>
         </a>
       </div>

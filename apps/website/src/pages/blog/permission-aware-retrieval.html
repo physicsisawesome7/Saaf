@@ -1,0 +1,50 @@
+<!--page {"path": "/blog/permission-aware-retrieval", "nav": "blog", "title": "Permission-aware retrieval: why filtering the answer is too late · Safearly", "ogTitle": "Permission-aware retrieval: why filtering the answer is too late", "ogType": "article", "description": "An AI assistant must apply access control before the model reads anything. How permission-aware retrieval works, why filtering answers afterwards fails, and how to test it.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-03", "type": "Explainer", "title": "Permission-aware retrieval: why filtering the answer is too late", "dek": "Access control has to happen before the model reads anything. How to do it, and how to test that it holds."}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#problem">The leak nobody sees</a></li>
+        <li><a href="#where">Where to enforce</a></li>
+        <li><a href="#twice">Check twice</a></li>
+        <li><a href="#masking">Fields, not just files</a></li>
+        <li><a href="#test">How to test it</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>Permission-aware retrieval: why filtering the answer is too late</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">3 Nov 2026 · Explainer</div></div>
+        <div class="tags"><span class="tag">Access control</span><span class="tag">RAG</span><span class="tag">Security</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">The most common access-control bug in AI assistants doesn't show up in testing. The answer looks fine. It just happens to be built from a document the person was never allowed to read.</p>
+
+        <h2 id="problem">The leak nobody sees</h2>
+        <p>Suppose an engineer asks an assistant about a land plot, and the owner's details are in a schedule only the land office may see. If the assistant searched everything and then removed the schedule from the list of citations, the engineer still gets an answer shaped by it: "the plot is privately owned and under dispute". Nothing restricted is quoted, and nothing in the logs looks wrong. The information still leaked.</p>
+        <p>Once restricted text has reached the model, it can come out as a summary, a comparison, a yes or a no, or a number. Filtering the output can't catch all of those.</p>
+
+        <figure class="figure2"><!--FIG:filter--><figcaption>Filter the answer and the model has already read the restricted text. Filter the search and there is nothing to leak.</figcaption></figure>
+
+        <h2 id="where">Where to enforce</h2>
+        <p>The rule is simple: <strong>the model should only ever see passages the person asking may read.</strong> That means the person's permissions must be part of the search itself, as a filter on every query, not a step afterwards. Each passage carries the access attributes of its document: classification, division, project, need-to-know groups. Each query carries the asker's.</p>
+        <p>The rule must hold for every path into the model, not just the main chat: agents that search on someone's behalf, scheduled jobs, widgets, chat bots and shared conversations. An assistant running on a service account that can read everything breaks it in one step.</p>
+
+        <h2 id="twice">Check twice</h2>
+        <p>Search indexes can drift from the source of truth. A document's access might change after it was indexed, or an index might be restored from an old backup. So in <a href="/">Smriti</a>, results are checked a second time, in bulk, against the authoritative access rules before anything is passed on. Two independent checks mean one bug isn't enough to leak.</p>
+
+        <h2 id="masking">Fields, not just files</h2>
+        <p>Access is often finer than a whole document. The engineer may read the land schedule but not the owners' names; the land officer may read both. So masking happens per field and per role: the same passage is shown to one person with names and identifiers replaced, and to another in full. Personal data is also masked before any model sees it, whoever is asking.</p>
+
+        <h2 id="test">How to test it</h2>
+        <p>Spot checks don't find this class of bug. A systematic test does: for every person, take every document they may not see, and ask several questions that only that document can answer. Any answer that cites it, or depends on it, is a leak. Smriti's release gate runs exactly this <em>leakage suite</em> in CI, and a release is blocked if a single probe gets through. On the demo corpus that is 102 probes, all clean. On your own deployment, the same suite runs over your own people and documents.</p>
+        <p>If you're evaluating an assistant, ask its vendor how they test this, and ask to see the results.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agents-act-as-the-asker"><span class="meta">Essay</span><h3>An agent should never know more than the person asking</h3></a>
+          <a class="post-card" href="/blog/rag-explained"><span class="meta">Explainer</span><h3>RAG, explained for people who have to trust the answer</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
