@@ -31,8 +31,8 @@ classifiers = [
 dependencies = []
 
 [project.optional-dependencies]
-crypto = ["cryptography>=42"]
-redis = ["redis>=5", "cryptography>=42"]
+crypto = ["cryptography>=50.0.2"]
+redis = ["redis>=5", "cryptography>=50.0.2"]
 # Phase 3: distilled Indic NER model (ONNX, < 50 MB) and OCR pipeline.
 ner = ["onnxruntime>=1.18"]
 ocr = ["pillow>=10"]
