@@ -2,10 +2,11 @@
 Founder and head of product: Lalit Shukla
 Contact: lalit@safearly.com
 LinkedIn: https://www.linkedin.com/in/lalit-shukla-884275188/
-Company: Safearly
+Company: Safearly (https://www.linkedin.com/company/safeary.ai/)
+Code: https://github.com/physicsisawesome7/smriti
 
 /* SITE */
-Last update: 2026-11-03
+Last update: 2026-11-09
 Standards: HTML5, CSS, no cookies, no trackers
 Fonts: Inter and JetBrains Mono (SIL Open Font License)
 Source: https://github.com/physicsisawesome7/smriti

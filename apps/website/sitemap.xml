@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://safearly.com/</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/about</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/agents</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/applications</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/blog</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://safearly.com/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/about</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/agents</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/applications</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/blog</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://safearly.com/blog/agents-act-as-the-asker</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://safearly.com/blog/agents-need-a-firewall</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://safearly.com/blog/agents-or-workflows</loc><lastmod>2026-11-02</lastmod></url>
@@ -19,22 +19,22 @@
   <url><loc>https://safearly.com/blog/rag-explained</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://safearly.com/blog/smriti-workflows-and-integrations</loc><lastmod>2026-11-02</lastmod></url>
   <url><loc>https://safearly.com/blog/where-inference-time-goes</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://safearly.com/docs</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/agents</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/api</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/concepts</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/faq</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/install</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/integrations</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/knowledge</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/quickstart</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/security</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/docs/workflows</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/products</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/research</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/saaf</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/saaf/extension</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/saaf/extension/privacy</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/saaf/playground</loc><lastmod>2026-11-03</lastmod></url>
-  <url><loc>https://safearly.com/workflows</loc><lastmod>2026-11-03</lastmod></url>
+  <url><loc>https://safearly.com/docs</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/agents</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/api</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/concepts</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/faq</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/install</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/integrations</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/knowledge</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/quickstart</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/security</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/docs/workflows</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/products</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/research</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/saaf</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/saaf/extension</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/saaf/extension/privacy</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/saaf/playground</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://safearly.com/workflows</loc><lastmod>2026-11-09</lastmod></url>
 </urlset>

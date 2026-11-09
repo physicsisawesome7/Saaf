@@ -1,5 +1,5 @@
 # Smriti by Safearly: full text of the product pages, docs and blog
-# Generated 2026-11-03 from https://safearly.com
+# Generated 2026-11-09 from https://safearly.com
 
 # Smriti: private AI agents and workflows that cite their sources
 URL: https://safearly.com/

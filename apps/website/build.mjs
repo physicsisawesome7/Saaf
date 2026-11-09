@@ -19,6 +19,7 @@ const GITHUB = "https://github.com/physicsisawesome7";
 const REPO = `${GITHUB}/Saaf`;
 const SMRITI = `${GITHUB}/smriti`;
 const LINKEDIN = "https://www.linkedin.com/in/lalit-shukla-884275188/";
+const LINKEDIN_CO = "https://www.linkedin.com/company/safeary.ai/";
 const EMAIL = "lalit@safearly.com";
 const YEAR = new Date().getFullYear();
 
@@ -155,7 +156,8 @@ const footer = `<footer class="foot2">
         <ul>
           <li><a href="/about">About</a></li>
           <li><a href="/blog">Blog</a></li>
-          <li><a href="${LINKEDIN}">LinkedIn</a></li>
+          <li><a href="${LINKEDIN_CO}">Safearly on LinkedIn</a></li>
+          <li><a href="${SMRITI}">Smriti on GitHub</a></li>
           <li><a href="mailto:${EMAIL}">${EMAIL}</a></li>
           <li><a href="/blog/feed.xml">RSS</a></li>
         </ul>
@@ -210,7 +212,7 @@ function render(meta, body) {
     description: meta.description,
     datePublished: meta.post.date,
     author: { "@type": "Person", name: "Lalit Shukla", url: `${SITE}/about` },
-    publisher: { "@type": "Organization", name: "Safearly", url: SITE, logo: { "@type": "ImageObject", url: `${SITE}/assets/brand/safearly-mark-512.png` } },
+    publisher: { "@type": "Organization", name: "Safearly", url: SITE, email: EMAIL, sameAs: [LINKEDIN_CO, SMRITI], logo: { "@type": "ImageObject", url: `${SITE}/assets/brand/safearly-mark-512.png` } },
     image: og,
     mainEntityOfPage: url,
   }).replaceAll("<", "\\u003c")}</script>` : ""}
@@ -441,7 +443,8 @@ writeFileSync(
 Founder and head of product: Lalit Shukla
 Contact: ${EMAIL}
 LinkedIn: ${LINKEDIN}
-Company: Safearly
+Company: Safearly (${LINKEDIN_CO})
+Code: ${SMRITI}
 
 /* SITE */
 Last update: ${today}
