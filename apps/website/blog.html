@@ -81,7 +81,7 @@
       <h1>Notes from the lab.</h1>
       <p class="lede">Releases, essays, research notes and explainers on Smriti, agents, workflows and safe AI in production. We say what is measured, what is in force and what is still unsolved.</p>
       <div class="split mt28">
-        <div class="chips-row" role="group" aria-label="Filter posts"><button type="button" class="chip-link on" data-filter="*" aria-pressed="true">All · 14</button><button type="button" class="chip-link" data-filter="Explainer" aria-pressed="false">Explainer · 5</button><button type="button" class="chip-link" data-filter="Guide" aria-pressed="false">Guide · 1</button><button type="button" class="chip-link" data-filter="Essay" aria-pressed="false">Essay · 4</button><button type="button" class="chip-link" data-filter="Research note" aria-pressed="false">Research note · 3</button><button type="button" class="chip-link" data-filter="Release" aria-pressed="false">Release · 1</button></div>
+        <div class="chips-row" role="group" aria-label="Filter posts"><button type="button" class="chip-link on" data-filter="*" aria-pressed="true">All · 17</button><button type="button" class="chip-link" data-filter="Explainer" aria-pressed="false">Explainer · 6</button><button type="button" class="chip-link" data-filter="Research note" aria-pressed="false">Research note · 4</button><button type="button" class="chip-link" data-filter="Essay" aria-pressed="false">Essay · 5</button><button type="button" class="chip-link" data-filter="Guide" aria-pressed="false">Guide · 1</button><button type="button" class="chip-link" data-filter="Release" aria-pressed="false">Release · 1</button></div>
         <div class="chips-row mono"><a class="arrow-link" href="/blog/feed.xml">RSS</a></div>
       </div>
     </div>
@@ -89,13 +89,25 @@
 
   <section class="sec" id="posts">
     <div class="wrap">
-      <a class="post-feature" href="/blog/permission-aware-retrieval" data-type="Explainer">
-        <span class="meta">3 Nov 2026 · Explainer · 3 min read</span>
-        <h2>Permission-aware retrieval: why filtering the answer is too late</h2>
-        <p>Access control has to happen before the model reads anything. How to do it, and how to test that it holds.</p>
+      <a class="post-feature" href="/blog/weight-space-programming" data-type="Explainer">
+        <span class="meta">9 Nov 2026 · Explainer · 4 min read</span>
+        <h2>Weight-space programming, explained: when an LLM edits a neural network's weights</h2>
+        <p>A frontier model read another network's weights and rewrote them, with no training loop. What was shown, what wasn't, and why it matters for auditing.</p>
         <span class="more">Read →</span>
       </a>
       <div class="post-list">
+        <a class="post-row" href="/blog/agent-security-stack" data-type="Research note">
+          <span class="meta">9 Nov 2026 · Research note · 3 min</span>
+          <div><h3>The agent security stack is taking shape: sandboxes, policy engines and credential brokers</h3><p>Open-source sandboxes with policy engines, and credential brokers that keep secrets away from agents. How the layers fit, and what's still missing.</p></div>
+        </a>
+        <a class="post-row" href="/blog/agent-skills-open-standard" data-type="Essay">
+          <span class="meta">9 Nov 2026 · Essay · 3 min</span>
+          <div><h3>Agent Skills is now an open standard. Here's what it means for security</h3><p>Hundreds of millions of skill installs, now under a neutral foundation. The security practices every team installing skills should adopt now.</p></div>
+        </a>
+        <a class="post-row" href="/blog/permission-aware-retrieval" data-type="Explainer">
+          <span class="meta">3 Nov 2026 · Explainer · 3 min</span>
+          <div><h3>Permission-aware retrieval: why filtering the answer is too late</h3><p>Access control has to happen before the model reads anything. How to do it, and how to test that it holds.</p></div>
+        </a>
         <a class="post-row" href="/blog/private-ai-on-one-gpu" data-type="Guide">
           <span class="meta">3 Nov 2026 · Guide · 3 min</span>
           <div><h3>Running a private AI assistant on one GPU</h3><p>How graphics memory is spent, which models fit, and why the biggest saving is not calling the model at all.</p></div>

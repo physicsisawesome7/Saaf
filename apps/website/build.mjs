@@ -244,7 +244,9 @@ const pages = walk(pagesDir).map((file) => {
   return { file, meta: JSON.parse(m[1]), body: raw.slice(m[0].length).trimEnd() };
 });
 
-const posts = pages.filter((p) => p.meta.post).sort((a, b) => b.meta.post.date.localeCompare(a.meta.post.date));
+const posts = pages
+  .filter((p) => p.meta.post)
+  .sort((a, b) => b.meta.post.date.localeCompare(a.meta.post.date) || (b.meta.post.featured ? 1 : 0) - (a.meta.post.featured ? 1 : 0));
 const fmtDate = (d) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 const plain = (html) =>
   html

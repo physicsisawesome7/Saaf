@@ -7,6 +7,30 @@
     <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
     <item>
+      <title>Weight-space programming, explained: when an LLM edits a neural network's weights</title>
+      <link>https://safearly.com/blog/weight-space-programming</link>
+      <guid>https://safearly.com/blog/weight-space-programming</guid>
+      <pubDate>Mon, 09 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Explainer</category>
+      <description>In November 2026 MIT CSAIL researchers showed a frontier LLM reading and rewriting another network's weights directly, with no training loop. What weight-space programming is, what the experiments showed, the caveats, and why it matters for auditing and AI safety.</description>
+    </item>
+    <item>
+      <title>The agent security stack is taking shape: sandboxes, policy engines and credential brokers</title>
+      <link>https://safearly.com/blog/agent-security-stack</link>
+      <guid>https://safearly.com/blog/agent-security-stack</guid>
+      <pubDate>Mon, 09 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Research note</category>
+      <description>October 2026 brought open-source agent sandboxes with policy engines and credential brokers that keep passwords away from agents. How the new layers fit together, and what's still missing.</description>
+    </item>
+    <item>
+      <title>Agent Skills is now an open standard. Here's what it means for security</title>
+      <link>https://safearly.com/blog/agent-skills-open-standard</link>
+      <guid>https://safearly.com/blog/agent-skills-open-standard</guid>
+      <pubDate>Mon, 09 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Essay</category>
+      <description>Anthropic donated Agent Skills to the Agentic AI Foundation in October 2026, with hundreds of millions of skill installs across more than 70 platforms. What a shared standard changes, and the security practices every team installing skills should adopt now.</description>
+    </item>
+    <item>
       <title>Permission-aware retrieval: why filtering the answer is too late</title>
       <link>https://safearly.com/blog/permission-aware-retrieval</link>
       <guid>https://safearly.com/blog/permission-aware-retrieval</guid>

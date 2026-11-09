@@ -183,6 +183,67 @@ b.append('<text class="ig-s" x="10" y="20">Illustrative share of questions on a 
 b.append('<text class="ig-s" x="10" y="122">Only the last group costs GPU time, so one card goes further.</text>')
 out["gpu"] = svg(uid, 920, 132, "".join(b), "Illustration: many questions are answered by verified quotes, code or the cache, so only the remaining share needs the model and the GPU.")
 
+# 8. Training vs weight-space programming (blog) --------------------------------
+uid = "wsp"
+b = []
+b.append('<text class="ig-n" x="10" y="18">TRAINING: AN OPTIMIZER CHANGES THE WEIGHTS</text>')
+b.append(box(10, 28, 160, 60, "Data", "examples, rewards"))
+b.append(line(172, 58, 208, 58, uid))
+b.append(box(210, 28, 170, 60, "Gradient descent", "many small updates"))
+b.append(line(382, 58, 418, 58, uid))
+b.append(box(420, 28, 170, 60, "Network weights", "learned, opaque"))
+b.append('<path class="ig-line dash" d="M505,90 L505,104 L295,104 L295,90" marker-end="url(#a-wsp)"/>')
+b.append('<text class="ig-s" x="318" y="120">repeat for millions of steps</text>')
+b.append('<text class="ig-n" x="10" y="150">WEIGHT-SPACE PROGRAMMING: AN LLM EDITS THEM</text>')
+b.append(box(10, 160, 160, 60, "Plain-language goal", "\"make it succeed\"", "k"))
+b.append(line(172, 190, 208, 190, uid, violet=True))
+b.append(box(210, 160, 170, 60, "LLM reads weights", "reasons about them", "v"))
+b.append(line(382, 190, 418, 190, uid, violet=True))
+b.append(box(420, 160, 170, 60, "Edits a few values", "e.g. 3.5% of weights", "v"))
+b.append(line(592, 190, 628, 190, uid))
+b.append(box(630, 160, 160, 60, "Changed behaviour", "no training loop", "ok"))
+out["wsp"] = svg(uid, 800, 232, "".join(b), "Training changes weights through data and many gradient steps. Weight-space programming has a language model read the weights and edit a small number of values directly, with no training loop.")
+
+# 9. Skill supply chain (blog) ---------------------------------------------------
+uid = "skill"
+b = []
+steps9 = [
+    ("Publish", "instructions,\nscripts, tools", "k"),
+    ("Review", "read what it can do\nbefore installing", ""),
+    ("Grant", "only declared tools,\ndata and hosts", "v"),
+    ("Run", "sandboxed, checked\nat every call", "v"),
+    ("Approve", "a person confirms\nirreversible acts", "w"),
+    ("Record", "a log of every\ndecision", "ok"),
+]
+x = 10
+for i, (t, s, c) in enumerate(steps9):
+    b.append(box(x, 20, 150, 80, t, s, c, n=f"0{i + 1}"))
+    if i < len(steps9) - 1:
+        b.append(line(x + 152, 60, x + 168, 60, uid))
+    x += 170
+out["skills"] = svg(uid, 1030, 112, "".join(b), "A safe path for an agent skill: publish, review before installing, grant only what it declares, run it sandboxed with checks on every call, require approval for irreversible actions, and record every decision.")
+
+# 10. Agent security stack (blog) -------------------------------------------------
+uid = "stack"
+b = []
+layers = [
+    ("Agent", "model + instructions + skills", "k"),
+    ("Policy", "allow / forbid each action, with history (e.g. Cedar-style rules)", "v"),
+    ("Sandbox", "OS-level isolation; all egress through one proxy", "v"),
+    ("Credential broker", "real secret injected outside the agent's reach", "v"),
+    ("Human approval", "irreversible or unusual actions", "w"),
+    ("Tools and data", "APIs, files, email, payments", ""),
+]
+y = 10
+for i, (t, s, c) in enumerate(layers):
+    b.append(box(120, y, 620, 46, t, s, c))
+    if i < len(layers) - 1:
+        b.append(line(430, y + 47, 430, y + 57, uid))
+    y += 58
+b.append('<text class="ig-s" x="10" y="36">request</text>')
+b.append('<path class="ig-line v" d="M60,44 L60,330" marker-end="url(#av-stack)"/>')
+out["stack"] = svg(uid, 760, 360, "".join(b), "The agent security stack: every action an agent requests passes through a policy check, a sandbox, a credential broker and, where needed, human approval before it reaches tools and data.")
+
 for k, v in out.items():
     open(f"{sys.argv[1]}/{k}.svg", "w", encoding="utf8").write(v + "\n")
 print("figures:", ", ".join(out))

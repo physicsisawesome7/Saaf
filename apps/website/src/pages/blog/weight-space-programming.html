@@ -1,0 +1,77 @@
+<!--page {"path": "/blog/weight-space-programming", "nav": "blog", "title": "Weight-space programming, explained: when an LLM edits a neural network's weights · Safearly", "ogTitle": "Weight-space programming, explained", "ogType": "article", "description": "In November 2026 MIT CSAIL researchers showed a frontier LLM reading and rewriting another network's weights directly, with no training loop. What weight-space programming is, what the experiments showed, the caveats, and why it matters for auditing and AI safety.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-09", "type": "Explainer", "title": "Weight-space programming, explained: when an LLM edits a neural network's weights", "featured": true, "dek": "A frontier model read another network's weights and rewrote them, with no training loop. What was shown, what wasn't, and why it matters for auditing."}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#what">What it is</a></li>
+        <li><a href="#shown">What was shown</a></li>
+        <li><a href="#caveats">The caveats</a></li>
+        <li><a href="#audit">The auditing angle</a></li>
+        <li><a href="#means">What it means for teams</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Explainer</div>
+      <h1>Weight-space programming, explained: when an LLM edits a neural network's weights</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">9 Nov 2026 · Explainer</div></div>
+        <div class="tags"><span class="tag">Research</span><span class="tag">Interpretability</span><span class="tag">AI safety</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">For as long as there have been neural networks, the only practical way to change one has been to train it. A new piece of research suggests a second way: hand the weights to a language model, describe what you want, and let it rewrite the numbers.</p>
+
+        <h2 id="what">What it is</h2>
+        <p><strong>Weight-space programming</strong> means a general-purpose language model reads a neural network's raw weights, works out what the network does, and edits or writes those weights directly. There is no optimizer and no gradient descent, and in some experiments no feedback from running the network at all. The weights are treated less like the output of training and more like source code a capable reader can inspect and change.</p>
+        <p>The term comes from "Sparks of Weight-Space Programming", published on 2 November 2026 by Rikiya Takehi, Jayden Teoh, Alex Zhang and Omar Khattab of MIT CSAIL. The work is a research write-up and has not been peer-reviewed.</p>
+
+        <figure class="figure2"><!--FIG:wsp--><figcaption>Training changes weights through data and millions of small steps. Weight-space programming has a model read them and change a few values on purpose.</figcaption></figure>
+
+        <h2 id="shown">What was shown</h2>
+        <p>The experiments used one frontier model, which the authors call Astra, on networks that are tiny by today's standards. The results that drew attention:</p>
+        <ul>
+          <li><strong>Reading.</strong> Given only the weights of four small game-playing policies (about 17,000 weights each), it named the game each one had learned to play. Given three small character-level language models, it named the language each was trained on and found the attention heads that copy text.</li>
+          <li><strong>Editing.</strong> A 171,664-weight policy that never got a car up a ramp in 256 attempts was changed by one edit to 3.5% of its weights. The edited policy succeeded in all 1,024 test episodes.</li>
+          <li><strong>Writing from scratch.</strong> With no training at all, it wrote a Breakout policy that scored 517.4, against 25.3 for a standard reinforcement-learning baseline trained for 500 million steps. On two other games the hand-written policies came close to, but did not beat, the trained ones.</li>
+          <li><strong>A small real language model.</strong> Changing 131,072 weights in Qwen3.5-0.8B (0.016%) raised its MATH-500 score from 7.9% to 48.1% and GSM8K from 13.8% to 67.1%. The edit removed one direction from two layers' outputs, which mostly stopped the model from running past its token limit.</li>
+        </ul>
+
+        <h2 id="caveats">The caveats</h2>
+        <p>This is early work, and the authors say so. The details matter more than the headlines:</p>
+        <ul>
+          <li><strong>Small networks.</strong> The reading and editing results without tools were on networks of roughly 17,000 to 172,000 weights. Frontier models have hundreds of billions.</li>
+          <li><strong>Not always tool-free.</strong> The Go and Qwen experiments allowed a Python sandbox and dozens of forward passes, so they are closer to assisted research than pure reading.</li>
+          <li><strong>Nothing new was added.</strong> The authors write that edits could remove an obstacle hiding an ability, but not add one the model lacked. Critics note a skilled researcher could likely have found the Qwen fix.</li>
+          <li><strong>It failed too.</strong> It could not find the cause of sycophancy in Gemma 3 270M from weights alone, and edits to that model's maths ability made no meaningful difference.</li>
+          <li><strong>Not yet replicated</strong> by an independent group.</li>
+        </ul>
+
+        <h2 id="audit">The auditing angle</h2>
+        <p>The most interesting follow-up so far is about checking networks, not improving them. A preprint posted on 3 November 2026 by Humza Nusrat and Omar Nusrat applied the idea to small clinical decision networks (433 to 4,801 parameters) that screen radiotherapy requests against four rules. They planted flaws: confounds that hid a rule, a shifted dose threshold, and a hidden trigger, a stand-in for a backdoor. A frontier model then audited each network blind, with no data or code execution, and every claim was tested on about 420,000 requests.</p>
+        <p>It named the broken rule in 16 of 18 flawed networks and repaired all 16 by changing a median of three parameters, where fine-tuning changed nearly all of them. But it found only one of the three hidden triggers, and it wrongly failed some healthy networks. The authors' own conclusion is the right one to quote: it can locate and repair these flaws in small networks, but cannot yet certify that a network is correct.</p>
+
+        <h2 id="means">What it means for teams shipping AI</h2>
+        <ul>
+          <li><strong>Weights are editable, so verify them.</strong> If a capable model can make targeted, hard-to-spot edits to weights, then a downloaded model is only as trustworthy as its provenance. Pin checksums, record where every model came from, and re-run your evaluations after any change.</li>
+          <li><strong>Don't trust a model's behaviour, test it.</strong> Weight-space auditing missed most hidden triggers. Behavioural evaluation on your own data, red-team sets and leakage tests remain the evidence that counts.</li>
+          <li><strong>Keep guarantees outside the model.</strong> Whatever happens inside the weights, access control, verification of answers against sources, and approval for actions should not depend on the model behaving. That is the principle we build <a href="/">Smriti</a> on.</li>
+        </ul>
+        <p>Weight-space programming may become a real interpretability and repair tool. For now it is a striking demonstration on small networks, and a useful reminder that model weights are an attack surface as well as an asset.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Takehi, Teoh, Zhang and Khattab (MIT CSAIL), <a href="https://rikiyat.github.io/blog/weight-space-programming/">Sparks of Weight-Space Programming: LLMs can natively read &amp; write neural network weights</a>, 2 Nov 2026.</li>
+          <li>Nusrat and Nusrat, <a href="https://arxiv.org/abs/2611.05341">Weight-space programming for auditing clinical decision networks</a> (arXiv 2611.05341), 3 Nov 2026.</li>
+          <li>The Register, <a href="https://www.theregister.com/ai-and-ml/2026/11/03/forget-retraining-ai-can-now-tweak-another-ais-weights/5307105">Forget retraining: AI can now tweak another AI's weights</a>, 3 Nov 2026.</li>
+          <li>Wikipedia, <a href="https://en.wikipedia.org/wiki/Weight-space_programming">Weight-space programming</a>, including summaries of published critiques.</li>
+        </ol>
+        <p class="note-box">Figures are quoted from the sources above as of 9 November 2026. The work is recent and unreplicated; we'll update this post as it develops.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agent-skills-open-standard"><span class="meta">Essay</span><h3>Agent Skills is now an open standard</h3></a>
+          <a class="post-card" href="/blog/check-every-sentence"><span class="meta">Research note</span><h3>Check every sentence, not just the answer</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>

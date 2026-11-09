@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "smriti-dev",
-      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/C--presentation-content-Presentations-Extras-veil/db54910a-fdba-4dc4-ba66-032b2f7a9807/scratchpad/smriti-venv/Scripts/python.exe",
+      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/5883ac20a9a81e11/0c07ec74-0d1d-4755-91bd-09eea4bfa5d1/scratchpad/venv/Scripts/python.exe",
       "runtimeArgs": [
         "-m",
         "smriti",
@@ -73,7 +73,7 @@
     },
     {
       "name": "smriti-workflows",
-      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/C--presentation-content-Presentations-Extras-veil/db54910a-fdba-4dc4-ba66-032b2f7a9807/scratchpad/smriti-venv/Scripts/python.exe",
+      "runtimeExecutable": "C:/Users/lalit/AppData/Local/Temp/claude/5883ac20a9a81e11/0c07ec74-0d1d-4755-91bd-09eea4bfa5d1/scratchpad/venv/Scripts/python.exe",
       "runtimeArgs": [
         "-m",
         "smriti",

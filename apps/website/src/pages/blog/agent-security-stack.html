@@ -1,0 +1,70 @@
+<!--page {"path": "/blog/agent-security-stack", "nav": "blog", "title": "The agent security stack is taking shape: sandboxes, policy engines and credential brokers · Safearly", "ogTitle": "The agent security stack is taking shape", "ogType": "article", "description": "October 2026 brought open-source agent sandboxes with policy engines and credential brokers that keep passwords away from agents. How the new layers fit together, and what's still missing.", "scripts": ["/assets/main.js"], "post": {"date": "2026-11-09", "type": "Research note", "title": "The agent security stack is taking shape: sandboxes, policy engines and credential brokers", "dek": "Open-source sandboxes with policy engines, and credential brokers that keep secrets away from agents. How the layers fit, and what's still missing."}} -->
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#shift">From prompts to layers</a></li>
+        <li><a href="#sandbox">Sandboxes with policy</a></li>
+        <li><a href="#creds">Credential brokers</a></li>
+        <li><a href="#stack">How the layers fit</a></li>
+        <li><a href="#missing">What's still missing</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Research note</div>
+      <h1>The agent security stack is taking shape: sandboxes, policy engines and credential brokers</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">9 Nov 2026 · Research note</div></div>
+        <div class="tags"><span class="tag">Agents</span><span class="tag">Security</span><span class="tag">Infrastructure</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">A year ago, agent security mostly meant writing careful system prompts. This autumn it started to look like infrastructure, with separate layers that each enforce one thing, outside the model.</p>
+
+        <h2 id="shift">From prompts to layers</h2>
+        <p>Prompt injection is still unsolved, and nobody serious now expects the model to defend itself. The response is the one security engineering always reaches for: put hard boundaries around the thing you can't fully trust, and make each boundary simple enough to reason about. Two launches in October 2026 show the shape this is taking.</p>
+
+        <h2 id="sandbox">Sandboxes that know about actions</h2>
+        <p>On 7 October, AWS released <strong>Strands Box</strong> in developer preview, an Apache-2.0 sandbox for agents, with a policy language called <strong>Dogwood</strong>. Its design has two layers. Containment uses the operating system's own isolation (the launch post cites macOS Seatbelt) as the hard boundary on files and network, deliberately without containers or virtual machines. Inside that boundary, policy decides which actions are allowed.</p>
+        <p>The interesting part is where policy is enforced: at a proxy that all outbound traffic must pass through, at the Python and shell interpreters the agent uses, and at a broker for MCP tool calls. Policies use Cedar-style permit and forbid rules and can depend on history, such as "at most three Slack posts in ten minutes". The gateway also swaps placeholder tokens for real secrets only on permitted requests, so the agent never holds the credential.</p>
+
+        <h2 id="creds">Credential brokers</h2>
+        <p>On 22 October, 1Password launched <strong>1Password for Agents</strong>, aimed at personal AI agents that sign in to websites. When an agent reaches a sign-in form, it identifies itself to 1Password with its own key. The person sees which credential is needed and why, and approves on their own device. 1Password then fills the credential straight into the form, so the agent never sees or stores it. The launch named a long list of agent and browser-automation partners.</p>
+        <p>Brokering matters because the most damaging thing an injected instruction can do is exfiltrate a secret. An agent that never holds a password can't leak it.</p>
+
+        <h2 id="stack">How the layers fit</h2>
+        <figure class="figure2"><!--FIG:stack--><figcaption>Each request from an agent passes through independent layers before it reaches tools and data.</figcaption></figure>
+        <ul>
+          <li><strong>Policy</strong> answers "is this action allowed, given what has happened so far?"</li>
+          <li><strong>The sandbox</strong> makes sure there is no way around the policy: no direct network, no stray file access.</li>
+          <li><strong>The credential broker</strong> keeps secrets out of the agent's context entirely.</li>
+          <li><strong>Human approval</strong> covers what policy can't decide: irreversible, unusual or high-value actions.</li>
+          <li><strong>The audit log</strong> records every decision, so the whole chain can be checked afterwards.</li>
+        </ul>
+
+        <h2 id="missing">What's still missing</h2>
+        <ul>
+          <li><strong>Data-level access control.</strong> Sandboxes govern actions, not what an agent may <em>read</em> in a knowledge base. An agent that searches with an all-seeing service account still leaks through its answers. Retrieval has to be filtered to the person asking, as we explain in <a href="/blog/permission-aware-retrieval">Permission-aware retrieval</a>.</li>
+          <li><strong>Answer verification.</strong> None of these layers checks whether what the agent tells you is true. For answers people act on, each claim should be checked against its source. See <a href="/blog/check-every-sentence">Check every sentence</a>.</li>
+          <li><strong>Agent-to-agent trust.</strong> As agents call other agents, over MCP and similar protocols, each hop is another place for injected instructions to enter. Policies will need to follow the request across agents, not just within one.</li>
+          <li><strong>Shared standards.</strong> Policy languages, sandbox protocols and approval flows are still product-specific. The foundations now hosting agent standards are the natural place to converge.</li>
+        </ul>
+        <p>This is the layer <a href="/">Smriti</a> works in: agents that act as the asker, answers verified against their sources, approval for writes after untrusted content, and an audit trail of every step. Sandboxes and brokers below, verified knowledge above: that's a stack worth trusting.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>AWS Open Source Blog, <a href="https://aws.amazon.com/blogs/opensource/introducing-strands-box-ai-agent-sandboxes-powered-by-dogwood/">Introducing Strands Box: AI agent sandboxes powered by Dogwood</a>, 7 Oct 2026.</li>
+          <li>1Password, <a href="https://1password.com/press/2026/october/1password-for-agents-trust-layer-personal-ai-agents">1Password for Agents</a>, press release, 22 Oct 2026.</li>
+          <li>Agentic AI Foundation, <a href="https://aaif.io/projects/opensandbox">OpenSandbox</a>, an open sandbox protocol for AI applications.</li>
+          <li>O'Reilly Radar, <a href="https://www.oreilly.com/radar/radar-trends-to-watch-november-2026/">Radar Trends to Watch: November 2026</a>.</li>
+        </ol>
+        <p class="note-box">Product details are from each vendor's own announcement, as of 9 November 2026. We have not tested these products.</p>
+
+        <div class="related">
+          <a class="post-card" href="/blog/agent-skills-open-standard"><span class="meta">Essay</span><h3>Agent Skills is now an open standard</h3></a>
+          <a class="post-card" href="/blog/agents-need-a-firewall"><span class="meta">Essay</span><h3>Agents need a firewall</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
