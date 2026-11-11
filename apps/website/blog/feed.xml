@@ -7,6 +7,14 @@
     <description>Essays, research notes and explainers on fast, safe AI in production.</description>
     <language>en-in</language>
     <item>
+      <title>Choosing a RAG stack for hard applications</title>
+      <link>https://safearly.com/blog/rag-stack-case-study</link>
+      <guid>https://safearly.com/blog/rag-stack-case-study</guid>
+      <pubDate>Wed, 11 Nov 2026 03:30:00 GMT</pubDate>
+      <category>Case study</category>
+      <description>A case study from building Smriti: how we choose chunking, embedding models, retrieval techniques, rerankers and agentic RAG patterns for six hard enterprise applications, what the research says about each, and what we measured.</description>
+    </item>
+    <item>
       <title>Weight-space programming, explained: when an LLM edits a neural network's weights</title>
       <link>https://safearly.com/blog/weight-space-programming</link>
       <guid>https://safearly.com/blog/weight-space-programming</guid>

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choosing a RAG stack for hard applications · Safearly</title>
+  <meta name="description" content="A case study from building Smriti: how we choose chunking, embedding models, retrieval techniques, rerankers and agentic RAG patterns for six hard enterprise applications, what the research says about each, and what we measured.">
+  <link rel="canonical" href="https://safearly.com/blog/rag-stack-case-study">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="alternate" type="application/rss+xml" title="Safearly blog" href="/blog/feed.xml">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Safearly">
+  <meta property="og:title" content="Choosing a RAG stack for hard applications: chunking, embeddings, retrieval, reranking and agents">
+  <meta property="og:description" content="A case study from building Smriti: how we choose chunking, embedding models, retrieval techniques, rerankers and agentic RAG patterns for six hard enterprise applications, what the research says about each, and what we measured.">
+  <meta property="og:url" content="https://safearly.com/blog/rag-stack-case-study">
+  <meta property="og:image" content="https://safearly.com/assets/og/rag-stack-case-study.png">
+  <meta property="article:published_time" content="2026-11-11">
+  <meta property="article:author" content="Lalit Shukla">
+  <meta property="article:section" content="Case study">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Choosing a RAG stack for hard applications","description":"A case study from building Smriti: how we choose chunking, embedding models, retrieval techniques, rerankers and agentic RAG patterns for six hard enterprise applications, what the research says about each, and what we measured.","datePublished":"2026-11-11","author":{"@type":"Person","name":"Lalit Shukla","url":"https://safearly.com/about"},"publisher":{"@type":"Organization","name":"Safearly","url":"https://safearly.com","email":"lalit@safearly.com","sameAs":["https://www.linkedin.com/company/safeary.ai/","https://github.com/physicsisawesome7/smriti"],"logo":{"@type":"ImageObject","url":"https://safearly.com/assets/brand/safearly-mark-512.png"}},"image":"https://safearly.com/assets/og/rag-stack-case-study.png","mainEntityOfPage":"https://safearly.com/blog/rag-stack-case-study"}</script>
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/lab.css">
+  <link rel="stylesheet" href="/assets/smriti.css">
+  <script type="module" src="/assets/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" class="sr-only" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l7 3v5.5c0 4.3-2.9 8-7 9.5-4.1-1.5-7-5.2-7-9.5V6l7-3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-lang" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 5h9M8.5 3v2M6 5c.5 3 2.5 5.5 6 7M11 5c-.5 3-3 6-6.5 7.5M13 21l4-9 4 9M14.4 18h5.2"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 8V5.5A1.5 1.5 0 015.5 4H8M16 4h2.5A1.5 1.5 0 0120 5.5V8M20 16v2.5a1.5 1.5 0 01-1.5 1.5H16M8 20H5.5A1.5 1.5 0 014 18.5V16M7 12h10"/></symbol>
+  <symbol id="i-stream" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M3 7h6M12 7h9M3 12h11M17 12h4M3 17h3M9 17h12"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M6 3h8l4 4v14H6V3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="16" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8" cy="7.5" r="1.2" fill="currentColor"/><circle cx="8" cy="16.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5z"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 3v5M15 3v5M6 8h12v3a6 6 0 01-12 0V8zM12 17v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 9.5l3 2.5-3 2.5M12.5 15h4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 3L5 14h6l-1 7 8-11h-6l1-7z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 12l16-8-6 16-2.5-6.5L4 12z"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M5 20h14"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 4v12M7 11l5 5 5-5M5 20h14"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3.5 6.5l8.5 6.5 8.5-6.5"/></symbol>
+</svg>
+
+<header class="top">
+  <nav class="wrap nav" aria-label="Main">
+    <a class="logo" href="/" aria-label="Safearly home">
+      <img src="/assets/brand/safearly-mark.svg" alt="" width="30" height="30">safearly
+    </a>
+    <ul class="links" id="links">
+      <li><a href="/products">Products</a></li>
+      <li><a href="/agents">Agents</a></li>
+      <li><a href="/workflows">Workflows</a></li>
+      <li><a href="/applications">Applications</a></li>
+      <li><a href="/docs">Docs</a></li>
+      <li><a href="/blog" class="active" aria-current="page">Blog</a></li>
+    </ul>
+    <a class="gh" href="https://github.com/physicsisawesome7/smriti" aria-label="Smriti on GitHub" title="Smriti on GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+    <a class="btn btn-primary" href="/docs/quickstart">Get started</a>
+    <button class="menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="links"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap article-grid">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#problem">Six applications, six retrieval problems</a></li>
+        <li><a href="#chunking">Chunking</a></li>
+        <li><a href="#embeddings">Embeddings, every kind</a></li>
+        <li><a href="#choosing-embedder">Choosing an embedding model</a></li>
+        <li><a href="#retrieval">Retrieval techniques</a></li>
+        <li><a href="#reranking">Reranking</a></li>
+        <li><a href="#agentic">Agentic RAG</a></li>
+        <li><a href="#combinations">The combination per application</a></li>
+        <li><a href="#measured">What we measured</a></li>
+        <li><a href="#method">The selection method</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </nav>
+    <article class="article">
+      <div class="crumbs"><a href="/blog">Blog</a> / Case study</div>
+      <h1>Choosing a RAG stack for hard applications</h1>
+      <div class="byline">
+        <img src="/assets/people/lalit-shukla-320.jpg" alt="" width="40" height="40">
+        <div><div class="who">Lalit Shukla</div><div class="meta">11 Nov 2026 · Case study · 19 min read</div></div>
+        <div class="tags"><span class="tag">RAG</span><span class="tag">Agentic RAG</span><span class="tag">Embeddings</span><span class="tag">Retrieval</span></div>
+      </div>
+      <div class="prose">
+        <p class="standfirst">There is no best RAG pipeline, only the best one for a set of documents, questions and people. This case study shows how we choose each part of <a href="/products">Smriti</a> for six hard applications: how we chunk, which embeddings we use and why, how we retrieve, rerank and route to agents. For each choice we give what the published research supports and what we measured ourselves.</p>
+        <p>The examples come from Smriti's demo library: a synthetic railway engineering office with contracts, correction slips, tender notices, circulars in Hindi and English, a land schedule spreadsheet, scanned letters and restricted vigilance files. Every number in the <a href="#measured">measured</a> section can be reproduced with the open-source benchmark that ships with Smriti.</p>
+
+        <h2 id="problem">Six applications, six retrieval problems</h2>
+        <p>Most RAG advice assumes one kind of question over one kind of document. Real offices have several, and each breaks a different part of the pipeline.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Application</th><th>What makes it hard</th><th>The part that breaks first</th></tr></thead>
+            <tbody>
+              <tr><td>Contract and tender desk</td><td>Answers turn on an exact clause, number or date; later correction slips change earlier clauses</td><td>Chunking that splits clauses; embeddings that blur "21 days" and "30 days"</td></tr>
+              <tr><td>Multilingual policy helpdesk</td><td>Questions in Hindi, documents in English, or the reverse; mixed scripts and transliteration</td><td>Monolingual embedders and English-only keyword search</td></tr>
+              <tr><td>Scanned and visual documents</td><td>Letters, drawings, forms and tables where the layout carries the meaning</td><td>Text extraction, before retrieval even starts</td></tr>
+              <tr><td>Spreadsheets and registers</td><td>Answers are aggregations ("total area in village Rampur"), not passages</td><td>Treating rows as prose; the model doing arithmetic</td></tr>
+              <tr><td>Investigations and chronologies</td><td>The answer is spread across many documents and dates; some questions are about the whole collection</td><td>Top-k retrieval, which finds passages but not patterns</td></tr>
+              <tr><td>RTI and reply drafting</td><td>Several sub-questions, each needing its own search, a legal deadline and exemptions to flag</td><td>Single-shot RAG; it needs planning and tools</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Across all six there is a seventh requirement that is not negotiable: a person must never retrieve a passage from a document they are not allowed to open. That decides where filtering happens (inside the search, not after it) and rules out some techniques, which we point out as we go.</p>
+
+        <h2 id="chunking">Chunking: the decision that caps everything after it</h2>
+        <p>A retriever can only return what the chunker made. If a clause is split across two chunks, no embedding model or reranker will put it back together. These are the main families.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Technique</th><th>How it works</th><th>Good for</th><th>Watch out for</th></tr></thead>
+            <tbody>
+              <tr><td>Fixed-size with overlap</td><td>Every N tokens, overlapping by 10 to 20%</td><td>Uniform prose; a strong baseline</td><td>Splits clauses, tables and lists mid-way</td></tr>
+              <tr><td>Recursive</td><td>Split on headings, then paragraphs, then sentences, until under the limit</td><td>Most documents; the practical default</td><td>Still blind to meaning inside a long section</td></tr>
+              <tr><td>Structure-aware</td><td>Use the document's own units: clause, section, article, row, slide, email</td><td>Contracts, laws, policies, spreadsheets</td><td>Needs a parser that understands the format</td></tr>
+              <tr><td>Semantic</td><td>Split where the embedding similarity between neighbouring sentences drops</td><td>Transcripts and unstructured notes</td><td>Costs an embedding pass; gains are inconsistent (below)</td></tr>
+              <tr><td>Contextual headers</td><td>Prefix each chunk with its document title, section path and date, or a generated summary of where it sits</td><td>Any chunk that is ambiguous on its own ("the period shall be 21 days")</td><td>A generated summary costs an LLM call per chunk at ingestion</td></tr>
+              <tr><td>Late chunking</td><td>Embed the whole document with a long-context model, then pool token vectors per chunk</td><td>Chunks that depend on earlier context</td><td>Needs a long-context embedder; modest gains</td></tr>
+              <tr><td>Parent-child (small to big)</td><td>Search small chunks, return their larger parent section to the model</td><td>Precise matching with enough context to answer</td><td>Larger prompts, so more prefill time</td></tr>
+              <tr><td>Propositions</td><td>An LLM rewrites text into atomic, self-contained facts</td><td>Fact lookup over dense prose</td><td>Expensive ingestion; the rewriting can introduce errors</td></tr>
+              <tr><td>Page images</td><td>No text chunks: embed each page image (see ColPali below)</td><td>Visually rich pages, scans, slides</td><td>Larger index; harder to cite a sentence</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The research is more sobering than the vendor blogs. A NAACL 2025 Findings study from Vectara compared semantic and fixed-size chunking on document retrieval, evidence retrieval and answer generation. It found the gains from semantic chunking were not consistent enough to justify its cost, and fixed-size chunking often did as well or better. Late chunking (Jina, 2024) gave small, consistent improvements on long-document retrieval benchmarks. The largest gain came from adding context to the chunk: Anthropic reported that contextual embeddings plus contextual BM25 cut failed top-20 retrievals by 49%, from 5.7% to 2.9%, and by 67% (to 1.9%) with a reranker added.</p>
+        <div class="callout-v"><strong>What Smriti does</strong><p>Structure-aware chunking first: one chunk per numbered clause in contracts and codes, paragraph groups in circulars and letters, and for tables the whole table plus row groups that repeat the column names, with a structured copy kept for exact arithmetic. Anything still too long is split by sentence with one sentence of overlap. Every chunk is embedded with a short contextual header (title, reference number, date and section path), built from metadata at no LLM cost. Whether a rule has been superseded is metadata the search filters on, not text in the chunk.</p></div>
+
+        <h2 id="embeddings">Embeddings, every kind</h2>
+        <p>"Embedding" covers several different representations with different strengths. A production stack usually combines two or three.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Type</th><th>Examples</th><th>Strength</th><th>Weakness</th></tr></thead>
+            <tbody>
+              <tr><td>Lexical sparse (BM25)</td><td>Postgres full text, Qdrant sparse, Elasticsearch</td><td>Exact terms: clause numbers, codes, names, amounts. Robust on new domains</td><td>No synonyms, no cross-language matching</td></tr>
+              <tr><td>Dense single-vector (bi-encoder)</td><td>Qwen3-Embedding, BGE-M3, multilingual-e5, Nomic, Jina</td><td>Meaning, paraphrase and cross-language matching; one fast vector search</td><td>Blurs exact numbers and rare identifiers</td></tr>
+              <tr><td>Learned sparse</td><td>SPLADE, BGE-M3 sparse output</td><td>Term weights with learned expansion; still an inverted index</td><td>Mostly English-trained; larger index than BM25</td></tr>
+              <tr><td>Multi-vector, late interaction</td><td>ColBERTv2, Jina-ColBERT, BGE-M3 multi-vector</td><td>Token-level matching; strong quality, good for reranking</td><td>One vector per token: much more storage</td></tr>
+              <tr><td>Multimodal page embeddings</td><td>ColPali, ColQwen</td><td>Retrieves scanned and visual pages without OCR</td><td>Storage per page; answers still need text to cite</td></tr>
+              <tr><td>Matryoshka (variable size)</td><td>Qwen3-Embedding (32 to 4,096 dims), Nomic, OpenAI v3</td><td>Truncate vectors to trade a little quality for memory</td><td>Only for models trained that way</td></tr>
+              <tr><td>Quantized vectors</td><td>int8 (4× smaller), binary (32× smaller)</td><td>Fit large collections in RAM</td><td>Needs rescoring with full vectors to keep quality</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>A few results shape how we use these. BEIR (NeurIPS 2021) showed that BM25 is a hard baseline to beat on new domains, and that dense models trained on one domain often fall behind it on another. ColBERT and ColBERTv2 showed that late interaction recovers much of a cross-encoder's quality at search time; ColBERTv2's residual compression cut its storage substantially. ColPali (ICLR 2025) embedded page images directly and beat text pipelines on visually rich documents, including pipelines that captioned every figure with a strong vision model. BGE-M3 produces dense, sparse and multi-vector outputs from one model across more than 100 languages. On quantization, int8 vectors with rescoring were lossless in Microsoft's Azure evaluation at about 75% less vector storage; binary vectors need a rescoring step to stay close.</p>
+
+        <h2 id="choosing-embedder">Choosing an embedding model</h2>
+        <p>The MTEB leaderboard (and its multilingual successor, MMTEB) is the place to start, and the wrong place to finish. Averages hide what matters for one deployment. We shortlist on six questions, in this order:</p>
+        <ol>
+          <li><strong>Languages.</strong> Hindi, Tamil or Bengali questions over English documents need a model trained for cross-lingual retrieval, not just multilingual text. Check the retrieval tasks in your languages, not the overall average.</li>
+          <li><strong>Licence and weights.</strong> For an air-gapped install the weights must be downloadable and the licence must allow your use. Qwen3-Embedding, BGE-M3 and multilingual-e5 are open-weight and permissively licensed; check each model card.</li>
+          <li><strong>Memory and speed.</strong> The embedder shares a GPU with the LLM and reranker. A 0.6B model at FP16 needs about 1.2 GB for weights; an 8B model needs about 16 GB. Re-indexing a million chunks is a real job; measure it (below).</li>
+          <li><strong>Context length.</strong> Long chunks, parent sections and late chunking need 8k tokens or more.</li>
+          <li><strong>Instructions and prefixes.</strong> e5 needs "query:" and "passage:" prefixes; Qwen3-Embedding expects an instruction on queries. Getting this wrong costs more than choosing a slightly weaker model.</li>
+          <li><strong>Your golden set.</strong> The last word goes to recall@10 and MRR on your own questions, asked by your own users, with the permission filters on.</li>
+        </ol>
+        <p>The Qwen3 Embedding family (0.6B, 4B and 8B, Apache-2.0) is our default: the 8B model reported first place on the MMTEB multilingual leaderboard at release (70.58, June 2025), and the 0.6B model fits beside a 4B LLM on a 12 GB GPU. For CPU-only installs we use multilingual-e5-small. Both are swappable in one line of configuration, and the benchmark below is how we decide when to swap.</p>
+
+        <h2 id="retrieval">Retrieval techniques</h2>
+        <p>Retrieval is everything between the question and the reranker. These are the techniques worth knowing, grouped by the problem they solve.</p>
+        <h3>Combining signals</h3>
+        <ul>
+          <li><strong>Hybrid search with reciprocal rank fusion.</strong> Run BM25 and dense search, then add 1/(k + rank) for each list a passage appears in (Cormack, Clarke and Büttcher, SIGIR 2009, with k = 60). It needs no score calibration and rarely does worse than either list. Weighted score fusion can rank better but must be tuned per collection.</li>
+          <li><strong>Filtering inside the search.</strong> Permissions, document type, date ranges and "current version only" are applied as filters in the index query, so the top-k is filled with passages the person may read. Filtering after retrieval returns fewer or no results and, worse, leaks timing and counts.</li>
+        </ul>
+        <h3>Fixing the question</h3>
+        <ul>
+          <li><strong>Query rewriting.</strong> Expand abbreviations ("PG" to "performance guarantee"), resolve follow-ups ("and for works above that?") and translate. Cheap and effective.</li>
+          <li><strong>HyDE</strong> (Gao et al., ACL 2023). Generate a hypothetical answer and embed that instead of the question. It helps on zero-shot dense retrieval, but a wrong detail in the fake answer steers the search, so it is a probe, never evidence.</li>
+          <li><strong>Multi-query and RAG-Fusion.</strong> Ask several rephrasings and fuse their results with RRF. Raises recall on vague questions at the cost of more searches.</li>
+          <li><strong>Decomposition.</strong> Split a compound question into sub-questions, retrieve for each, then combine. This is where single-shot RAG starts turning into agentic RAG.</li>
+        </ul>
+        <h3>Time and versions</h3>
+        <ul>
+          <li><strong>As-of retrieval and supersession.</strong> In regulated work the right answer is the rule in force on a date. Correction slips and new circulars must mark what they replace, and retrieval must prefer the current version while still being able to answer "what was the rule in 2023?". No embedding model solves this; it is metadata.</li>
+        </ul>
+        <h3>Structure across documents</h3>
+        <ul>
+          <li><strong>GraphRAG</strong> (Microsoft, 2024) extracts an entity graph, clusters it into communities and summarizes each, so it can answer whole-collection questions ("what are the main themes in these audit reports?") that top-k retrieval cannot. Indexing is expensive.</li>
+          <li><strong>LightRAG</strong> (2024) keeps a graph with dual-level retrieval and cheaper updates. <strong>RAPTOR</strong> (ICLR 2024) builds a tree of recursive summaries for questions at different levels of detail.</li>
+          <li>Graph and summary indexes have a permission problem: a community summary mixes facts from documents with different access. Smriti does not build a cross-document graph or summary index today for this reason; any that are added must be built per access scope.</li>
+        </ul>
+        <h3>Placing the context</h3>
+        <ul>
+          <li><strong>Order matters.</strong> "Lost in the middle" (TACL 2024) showed models use information at the start and end of a long context better than the middle. Send fewer, better passages, strongest first.</li>
+        </ul>
+
+        <h2 id="reranking">Reranking: precision, not recall</h2>
+        <p>A reranker reads the question and each candidate together and scores how well the candidate answers it. It can only reorder what the first stage found; it cannot recover a passage the retriever missed. So the first stage is tuned for recall and the reranker for precision.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Reranker</th><th>Cost</th><th>When</th></tr></thead>
+            <tbody>
+              <tr><td>Cross-encoder (bge-reranker-v2-m3, Qwen3-Reranker, mxbai)</td><td>One forward pass per candidate; linear in candidates</td><td>The default. Rerank 30 to 50 candidates, send the top 5 to 8</td></tr>
+              <tr><td>Late interaction (ColBERT) as reranker</td><td>Cheap per candidate once token vectors exist</td><td>When you already store multi-vector embeddings</td></tr>
+              <tr><td>LLM listwise reranking</td><td>An LLM call over all candidates</td><td>Small candidate sets where reasoning matters more than latency</td></tr>
+              <tr><td>Rules and metadata boosts</td><td>Free</td><td>Prefer current versions, exact clause matches, the asker's own division</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Reranking is also what lets you send less to the LLM. Five well-chosen passages produce a faster prefill and a better answer than fifteen loosely relevant ones. That makes the reranker one of the biggest levers on inference cost, not just quality.</p>
+
+        <h2 id="agentic">Agentic RAG: when one search is not enough</h2>
+        <p>Classic RAG retrieves once and answers. Agentic RAG lets the model decide whether to retrieve, what to search for next, which tool to use and when it has enough. The research has converged on a few patterns.</p>
+        <ul>
+          <li><strong>Retrieve, reason, retrieve</strong> (ReAct, ICLR 2023). The model alternates thinking and tool calls. It handles multi-hop questions: find the tender, then its value, then the officer whose powers cover that value.</li>
+          <li><strong>Self-RAG</strong> (ICLR 2024) trains the model to decide when to retrieve and to critique its own output for support and relevance.</li>
+          <li><strong>Corrective RAG</strong> (2024) grades the retrieved passages and, when they are weak, rewrites the query or searches elsewhere before answering.</li>
+          <li><strong>Adaptive-RAG</strong> (NAACL 2024) classifies question complexity and routes each to no retrieval, single-step or multi-step retrieval, so easy questions stay cheap.</li>
+        </ul>
+        <p>The surveys (Singh et al., 2025) are clear that these patterns raise accuracy on complex questions and raise cost and latency with them. An agent that makes six searches and three LLM calls costs several times a single-shot answer. So routing is the most important agentic feature: in Smriti, lookup questions go to single-shot retrieval (often answered extractively, without the LLM at all), and only compound, comparative or drafting tasks go to an agent.</p>
+        <div class="callout-v"><strong>The security rule for agents</strong><p>An agent's tools run with the permissions of the person asking, never the agent's own. Every search an agent makes is filtered exactly like a chat search, retrieved text is treated as untrusted data (it may contain injected instructions), and actions that change anything go through approval. See <a href="/blog/agents-act-as-the-asker">agents act as the asker</a>.</p></div>
+
+        <h2 id="combinations">The combination per application</h2>
+        <p>Putting it together, this is the starting stack we use for each application. Each is a starting point to be checked against that application's golden set, not a fixed recipe.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Application</th><th>Chunking</th><th>Retrieval</th><th>Reranking and answer</th></tr></thead>
+            <tbody>
+              <tr><td>Contract and tender desk</td><td>Clause-aware, with header (document, clause, date, superseded)</td><td>Hybrid BM25 + dense with RRF; as-of filter; exact clause boost</td><td>Cross-encoder; every sentence verified against its citation, numbers checked exactly</td></tr>
+              <tr><td>Multilingual helpdesk</td><td>Recursive, with header</td><td>Multilingual dense (Qwen3 or e5) + BM25 per language; query translation</td><td>Multilingual cross-encoder (bge-reranker-v2-m3); answer in the asker's language with original quotes</td></tr>
+              <tr><td>Scanned and visual documents</td><td>OCR or layout parsing to text; page images where layout matters</td><td>Text hybrid, plus page-image retrieval (ColPali family) for visual pages</td><td>Cross-encoder on text; low-confidence OCR flagged for review, never silently answered</td></tr>
+              <tr><td>Spreadsheets and registers</td><td>One chunk per row with column names, plus a table summary</td><td>Hybrid to find the table; then a tool, not retrieval, for the numbers</td><td>Agent with a calculator or sandboxed code; arithmetic done by code, not by the model</td></tr>
+              <tr><td>Investigations and chronologies</td><td>Recursive with dates extracted as metadata</td><td>Multi-query, date-sorted retrieval; graph or summary index per access scope for collection-wide questions</td><td>Research agent that plans sub-questions and marks gaps where an expected record is missing</td></tr>
+              <tr><td>RTI and reply drafting</td><td>Clause-aware, with header</td><td>Decomposition: one search per point of the application</td><td>Agent with a skill: deadline calculation, possible exemptions flagged for the officer to decide, draft for human signature</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="measured">What we measured</h2>
+        <p>We ran Smriti's benchmark on a laptop: an AMD Ryzen 7 7435HS (16 threads) with Docker given 12 GB of memory, and both embedding servers on CPU (Hugging Face Text Embeddings Inference 1.9). The library is the synthetic demo: 14 documents in English and Hindi, 39 chunks. These numbers show the method and the size of the trade-offs, not production capacity.</p>
+        <h3>1. Embedding speed: the hidden cost of a bigger model</h3>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Embedder on CPU, 350-token chunks</th><th>Batch 1</th><th>Batch 8</th><th>Batch 32</th><th>1M chunks, best case</th></tr></thead>
+            <tbody>
+              <tr><td>multilingual-e5-small (118M, 384 dims)</td><td>3,714 tok/s</td><td>5,068 tok/s</td><td>5,552 tok/s</td><td>about 24 hours</td></tr>
+              <tr><td>Qwen3-Embedding-0.6B (1,024 dims)</td><td>122 tok/s</td><td>72 tok/s</td><td>66 tok/s</td><td>about 56 days</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The small model was 30 to 85 times faster, and the larger model got <em>slower</em> with bigger batches on this CPU backend. A model that is fine for embedding one question at a time can be unusable for re-indexing a library. That is why Smriti's CPU and 6 GB profiles use e5-small and keep Qwen3-Embedding for GPU profiles.</p>
+
+        <h3>2. The golden set could not tell the models apart</h3>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Embedder (hybrid with BM25, built-in reranker)</th><th>Golden set</th><th>Recall@10</th><th>MRR</th><th>Leaks</th><th>Index 39 chunks</th><th>Per question</th></tr></thead>
+            <tbody>
+              <tr><td>Hashing (built in, no model)</td><td>14/14</td><td>1.0</td><td>1.0</td><td>0</td><td>0.7 s</td><td>12 ms</td></tr>
+              <tr><td>multilingual-e5-small</td><td>14/14</td><td>1.0</td><td>1.0</td><td>0</td><td>1.7 s</td><td>37 ms</td></tr>
+              <tr><td>Qwen3-Embedding-0.6B</td><td>14/14</td><td>1.0</td><td>1.0</td><td>0</td><td>49.5 s</td><td>379 ms</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Every combination passed, including a hashing embedder with no neural model at all. The golden questions use the documents' own words (clause numbers, tender numbers, "performance guarantee"), and BM25 plus the contextual headers finds them on its own. That is good news for the product and bad news for model selection: <strong>a saturated test cannot choose a model.</strong></p>
+
+        <h3>3. Hard questions separate them</h3>
+        <p>So we wrote ten harder questions that avoid the documents' wording: paraphrases ("how long does a firm get to hand in its bank guarantee after it wins the work?") and cross-language questions (Hindi questions about English documents, an English question about a Hindi circular). We scored each setup on the same 39 chunks, fusing the lists the way Smriti does (top 20 of each, reciprocal rank fusion with k = 60).</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Setup, 10 hard questions</th><th>Right document first</th><th>In top 5</th><th>MRR</th><th>Cross-language, top 5</th></tr></thead>
+            <tbody>
+              <tr><td>BM25 only</td><td>4</td><td>5</td><td>0.47</td><td>0 of 4</td></tr>
+              <tr class="us"><td>multilingual-e5-small, dense only</td><td>9</td><td>10</td><td>0.93</td><td>4 of 4</td></tr>
+              <tr><td>multilingual-e5-small + BM25 (RRF)</td><td>7</td><td>9</td><td>0.81</td><td>3 of 4</td></tr>
+              <tr><td>Qwen3-Embedding-0.6B, dense only</td><td>7</td><td>10</td><td>0.79</td><td>4 of 4</td></tr>
+              <tr><td>Qwen3-Embedding-0.6B + BM25 (RRF)</td><td>6</td><td>8</td><td>0.73</td><td>2 of 4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Four lessons, with the caveat that ten questions over 39 chunks is a small sample:</p>
+        <ul>
+          <li><strong>Keyword search cannot cross languages.</strong> BM25 found none of the cross-language answers; both dense models found all four.</li>
+          <li><strong>Hybrid is not free.</strong> Equal-weight fusion helps when the question shares the document's words (the golden set) and hurts when it does not: BM25 adds confident-looking noise. The fix is not to drop BM25, which wins on clause numbers and codes, but to put a cross-encoder after fusion, weight the lists by query type, or skip BM25 when the question and documents are in different scripts. That is our next measurement.</li>
+          <li><strong>Bigger was not better here.</strong> The 118M-parameter model beat the 0.6B model on first-place hits at a fraction of the compute. On a sample this small the difference is not significant; the point is that the leaderboard ranking did not carry over, so it has to be measured on your own data.</li>
+          <li><strong>Measure the model and its prefixes together.</strong> Both models need the right query instructions ("query:" for e5, an instruction for Qwen3). The first version of our own benchmark silently dropped the Qwen3 instruction; a test now guards it.</li>
+        </ul>
+
+        <h3>4. The LLM on a 6 GB laptop GPU</h3>
+        <p>The same tool sweeps an LLM server across 1, 2, 4 and 8 simultaneous users and reports time to first token, time per token, throughput and goodput against a latency target. We ran Qwen3-4B (4-bit Q4_K_M) on llama.cpp on the laptop's RTX 4050 with 6 GB of memory, with RAG-shaped prompts of about 1,450 tokens and answers of up to 256. The target: first token within 2 seconds and under 100 ms per token after that, for 90% of requests.</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <thead><tr><th>Configuration</th><th>Memory</th><th>One user</th><th>8 users, total</th><th>Users within target</th></tr></thead>
+            <tbody>
+              <tr><td>Qwen3-4B, 8-bit KV cache</td><td>4.6 GB</td><td>53 tok/s</td><td>104 tok/s</td><td>2</td></tr>
+              <tr><td>Qwen3-4B, 16-bit KV cache</td><td>5.6 GB</td><td>57 tok/s</td><td>83 tok/s</td><td>2</td></tr>
+              <tr><td>Qwen3-4B, 8-bit KV, 1,000-token prompts</td><td>4.7 GB</td><td>51 tok/s</td><td>113 tok/s</td><td>4</td></tr>
+              <tr class="us"><td>Qwen3-4B, 8-bit KV, shared prompt prefix</td><td>4.7 GB</td><td>54 tok/s</td><td>163 tok/s</td><td>8</td></tr>
+              <tr><td>Qwen3-1.7B (8-bit), 8-bit KV cache</td><td>3.9 GB</td><td>76 tok/s</td><td>110 tok/s</td><td>8</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>This ties back to retrieval. On a small GPU the limit was not generating the answer but reading the prompt: every new 1,450-token prompt paused everyone else's answer for about 0.7 seconds. Two changes fixed most of it, and both are retrieval decisions. Sending 1,000 tokens of better-chosen passages instead of 1,450 doubled the users served within target. Keeping the start of the prompt identical across requests, so the server reuses its cached work, took it to 8 users and cut the first token to 27 ms for a single user. A smaller model was faster for one person but no better under load. Better reranking is how you send fewer tokens, which makes it an inference optimization as much as a quality one.</p>
+        <p>Smriti's 6 GB profile now uses these settings: llama.cpp with the 4-bit model, an 8-bit KV cache, 1,000 tokens of context and 4 concurrent answers. Larger cards run vLLM; we will publish those numbers with the commands to reproduce them.</p>
+
+        <h2 id="method">The selection method</h2>
+        <p>Every choice above comes from the same loop, and Smriti ships the tools for each step.</p>
+        <ol>
+          <li><strong>Write the golden set first.</strong> Real questions, the person asking, the date, the documents that should be found and the ones that must not. Include questions that should be refused. Smriti packs keep it in <code>evals/golden.yaml</code>.</li>
+          <li><strong>Measure retrieval alone.</strong> Recall@10 and MRR with the LLM switched off. If the right passage is not retrieved, no model can answer from it. <code>smriti modelbench retrieval</code> runs every embedder and reranker combination.</li>
+          <li><strong>Then measure answers.</strong> Faithfulness, citation precision and correct refusals; RAGAS-style metrics help, but we check citations and numbers with code, not only with a judge model.</li>
+          <li><strong>Gate on security.</strong> Zero leaks on the permission suite and a passing red team, on every change. A better model that leaks is not better.</li>
+          <li><strong>Measure cost last, not never.</strong> Embedding throughput for re-indexing, reranker latency per candidate count, and LLM goodput at your latency target, with <code>smriti modelbench embed</code>, <code>rerank</code> and <code>chat</code>.</li>
+        </ol>
+        <p>The tools are open source in the <a href="https://github.com/physicsisawesome7/smriti">Smriti repository</a>, with a <a href="https://github.com/physicsisawesome7/smriti/blob/main/docs/model-benchmarks.md">tuning guide</a> that lists every serving knob in the order we change them.</p>
+
+        <h2 id="sources">Sources</h2>
+        <ol class="sources">
+          <li>Anthropic, <a href="https://www.anthropic.com/news/contextual-retrieval">Introducing Contextual Retrieval</a>, 2024.</li>
+          <li>Qu, Tu and Bao, <a href="https://arxiv.org/abs/2410.13070">Is Semantic Chunking Worth the Computational Cost?</a>, Findings of NAACL 2025.</li>
+          <li>Günther et al., <a href="https://arxiv.org/abs/2409.04701">Late Chunking: Contextual Chunk Embeddings Using Long-Context Embedding Models</a>, 2024.</li>
+          <li>Chen et al., <a href="https://arxiv.org/abs/2312.06648">Dense X Retrieval: What Retrieval Granularity Should We Use?</a>, EMNLP 2024.</li>
+          <li>Thakur et al., <a href="https://arxiv.org/abs/2104.08663">BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models</a>, NeurIPS 2021 Datasets and Benchmarks.</li>
+          <li>Santhanam et al., <a href="https://arxiv.org/abs/2112.01488">ColBERTv2: Effective and Efficient Retrieval via Lightweight Late Interaction</a>, NAACL 2022.</li>
+          <li>Formal et al., <a href="https://arxiv.org/abs/2107.05720">SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking</a>, SIGIR 2021.</li>
+          <li>Faysse et al., <a href="https://arxiv.org/abs/2407.01449">ColPali: Efficient Document Retrieval with Vision Language Models</a>, ICLR 2025.</li>
+          <li>Chen et al., <a href="https://arxiv.org/abs/2402.03216">BGE M3-Embedding: Multi-Lingual, Multi-Functionality, Multi-Granularity Text Embeddings</a>, 2024.</li>
+          <li>Zhang et al., <a href="https://arxiv.org/abs/2506.05176">Qwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models</a>, 2025.</li>
+          <li>Kusupati et al., <a href="https://arxiv.org/abs/2205.13147">Matryoshka Representation Learning</a>, NeurIPS 2022; Sentence Transformers, <a href="https://sbert.net/examples/applications/embedding-quantization/README.html">Embedding Quantization</a>; Microsoft, <a href="https://techcommunity.microsoft.com/blog/azure-ai-services-blog/-/4404866">vector compression evaluation</a>.</li>
+          <li>Muennighoff et al., <a href="https://arxiv.org/abs/2210.07316">MTEB: Massive Text Embedding Benchmark</a>, EACL 2023; Enevoldsen et al., <a href="https://arxiv.org/abs/2502.13595">MMTEB</a>, 2025.</li>
+          <li>Cormack, Clarke and Büttcher, <a href="https://dl.acm.org/doi/10.1145/1571941.1572114">Reciprocal Rank Fusion Outperforms Condorcet and Individual Rank Learning Methods</a>, SIGIR 2009.</li>
+          <li>Gao et al., <a href="https://arxiv.org/abs/2212.10496">Precise Zero-Shot Dense Retrieval without Relevance Labels</a> (HyDE), ACL 2023; Rackauckas, <a href="https://arxiv.org/abs/2402.03367">RAG-Fusion</a>, 2024.</li>
+          <li>Edge et al., <a href="https://arxiv.org/abs/2404.16130">From Local to Global: A Graph RAG Approach to Query-Focused Summarization</a>, 2024; Guo et al., <a href="https://arxiv.org/abs/2410.05779">LightRAG</a>, 2024; Sarthi et al., <a href="https://arxiv.org/abs/2401.18059">RAPTOR</a>, ICLR 2024.</li>
+          <li>Liu et al., <a href="https://arxiv.org/abs/2307.03172">Lost in the Middle: How Language Models Use Long Contexts</a>, TACL 2024.</li>
+          <li>Yao et al., <a href="https://arxiv.org/abs/2210.03629">ReAct</a>, ICLR 2023; Asai et al., <a href="https://arxiv.org/abs/2310.11511">Self-RAG</a>, ICLR 2024; Yan et al., <a href="https://arxiv.org/abs/2401.15884">Corrective Retrieval Augmented Generation</a>, 2024; Jeong et al., <a href="https://arxiv.org/abs/2403.14403">Adaptive-RAG</a>, NAACL 2024.</li>
+          <li>Singh et al., <a href="https://arxiv.org/abs/2501.09136">Agentic Retrieval-Augmented Generation: A Survey on Agentic RAG</a>, 2025.</li>
+          <li>Es et al., <a href="https://arxiv.org/abs/2309.15217">RAGAS: Automated Evaluation of Retrieval Augmented Generation</a>, EACL 2024 demos.</li>
+        </ol>
+        <p class="note-box">Figures from other work are quoted with the setup they were measured in. Our own numbers come from a synthetic demo library on a laptop and show method, not production capacity. Checked against the linked sources on 11 November 2026.</p>
+
+        <div class="post-tools"><span>Share</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-stack-case-study" rel="noopener" target="_blank">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-stack-case-study&amp;text=Choosing%20a%20RAG%20stack%20for%20hard%20applications" rel="noopener" target="_blank">X</a>
+          <a href="https://news.ycombinator.com/submitlink?u=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-stack-case-study&amp;t=Choosing%20a%20RAG%20stack%20for%20hard%20applications" rel="noopener" target="_blank">Hacker News</a>
+          <a href="https://www.reddit.com/submit?url=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-stack-case-study&amp;title=Choosing%20a%20RAG%20stack%20for%20hard%20applications" rel="noopener" target="_blank">Reddit</a>
+          <a href="mailto:?subject=Choosing%20a%20RAG%20stack%20for%20hard%20applications&amp;body=https%3A%2F%2Fsafearly.com%2Fblog%2Frag-stack-case-study">Email</a>
+          <a href="/blog/feed.xml">RSS</a></div>
+        <div class="related">
+          <a class="post-card" href="/blog/rag-explained"><span class="meta">Explainer</span><h3>RAG, explained for people who have to trust the answer</h3></a>
+          <a class="post-card" href="/blog/where-inference-time-goes"><span class="meta">Research note</span><h3>Where inference time and money actually go</h3></a>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot2">
+  <div class="wrap">
+    <div class="foot2-grid five">
+      <div>
+        <a class="logo" href="/"><img src="/assets/brand/safearly-mark.svg" alt="" width="26" height="26">safearly</a>
+        <p class="about">Smriti is open-source institutional memory: private AI agents and workflows that cite their sources and act as the person asking. Built by Safearly, makers of Saaf.</p>
+      </div>
+      <div>
+        <h4>Smriti</h4>
+        <ul>
+          <li><a href="/">Overview</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/workflows">Workflows</a></li>
+          <li><a href="/applications">Applications</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">GitHub</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Docs</h4>
+        <ul>
+          <li><a href="/docs/quickstart">Quickstart</a></li>
+          <li><a href="/docs/install">Install and deploy</a></li>
+          <li><a href="/docs/agents">Agents and tools</a></li>
+          <li><a href="/docs/api">API reference</a></li>
+          <li><a href="/docs/security">Security</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>More from Safearly</h4>
+        <ul>
+          <li><a href="/saaf">Saaf PII masking</a></li>
+          <li><a href="/saaf/extension">Browser extension</a></li>
+          <li><a href="/saaf/playground">Playground</a></li>
+          <li><a href="/research">Research</a></li>
+          <li><a href="/products">All products</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="https://www.linkedin.com/company/safeary.ai/">Safearly on LinkedIn</a></li>
+          <li><a href="https://github.com/physicsisawesome7/smriti">Smriti on GitHub</a></li>
+          <li><a href="mailto:lalit@safearly.com">lalit@safearly.com</a></li>
+          <li><a href="/blog/feed.xml">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot2-legal">
+      <span>© 2026 Safearly · Smriti and Saaf are Apache-2.0 · Smriti (स्मृति) means “memory”</span>
+      <span>No cookies. No trackers.</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
