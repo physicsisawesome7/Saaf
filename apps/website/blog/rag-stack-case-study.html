@@ -106,7 +106,7 @@
       </div>
       <div class="prose">
         <p class="standfirst">There is no best RAG pipeline, only the best one for a set of documents, questions and people. This case study shows how we choose each part of <a href="/products">Smriti</a> for six hard applications: how we chunk, which embeddings we use and why, how we retrieve, rerank and route to agents. For each choice we give what the published research supports and what we measured ourselves.</p>
-        <p>The examples come from Smriti's demo library: a synthetic railway engineering office with contracts, correction slips, tender notices, circulars in Hindi and English, a land schedule spreadsheet, scanned letters and restricted vigilance files. Every number in the <a href="#measured">measured</a> section can be reproduced with the open-source benchmark that ships with Smriti.</p>
+        <p>The examples come from Smriti's demo library: a synthetic engineering and procurement office with contracts, amendments, tender notices, policy circulars in Hindi and English, a cost schedule spreadsheet, scanned letters and restricted audit files. Every number in the <a href="#measured">measured</a> section can be reproduced with the open-source benchmark that ships with Smriti.</p>
 
         <h2 id="problem">Six applications, six retrieval problems</h2>
         <p>Most RAG advice assumes one kind of question over one kind of document. Real offices have several, and each breaks a different part of the pipeline.</p>
@@ -114,7 +114,7 @@
           <table class="dtable">
             <thead><tr><th>Application</th><th>What makes it hard</th><th>The part that breaks first</th></tr></thead>
             <tbody>
-              <tr><td>Contract and tender desk</td><td>Answers turn on an exact clause, number or date; later correction slips change earlier clauses</td><td>Chunking that splits clauses; embeddings that blur "21 days" and "30 days"</td></tr>
+              <tr><td>Contract and tender desk</td><td>Answers turn on an exact clause, number or date; later amendments change earlier clauses</td><td>Chunking that splits clauses; embeddings that blur "21 days" and "30 days"</td></tr>
               <tr><td>Multilingual policy helpdesk</td><td>Questions in Hindi, documents in English, or the reverse; mixed scripts and transliteration</td><td>Monolingual embedders and English-only keyword search</td></tr>
               <tr><td>Scanned and visual documents</td><td>Letters, drawings, forms and tables where the layout carries the meaning</td><td>Text extraction, before retrieval even starts</td></tr>
               <tr><td>Spreadsheets and registers</td><td>Answers are aggregations ("total area in village Rampur"), not passages</td><td>Treating rows as prose; the model doing arithmetic</td></tr>
@@ -192,7 +192,7 @@
         </ul>
         <h3>Time and versions</h3>
         <ul>
-          <li><strong>As-of retrieval and supersession.</strong> In regulated work the right answer is the rule in force on a date. Correction slips and new circulars must mark what they replace, and retrieval must prefer the current version while still being able to answer "what was the rule in 2023?". No embedding model solves this; it is metadata.</li>
+          <li><strong>As-of retrieval and supersession.</strong> In regulated work the right answer is the rule in force on a date. Amendments and new circulars must mark what they replace, and retrieval must prefer the current version while still being able to answer "what was the rule in 2023?". No embedding model solves this; it is metadata.</li>
         </ul>
         <h3>Structure across documents</h3>
         <ul>
