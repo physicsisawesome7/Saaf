@@ -12,7 +12,7 @@ license = "Apache-2.0"
 dependencies = ["saaf"]
 
 [project.optional-dependencies]
-presidio = ["presidio-analyzer>=2.2"]
+presidio = ["presidio-analyzer>=2.2.364"]
 
 [project.scripts]
 indicpii-bench = "indicpii_bench.__main__:main"

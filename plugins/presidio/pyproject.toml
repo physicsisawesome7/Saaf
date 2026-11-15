@@ -9,7 +9,7 @@ description = "Saaf's checksum-validated Indian PII recognizers (Aadhaar, PAN, G
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
-dependencies = ["saaf", "presidio-analyzer>=2.2"]
+dependencies = ["saaf", "presidio-analyzer>=2.2.364"]
 
 [tool.hatch.version]
 path = "src/saaf_presidio/__init__.py"
