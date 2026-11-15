@@ -12,7 +12,7 @@ license = "Apache-2.0"
 dependencies = ["saaf"]
 
 [project.optional-dependencies]
-litellm = ["litellm>=1.50"]
+litellm = ["litellm>=1.104.2"]
 
 [tool.hatch.version]
 path = "src/saaf_litellm/__init__.py"
